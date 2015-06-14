@@ -41,18 +41,6 @@ namespace PiCross.DataStructures
             }
         }
 
-        private static bool AreEqual( T oldValue, T newValue )
-        {
-            if ( oldValue == null )
-            {
-                return newValue == null;
-            }
-            else
-            {
-                return oldValue.Equals( newValue );
-            }
-        }
-
         protected void NotifyObservers( [CallerMemberName] string propertyName = null )
         {
             if ( PropertyChanged != null )
@@ -61,14 +49,11 @@ namespace PiCross.DataStructures
             }
         }
 
-        /// <summary>
-        /// Event fired whenever the cell's value changes.
-        /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public override string ToString()
         {
             return string.Format( "CELL[{0}]", this.Value != null ? this.Value.ToString() : "null" );
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

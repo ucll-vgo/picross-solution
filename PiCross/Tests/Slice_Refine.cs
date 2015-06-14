@@ -5,10 +5,11 @@ using PiCross.Game;
 namespace PiCross.Tests
 {
     [TestClass]
-    public class SliceRefineTests
+    public class Slice_Refine : TestBase
     {
         [TestMethod]
-        public void UU_1()
+        [TestCategory( "Slice" )]
+        public void Refine_UU_1()
         {
             var slice = CreateSlice( "??" );
             var constraints = CreateConstraints( 1 );
@@ -19,7 +20,8 @@ namespace PiCross.Tests
         }
 
         [TestMethod]
-        public void UU_2()
+        [TestCategory( "Slice" )]
+        public void Refine_UU_2()
         {
             var slice = CreateSlice( "??" );
             var constraints = CreateConstraints( 2 );
@@ -30,7 +32,8 @@ namespace PiCross.Tests
         }
 
         [TestMethod]
-        public void UX_1()
+        [TestCategory( "Slice" )]
+        public void Refine_UX_1()
         {
             var slice = CreateSlice( "?x" );
             var constraints = CreateConstraints( 1 );
@@ -41,7 +44,8 @@ namespace PiCross.Tests
         }
 
         [TestMethod]
-        public void EU_1()
+        [TestCategory( "Slice" )]
+        public void Refine_EU_1()
         {
             var slice = CreateSlice( ".?" );
             var constraints = CreateConstraints( 1 );
@@ -52,7 +56,8 @@ namespace PiCross.Tests
         }
 
         [TestMethod]
-        public void UUU_2()
+        [TestCategory( "Slice" )]
+        public void Refine_UUU_2()
         {
             var slice = CreateSlice( "???" );
             var constraints = CreateConstraints( 2 );
@@ -60,16 +65,6 @@ namespace PiCross.Tests
             var actual = slice.Refine( constraints );
 
             Assert.AreEqual( expected, actual );
-        }
-
-        private Constraints CreateConstraints( params int[] values )
-        {
-            return new Constraints( values );
-        }
-
-        private Slice CreateSlice( string str )
-        {
-            return Slice.FromString( str );
         }
     }
 }
