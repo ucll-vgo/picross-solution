@@ -4,7 +4,7 @@
         xmlns:converters="clr-namespace:GUI.Converters"
         Title="MainWindow" Height="350" Width="525">
     <Window.Resources>
-        <converters:SquareConverter x:Key="BackgroundConverter">
+        <converters:SquareConverter x:Key="backgroundConverter">
             <converters:SquareConverter.Unknown>
                 Gray
             </converters:SquareConverter.Unknown>
@@ -15,17 +15,79 @@
                 Black
             </converters:SquareConverter.Filled>
         </converters:SquareConverter>
+
+        <converters:BoolConverter x:Key="isSatisfiedConverter">
+            <converters:BoolConverter.False>
+                Normal
+            </converters:BoolConverter.False>
+            <converters:BoolConverter.True>
+                Bold
+            </converters:BoolConverter.True>
+        </converters:BoolConverter>
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
             <ColumnDefinition Width="auto" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-        <ItemsControl Grid.Column="1" Grid.Row="1" ItemsSource="{Binding Rows}" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+        <ItemsControl DataContext="{Binding ColumnConstraints}" Grid.Row="0" Grid.Column="1" ItemsSource="{Binding Items}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <ItemsControl VerticalAlignment="Bottom" ItemsSource="{Binding Values}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Margin="1" Width="16" Height="16">
+                                    <TextBlock Text="{Binding Number.Value}" HorizontalAlignment="Center" FontWeight="{Binding IsSatisfied.Value, Converter={StaticResource isSatisfiedConverter}}" />
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <ItemsControl DataContext="{Binding RowConstraints}" Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Items}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <ItemsControl HorizontalAlignment="Right" ItemsSource="{Binding Values}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Margin="1" Width="16" Height="16">
+                                    <TextBlock Text="{Binding Number.Value}" VerticalAlignment="Center" FontWeight="{Binding IsSatisfied.Value, Converter={StaticResource isSatisfiedConverter}}" />
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <ItemsControl DataContext="{Binding Grid}" Grid.Column="1" Grid.Row="1" ItemsSource="{Binding Rows}" HorizontalAlignment="Center" VerticalAlignment="Center">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Orientation="Vertical" />
@@ -41,7 +103,24 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Border Width="16" Height="16" BorderBrush="Black" BorderThickness="1" Margin="1" Background="{Binding Contents.Value, Converter={StaticResource BackgroundConverter}}" />
+                                <Button Width="16"
+                                        Height="16"
+                                        Margin="1"
+                                        BorderBrush="Black"
+                                        BorderThickness="1"
+                                        Background="{Binding Contents.Value, Converter={StaticResource backgroundConverter}}"
+                                        Command="{Binding Toggle}">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Width="{TemplateBinding Width}"
+                                                    Height="{TemplateBinding Height}"
+                                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                                    Background="{TemplateBinding Background}"
+                                                    Margin="{TemplateBinding Margin}" />
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>

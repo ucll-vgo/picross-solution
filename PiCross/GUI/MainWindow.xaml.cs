@@ -28,17 +28,22 @@ namespace GUI
             InitializeComponent();
 
             var editorGrid = EditorGrid.FromStrings(
-                "..x..",
-                "..x..",
-                "xxxxx",
-                "..x..",
-                "..x.."
+                ".xxxxxxxx.",
+                "x........x",
+                "x.x......x",
+                "x.xxxxxx.x",
+                "x......x.x",
+                "x......x.x",
+                "x.xxxxxx.x",
+                "x.x......x",
+                "x........x",
+                ".xxxxxxxx."
                 );
 
             var playGrid = editorGrid.CreatePlayGrid();
             playGrid.Squares.Overwrite( editorGrid.Squares );
 
-            this.DataContext = new GridViewModel( new Puzzle( playGrid ) );
+            this.DataContext = new PuzzleViewModel( new Puzzle( playGrid ) );
         }
     }
 
@@ -54,8 +59,28 @@ namespace GUI
 
         public PuzzleViewModel(IPuzzle puzzle)
         {
+            this.puzzle = puzzle;
             this.grid = new GridViewModel( puzzle );
-            // this.columnConstraints = puzzle.
+            this.columnConstraints = puzzle.ColumnConstraints.Items.Select( columnConstraints => new ConstraintsViewModel( columnConstraints ) ).ToSequence();
+            this.rowConstraints = puzzle.RowConstraints.Items.Select( rowConstraints => new ConstraintsViewModel( rowConstraints ) ).ToSequence();
+        }
+
+        public GridViewModel Grid
+        {
+            get
+            {
+                return grid;
+            }
+        }
+
+        public ISequence<ConstraintsViewModel> ColumnConstraints
+        {
+            get { return columnConstraints; }
+        }
+
+        public ISequence<ConstraintsViewModel> RowConstraints
+        {
+            get { return rowConstraints; }
         }
     }
 
@@ -84,9 +109,12 @@ namespace GUI
     {
         private readonly IPuzzleSquare square;
 
+        private readonly ICommand toggle;
+        
         public GridSquareViewModel(IPuzzleSquare square)
         {
             this.square = square;
+            this.toggle = new ToggleCommand( square.Contents );
         }
 
         public ICell<Square> Contents
@@ -94,6 +122,52 @@ namespace GUI
             get
             {
                 return square.Contents;
+            }
+        }
+
+        public ICommand Toggle
+        {
+            get
+            {
+                return toggle;
+            }
+        }
+
+        private class ToggleCommand : ICommand
+        {
+            private readonly ICell<Square> square;
+
+            public ToggleCommand(ICell<Square> square)
+            {
+                this.square = square;
+            }
+
+            public bool CanExecute( object parameter )
+            {
+                return true;
+            }
+
+            public event EventHandler CanExecuteChanged;
+
+            public void Execute( object parameter )
+            {
+                var contents = square.Value;
+                Square newContents;
+
+                if ( contents == Square.EMPTY )
+                {
+                    newContents = Square.FILLED;
+                }
+                else if ( contents == Square.FILLED )
+                {
+                    newContents = Square.UNKNOWN;
+                }
+                else
+                {
+                    newContents = Square.EMPTY;
+                }
+
+                square.Value = newContents;
             }
         }
     }
@@ -139,6 +213,6 @@ namespace GUI
             {
                 return Cell.Create( this.value.Value );
             }
-        }
+        }        
     }
 }
