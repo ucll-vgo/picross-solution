@@ -54,6 +54,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\PuzzleConstraintsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\PuzzleControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -72,6 +76,9 @@
     </Compile>
     <Compile Include="Commands\CellCommand.cs" />
     <Compile Include="Commands\EnabledCommand.cs" />
+    <Compile Include="Controls\PuzzleConstraintsControl.xaml.cs">
+      <DependentUpon>PuzzleConstraintsControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\PuzzleControl.xaml.cs">
       <DependentUpon>PuzzleControl.xaml</DependentUpon>
     </Compile>

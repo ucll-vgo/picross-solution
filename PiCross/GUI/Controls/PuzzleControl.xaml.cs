@@ -28,9 +28,7 @@ namespace GUI.Controls
         {
             InitializeComponent();
         }
-
-
-
+        
         public DataTemplate SquareTemplate
         {
             get { return (DataTemplate) GetValue( SquareTemplateProperty ); }
@@ -41,6 +39,36 @@ namespace GUI.Controls
             DependencyProperty.Register( "SquareTemplate", typeof( DataTemplate ), typeof( PuzzleControl ), new PropertyMetadata( null, (obj, args) => ((PuzzleControl) obj).OnSquareTemplateChanged(args) ) );
 
         private void OnSquareTemplateChanged(DependencyPropertyChangedEventArgs args)
+        {
+            ClearChildren();
+            CreateChildren();
+        }
+
+        public DataTemplate ColumnConstraintsTemplate
+        {
+            get { return (DataTemplate) GetValue( ColumnConstraintsTemplateProperty ); }
+            set { SetValue( ColumnConstraintsTemplateProperty, value ); }
+        }
+
+        public static readonly DependencyProperty ColumnConstraintsTemplateProperty =
+            DependencyProperty.Register( "ColumnConstraintsTemplate", typeof( DataTemplate ), typeof( PuzzleControl ), new PropertyMetadata( null, ( obj, args ) => ( (PuzzleControl) obj ).OnColumnConstraintsTemplateChanged( args ) ) );
+
+        private void OnColumnConstraintsTemplateChanged( DependencyPropertyChangedEventArgs args )
+        {
+            ClearChildren();
+            CreateChildren();
+        }
+
+        public DataTemplate RowConstraintsTemplate
+        {
+            get { return (DataTemplate) GetValue( RowConstraintsTemplateProperty ); }
+            set { SetValue( RowConstraintsTemplateProperty, value ); }
+        }
+
+        public static readonly DependencyProperty RowConstraintsTemplateProperty =
+            DependencyProperty.Register( "RowConstraintsTemplate", typeof( DataTemplate ), typeof( PuzzleControl ), new PropertyMetadata( null, ( obj, args ) => ( (PuzzleControl) obj ).OnRowConstraintsTemplateChanged( args ) ) );
+
+        private void OnRowConstraintsTemplateChanged( DependencyPropertyChangedEventArgs args )
         {
             ClearChildren();
             CreateChildren();
@@ -118,7 +146,13 @@ namespace GUI.Controls
 
         private void CreateChildren()
         {
-            if ( ViewModel != null )
+            CreateSquareControls();
+            CreateConstraintControls();
+        }
+
+        private void CreateSquareControls()
+        {
+            if ( ViewModel != null && SquareTemplate != null )
             {
                 foreach ( var position in ViewModel.Grid.Squares.AllPositions )
                 {
@@ -134,7 +168,49 @@ namespace GUI.Controls
                     this.grid.Children.Add( squareControl );
                 }
             }
-        }        
+        }
+
+        private void CreateConstraintControls()
+        {
+            CreateColumnConstraintControls();
+            CreateRowConstraintControls();            
+        }
+
+        private void CreateColumnConstraintControls()
+        {
+            if ( ViewModel != null && ColumnConstraintsTemplate != null )
+            {
+                foreach ( var index in ViewModel.RowConstraints.Indices )
+                {
+                    var columnIndex = index + 1;
+                    var rowConstraintViewModel = ViewModel.ColumnConstraints[index];
+                    var constraintsControl = (FrameworkElement) ColumnConstraintsTemplate.LoadContent();
+
+                    UIGrid.SetRow( constraintsControl, 0 );
+                    UIGrid.SetColumn( constraintsControl, columnIndex );
+
+                    this.grid.Children.Add( constraintsControl );
+                }
+            }
+        }
+
+        private void CreateRowConstraintControls()
+        {
+            if ( ViewModel != null && RowConstraintsTemplate != null )
+            {
+                foreach ( var index in ViewModel.RowConstraints.Indices )
+                {
+                    var rowIndex = index + 1;
+                    var rowConstraintViewModel = ViewModel.RowConstraints[index];
+                    var constraintsControl = (FrameworkElement) RowConstraintsTemplate.LoadContent();
+
+                    UIGrid.SetColumn( constraintsControl, 0 );
+                    UIGrid.SetRow( constraintsControl, rowIndex );
+
+                    this.grid.Children.Add( constraintsControl );
+                }
+            }
+        }
     }
 
     public interface IPuzzleViewModel
