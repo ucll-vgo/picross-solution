@@ -12,9 +12,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using GUI.Commands;
+using GUI.Controls;
 using PiCross.DataStructures;
 using PiCross.Facade.Solving;
 using PiCross.Game;
+using Grid = PiCross.DataStructures.Grid;
 
 namespace GUI
 {
@@ -47,7 +50,7 @@ namespace GUI
         }
     }
 
-    public class PuzzleViewModel
+    public class PuzzleViewModel : IPuzzleViewModel
     {
         private readonly IPuzzle puzzle;
 
@@ -57,7 +60,7 @@ namespace GUI
 
         private readonly ISequence<ConstraintsViewModel> rowConstraints;
 
-        public PuzzleViewModel(IPuzzle puzzle)
+        public PuzzleViewModel( IPuzzle puzzle )
         {
             this.puzzle = puzzle;
             this.grid = new GridViewModel( puzzle );
@@ -65,7 +68,7 @@ namespace GUI
             this.rowConstraints = puzzle.RowConstraints.Items.Select( rowConstraints => new ConstraintsViewModel( rowConstraints ) ).ToSequence();
         }
 
-        public GridViewModel Grid
+        public IPuzzleGridViewModel Grid
         {
             get
             {
@@ -82,36 +85,53 @@ namespace GUI
         {
             get { return rowConstraints; }
         }
-    }
 
-    public class GridViewModel
-    {
-        private readonly IPuzzle puzzle;
 
-        public GridViewModel( IPuzzle puzzle )
-        {
-            this.puzzle = puzzle;
-        }
-
-        public IEnumerable<IEnumerable<GridSquareViewModel>> Rows
+        ISequence<IPuzzleConstraintsViewModel> IPuzzleViewModel.ColumnConstraints
         {
             get
             {
-                return from y in Enumerable.Range( 0, puzzle.Height )
-                       select ( from x in Enumerable.Range( 0, puzzle.Width )
-                                let position = new Vector2D( x, y )
-                                select new GridSquareViewModel( puzzle[position] ) );
+                return columnConstraints;
+            }
+        }
+
+        ISequence<IPuzzleConstraintsViewModel> IPuzzleViewModel.RowConstraints
+        {
+            get
+            {
+                return rowConstraints;
             }
         }
     }
 
-    public class GridSquareViewModel
+    public class GridViewModel : IPuzzleGridViewModel
+    {
+        private readonly IPuzzle puzzle;
+
+        private readonly IGrid<GridSquareViewModel> squares;
+
+        public GridViewModel( IPuzzle puzzle )
+        {
+            this.puzzle = puzzle;
+            this.squares = Grid.Create( puzzle.Width, puzzle.Height, p => new GridSquareViewModel( puzzle[p] ) );
+        }
+
+        public IGrid<IPuzzleGridSquareViewModel> Squares
+        {
+            get
+            {
+                return squares;
+            }
+        }
+    }
+
+    public class GridSquareViewModel : IPuzzleGridSquareViewModel
     {
         private readonly IPuzzleSquare square;
 
         private readonly ICommand toggle;
-        
-        public GridSquareViewModel(IPuzzleSquare square)
+
+        public GridSquareViewModel( IPuzzleSquare square )
         {
             this.square = square;
             this.toggle = new ToggleCommand( square.Contents );
@@ -133,23 +153,16 @@ namespace GUI
             }
         }
 
-        private class ToggleCommand : ICommand
+        private class ToggleCommand : EnabledCommand
         {
             private readonly ICell<Square> square;
 
-            public ToggleCommand(ICell<Square> square)
+            public ToggleCommand( ICell<Square> square )
             {
                 this.square = square;
             }
 
-            public bool CanExecute( object parameter )
-            {
-                return true;
-            }
-
-            public event EventHandler CanExecuteChanged;
-
-            public void Execute( object parameter )
+            public override void Execute( object parameter )
             {
                 var contents = square.Value;
                 Square newContents;
@@ -172,29 +185,48 @@ namespace GUI
         }
     }
 
-    public class ConstraintsViewModel
+    public class ConstraintsViewModel : IPuzzleConstraintsViewModel
     {
         private readonly IPuzzleConstraints constraints;
 
-        public ConstraintsViewModel(IPuzzleConstraints constraints)
+        private readonly ISequence<ConstraintsValueViewModel> values;
+
+        public ConstraintsViewModel( IPuzzleConstraints constraints )
         {
             this.constraints = constraints;
+            this.values = constraints.Values.Map( val => new ConstraintsValueViewModel( val ) ).Copy();
         }
 
-        public IEnumerable<ConstraintsValueViewModel> Values
+        ISequence<IPuzzleConstraintsValueViewModel> IPuzzleConstraintsViewModel.Values
         {
             get
             {
-                return constraints.Values.Items.Select( value => new ConstraintsValueViewModel( value ) );
+                return values;
+            }
+        }
+
+        public ICell<bool> IsSatisfied
+        {
+            get
+            {
+                return constraints.IsSatisfied;
+            }
+        }
+
+        public ISequence<ConstraintsValueViewModel> Values
+        {
+            get
+            {
+                return values;
             }
         }
     }
 
-    public class ConstraintsValueViewModel
+    public class ConstraintsValueViewModel : IPuzzleConstraintsValueViewModel
     {
         private readonly IPuzzleConstraintsValue value;
 
-        public ConstraintsValueViewModel(IPuzzleConstraintsValue value)
+        public ConstraintsValueViewModel( IPuzzleConstraintsValue value )
         {
             this.value = value;
         }
@@ -213,6 +245,6 @@ namespace GUI
             {
                 return Cell.Create( this.value.Value );
             }
-        }        
+        }
     }
 }

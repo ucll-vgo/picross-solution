@@ -54,6 +54,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\PuzzleControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\PuzzleGridSquareControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -61,6 +69,14 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Commands\CellCommand.cs" />
+    <Compile Include="Commands\EnabledCommand.cs" />
+    <Compile Include="Controls\PuzzleControl.xaml.cs">
+      <DependentUpon>PuzzleControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PuzzleGridSquareControl.xaml.cs">
+      <DependentUpon>PuzzleGridSquareControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\BoolConverter.cs" />
     <Compile Include="Converters\SquareConverter.cs" />
