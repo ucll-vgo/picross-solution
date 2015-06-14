@@ -29,25 +29,51 @@ namespace GUI.Controls
             InitializeComponent();
         }
 
+
+
+        public DataTemplate SquareTemplate
+        {
+            get { return (DataTemplate) GetValue( SquareTemplateProperty ); }
+            set { SetValue( SquareTemplateProperty, value ); }
+        }
+
+        public static readonly DependencyProperty SquareTemplateProperty =
+            DependencyProperty.Register( "SquareTemplate", typeof( DataTemplate ), typeof( PuzzleControl ), new PropertyMetadata( null, (obj, args) => ((PuzzleControl) obj).OnSquareTemplateChanged(args) ) );
+
+        private void OnSquareTemplateChanged(DependencyPropertyChangedEventArgs args)
+        {
+            ClearChildren();
+            CreateChildren();
+        }
+
         public IPuzzleViewModel ViewModel
         {
             get { return (IPuzzleViewModel) GetValue( ViewModelProperty ); }
             set { SetValue( ViewModelProperty, value ); }
         }
 
-        // Using a DependencyProperty as the backing store for ViewModel.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ViewModelProperty =
             DependencyProperty.Register( "ViewModel", typeof( IPuzzleViewModel ), typeof( PuzzleControl ), new PropertyMetadata( null, ( obj, args ) => ( (PuzzleControl) obj ).OnViewModelChanged( args ) ) );
 
         private void OnViewModelChanged( DependencyPropertyChangedEventArgs args )
         {
-            RemoveAll();
+            ClearAll();
             CreateAll();
         }
 
-        private void RemoveAll()
+        private void ClearAll()
+        {
+            ClearChildren();
+            ClearGridLayout();
+        }
+
+        private void ClearChildren()
         {
             this.grid.Children.Clear();
+        }
+        
+        private void ClearGridLayout()
+        {
             this.grid.ColumnDefinitions.Clear();
             this.grid.RowDefinitions.Clear();
         }
@@ -66,46 +92,49 @@ namespace GUI.Controls
 
         private void CreateColumnDefinitions()
         {
-            this.grid.ColumnDefinitions.Add( new ColumnDefinition() { Width = new GridLength( 1, GridUnitType.Star ) } );
-
-            for ( var i = 0; i != ViewModel.ColumnConstraints.Length; ++i )
+            if ( ViewModel != null )
             {
-                this.grid.ColumnDefinitions.Add( new ColumnDefinition() { Width = GridLength.Auto } );
+                this.grid.ColumnDefinitions.Add( new ColumnDefinition() { Width = new GridLength( 1, GridUnitType.Star ) } );
+
+                for ( var i = 0; i != ViewModel.ColumnConstraints.Length; ++i )
+                {
+                    this.grid.ColumnDefinitions.Add( new ColumnDefinition() { Width = GridLength.Auto } );
+                }
             }
         }
 
         private void CreateRowDefinitions()
         {
-            this.grid.RowDefinitions.Add( new RowDefinition() { Height = new GridLength( 1, GridUnitType.Star ) } );
-
-            for ( var i = 0; i != ViewModel.ColumnConstraints.Length; ++i )
+            if ( ViewModel != null )
             {
-                this.grid.RowDefinitions.Add( new RowDefinition() { Height = GridLength.Auto } );
+                this.grid.RowDefinitions.Add( new RowDefinition() { Height = new GridLength( 1, GridUnitType.Star ) } );
+
+                for ( var i = 0; i != ViewModel.ColumnConstraints.Length; ++i )
+                {
+                    this.grid.RowDefinitions.Add( new RowDefinition() { Height = GridLength.Auto } );
+                }
             }
         }
 
         private void CreateChildren()
         {
-            CreateSquareControls();
-        }
-
-        private void CreateSquareControls()
-        {
-            foreach ( var position in ViewModel.Grid.Squares.AllPositions )
+            if ( ViewModel != null )
             {
-                Debug.WriteLine("Creating child at {0}", position);
+                foreach ( var position in ViewModel.Grid.Squares.AllPositions )
+                {
+                    var gridCol = position.X + 1;
+                    var gridRow = position.Y + 1;
+                    var squareViewModel = ViewModel.Grid.Squares[position];
+                    var squareControl = (FrameworkElement) SquareTemplate.LoadContent();
 
-                var gridCol = position.X + 1;
-                var gridRow = position.Y + 1;
-                var squareViewModel = ViewModel.Grid.Squares[position];
-                var squareControl = new PuzzleGridSquareControl() { ViewModel = squareViewModel };
+                    squareControl.DataContext = squareViewModel;
+                    UIGrid.SetColumn( squareControl, gridCol );
+                    UIGrid.SetRow( squareControl, gridRow );
 
-                UIGrid.SetColumn( squareControl, gridCol );
-                UIGrid.SetRow( squareControl, gridRow );
-
-                this.grid.Children.Add( squareControl );
+                    this.grid.Children.Add( squareControl );
+                }
             }
-        }
+        }        
     }
 
     public interface IPuzzleViewModel

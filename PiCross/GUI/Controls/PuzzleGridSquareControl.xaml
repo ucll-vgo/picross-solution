@@ -5,8 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              x:Name="squareControl"
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Border Width="16" Height="16" Margin="1" BorderThickness="1" BorderBrush="Black">
+             d:DesignHeight="300" d:DesignWidth="300">    
+    <Border>
         
     </Border>
 </UserControl>

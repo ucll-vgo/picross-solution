@@ -27,7 +27,15 @@
         </converters:BoolConverter>
     </Window.Resources>
     
-    <controls:PuzzleControl ViewModel="{Binding}" />
+    <controls:PuzzleControl ViewModel="{Binding}">
+        <controls:PuzzleControl.SquareTemplate>
+            <DataTemplate>
+                <controls:PuzzleGridSquareControl ViewModel="{Binding}" BorderThickness="1" BorderBrush="Black" Width="16" Height="16" Margin="1">
+                    
+                </controls:PuzzleGridSquareControl>
+            </DataTemplate>
+        </controls:PuzzleControl.SquareTemplate>
+    </controls:PuzzleControl>
     
     <!--<Grid>
         <Grid.ColumnDefinitions>
