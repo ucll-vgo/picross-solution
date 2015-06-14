@@ -1,8 +1,52 @@
 ﻿<Window x:Class="GUI.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:converters="clr-namespace:GUI.Converters"
         Title="MainWindow" Height="350" Width="525">
+    <Window.Resources>
+        <converters:SquareConverter x:Key="BackgroundConverter">
+            <converters:SquareConverter.Unknown>
+                Gray
+            </converters:SquareConverter.Unknown>
+            <converters:SquareConverter.Empty>
+                White
+            </converters:SquareConverter.Empty>
+            <converters:SquareConverter.Filled>
+                Black
+            </converters:SquareConverter.Filled>
+        </converters:SquareConverter>
+    </Window.Resources>
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <ItemsControl Grid.Column="1" Grid.Row="1" ItemsSource="{Binding Rows}" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <ItemsControl ItemsSource="{Binding}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Width="16" Height="16" BorderBrush="Black" BorderThickness="1" Margin="1" Background="{Binding Contents.Value, Converter={StaticResource BackgroundConverter}}" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </Grid>
 </Window>
