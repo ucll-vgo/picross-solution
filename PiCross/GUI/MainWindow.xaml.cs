@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using GUI.Commands;
 using GUI.Controls;
+using PiCross.Cells;
 using PiCross.DataStructures;
 using PiCross.Facade.Solving;
 using PiCross.Game;
