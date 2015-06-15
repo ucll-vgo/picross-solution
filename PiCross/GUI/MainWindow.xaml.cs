@@ -143,7 +143,7 @@ namespace GUI
             this.toggleFilled = new ToggleFilledCommand( square.Contents );
         }
 
-        public ICell<Square> Contents
+        public Cell<Square> Contents
         {
             get
             {
@@ -177,9 +177,9 @@ namespace GUI
 
         private class ToggleCommand : EnabledCommand
         {
-            private readonly ICell<Square> square;
+            private readonly Cell<Square> square;
 
-            public ToggleCommand( ICell<Square> square )
+            public ToggleCommand( Cell<Square> square )
             {
                 this.square = square;
             }
@@ -208,9 +208,9 @@ namespace GUI
 
         private class ToggleEmptyCommand : EnabledCommand
         {
-            private readonly ICell<Square> square;
+            private readonly Cell<Square> square;
 
-            public ToggleEmptyCommand( ICell<Square> square )
+            public ToggleEmptyCommand( Cell<Square> square )
             {
                 this.square = square;
             }
@@ -235,9 +235,9 @@ namespace GUI
 
         private class ToggleFilledCommand : EnabledCommand
         {
-            private readonly ICell<Square> square;
+            private readonly Cell<Square> square;
 
-            public ToggleFilledCommand( ICell<Square> square )
+            public ToggleFilledCommand( Cell<Square> square )
             {
                 this.square = square;
             }
@@ -281,7 +281,7 @@ namespace GUI
             }
         }
 
-        public ICell<bool> IsSatisfied
+        public Cell<bool> IsSatisfied
         {
             get
             {
@@ -307,7 +307,7 @@ namespace GUI
             this.value = value;
         }
 
-        public ICell<bool> IsSatisfied
+        public Cell<bool> IsSatisfied
         {
             get
             {
@@ -315,7 +315,7 @@ namespace GUI
             }
         }
 
-        public ICell<int> Number
+        public Cell<int> Number
         {
             get
             {

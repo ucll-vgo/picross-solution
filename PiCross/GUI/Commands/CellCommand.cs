@@ -10,9 +10,9 @@ namespace GUI.Commands
 {
     public abstract class CellCommand : ICommand
     {
-        private readonly ICell<bool> isEnabled;
+        private readonly Cell<bool> isEnabled;
 
-        protected CellCommand(ICell<bool> isEnabled)
+        protected CellCommand(Cell<bool> isEnabled)
         {
             if ( isEnabled == null )
             {
@@ -22,7 +22,7 @@ namespace GUI.Commands
             {
                 this.isEnabled = isEnabled;
 
-                isEnabled.PropertyChanged += ( sender, args ) =>
+                isEnabled.ValueChanged += () =>
                 {
                     if ( CanExecuteChanged != null )
                     {

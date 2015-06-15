@@ -100,6 +100,6 @@ namespace GUI.Controls
     {
         ISequence<IPuzzleConstraintsValueViewModel> Values { get; }
 
-        ICell<bool> IsSatisfied { get; }
+        Cell<bool> IsSatisfied { get; }
     }
 }

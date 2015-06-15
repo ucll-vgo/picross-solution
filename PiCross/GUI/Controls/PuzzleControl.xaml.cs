@@ -246,8 +246,8 @@ namespace GUI.Controls
 
     public interface IPuzzleConstraintsValueViewModel
     {
-        ICell<int> Number { get; }
+        Cell<int> Number { get; }
 
-        ICell<bool> IsSatisfied { get; }
+        Cell<bool> IsSatisfied { get; }
     }
 }

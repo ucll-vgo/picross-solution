@@ -61,7 +61,7 @@ namespace GUI.Controls
 
         private void BindToViewModel( IPuzzleGridSquareViewModel viewModel )
         {
-            viewModel.Contents.PropertyChanged += ( obj, sender ) => { UpdateFillState(); };
+            viewModel.Contents.ValueChanged += () => UpdateFillState();
         }
 
         public ICommand LeftClick
@@ -155,6 +155,6 @@ namespace GUI.Controls
 
     public interface IPuzzleGridSquareViewModel
     {
-        ICell<Square> Contents { get; }
+        Cell<Square> Contents { get; }
     }
 }
