@@ -6,7 +6,7 @@
              x:Name="parent"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
-    <StackPanel Orientation="{Binding ElementName=parent, Path=Orientation}">
+    <StackPanel Orientation="{Binding ElementName=parent, Path=Orientation}" x:Name="stackPanel">
         
     </StackPanel>
 </UserControl>

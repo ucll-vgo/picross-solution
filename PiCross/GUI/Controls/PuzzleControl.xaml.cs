@@ -55,8 +55,7 @@ namespace GUI.Controls
 
         private void OnColumnConstraintsTemplateChanged( DependencyPropertyChangedEventArgs args )
         {
-            ClearChildren();
-            CreateChildren();
+            RecreateChildren();
         }
 
         public DataTemplate RowConstraintsTemplate
@@ -70,8 +69,7 @@ namespace GUI.Controls
 
         private void OnRowConstraintsTemplateChanged( DependencyPropertyChangedEventArgs args )
         {
-            ClearChildren();
-            CreateChildren();
+            RecreateChildren();
         }
 
         public IPuzzleViewModel ViewModel
@@ -85,8 +83,19 @@ namespace GUI.Controls
 
         private void OnViewModelChanged( DependencyPropertyChangedEventArgs args )
         {
+            RecreateAll();
+        }
+
+        private void RecreateAll()
+        {
             ClearAll();
             CreateAll();
+        }
+
+        private void RecreateChildren()
+        {
+            ClearChildren();
+            CreateChildren();
         }
 
         private void ClearAll()
@@ -120,6 +129,8 @@ namespace GUI.Controls
 
         private void CreateColumnDefinitions()
         {
+            Debug.Assert( this.grid.ColumnDefinitions.Count == 0 );
+
             if ( ViewModel != null )
             {
                 this.grid.ColumnDefinitions.Add( new ColumnDefinition() { Width = new GridLength( 1, GridUnitType.Star ) } );
@@ -133,6 +144,8 @@ namespace GUI.Controls
 
         private void CreateRowDefinitions()
         {
+            Debug.Assert( this.grid.RowDefinitions.Count == 0 );
+
             if ( ViewModel != null )
             {
                 this.grid.RowDefinitions.Add( new RowDefinition() { Height = new GridLength( 1, GridUnitType.Star ) } );
@@ -146,6 +159,8 @@ namespace GUI.Controls
 
         private void CreateChildren()
         {
+            Debug.Assert( this.grid.Children.Count == 0 );
+
             CreateSquareControls();
             CreateConstraintControls();
         }
@@ -180,12 +195,13 @@ namespace GUI.Controls
         {
             if ( ViewModel != null && ColumnConstraintsTemplate != null )
             {
-                foreach ( var index in ViewModel.RowConstraints.Indices )
+                foreach ( var index in ViewModel.ColumnConstraints.Indices )
                 {
                     var columnIndex = index + 1;
-                    var rowConstraintViewModel = ViewModel.ColumnConstraints[index];
+                    var columnConstraintViewModel = ViewModel.ColumnConstraints[index];
                     var constraintsControl = (FrameworkElement) ColumnConstraintsTemplate.LoadContent();
 
+                    constraintsControl.DataContext = columnConstraintViewModel;
                     UIGrid.SetRow( constraintsControl, 0 );
                     UIGrid.SetColumn( constraintsControl, columnIndex );
 
@@ -193,7 +209,7 @@ namespace GUI.Controls
                 }
             }
         }
-
+        
         private void CreateRowConstraintControls()
         {
             if ( ViewModel != null && RowConstraintsTemplate != null )
@@ -204,8 +220,9 @@ namespace GUI.Controls
                     var rowConstraintViewModel = ViewModel.RowConstraints[index];
                     var constraintsControl = (FrameworkElement) RowConstraintsTemplate.LoadContent();
 
-                    UIGrid.SetColumn( constraintsControl, 0 );
+                    constraintsControl.DataContext = rowConstraintViewModel;
                     UIGrid.SetRow( constraintsControl, rowIndex );
+                    UIGrid.SetColumn( constraintsControl, 0 );
 
                     this.grid.Children.Add( constraintsControl );
                 }
@@ -225,13 +242,6 @@ namespace GUI.Controls
     public interface IPuzzleGridViewModel
     {
         IGrid<IPuzzleGridSquareViewModel> Squares { get; }
-    }
-
-    public interface IPuzzleConstraintsViewModel
-    {
-        ISequence<IPuzzleConstraintsValueViewModel> Values { get; }
-
-        ICell<bool> IsSatisfied { get; }
     }
 
     public interface IPuzzleConstraintsValueViewModel
