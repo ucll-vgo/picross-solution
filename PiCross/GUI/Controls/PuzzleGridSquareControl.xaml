@@ -7,6 +7,8 @@
              x:Name="parent"
              BorderThickness="1"             
              Margin="1"
+             MouseLeftButtonDown="OnMouseLeftButtonDown"
+             MouseRightButtonDown="OnMouseRightButtonDown"
              MouseEnter="OnMouseEnter"
              MouseLeave="OnMouseLeave"
              d:DesignHeight="300" d:DesignWidth="300">
@@ -15,13 +17,13 @@
     </UserControl.BorderBrush>
     <UserControl.Background>
         <LinearGradientBrush x:Name="backgroundBrush" StartPoint="0,0" EndPoint="0.3,0.3">
-            <GradientStop Offset="0" Color="Gray" />
-            <GradientStop Offset="0.5" Color="White" />
-            <GradientStop Offset="1" Color="Gray" />
+            <GradientStop x:Name="backgroundBrush_firstGradientStop" Offset="0" Color="Transparent" />
+            <GradientStop x:Name="backgroundBrush_middleGradientStop" Offset="0.5" Color="Transparent" />
+            <GradientStop x:Name="backgroundBrush_lastGradientStop" Offset="1" Color="Transparent" />
         </LinearGradientBrush>
     </UserControl.Background>
     <VisualStateManager.VisualStateGroups>
-        <VisualStateGroup Name="MouseStates">
+        <VisualStateGroup Name="MouseStates">            
             <VisualState Name="MouseOver">
                 <Storyboard>
                     <ColorAnimation To="Red" Storyboard.TargetName="borderBrush" Storyboard.TargetProperty="Color" Duration="0:0:0.100" />
@@ -31,25 +33,25 @@
                 <Storyboard>
                     <ColorAnimation To="Black" Storyboard.TargetName="borderBrush" Storyboard.TargetProperty="Color" Duration="0:0:0.250" />
                 </Storyboard>
-            </VisualState>
+            </VisualState>            
         </VisualStateGroup>
         <VisualStateGroup Name="FillStates">
             <VisualState Name="Unknown">
                 <Storyboard>
-                    <ColorAnimation To="Gray" Storyboard.TargetName="borderBrush.GradientStops[0].Color" Storyboard.TargetProperty="Color" />
-                    <ColorAnimation To="Gray" Storyboard.TargetName="borderBrush.GradientStops[2].Color" Storyboard.TargetProperty="Color" />
+                    <ColorAnimation To="#FFAAAA" Storyboard.TargetName="backgroundBrush_firstGradientStop" Storyboard.TargetProperty="Color" Duration="0:0:0.5" />
+                    <ColorAnimation To="#FFAAAA" Storyboard.TargetName="backgroundBrush_lastGradientStop" Storyboard.TargetProperty="Color" Duration="0:0:0.5" />
                 </Storyboard>
             </VisualState>
             <VisualState Name="Empty">
                 <Storyboard>
-                    <ColorAnimation To="White" Storyboard.TargetName="borderBrush.GradientStops[0].Color" Storyboard.TargetProperty="Color" />
-                    <ColorAnimation To="White" Storyboard.TargetName="borderBrush.GradientStops[2].Color" Storyboard.TargetProperty="Color" />
+                    <ColorAnimation To="White" Storyboard.TargetName="backgroundBrush_firstGradientStop" Storyboard.TargetProperty="Color" Duration="0:0:0.5" />
+                    <ColorAnimation To="White" Storyboard.TargetName="backgroundBrush_lastGradientStop" Storyboard.TargetProperty="Color" Duration="0:0:0.5" />
                 </Storyboard>
             </VisualState>
             <VisualState Name="Filled">
                 <Storyboard>
-                    <ColorAnimation To="Black" Storyboard.TargetName="borderBrush.GradientStops[0].Color" Storyboard.TargetProperty="Color" />
-                    <ColorAnimation To="Black" Storyboard.TargetName="borderBrush.GradientStops[2].Color" Storyboard.TargetProperty="Color" />
+                    <ColorAnimation To="Black" Storyboard.TargetName="backgroundBrush_firstGradientStop" Storyboard.TargetProperty="Color" Duration="0:0:0.5" />
+                    <ColorAnimation To="Black" Storyboard.TargetName="backgroundBrush_lastGradientStop" Storyboard.TargetProperty="Color" Duration="0:0:0.5" />
                 </Storyboard>
             </VisualState>
         </VisualStateGroup>

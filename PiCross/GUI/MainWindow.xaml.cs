@@ -131,10 +131,16 @@ namespace GUI
 
         private readonly ICommand toggle;
 
+        private readonly ICommand toggleEmpty;
+
+        private readonly ICommand toggleFilled;
+
         public GridSquareViewModel( IPuzzleSquare square )
         {
             this.square = square;
             this.toggle = new ToggleCommand( square.Contents );
+            this.toggleEmpty = new ToggleEmptyCommand( square.Contents );
+            this.toggleFilled = new ToggleFilledCommand( square.Contents );
         }
 
         public ICell<Square> Contents
@@ -150,6 +156,22 @@ namespace GUI
             get
             {
                 return toggle;
+            }
+        }
+
+        public ICommand ToggleEmpty
+        {
+            get
+            {
+                return toggleEmpty;
+            }
+        }
+
+        public ICommand ToggleFilled
+        {
+            get
+            {
+                return toggleFilled;
             }
         }
 
@@ -178,6 +200,60 @@ namespace GUI
                 else
                 {
                     newContents = Square.EMPTY;
+                }
+
+                square.Value = newContents;
+            }
+        }
+
+        private class ToggleEmptyCommand : EnabledCommand
+        {
+            private readonly ICell<Square> square;
+
+            public ToggleEmptyCommand( ICell<Square> square )
+            {
+                this.square = square;
+            }
+
+            public override void Execute( object parameter )
+            {
+                var contents = square.Value;
+                Square newContents;
+
+                if ( contents != Square.EMPTY )
+                {
+                    newContents = Square.EMPTY;
+                }
+                else
+                {
+                    newContents = Square.UNKNOWN;
+                }
+
+                square.Value = newContents;
+            }
+        }
+
+        private class ToggleFilledCommand : EnabledCommand
+        {
+            private readonly ICell<Square> square;
+
+            public ToggleFilledCommand( ICell<Square> square )
+            {
+                this.square = square;
+            }
+
+            public override void Execute( object parameter )
+            {
+                var contents = square.Value;
+                Square newContents;
+
+                if ( contents != Square.FILLED )
+                {
+                    newContents = Square.FILLED;
+                }
+                else
+                {
+                    newContents = Square.UNKNOWN;
                 }
 
                 square.Value = newContents;

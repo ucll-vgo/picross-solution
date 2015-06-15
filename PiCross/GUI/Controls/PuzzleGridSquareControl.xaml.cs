@@ -37,18 +37,93 @@ namespace GUI.Controls
             "ViewModel",
             typeof( IPuzzleGridSquareViewModel ),
             typeof( PuzzleGridSquareControl ),
-            new PropertyMetadata( null ) );
+            new PropertyMetadata( null, ( obj, args ) => ( (PuzzleGridSquareControl) obj ).OnViewModelChanged( args ) ) );
 
-        private void UpdateMouseOverState()
+        private void OnViewModelChanged( DependencyPropertyChangedEventArgs args )
+        {
+            if ( args.OldValue != null )
+            {
+                UnbindFromViewModel( (IPuzzleGridSquareViewModel) args.OldValue );
+            }
+
+            if ( args.NewValue != null )
+            {
+                BindToViewModel( (IPuzzleGridSquareViewModel) args.NewValue );
+            }
+
+            UpdateVisualState( false );
+        }
+
+        private void UnbindFromViewModel( IPuzzleGridSquareViewModel viewModel )
+        {
+            // TODO
+        }
+
+        private void BindToViewModel( IPuzzleGridSquareViewModel viewModel )
+        {
+            viewModel.Contents.PropertyChanged += ( obj, sender ) => { UpdateFillState(); };
+        }
+
+        public ICommand LeftClick
+        {
+            get { return (ICommand) GetValue( LeftClickProperty ); }
+            set { SetValue( LeftClickProperty, value ); }
+        }
+
+        public static readonly DependencyProperty LeftClickProperty =
+            DependencyProperty.Register( "LeftClick", typeof( ICommand ), typeof( PuzzleGridSquareControl ), new PropertyMetadata( null ) );
+
+        public ICommand RightClick
+        {
+            get { return (ICommand) GetValue( RightClickProperty ); }
+            set { SetValue( RightClickProperty, value ); }
+        }
+
+        public static readonly DependencyProperty RightClickProperty =
+            DependencyProperty.Register( "RightClick", typeof( ICommand ), typeof( PuzzleGridSquareControl ), new PropertyMetadata( null ) );
+
+        private void UpdateVisualState( bool transition = true )
+        {
+            UpdateMouseOverState( transition );
+            UpdateFillState( transition );
+        }
+
+        private void UpdateMouseOverState( bool transition = true )
         {
             if ( IsMouseOver )
             {
-                VisualStateManager.GoToElementState( this, "MouseOver", true );
+                ChangeVisualState( "MouseOver", transition );
             }
             else
             {
-                VisualStateManager.GoToElementState( this, "MouseNotOver", true );
+                ChangeVisualState( "MouseNotOver", transition );
             }
+        }
+
+        private void UpdateFillState( bool transition = true )
+        {
+            if ( ViewModel != null )
+            {
+                var contents = this.ViewModel.Contents.Value;
+
+                if ( contents == Square.EMPTY )
+                {
+                    ChangeVisualState( "Empty", transition );
+                }
+                else if ( contents == Square.FILLED )
+                {
+                    ChangeVisualState( "Filled", transition );
+                }
+                else
+                {
+                    ChangeVisualState( "Unknown", transition );
+                }
+            }
+        }
+
+        private void ChangeVisualState( string state, bool transition = true )
+        {
+            VisualStateManager.GoToElementState( this, state, transition );
         }
 
         private void OnMouseEnter( object sender, MouseEventArgs e )
@@ -59,6 +134,22 @@ namespace GUI.Controls
         private void OnMouseLeave( object sender, MouseEventArgs e )
         {
             UpdateMouseOverState();
+        }
+
+        private void OnMouseLeftButtonDown( object sender, MouseButtonEventArgs e )
+        {
+            if ( LeftClick != null && LeftClick.CanExecute( null ) )
+            {
+                LeftClick.Execute( null );
+            }
+        }
+
+        private void OnMouseRightButtonDown( object sender, MouseButtonEventArgs e )
+        {
+            if ( RightClick != null && RightClick.CanExecute( null ) )
+            {
+                RightClick.Execute( null );
+            }
         }
     }
 
