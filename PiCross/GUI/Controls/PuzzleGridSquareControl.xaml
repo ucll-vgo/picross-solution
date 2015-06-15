@@ -4,9 +4,54 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             x:Name="squareControl"
-             d:DesignHeight="300" d:DesignWidth="300">    
-    <Border>
-        
-    </Border>
+             x:Name="parent"
+             BorderThickness="1"             
+             Margin="1"
+             MouseEnter="OnMouseEnter"
+             MouseLeave="OnMouseLeave"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.BorderBrush>
+        <SolidColorBrush x:Name="borderBrush" Color="Black" />
+    </UserControl.BorderBrush>
+    <UserControl.Background>
+        <LinearGradientBrush x:Name="backgroundBrush" StartPoint="0,0" EndPoint="0.3,0.3">
+            <GradientStop Offset="0" Color="Gray" />
+            <GradientStop Offset="0.5" Color="White" />
+            <GradientStop Offset="1" Color="Gray" />
+        </LinearGradientBrush>
+    </UserControl.Background>
+    <VisualStateManager.VisualStateGroups>
+        <VisualStateGroup Name="MouseStates">
+            <VisualState Name="MouseOver">
+                <Storyboard>
+                    <ColorAnimation To="Red" Storyboard.TargetName="borderBrush" Storyboard.TargetProperty="Color" Duration="0:0:0.100" />
+                </Storyboard>
+            </VisualState>
+            <VisualState Name="MouseNotOver">
+                <Storyboard>
+                    <ColorAnimation To="Black" Storyboard.TargetName="borderBrush" Storyboard.TargetProperty="Color" Duration="0:0:0.250" />
+                </Storyboard>
+            </VisualState>
+        </VisualStateGroup>
+        <VisualStateGroup Name="FillStates">
+            <VisualState Name="Unknown">
+                <Storyboard>
+                    <ColorAnimation To="Gray" Storyboard.TargetName="borderBrush.GradientStops[0].Color" Storyboard.TargetProperty="Color" />
+                    <ColorAnimation To="Gray" Storyboard.TargetName="borderBrush.GradientStops[2].Color" Storyboard.TargetProperty="Color" />
+                </Storyboard>
+            </VisualState>
+            <VisualState Name="Empty">
+                <Storyboard>
+                    <ColorAnimation To="White" Storyboard.TargetName="borderBrush.GradientStops[0].Color" Storyboard.TargetProperty="Color" />
+                    <ColorAnimation To="White" Storyboard.TargetName="borderBrush.GradientStops[2].Color" Storyboard.TargetProperty="Color" />
+                </Storyboard>
+            </VisualState>
+            <VisualState Name="Filled">
+                <Storyboard>
+                    <ColorAnimation To="Black" Storyboard.TargetName="borderBrush.GradientStops[0].Color" Storyboard.TargetProperty="Color" />
+                    <ColorAnimation To="Black" Storyboard.TargetName="borderBrush.GradientStops[2].Color" Storyboard.TargetProperty="Color" />
+                </Storyboard>
+            </VisualState>
+        </VisualStateGroup>
+    </VisualStateManager.VisualStateGroups>
 </UserControl>

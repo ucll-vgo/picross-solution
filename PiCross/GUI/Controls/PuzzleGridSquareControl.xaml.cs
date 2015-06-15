@@ -38,6 +38,28 @@ namespace GUI.Controls
             typeof( IPuzzleGridSquareViewModel ),
             typeof( PuzzleGridSquareControl ),
             new PropertyMetadata( null ) );
+
+        private void UpdateMouseOverState()
+        {
+            if ( IsMouseOver )
+            {
+                VisualStateManager.GoToElementState( this, "MouseOver", true );
+            }
+            else
+            {
+                VisualStateManager.GoToElementState( this, "MouseNotOver", true );
+            }
+        }
+
+        private void OnMouseEnter( object sender, MouseEventArgs e )
+        {
+            UpdateMouseOverState();
+        }
+
+        private void OnMouseLeave( object sender, MouseEventArgs e )
+        {
+            UpdateMouseOverState();
+        }
     }
 
     public interface IPuzzleGridSquareViewModel
