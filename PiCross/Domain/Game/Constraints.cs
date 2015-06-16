@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PiCross.Cells;
+using System.Diagnostics;
 
 namespace PiCross.Game
 {
@@ -47,7 +48,8 @@ namespace PiCross.Game
 
         private static IEnumerable<ISequence<int>> GenerateIntegers( int count, int sum )
         {
-            // TODO Validate arguments
+            Debug.Assert( count >= 0 );
+            Debug.Assert( sum >= 0 );
 
             if ( count == 0 )
             {
@@ -64,23 +66,32 @@ namespace PiCross.Game
             {
                 // TODO Possible optimization: create separate sequence prefixer class
                 return from i in Enumerable.Range( 0, sum + 1 )
-                       from tail in GenerateIntegers( count - 1, sum - i )
-                       let prefix = Sequence.FromItems( i )
-                       select prefix.Concatenate( tail );
+                        from tail in GenerateIntegers( count - 1, sum - i )
+                        let prefix = Sequence.FromItems( i )
+                        select prefix.Concatenate( tail );
             }
         }
 
         private static IEnumerable<ISequence<int>> GenerateSpacings( int length, int constraintCount, int constraintSum )
         {
-            // TODO Validate arguments
+            Debug.Assert( length >= 0 );
+            Debug.Assert( constraintCount >= 0 );
+            Debug.Assert( constraintSum >= 0 );
 
             var spacingCount = constraintCount + 1;
             var spacingSum = length - constraintSum - Math.Max( 0, constraintCount - 1 );
 
-            var numbers = GenerateIntegers( spacingCount, spacingSum );
-            var deltas = Sequence.FromFunction( spacingCount, i => i == 0 || i == spacingCount - 1 ? 0 : 1 );
+            if ( spacingSum < 0 )
+            {
+                return Enumerable.Empty<ISequence<int>>();
+            }
+            else
+            {
+                var numbers = GenerateIntegers( spacingCount, spacingSum );
+                var deltas = Sequence.FromFunction( spacingCount, i => i == 0 || i == spacingCount - 1 ? 0 : 1 );
 
-            return numbers.Select( ns => ns.ZipWith( deltas, ( x, y ) => x + y ) );
+                return numbers.Select( ns => ns.ZipWith( deltas, ( x, y ) => x + y ) );
+            }
         }
 
         private static IEnumerable<ISequence<Square>> GeneratePatterns( int totalSize, ISequence<int> constraints )

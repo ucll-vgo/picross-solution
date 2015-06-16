@@ -50,6 +50,11 @@ namespace PiCross.DataStructures
         {
             return FromItems( str.ToCharArray() );
         }
+
+        public static ISequence<int> Range(int from, int length)
+        {
+            return Sequence.FromFunction( length, i => from + i );
+        }
     }
 
     public static class SequenceExtensions
@@ -66,8 +71,23 @@ namespace PiCross.DataStructures
 
         public static ISequence<T> Flatten<T>( this ISequence<ISequence<T>> xss )
         {
-            // TODO Binary approach will probably be more efficient
-            return xss.Items.Aggregate( Sequence.CreateEmpty<T>(), ( xs, ys ) => xs.Concatenate( ys ) );
+            if ( xss.Length == 0 )
+            {
+                return Sequence.CreateEmpty<T>();
+            }
+            else if (xss.Length == 1 )
+            {
+                return xss[0];
+            }
+            else
+            {
+                var middle = xss.Length / 2;
+
+                var leftHalf = xss.Prefix( middle );
+                var rightHalf = xss.DropPrefix( middle );
+
+                return Flatten( leftHalf ).Concatenate( Flatten( rightHalf ) );
+            }
         }
 
         public static ISequence<R> ZipWith<T1, T2, R>( this ISequence<T1> xs, ISequence<T2> ys, Func<T1, T2, R> zipper )
@@ -268,6 +288,14 @@ namespace PiCross.DataStructures
         public static string Join( this ISequence<string> cs, string infix = "" )
         {
             return string.Join( infix, cs.Items.ToArray() );
+        }
+
+        public static void Each<T>(this ISequence<T> xs, Action<T> action)
+        {
+            foreach ( var x in xs.Items )
+            {
+                action( x );
+            }
         }
     }
 

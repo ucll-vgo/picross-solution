@@ -34,7 +34,8 @@ namespace PiCross.Facade.Solving
             else
             {
                 this.playGrid = playGrid;
-                this.puzzleSquares = playGrid.Squares.Map( var => new PuzzleSquare( this, var ) ).Copy();
+                // this.puzzleSquares = playGrid.Squares.Map( var => new PuzzleSquare( this, var ) ).Copy();
+                this.puzzleSquares = playGrid.Squares.Map( ( position, var ) => new PuzzleSquare( this, var, position ) ).Copy();
                 this.columnConstraints = this.playGrid.ColumnConstraints.Map( constraints => new PuzzleConstraints( constraints ) ).Copy();
                 this.rowConstraints = this.playGrid.RowConstraints.Map( constraints => new PuzzleConstraints( constraints ) ).Copy();
             }
@@ -80,6 +81,13 @@ namespace PiCross.Facade.Solving
             }
         }
 
+        private void Refresh( Vector2D position )
+        {
+            RefreshSquare( position );
+            RefreshColumnConstraints( position.X );
+            RefreshRowConstraints( position.Y );
+        }
+
         private void Refresh()
         {
             RefreshSquares();
@@ -96,20 +104,32 @@ namespace PiCross.Facade.Solving
 
         private void RefreshConstraints()
         {
-            RefreshConstraints( columnConstraints );
-            RefreshConstraints( rowConstraints );
+            columnConstraints.Each( RefreshConstraints );
+            rowConstraints.Each( RefreshConstraints );
         }
 
-        private static void RefreshConstraints( ISequence<PuzzleConstraints> constraints )
+        private void RefreshSquare(Vector2D position)
         {
-            foreach ( var constraint in constraints.Items )
-            {
-                constraint.IsSatisfied.Refresh();
+            this.puzzleSquares[position].Contents.Refresh();
+        }
 
-                foreach ( var value in constraint.Constraints.Items )
-                {
-                    value.IsSatisfied.Refresh();
-                }
+        private void RefreshColumnConstraints(int x)
+        {
+            RefreshConstraints( this.columnConstraints[x] );
+        }
+
+        private void RefreshRowConstraints( int y )
+        {
+            RefreshConstraints( this.rowConstraints[y] );
+        }
+
+        private static void RefreshConstraints(PuzzleConstraints constraints)
+        {
+            constraints.IsSatisfied.Refresh();
+
+            foreach ( var value in constraints.Constraints.Items )
+            {
+                value.IsSatisfied.Refresh();
             }
         }
 
@@ -117,9 +137,12 @@ namespace PiCross.Facade.Solving
         {
             private readonly PuzzleSquareContentsCell contents;
 
-            public PuzzleSquare( Puzzle parent, IVar<Square> contents )
+            private readonly Vector2D position;
+
+            public PuzzleSquare( Puzzle parent, IVar<Square> contents, Vector2D position )
             {
-                this.contents = new PuzzleSquareContentsCell( parent, contents );
+                this.contents = new PuzzleSquareContentsCell( parent, contents, position );
+                this.position = position;
             }
 
             Cell<Square> IPuzzleSquare.Contents
@@ -137,6 +160,14 @@ namespace PiCross.Facade.Solving
                     return contents;
                 }
             }
+
+            public Vector2D Position
+            {
+                get
+                {
+                    return position;
+                }
+            }
         }
 
         private class PuzzleSquareContentsCell : ManualCell<Square>
@@ -145,11 +176,14 @@ namespace PiCross.Facade.Solving
 
             private readonly IVar<Square> contents;
 
-            public PuzzleSquareContentsCell( Puzzle parent, IVar<Square> contents )
+            private readonly Vector2D position;
+
+            public PuzzleSquareContentsCell( Puzzle parent, IVar<Square> contents, Vector2D position )
                 : base( contents.Value )
             {
                 this.parent = parent;
                 this.contents = contents;
+                this.position = position;
             }
 
             protected override Square ReadValue()
@@ -161,7 +195,7 @@ namespace PiCross.Facade.Solving
             {
                 this.contents.Value = value;
 
-                parent.Refresh();
+                parent.Refresh( position );
             }
         }
 
