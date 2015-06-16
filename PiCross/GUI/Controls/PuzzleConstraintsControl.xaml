@@ -6,6 +6,29 @@
              x:Name="parent"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Background>
+        <SolidColorBrush x:Name="backgroundBrush" Color="#DDDDDD" />
+    </UserControl.Background>
+    <VisualStateManager.VisualStateGroups>
+        <VisualStateGroup Name="SatisfactionStates">
+            <VisualState Name="Satisfied">
+                <Storyboard>
+                    <ColorAnimation Storyboard.TargetName="backgroundBrush" Storyboard.TargetProperty="Color" To="#DDFFDD" Duration="0:0:0.250" />
+                </Storyboard>
+            </VisualState>
+            <VisualState Name="Unsatisfied">
+                <Storyboard>
+                    <ColorAnimation Storyboard.TargetName="backgroundBrush" Storyboard.TargetProperty="Color" To="#FFDDDD" Duration="0:0:0.250" />
+                </Storyboard>
+            </VisualState>
+            <VisualState Name="Satisfaction_NoVM">
+                <Storyboard>
+                    <ColorAnimation Storyboard.TargetName="backgroundBrush" Storyboard.TargetProperty="Color" To="#DDDDDD" Duration="0:0:0" />
+                </Storyboard>
+            </VisualState>
+        </VisualStateGroup>
+    </VisualStateManager.VisualStateGroups>
+
     <StackPanel Orientation="{Binding ElementName=parent, Path=Orientation}" x:Name="stackPanel">
         
     </StackPanel>

@@ -27,8 +27,6 @@ namespace GUI.Controls
         public PuzzleConstraintsControl()
         {
             InitializeComponent();
-
-            // DependencyPropertyDescriptor.FromProperty( DataContextProperty, typeof( Control ) ).AddValueChanged( this, ( obj, sender ) => Debug.WriteLine( "Data context changed to {0}", this.DataContext ) );
         }
 
         public static readonly DependencyProperty OrientationProperty =
@@ -66,6 +64,21 @@ namespace GUI.Controls
         private void OnViewModelChanged( DependencyPropertyChangedEventArgs args )
         {
             RecreateChildren();
+
+            UnbindFromViewModel( (IPuzzleConstraintsViewModel) args.OldValue );
+            BindToViewModel( (IPuzzleConstraintsViewModel) args.NewValue );
+
+            UpdateSatisfactionVisualState();
+        }
+
+        private void UnbindFromViewModel( IPuzzleConstraintsViewModel viewModel )
+        {
+            // TODO
+        }
+
+        private void BindToViewModel( IPuzzleConstraintsViewModel viewModel )
+        {
+            viewModel.IsSatisfied.ValueChanged += UpdateSatisfactionVisualState;
         }
 
         private void RecreateChildren()
@@ -94,6 +107,35 @@ namespace GUI.Controls
                     this.stackPanel.Children.Add( control );
                 }
             }
+        }
+
+        private void UpdateVisualState()
+        {
+            UpdateSatisfactionVisualState();
+        }
+
+        private void UpdateSatisfactionVisualState()
+        {
+            if ( ViewModel != null )
+            {
+                if ( ViewModel.IsSatisfied.Value )
+                {
+                    ChangeVisualState( "Satisfied" );
+                }
+                else
+                {
+                    ChangeVisualState( "Unsatisfied" );
+                }
+            }
+            else
+            {
+                ChangeVisualState( "Satisfaction_NoVM" );
+            }
+        }
+
+        private void ChangeVisualState( string state, bool transition = true )
+        {            
+            VisualStateManager.GoToElementState( this, state, transition );
         }
     }
 

@@ -45,7 +45,7 @@ namespace GUI
                 );
 
             var playGrid = editorGrid.CreatePlayGrid();
-            playGrid.Squares.Overwrite( editorGrid.Squares );
+            // playGrid.Squares.Overwrite( editorGrid.Squares );
 
             this.DataContext = new PuzzleViewModel( new Puzzle( playGrid ) );
         }
