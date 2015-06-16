@@ -29,7 +29,9 @@ namespace GUI.Controls
         {
             InitializeComponent();
         }
-        
+
+        #region SquareTemplate
+
         public DataTemplate SquareTemplate
         {
             get { return (DataTemplate) GetValue( SquareTemplateProperty ); }
@@ -45,6 +47,10 @@ namespace GUI.Controls
             CreateChildren();
         }
 
+        #endregion
+
+        #region ColumnConstraintsTemplate
+
         public DataTemplate ColumnConstraintsTemplate
         {
             get { return (DataTemplate) GetValue( ColumnConstraintsTemplateProperty ); }
@@ -59,6 +65,10 @@ namespace GUI.Controls
             RecreateChildren();
         }
 
+        #endregion
+
+        #region RowConstraintsTemplate
+
         public DataTemplate RowConstraintsTemplate
         {
             get { return (DataTemplate) GetValue( RowConstraintsTemplateProperty ); }
@@ -67,11 +77,15 @@ namespace GUI.Controls
 
         public static readonly DependencyProperty RowConstraintsTemplateProperty =
             DependencyProperty.Register( "RowConstraintsTemplate", typeof( DataTemplate ), typeof( PuzzleControl ), new PropertyMetadata( null, ( obj, args ) => ( (PuzzleControl) obj ).OnRowConstraintsTemplateChanged( args ) ) );
-
+                
         private void OnRowConstraintsTemplateChanged( DependencyPropertyChangedEventArgs args )
         {
             RecreateChildren();
         }
+
+        #endregion
+
+        #region ViewModel
 
         public IPuzzleViewModel ViewModel
         {
@@ -86,6 +100,10 @@ namespace GUI.Controls
         {
             RecreateAll();
         }
+
+        #endregion
+
+        #region Children
 
         private void RecreateAll()
         {
@@ -229,6 +247,8 @@ namespace GUI.Controls
                 }
             }
         }
+
+        #endregion
     }
 
     public interface IPuzzleViewModel
