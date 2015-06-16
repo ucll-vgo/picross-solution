@@ -89,6 +89,17 @@ namespace GUI.Controls
             UpdateFillState( transition );
         }
 
+        public ICommand Activate
+        {
+            get { return (ICommand) GetValue( ActivateProperty ); }
+            set { SetValue( ActivateProperty, value ); }
+        }
+
+        // Using a DependencyProperty as the backing store for Activate.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ActivateProperty =
+            DependencyProperty.Register( "Activate", typeof( ICommand ), typeof( PuzzleGridSquareControl ), new PropertyMetadata( null ) );
+
+
         private void UpdateMouseOverState( bool transition = true )
         {
             if ( IsMouseOver )
@@ -130,6 +141,11 @@ namespace GUI.Controls
         private void OnMouseEnter( object sender, MouseEventArgs e )
         {
             UpdateMouseOverState();
+
+            if ( Activate != null && Activate.CanExecute( null ) )
+            {
+                Activate.Execute( null );
+            }
         }
 
         private void OnMouseLeave( object sender, MouseEventArgs e )

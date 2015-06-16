@@ -61,12 +61,15 @@ namespace GUI
 
         private readonly ISequence<ConstraintsViewModel> rowConstraints;
 
+        private readonly Cell<Vector2D> activatedSquare;
+
         public PuzzleViewModel( IPuzzle puzzle )
         {
             this.puzzle = puzzle;
-            this.grid = new GridViewModel( puzzle );
-            this.columnConstraints = puzzle.ColumnConstraints.Items.Select( columnConstraints => new ConstraintsViewModel( columnConstraints ) ).ToSequence();
-            this.rowConstraints = puzzle.RowConstraints.Items.Select( rowConstraints => new ConstraintsViewModel( rowConstraints ) ).ToSequence();
+            this.activatedSquare = Cell.Create<Vector2D>( null );
+            this.grid = new GridViewModel( puzzle, activatedSquare );
+            this.columnConstraints = puzzle.ColumnConstraints.Map( ( i, columnConstraints ) => new ConstraintsViewModel( columnConstraints, Cell.Derived( activatedSquare, v => v.X == i ) ) ).Copy();
+            this.rowConstraints = puzzle.RowConstraints.Map( ( i, rowConstraints ) => new ConstraintsViewModel( rowConstraints, Cell.Derived( activatedSquare, v => v.Y == i ) ) ).Copy();
         }
 
         public IPuzzleGridViewModel Grid
@@ -111,10 +114,12 @@ namespace GUI
 
         private readonly IGrid<GridSquareViewModel> squares;
 
-        public GridViewModel( IPuzzle puzzle )
+        public GridViewModel( IPuzzle puzzle, Cell<Vector2D> activatedSquare )
         {
             this.puzzle = puzzle;
-            this.squares = Grid.Create( puzzle.Width, puzzle.Height, p => new GridSquareViewModel( puzzle[p] ) );
+
+            var signalFactory = new SignalFactory<Vector2D>( activatedSquare );
+            this.squares = Grid.Create( puzzle.Width, puzzle.Height, p => new GridSquareViewModel( puzzle[p], signalFactory.CreateSignal( p ) ) );
         }
 
         public IGrid<IPuzzleGridSquareViewModel> Squares
@@ -136,12 +141,15 @@ namespace GUI
 
         private readonly ICommand toggleFilled;
 
-        public GridSquareViewModel( IPuzzleSquare square )
+        private readonly ICommand activate;
+
+        public GridSquareViewModel( IPuzzleSquare square, ISignal activationSignal )
         {
             this.square = square;
             this.toggle = new ToggleCommand( square.Contents );
             this.toggleEmpty = new ToggleEmptyCommand( square.Contents );
             this.toggleFilled = new ToggleFilledCommand( square.Contents );
+            this.activate = new ActivationCommand( activationSignal );
         }
 
         public Cell<Square> Contents
@@ -260,6 +268,21 @@ namespace GUI
                 square.Value = newContents;
             }
         }
+
+        private class ActivationCommand : EnabledCommand
+        {
+            private readonly ISignal activationSignal;
+
+            public ActivationCommand( ISignal activationSignal )
+            {
+                this.activationSignal = activationSignal;
+            }
+
+            public override void Execute( object parameter )
+            {
+                activationSignal.Send();
+            }
+        }
     }
 
     public class ConstraintsViewModel : IPuzzleConstraintsViewModel
@@ -268,9 +291,12 @@ namespace GUI
 
         private readonly ISequence<ConstraintsValueViewModel> values;
 
-        public ConstraintsViewModel( IPuzzleConstraints constraints )
+        private readonly Cell<bool> active;
+
+        public ConstraintsViewModel( IPuzzleConstraints constraints, Cell<bool> active )
         {
             this.constraints = constraints;
+            this.active = active;
             this.values = constraints.Values.Map( val => new ConstraintsValueViewModel( val ) ).Copy();
         }
 
@@ -295,6 +321,14 @@ namespace GUI
             get
             {
                 return values;
+            }
+        }
+
+        public Cell<bool> Active
+        {
+            get
+            {
+                return active;
             }
         }
     }
