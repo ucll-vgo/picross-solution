@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using PiCross.Cells;
 using PiCross.Game;
 
 namespace GUI.Controls
@@ -223,5 +224,10 @@ namespace GUI.Controls
         }
 
         #endregion
+    }
+
+    public interface IPuzzleGridSquareViewModel
+    {
+        Cell<Square> Contents { get; }
     }
 }
