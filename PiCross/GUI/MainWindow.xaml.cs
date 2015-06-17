@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using GUI.Commands;
 using GUI.Controls;
 using GUI.ViewModels;
+using GUI.ViewModels.PuzzleMode;
 using PiCross.Cells;
 using PiCross.DataStructures;
 using PiCross.Facade.Solving;
@@ -52,6 +53,4 @@ namespace GUI
             this.DataContext = new PuzzleViewModel( new Puzzle( playGrid ) );
         }
     }
-
-    
 }

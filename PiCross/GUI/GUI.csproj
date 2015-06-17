@@ -54,7 +54,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ViewModels\PlayViewModels.cs" />
+    <Compile Include="ViewModels\PuzzleMode\ConstraintsValueViewModel.cs" />
+    <Compile Include="ViewModels\PuzzleMode\ConstraintsViewModel.cs" />
+    <Compile Include="ViewModels\PuzzleMode\GridSquareViewModel.cs" />
+    <Compile Include="ViewModels\PuzzleMode\GridViewModel.cs" />
+    <Compile Include="ViewModels\PuzzleMode\PuzzleViewModel.cs" />
     <Page Include="Controls\PuzzleConstraintsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
