@@ -39,9 +39,9 @@ namespace GUI.Controls
         }
 
         public static readonly DependencyProperty SquareTemplateProperty =
-            DependencyProperty.Register( "SquareTemplate", typeof( DataTemplate ), typeof( PuzzleControl ), new PropertyMetadata( null, (obj, args) => ((PuzzleControl) obj).OnSquareTemplateChanged(args) ) );
+            DependencyProperty.Register( "SquareTemplate", typeof( DataTemplate ), typeof( PuzzleControl ), new PropertyMetadata( null, ( obj, args ) => ( (PuzzleControl) obj ).OnSquareTemplateChanged( args ) ) );
 
-        private void OnSquareTemplateChanged(DependencyPropertyChangedEventArgs args)
+        private void OnSquareTemplateChanged( DependencyPropertyChangedEventArgs args )
         {
             ClearChildren();
             CreateChildren();
@@ -77,7 +77,7 @@ namespace GUI.Controls
 
         public static readonly DependencyProperty RowConstraintsTemplateProperty =
             DependencyProperty.Register( "RowConstraintsTemplate", typeof( DataTemplate ), typeof( PuzzleControl ), new PropertyMetadata( null, ( obj, args ) => ( (PuzzleControl) obj ).OnRowConstraintsTemplateChanged( args ) ) );
-                
+
         private void OnRowConstraintsTemplateChanged( DependencyPropertyChangedEventArgs args )
         {
             RecreateChildren();
@@ -103,6 +103,7 @@ namespace GUI.Controls
 
         #endregion
 
+
         #region Children
 
         private void RecreateAll()
@@ -127,7 +128,7 @@ namespace GUI.Controls
         {
             this.grid.Children.Clear();
         }
-        
+
         private void ClearGridLayout()
         {
             this.grid.ColumnDefinitions.Clear();
@@ -207,7 +208,7 @@ namespace GUI.Controls
         private void CreateConstraintControls()
         {
             CreateColumnConstraintControls();
-            CreateRowConstraintControls();            
+            CreateRowConstraintControls();
         }
 
         private void CreateColumnConstraintControls()
@@ -228,7 +229,7 @@ namespace GUI.Controls
                 }
             }
         }
-        
+
         private void CreateRowConstraintControls()
         {
             if ( ViewModel != null && RowConstraintsTemplate != null )

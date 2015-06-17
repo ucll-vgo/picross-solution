@@ -28,6 +28,8 @@ namespace GUI.Controls
             InitializeComponent();
         }
 
+        #region ViewModel
+
         public IPuzzleGridSquareViewModel ViewModel
         {
             get { return (IPuzzleGridSquareViewModel) GetValue( ViewModelProperty ); }
@@ -65,6 +67,10 @@ namespace GUI.Controls
             viewModel.Contents.ValueChanged += () => UpdateFillState();
         }
 
+        #endregion
+
+        #region LeftClick
+
         public ICommand LeftClick
         {
             get { return (ICommand) GetValue( LeftClickProperty ); }
@@ -73,6 +79,10 @@ namespace GUI.Controls
 
         public static readonly DependencyProperty LeftClickProperty =
             DependencyProperty.Register( "LeftClick", typeof( ICommand ), typeof( PuzzleGridSquareControl ), new PropertyMetadata( null ) );
+
+        #endregion
+
+        #region RightClick
 
         public ICommand RightClick
         {
@@ -83,11 +93,9 @@ namespace GUI.Controls
         public static readonly DependencyProperty RightClickProperty =
             DependencyProperty.Register( "RightClick", typeof( ICommand ), typeof( PuzzleGridSquareControl ), new PropertyMetadata( null ) );
 
-        private void UpdateVisualState( bool transition = true )
-        {
-            UpdateMouseOverState( transition );
-            UpdateFillState( transition );
-        }
+        #endregion
+
+        #region Activate
 
         public ICommand Activate
         {
@@ -99,6 +107,23 @@ namespace GUI.Controls
         public static readonly DependencyProperty ActivateProperty =
             DependencyProperty.Register( "Activate", typeof( ICommand ), typeof( PuzzleGridSquareControl ), new PropertyMetadata( null ) );
 
+        private void ExecuteActivateCommand()
+        {
+            if ( Activate != null && Activate.CanExecute( null ) )
+            {
+                Activate.Execute( null );
+            }
+        }
+
+        #endregion
+
+        #region Visual States
+
+        private void UpdateVisualState( bool transition = true )
+        {
+            UpdateMouseOverState( transition );
+            UpdateFillState( transition );
+        }
 
         private void UpdateMouseOverState( bool transition = true )
         {
@@ -138,14 +163,15 @@ namespace GUI.Controls
             VisualStateManager.GoToElementState( this, state, transition );
         }
 
+        #endregion
+
+        #region Events
+
         private void OnMouseEnter( object sender, MouseEventArgs e )
         {
             UpdateMouseOverState();
 
-            if ( Activate != null && Activate.CanExecute( null ) )
-            {
-                Activate.Execute( null );
-            }
+            ExecuteActivateCommand();
         }
 
         private void OnMouseLeave( object sender, MouseEventArgs e )
@@ -168,6 +194,8 @@ namespace GUI.Controls
                 RightClick.Execute( null );
             }
         }
+
+        #endregion
     }
 
     public interface IPuzzleGridSquareViewModel

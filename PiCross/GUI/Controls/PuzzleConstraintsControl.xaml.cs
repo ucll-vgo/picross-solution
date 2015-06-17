@@ -29,6 +29,8 @@ namespace GUI.Controls
             InitializeComponent();
         }
 
+        #region Orientation
+
         public static readonly DependencyProperty OrientationProperty =
             StackPanel.OrientationProperty.AddOwner( typeof( PuzzleConstraintsControl ) );
 
@@ -37,6 +39,10 @@ namespace GUI.Controls
             get { return (Orientation) GetValue( OrientationProperty ); }
             set { SetValue( OrientationProperty, value ); }
         }
+
+        #endregion
+
+        #region ValueTemplate
 
         public DataTemplate ValueTemplate
         {
@@ -51,6 +57,10 @@ namespace GUI.Controls
         {
             RecreateChildren();
         }
+
+        #endregion
+
+        #region ViewModel
 
         public IPuzzleConstraintsViewModel ViewModel
         {
@@ -81,6 +91,28 @@ namespace GUI.Controls
             viewModel.IsSatisfied.ValueChanged += UpdateSatisfactionVisualState;
         }
 
+        #endregion
+
+        #region IsHighlighted
+
+        public bool IsHighlighted
+        {
+            get { return (bool) GetValue( IsHighlightedProperty ); }
+            set { SetValue( IsHighlightedProperty, value ); }
+        }
+
+        public static readonly DependencyProperty IsHighlightedProperty =
+            DependencyProperty.Register( "IsHighlighted", typeof( bool ), typeof( PuzzleConstraintsControl ), new PropertyMetadata( false, ( obj, args ) => ( (PuzzleConstraintsControl) obj ).OnIsHighlightedChanged( args ) ) );
+
+        private void OnIsHighlightedChanged( DependencyPropertyChangedEventArgs args )
+        {
+            UpdateHighlightedVisualState();
+        }
+
+        #endregion
+
+        #region Children
+
         private void RecreateChildren()
         {
             ClearChildren();
@@ -109,9 +141,14 @@ namespace GUI.Controls
             }
         }
 
+        #endregion
+
+        #region Visual States
+
         private void UpdateVisualState()
         {
             UpdateSatisfactionVisualState();
+            UpdateHighlightedVisualState();
         }
 
         private void UpdateSatisfactionVisualState()
@@ -133,10 +170,24 @@ namespace GUI.Controls
             }
         }
 
+        private void UpdateHighlightedVisualState()
+        {
+            if ( IsHighlighted )
+            {
+                ChangeVisualState( "Highlighted" );
+            }
+            else
+            {
+                ChangeVisualState( "Lowlighted" );
+            }
+        }
+
         private void ChangeVisualState( string state, bool transition = true )
         {            
             VisualStateManager.GoToElementState( this, state, transition );
         }
+
+        #endregion
     }
 
     public interface IPuzzleConstraintsViewModel

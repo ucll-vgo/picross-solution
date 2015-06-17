@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -68,8 +69,8 @@ namespace GUI
             this.puzzle = puzzle;
             this.activatedSquare = Cell.Create<Vector2D>( null );
             this.grid = new GridViewModel( puzzle, activatedSquare );
-            this.columnConstraints = puzzle.ColumnConstraints.Map( ( i, columnConstraints ) => new ConstraintsViewModel( columnConstraints, Cell.Derived( activatedSquare, v => v.X == i ) ) ).Copy();
-            this.rowConstraints = puzzle.RowConstraints.Map( ( i, rowConstraints ) => new ConstraintsViewModel( rowConstraints, Cell.Derived( activatedSquare, v => v.Y == i ) ) ).Copy();
+            this.columnConstraints = puzzle.ColumnConstraints.Map( ( i, columnConstraints ) => new ConstraintsViewModel( columnConstraints, Cell.Derived( activatedSquare, v => v != null && v.X == i ) ) ).Copy();
+            this.rowConstraints = puzzle.RowConstraints.Map( ( i, rowConstraints ) => new ConstraintsViewModel( rowConstraints, Cell.Derived( activatedSquare, v => v != null && v.Y == i ) ) ).Copy();
         }
 
         public IPuzzleGridViewModel Grid
@@ -89,7 +90,6 @@ namespace GUI
         {
             get { return rowConstraints; }
         }
-
 
         ISequence<IPuzzleConstraintsViewModel> IPuzzleViewModel.ColumnConstraints
         {
@@ -157,6 +157,14 @@ namespace GUI
             get
             {
                 return square.Contents;
+            }
+        }
+
+        public ICommand Activate
+        {
+            get
+            {
+                return activate;
             }
         }
 

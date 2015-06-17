@@ -5,10 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              x:Name="parent"
              mc:Ignorable="d"
+             BorderThickness="1"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Background>
         <SolidColorBrush x:Name="backgroundBrush" Color="#DDDDDD" />
     </UserControl.Background>
+    <UserControl.BorderBrush>
+        <SolidColorBrush x:Name="borderBrush" Color="Transparent" />
+    </UserControl.BorderBrush>
     <VisualStateManager.VisualStateGroups>
         <VisualStateGroup Name="SatisfactionStates">
             <VisualState Name="Satisfied">
@@ -24,6 +28,19 @@
             <VisualState Name="Satisfaction_NoVM">
                 <Storyboard>
                     <ColorAnimation Storyboard.TargetName="backgroundBrush" Storyboard.TargetProperty="Color" To="#DDDDDD" Duration="0:0:0" />
+                </Storyboard>
+            </VisualState>
+        </VisualStateGroup>
+        
+        <VisualStateGroup Name="HighlightStates">
+            <VisualState Name="Highlighted">
+                <Storyboard>
+                    <ColorAnimation Storyboard.TargetName="borderBrush" Storyboard.TargetProperty="Color" To="Red" Duration="0:0:0" />
+                </Storyboard>
+            </VisualState>
+            <VisualState Name="Lowlighted">
+                <Storyboard>
+                    <ColorAnimation Storyboard.TargetName="borderBrush" Storyboard.TargetProperty="Color" To="Transparent" Duration="0:0:0" />
                 </Storyboard>
             </VisualState>
         </VisualStateGroup>
