@@ -50,25 +50,25 @@
 
             <controls:PuzzleControl.ColumnConstraintsTemplate>
                 <DataTemplate>
-                    <controls:PuzzleConstraintsControl Orientation="Vertical" VerticalContentAlignment="Bottom" Margin="1" ViewModel="{Binding}" IsHighlighted="{Binding Active.Value}">
-                        <controls:PuzzleConstraintsControl.ValueTemplate>
+                    <controls:ConstraintsControl Orientation="Vertical" VerticalContentAlignment="Bottom" Margin="1" ViewModel="{Binding}" IsHighlighted="{Binding Active.Value}">
+                        <controls:ConstraintsControl.ValueTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Number.Value}" Margin="0,5" FontWeight="{Binding IsSatisfied.Value, Converter={StaticResource isSatisfiedConverter}}" HorizontalAlignment="Center" />
                             </DataTemplate>
-                        </controls:PuzzleConstraintsControl.ValueTemplate>
-                    </controls:PuzzleConstraintsControl>
+                        </controls:ConstraintsControl.ValueTemplate>
+                    </controls:ConstraintsControl>
                 </DataTemplate>
             </controls:PuzzleControl.ColumnConstraintsTemplate>
 
             <controls:PuzzleControl.RowConstraintsTemplate>
                 <DataTemplate>
-                    <controls:PuzzleConstraintsControl Orientation="Horizontal" HorizontalContentAlignment="Right" Margin="1" ViewModel="{Binding}" IsHighlighted="{Binding Active.Value}">
-                        <controls:PuzzleConstraintsControl.ValueTemplate>
+                    <controls:ConstraintsControl Orientation="Horizontal" HorizontalContentAlignment="Right" Margin="1" ViewModel="{Binding}" IsHighlighted="{Binding Active.Value}">
+                        <controls:ConstraintsControl.ValueTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Number.Value}" FontWeight="{Binding IsSatisfied.Value, Converter={StaticResource isSatisfiedConverter}}" Margin="5,0" VerticalAlignment="Center" />
                             </DataTemplate>
-                        </controls:PuzzleConstraintsControl.ValueTemplate>
-                    </controls:PuzzleConstraintsControl>
+                        </controls:ConstraintsControl.ValueTemplate>
+                    </controls:ConstraintsControl>
                 </DataTemplate>
             </controls:PuzzleControl.RowConstraintsTemplate>
         </controls:PuzzleControl>

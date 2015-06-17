@@ -63,4 +63,61 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style TargetType="{x:Type local:ConstraintsControl}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:ConstraintsControl}">
+                    <Grid x:Name="Body">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup Name="SatisfactionStates">
+                                <VisualState Name="Satisfied">
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetName="backgroundBrush" Storyboard.TargetProperty="Color" To="#DDFFDD" Duration="0:0:0.250" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState Name="Unsatisfied">
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetName="backgroundBrush" Storyboard.TargetProperty="Color" To="#FFDDDD" Duration="0:0:0.250" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState Name="Satisfaction_NoVM">
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetName="backgroundBrush" Storyboard.TargetProperty="Color" To="#DDDDDD" Duration="0:0:0" />
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+
+                            <VisualStateGroup Name="HighlightStates">
+                                <VisualState Name="Highlighted">
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetName="borderBrush" Storyboard.TargetProperty="Color" To="Red" Duration="0:0:0" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState Name="Lowlighted">
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetName="borderBrush" Storyboard.TargetProperty="Color" To="Transparent" Duration="0:0:0" />
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+
+                        <Border>
+                            <Border.Background>
+                                <SolidColorBrush x:Name="backgroundBrush" Color="#DDDDDD" />
+                            </Border.Background>
+                            <Border.BorderBrush>
+                                <SolidColorBrush x:Name="borderBrush" Color="Transparent" />
+                            </Border.BorderBrush>
+
+                            <StackPanel Orientation="{TemplateBinding Orientation}"
+                                        HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                        VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                                        x:Name="stackPanel" />
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

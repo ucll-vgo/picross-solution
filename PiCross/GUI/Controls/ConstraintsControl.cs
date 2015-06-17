@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -14,23 +13,18 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using PiCross.Cells;
-using PiCross.DataStructures;
 
 namespace GUI.Controls
 {
-    /// <summary>
-    /// Interaction logic for PuzzleConstraintsControl.xaml
-    /// </summary>
-    public partial class PuzzleConstraintsControl : UserControl
+    public class ConstraintsControl : Control
     {
         private StackPanel stackPanel;
 
         private FrameworkElement body;
 
-        public PuzzleConstraintsControl()
+        static ConstraintsControl()
         {
-            InitializeComponent();
+            DefaultStyleKeyProperty.OverrideMetadata( typeof( ConstraintsControl ), new FrameworkPropertyMetadata( typeof( ConstraintsControl ) ) );
         }
 
         public override void OnApplyTemplate()
@@ -47,7 +41,7 @@ namespace GUI.Controls
         #region Orientation
 
         public static readonly DependencyProperty OrientationProperty =
-            StackPanel.OrientationProperty.AddOwner( typeof( PuzzleConstraintsControl ) );
+            StackPanel.OrientationProperty.AddOwner( typeof( ConstraintsControl ) );
 
         public Orientation Orientation
         {
@@ -66,7 +60,7 @@ namespace GUI.Controls
         }
 
         public static readonly DependencyProperty ValueTemplateProperty =
-            DependencyProperty.Register( "ValueTemplate", typeof( DataTemplate ), typeof( PuzzleConstraintsControl ), new PropertyMetadata( ( obj, args ) => ( (PuzzleConstraintsControl) obj ).OnValueTemplateChanged( args ) ) );
+            DependencyProperty.Register( "ValueTemplate", typeof( DataTemplate ), typeof( ConstraintsControl ), new PropertyMetadata( ( obj, args ) => ( (ConstraintsControl) obj ).OnValueTemplateChanged( args ) ) );
 
         private void OnValueTemplateChanged( DependencyPropertyChangedEventArgs args )
         {
@@ -84,7 +78,7 @@ namespace GUI.Controls
         }
 
         public static readonly DependencyProperty ViewModelProperty =
-            DependencyProperty.Register( "ViewModel", typeof( IPuzzleConstraintsViewModel ), typeof( PuzzleConstraintsControl ), new PropertyMetadata( ( obj, args ) => ( (PuzzleConstraintsControl) obj ).OnViewModelChanged( args ) ) );
+            DependencyProperty.Register( "ViewModel", typeof( IPuzzleConstraintsViewModel ), typeof( ConstraintsControl ), new PropertyMetadata( ( obj, args ) => ( (ConstraintsControl) obj ).OnViewModelChanged( args ) ) );
 
         private void OnViewModelChanged( DependencyPropertyChangedEventArgs args )
         {
@@ -117,7 +111,7 @@ namespace GUI.Controls
         }
 
         public static readonly DependencyProperty IsHighlightedProperty =
-            DependencyProperty.Register( "IsHighlighted", typeof( bool ), typeof( PuzzleConstraintsControl ), new PropertyMetadata( false, ( obj, args ) => ( (PuzzleConstraintsControl) obj ).OnIsHighlightedChanged( args ) ) );
+            DependencyProperty.Register( "IsHighlighted", typeof( bool ), typeof( ConstraintsControl ), new PropertyMetadata( false, ( obj, args ) => ( (ConstraintsControl) obj ).OnIsHighlightedChanged( args ) ) );
 
         private void OnIsHighlightedChanged( DependencyPropertyChangedEventArgs args )
         {
@@ -207,17 +201,10 @@ namespace GUI.Controls
         {
             if ( body != null )
             {
-                VisualStateManager.GoToElementState( this.stackPanel, state, transition );
+                VisualStateManager.GoToElementState( this.body, state, transition );
             }
         }
 
         #endregion
-    }
-
-    public interface IPuzzleConstraintsViewModel
-    {
-        ISequence<IPuzzleConstraintsValueViewModel> Values { get; }
-
-        Cell<bool> IsSatisfied { get; }
     }
 }
