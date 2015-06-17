@@ -207,7 +207,7 @@ namespace GUI.Controls
         {
             if ( body != null )
             {
-                VisualStateManager.GoToElementState( this.stackPanel, state, transition );
+                VisualStateManager.GoToElementState( this.body, state, transition );
             }
         }
 
