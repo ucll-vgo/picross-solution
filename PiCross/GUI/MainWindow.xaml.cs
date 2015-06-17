@@ -30,6 +30,8 @@ namespace GUI
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly ICommand setTheme;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -49,8 +51,30 @@ namespace GUI
 
             var playGrid = editorGrid.CreatePlayGrid();
             // playGrid.Squares.Overwrite( editorGrid.Squares );
-
+                        
             this.DataContext = new PuzzleViewModel( new Puzzle( playGrid ) );
+
+            setTheme = new SetThemeCommand();
+            menu.DataContext = this;
+        }
+
+        public ICommand SetTheme
+        {
+            get
+            {
+                return setTheme;
+            }
+        }
+
+        private class SetThemeCommand : EnabledCommand
+        {
+            public override void Execute( object parameter )
+            {
+                var dics = Application.Current.Resources.MergedDictionaries;
+
+                dics.Clear();
+                dics.Add( new ResourceDictionary() { Source = new Uri( string.Format( "pack://application:,,,/Themes/{0}.xaml", parameter ) ) } );
+            }
         }
     }
 }
