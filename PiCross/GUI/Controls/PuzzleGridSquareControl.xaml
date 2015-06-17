@@ -7,10 +7,6 @@
              x:Name="parent"
              BorderThickness="1"             
              Margin="1"
-             MouseLeftButtonDown="OnMouseLeftButtonDown"
-             MouseRightButtonDown="OnMouseRightButtonDown"
-             MouseEnter="OnMouseEnter"
-             MouseLeave="OnMouseLeave"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.BorderBrush>
         <SolidColorBrush x:Name="borderBrush" Color="Black" />

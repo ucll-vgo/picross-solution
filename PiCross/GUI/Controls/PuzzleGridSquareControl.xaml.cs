@@ -167,28 +167,35 @@ namespace GUI.Controls
 
         #region Events
 
-        private void OnMouseEnter( object sender, MouseEventArgs e )
+        protected override void OnMouseEnter( MouseEventArgs e )
         {
-            UpdateMouseOverState();
+            base.OnMouseEnter( e );
 
+            UpdateMouseOverState();
             ExecuteActivateCommand();
         }
 
-        private void OnMouseLeave( object sender, MouseEventArgs e )
+        protected override void OnMouseLeave( MouseEventArgs e )
         {
+            base.OnMouseLeave( e );
+
             UpdateMouseOverState();
         }
 
-        private void OnMouseLeftButtonDown( object sender, MouseButtonEventArgs e )
+        protected override void OnMouseLeftButtonDown( MouseButtonEventArgs e )
         {
+            base.OnMouseLeftButtonDown( e );
+
             if ( LeftClick != null && LeftClick.CanExecute( null ) )
             {
                 LeftClick.Execute( null );
             }
         }
 
-        private void OnMouseRightButtonDown( object sender, MouseButtonEventArgs e )
+        protected override void OnMouseRightButtonDown( MouseButtonEventArgs e )
         {
+            base.OnMouseRightButtonDown( e );
+
             if ( RightClick != null && RightClick.CanExecute( null ) )
             {
                 RightClick.Execute( null );
