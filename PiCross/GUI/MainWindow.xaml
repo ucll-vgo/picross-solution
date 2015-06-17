@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:converters="clr-namespace:GUI.Converters"
         xmlns:controls="clr-namespace:GUI.Controls"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="400" Width="525">
     <Window.Resources>
         <converters:SquareConverter x:Key="backgroundConverter">
             <converters:SquareConverter.Unknown>
@@ -30,13 +30,13 @@
     <controls:PuzzleControl ViewModel="{Binding}">
         <controls:PuzzleControl.SquareTemplate>
             <DataTemplate>
-                <controls:PuzzleGridSquareControl ViewModel="{Binding}"
+                <controls:GridSquareControl ViewModel="{Binding}"
                                                   Width="24"
                                                   Height="24"
                                                   LeftClick="{Binding ToggleFilled}"
                                                   RightClick="{Binding ToggleEmpty}"
                                                   Activate="{Binding Activate}">
-                </controls:PuzzleGridSquareControl>
+                </controls:GridSquareControl>
             </DataTemplate>
         </controls:PuzzleControl.SquareTemplate>
         

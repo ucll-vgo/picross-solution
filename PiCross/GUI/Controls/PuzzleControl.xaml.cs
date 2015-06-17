@@ -103,7 +103,6 @@ namespace GUI.Controls
 
         #endregion
 
-
         #region Children
 
         private void RecreateAll()
