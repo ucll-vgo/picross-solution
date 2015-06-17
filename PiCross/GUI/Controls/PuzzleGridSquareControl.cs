@@ -24,13 +24,13 @@ namespace GUI.Controls
     [TemplateVisualState( GroupName = "FillStates", Name = "Unknown" )]
     [TemplateVisualState( GroupName = "FillStates", Name = "Empty" )]
     [TemplateVisualState( GroupName = "FillStates", Name = "Filled" )]
-    public class GridSquareControl : Control
+    public class PuzzleGridSquareControl : Control
     {
         private FrameworkElement body;
 
-        static GridSquareControl()
+        static PuzzleGridSquareControl()
         {
-            DefaultStyleKeyProperty.OverrideMetadata( typeof( GridSquareControl ), new FrameworkPropertyMetadata( typeof( GridSquareControl ) ) );
+            DefaultStyleKeyProperty.OverrideMetadata( typeof( PuzzleGridSquareControl ), new FrameworkPropertyMetadata( typeof( PuzzleGridSquareControl ) ) );
         }
 
         public override void OnApplyTemplate()
@@ -53,8 +53,8 @@ namespace GUI.Controls
         public static readonly DependencyProperty ViewModelProperty = DependencyProperty.Register(
             "ViewModel",
             typeof( IPuzzleGridSquareViewModel ),
-            typeof( GridSquareControl ),
-            new PropertyMetadata( null, ( obj, args ) => ( (GridSquareControl) obj ).OnViewModelChanged( args ) ) );
+            typeof( PuzzleGridSquareControl ),
+            new PropertyMetadata( null, ( obj, args ) => ( (PuzzleGridSquareControl) obj ).OnViewModelChanged( args ) ) );
 
         private void OnViewModelChanged( DependencyPropertyChangedEventArgs args )
         {
@@ -92,7 +92,7 @@ namespace GUI.Controls
         }
 
         public static readonly DependencyProperty LeftClickProperty =
-            DependencyProperty.Register( "LeftClick", typeof( ICommand ), typeof( GridSquareControl ), new PropertyMetadata( null ) );
+            DependencyProperty.Register( "LeftClick", typeof( ICommand ), typeof( PuzzleGridSquareControl ), new PropertyMetadata( null ) );
 
         #endregion
 
@@ -105,7 +105,7 @@ namespace GUI.Controls
         }
 
         public static readonly DependencyProperty RightClickProperty =
-            DependencyProperty.Register( "RightClick", typeof( ICommand ), typeof( GridSquareControl ), new PropertyMetadata( null ) );
+            DependencyProperty.Register( "RightClick", typeof( ICommand ), typeof( PuzzleGridSquareControl ), new PropertyMetadata( null ) );
 
         #endregion
 
@@ -119,7 +119,7 @@ namespace GUI.Controls
 
         // Using a DependencyProperty as the backing store for Activate.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ActivateProperty =
-            DependencyProperty.Register( "Activate", typeof( ICommand ), typeof( GridSquareControl ), new PropertyMetadata( null ) );
+            DependencyProperty.Register( "Activate", typeof( ICommand ), typeof( PuzzleGridSquareControl ), new PropertyMetadata( null ) );
 
         private void ExecuteActivateCommand()
         {

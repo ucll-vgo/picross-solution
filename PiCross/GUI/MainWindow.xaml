@@ -30,13 +30,13 @@
     <controls:PuzzleControl ViewModel="{Binding}">
         <controls:PuzzleControl.SquareTemplate>
             <DataTemplate>
-                <controls:GridSquareControl ViewModel="{Binding}"
+                <controls:PuzzleGridSquareControl ViewModel="{Binding}"
                                                   Width="24"
                                                   Height="24"
                                                   LeftClick="{Binding ToggleFilled}"
                                                   RightClick="{Binding ToggleEmpty}"
                                                   Activate="{Binding Activate}">
-                </controls:GridSquareControl>
+                </controls:PuzzleGridSquareControl>
             </DataTemplate>
         </controls:PuzzleControl.SquareTemplate>
         
