@@ -40,6 +40,12 @@
                                         <ColorAnimation To="Black" Storyboard.TargetName="backgroundBrush_lastGradientStop" Storyboard.TargetProperty="Color" Duration="0:0:0.5" />
                                     </Storyboard>
                                 </VisualState>
+                                <VisualState x:Name="NoContents">
+                                    <Storyboard>
+                                        <ColorAnimation To="Red" Storyboard.TargetName="backgroundBrush_firstGradientStop" Storyboard.TargetProperty="Color" Duration="0:0:0.5" />
+                                        <ColorAnimation To="Red" Storyboard.TargetName="backgroundBrush_lastGradientStop" Storyboard.TargetProperty="Color" Duration="0:0:0.5" />
+                                    </Storyboard>
+                                </VisualState>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
 
@@ -56,8 +62,6 @@
                                 </LinearGradientBrush>
                             </Border.Background>
                         </Border>
-
-
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>

@@ -21,7 +21,7 @@
         <controls:PuzzleControl PuzzleData="{Binding}">            
             <controls:PuzzleControl.SquareTemplate>
                 <DataTemplate>
-                    <controls:PuzzleGridSquareControl ViewModel="{Binding}"
+                    <controls:PuzzleGridSquareControl Contents="{Binding Contents.Value}"
                                                       Width="24"
                                                       Height="24"
                                                       LeftClick="{Binding ToggleFilled}"

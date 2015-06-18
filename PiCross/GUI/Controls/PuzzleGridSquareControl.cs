@@ -24,6 +24,7 @@ namespace GUI.Controls
     [TemplateVisualState( GroupName = "FillStates", Name = "Unknown" )]
     [TemplateVisualState( GroupName = "FillStates", Name = "Empty" )]
     [TemplateVisualState( GroupName = "FillStates", Name = "Filled" )]
+    [TemplateVisualState( GroupName = "FillStates", Name = "NoContents" )]
     public class PuzzleGridSquareControl : Control
     {
         private FrameworkElement body;
@@ -42,43 +43,21 @@ namespace GUI.Controls
             UpdateVisualState( false );
         }
 
-        #region ViewModel
+        #region Contents
 
-        public IPuzzleGridSquareViewModel ViewModel
+        public Square Contents
         {
-            get { return (IPuzzleGridSquareViewModel) GetValue( ViewModelProperty ); }
-            set { SetValue( ViewModelProperty, value ); }
+            get { return (Square) GetValue( ContentsProperty ); }
+            set { SetValue( ContentsProperty, value ); }
         }
 
-        public static readonly DependencyProperty ViewModelProperty = DependencyProperty.Register(
-            "ViewModel",
-            typeof( IPuzzleGridSquareViewModel ),
-            typeof( PuzzleGridSquareControl ),
-            new PropertyMetadata( null, ( obj, args ) => ( (PuzzleGridSquareControl) obj ).OnViewModelChanged( args ) ) );
+        // Using a DependencyProperty as the backing store for Contents.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ContentsProperty =
+            DependencyProperty.Register( "Contents", typeof( Square ), typeof( PuzzleGridSquareControl ), new PropertyMetadata( null, (obj, args) => ((PuzzleGridSquareControl) obj).OnContentsChanged(args) ) );
 
-        private void OnViewModelChanged( DependencyPropertyChangedEventArgs args )
+        private void OnContentsChanged(DependencyPropertyChangedEventArgs args)
         {
-            if ( args.OldValue != null )
-            {
-                UnbindFromViewModel( (IPuzzleGridSquareViewModel) args.OldValue );
-            }
-
-            if ( args.NewValue != null )
-            {
-                BindToViewModel( (IPuzzleGridSquareViewModel) args.NewValue );
-            }
-
-            UpdateVisualState( false );
-        }
-
-        private void UnbindFromViewModel( IPuzzleGridSquareViewModel viewModel )
-        {
-            // TODO
-        }
-
-        private void BindToViewModel( IPuzzleGridSquareViewModel viewModel )
-        {
-            viewModel.Contents.ValueChanged += () => UpdateFillState();
+            UpdateFillState();
         }
 
         #endregion
@@ -153,26 +132,23 @@ namespace GUI.Controls
 
         private void UpdateFillState( bool transition = true )
         {
-            if ( ViewModel != null )
-            {
-                var contents = this.ViewModel.Contents.Value;
+            var contents = this.Contents;
 
-                if ( contents == Square.EMPTY )
-                {
-                    ChangeVisualState( "Empty", transition );
-                }
-                else if ( contents == Square.FILLED )
-                {
-                    ChangeVisualState( "Filled", transition );
-                }
-                else if ( contents == Square.UNKNOWN )
-                {
-                    ChangeVisualState( "Unknown", transition );
-                }
-                else
-                {
-                    throw new InvalidOperationException( "Unknown state" );
-                }
+            if ( contents == Square.EMPTY )
+            {
+                ChangeVisualState( "Empty", transition );
+            }
+            else if ( contents == Square.FILLED )
+            {
+                ChangeVisualState( "Filled", transition );
+            }
+            else if ( contents == Square.UNKNOWN )
+            {
+                ChangeVisualState( "Unknown", transition );
+            }
+            else
+            {
+                ChangeVisualState( "NoContents", transition );
             }
         }
 
