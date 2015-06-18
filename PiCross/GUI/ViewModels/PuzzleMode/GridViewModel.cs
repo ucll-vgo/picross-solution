@@ -12,7 +12,7 @@ using PiCross.Game;
 
 namespace GUI.ViewModels.PuzzleMode
 {
-    public class GridViewModel : IPuzzleGridViewModel
+    public class GridViewModel
     {
         private readonly IPuzzle puzzle;
 

@@ -18,7 +18,7 @@
                 <MenuItem Header="Water" Command="{Binding SetTheme}" CommandParameter="water" />
             </MenuItem>
         </Menu>
-        <controls:PuzzleControl ViewModel="{Binding}">
+        <controls:PuzzleControl PuzzleData="{Binding}">            
             <controls:PuzzleControl.SquareTemplate>
                 <DataTemplate>
                     <controls:PuzzleGridSquareControl ViewModel="{Binding}"

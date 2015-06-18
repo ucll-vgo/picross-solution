@@ -13,7 +13,7 @@ using PiCross.Game;
 
 namespace GUI.ViewModels.PuzzleMode
 {
-    public class ConstraintsViewModel : IPuzzleConstraintsViewModel
+    public class ConstraintsViewModel
     {
         private readonly IPuzzleConstraints constraints;
 
@@ -26,14 +26,6 @@ namespace GUI.ViewModels.PuzzleMode
             this.constraints = constraints;
             this.active = active;
             this.values = constraints.Values.Map( val => new ConstraintsValueViewModel( val ) ).Copy();
-        }
-
-        ISequence<IPuzzleConstraintsValueViewModel> IPuzzleConstraintsViewModel.Values
-        {
-            get
-            {
-                return values;
-            }
         }
 
         public Cell<bool> IsSatisfied

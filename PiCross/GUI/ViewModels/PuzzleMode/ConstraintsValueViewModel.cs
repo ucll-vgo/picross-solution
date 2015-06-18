@@ -13,7 +13,7 @@ using PiCross.Game;
 
 namespace GUI.ViewModels.PuzzleMode
 {
-    public class ConstraintsValueViewModel : IPuzzleConstraintsValueViewModel
+    public class ConstraintsValueViewModel
     {
         private readonly IPuzzleConstraintsValue value;
 

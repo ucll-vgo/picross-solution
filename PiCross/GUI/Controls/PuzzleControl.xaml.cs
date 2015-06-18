@@ -85,18 +85,18 @@ namespace GUI.Controls
 
         #endregion
 
-        #region ViewModel
+        #region PuzzleData
 
-        public IPuzzleViewModel ViewModel
+        public IPuzzleData PuzzleData
         {
-            get { return (IPuzzleViewModel) GetValue( ViewModelProperty ); }
-            set { SetValue( ViewModelProperty, value ); }
+            get { return (IPuzzleData) GetValue( PuzzleDataProperty ); }
+            set { SetValue( PuzzleDataProperty, value ); }
         }
 
-        public static readonly DependencyProperty ViewModelProperty =
-            DependencyProperty.Register( "ViewModel", typeof( IPuzzleViewModel ), typeof( PuzzleControl ), new PropertyMetadata( null, ( obj, args ) => ( (PuzzleControl) obj ).OnViewModelChanged( args ) ) );
+        public static readonly DependencyProperty PuzzleDataProperty =
+            DependencyProperty.Register( "PuzzleData", typeof( IPuzzleData ), typeof( PuzzleControl ), new PropertyMetadata( null, ( obj, args ) => ( (PuzzleControl) obj ).OnDataChanged( args ) ) );
 
-        private void OnViewModelChanged( DependencyPropertyChangedEventArgs args )
+        private void OnDataChanged( DependencyPropertyChangedEventArgs args )
         {
             RecreateAll();
         }
@@ -130,7 +130,17 @@ namespace GUI.Controls
 
         private void ClearGridLayout()
         {
+            ClearColumnDefinitions();
+            ClearRowDefinitions();
+        }
+
+        private void ClearColumnDefinitions()
+        {
             this.grid.ColumnDefinitions.Clear();
+        }
+
+        private void ClearRowDefinitions()
+        {
             this.grid.RowDefinitions.Clear();
         }
 
@@ -146,15 +156,27 @@ namespace GUI.Controls
             CreateChildren();
         }
 
+        private void RecreateColumnDefinitions()
+        {
+            ClearColumnDefinitions();
+            CreateColumnConstraintControls();
+        }
+
+        private void RecreateRowDefinitions()
+        {
+            ClearRowDefinitions();
+            CreateRowConstraintControls();
+        }
+
         private void CreateColumnDefinitions()
         {
             Debug.Assert( this.grid.ColumnDefinitions.Count == 0 );
 
-            if ( ViewModel != null )
+            if ( PuzzleData != null )
             {
                 this.grid.ColumnDefinitions.Add( new ColumnDefinition() { Width = new GridLength( 1, GridUnitType.Star ) } );
 
-                for ( var i = 0; i != ViewModel.ColumnConstraints.Length; ++i )
+                for ( var i = 0; i != PuzzleData.ColumnConstraints.Length; ++i )
                 {
                     this.grid.ColumnDefinitions.Add( new ColumnDefinition() { Width = GridLength.Auto } );
                 }
@@ -165,11 +187,11 @@ namespace GUI.Controls
         {
             Debug.Assert( this.grid.RowDefinitions.Count == 0 );
 
-            if ( ViewModel != null )
+            if ( PuzzleData != null )
             {
                 this.grid.RowDefinitions.Add( new RowDefinition() { Height = new GridLength( 1, GridUnitType.Star ) } );
 
-                for ( var i = 0; i != ViewModel.ColumnConstraints.Length; ++i )
+                for ( var i = 0; i != PuzzleData.ColumnConstraints.Length; ++i )
                 {
                     this.grid.RowDefinitions.Add( new RowDefinition() { Height = GridLength.Auto } );
                 }
@@ -186,16 +208,16 @@ namespace GUI.Controls
 
         private void CreateSquareControls()
         {
-            if ( ViewModel != null && SquareTemplate != null )
+            if ( PuzzleData != null && SquareTemplate != null )
             {
-                foreach ( var position in ViewModel.Grid.Squares.AllPositions )
+                foreach ( var position in PuzzleData.Grid.AllPositions )
                 {
                     var gridCol = position.X + 1;
                     var gridRow = position.Y + 1;
-                    var squareViewModel = ViewModel.Grid.Squares[position];
+                    var squareData = PuzzleData.Grid[position];
                     var squareControl = (FrameworkElement) SquareTemplate.LoadContent();
 
-                    squareControl.DataContext = squareViewModel;
+                    squareControl.DataContext = squareData;
                     UIGrid.SetColumn( squareControl, gridCol );
                     UIGrid.SetRow( squareControl, gridRow );
 
@@ -212,15 +234,15 @@ namespace GUI.Controls
 
         private void CreateColumnConstraintControls()
         {
-            if ( ViewModel != null && ColumnConstraintsTemplate != null )
+            if ( PuzzleData != null && ColumnConstraintsTemplate != null )
             {
-                foreach ( var index in ViewModel.ColumnConstraints.Indices )
+                foreach ( var index in PuzzleData.ColumnConstraints.Indices )
                 {
                     var columnIndex = index + 1;
-                    var columnConstraintViewModel = ViewModel.ColumnConstraints[index];
+                    var columnConstraintData = PuzzleData.ColumnConstraints[index];
                     var constraintsControl = (FrameworkElement) ColumnConstraintsTemplate.LoadContent();
 
-                    constraintsControl.DataContext = columnConstraintViewModel;
+                    constraintsControl.DataContext = columnConstraintData;
                     UIGrid.SetRow( constraintsControl, 0 );
                     UIGrid.SetColumn( constraintsControl, columnIndex );
 
@@ -231,15 +253,15 @@ namespace GUI.Controls
 
         private void CreateRowConstraintControls()
         {
-            if ( ViewModel != null && RowConstraintsTemplate != null )
+            if ( PuzzleData != null && RowConstraintsTemplate != null )
             {
-                foreach ( var index in ViewModel.RowConstraints.Indices )
+                foreach ( var index in PuzzleData.RowConstraints.Indices )
                 {
                     var rowIndex = index + 1;
-                    var rowConstraintViewModel = ViewModel.RowConstraints[index];
+                    var rowConstraintData = PuzzleData.RowConstraints[index];
                     var constraintsControl = (FrameworkElement) RowConstraintsTemplate.LoadContent();
 
-                    constraintsControl.DataContext = rowConstraintViewModel;
+                    constraintsControl.DataContext = rowConstraintData;
                     UIGrid.SetRow( constraintsControl, rowIndex );
                     UIGrid.SetColumn( constraintsControl, 0 );
 
@@ -251,24 +273,12 @@ namespace GUI.Controls
         #endregion
     }
 
-    public interface IPuzzleViewModel
+    public interface IPuzzleData
     {
-        IPuzzleGridViewModel Grid { get; }
+        IGrid<object> Grid { get; }
 
-        ISequence<IPuzzleConstraintsViewModel> ColumnConstraints { get; }
+        ISequence<object> ColumnConstraints { get; }
 
-        ISequence<IPuzzleConstraintsViewModel> RowConstraints { get; }
-    }
-
-    public interface IPuzzleGridViewModel
-    {
-        IGrid<IPuzzleGridSquareViewModel> Squares { get; }
-    }
-
-    public interface IPuzzleConstraintsValueViewModel
-    {
-        Cell<int> Number { get; }
-
-        Cell<bool> IsSatisfied { get; }
-    }
+        ISequence<object> RowConstraints { get; }
+    }    
 }

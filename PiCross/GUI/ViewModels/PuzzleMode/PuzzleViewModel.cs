@@ -12,7 +12,7 @@ using PiCross.Game;
 
 namespace GUI.ViewModels.PuzzleMode
 {
-    public class PuzzleViewModel : IPuzzleViewModel
+    public class PuzzleViewModel : IPuzzleData
     {
         private readonly IPuzzle puzzle;
 
@@ -33,7 +33,7 @@ namespace GUI.ViewModels.PuzzleMode
             this.rowConstraints = puzzle.RowConstraints.Map( ( i, rowConstraints ) => new ConstraintsViewModel( rowConstraints, Cell.Derived( activatedSquare, v => v != null && v.Y == i ) ) ).Copy();
         }
 
-        public IPuzzleGridViewModel Grid
+        public GridViewModel Grid
         {
             get
             {
@@ -51,20 +51,28 @@ namespace GUI.ViewModels.PuzzleMode
             get { return rowConstraints; }
         }
 
-        ISequence<IPuzzleConstraintsViewModel> IPuzzleViewModel.ColumnConstraints
+        IGrid<object> IPuzzleData.Grid
+        {
+            get
+            {
+                return Grid.Squares;
+            }
+        }
+
+        ISequence<object> IPuzzleData.ColumnConstraints
         {
             get
             {
                 return columnConstraints;
-            }
+            }            
         }
 
-        ISequence<IPuzzleConstraintsViewModel> IPuzzleViewModel.RowConstraints
+        ISequence<object> IPuzzleData.RowConstraints
         {
             get
             {
                 return rowConstraints;
-            }
+            }            
         }
     }
 }
