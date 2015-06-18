@@ -5,26 +5,9 @@
         xmlns:controls="clr-namespace:GUI.Controls"
         Title="MainWindow" Height="400" Width="525">
     <Window.Resources>
-        <converters:SquareConverter x:Key="backgroundConverter">
-            <converters:SquareConverter.Unknown>
-                Gray
-            </converters:SquareConverter.Unknown>
-            <converters:SquareConverter.Empty>
-                White
-            </converters:SquareConverter.Empty>
-            <converters:SquareConverter.Filled>
-                Black
-            </converters:SquareConverter.Filled>
-        </converters:SquareConverter>
-
-        <converters:BoolConverter x:Key="isSatisfiedConverter">
-            <converters:BoolConverter.False>
-                Normal
-            </converters:BoolConverter.False>
-            <converters:BoolConverter.True>
-                Bold
-            </converters:BoolConverter.True>
-        </converters:BoolConverter>
+        <converters:SquareConverter x:Key="backgroundConverter" Unknown="Gray" Empty="White" Filled="Black" />
+        <converters:BoolConverter x:Key="isSatisfiedConverter" False="Normal" True="Bold" />
+        <converters:BoolConverter x:Key="isConstraintSatisfiedConverter" True="#DDFFDD" False="#FFDDDD" />
     </Window.Resources>
 
     <DockPanel>
@@ -39,36 +22,60 @@
             <controls:PuzzleControl.SquareTemplate>
                 <DataTemplate>
                     <controls:PuzzleGridSquareControl ViewModel="{Binding}"
-                                                  Width="24"
-                                                  Height="24"
-                                                  LeftClick="{Binding ToggleFilled}"
-                                                  RightClick="{Binding ToggleEmpty}"
-                                                  Activate="{Binding Activate}">
+                                                      Width="24"
+                                                      Height="24"
+                                                      LeftClick="{Binding ToggleFilled}"
+                                                      RightClick="{Binding ToggleEmpty}"
+                                                      Activate="{Binding Activate}">
                     </controls:PuzzleGridSquareControl>
                 </DataTemplate>
             </controls:PuzzleControl.SquareTemplate>
 
             <controls:PuzzleControl.ColumnConstraintsTemplate>
                 <DataTemplate>
-                    <controls:ConstraintsControl Orientation="Vertical" VerticalContentAlignment="Bottom" Margin="1" ViewModel="{Binding}" IsHighlighted="{Binding Active.Value}">
-                        <controls:ConstraintsControl.ValueTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Number.Value}" Margin="0,5" FontWeight="{Binding IsSatisfied.Value, Converter={StaticResource isSatisfiedConverter}}" HorizontalAlignment="Center" />
-                            </DataTemplate>
-                        </controls:ConstraintsControl.ValueTemplate>
-                    </controls:ConstraintsControl>
+                    <DockPanel LastChildFill="False" Margin="1" Background="{Binding IsSatisfied.Value, Converter={StaticResource isConstraintSatisfiedConverter}}">
+                        <ItemsControl ItemsSource="{Binding Values.Items}" DockPanel.Dock="Bottom">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Vertical" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid VerticalAlignment="Stretch">
+                                        <TextBlock Text="{Binding Number.Value}"
+                                               Margin="0,5"
+                                               FontWeight="{Binding IsSatisfied.Value, Converter={StaticResource isSatisfiedConverter}}"
+                                               HorizontalAlignment="Center" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </DockPanel>
                 </DataTemplate>
             </controls:PuzzleControl.ColumnConstraintsTemplate>
 
             <controls:PuzzleControl.RowConstraintsTemplate>
                 <DataTemplate>
-                    <controls:ConstraintsControl Orientation="Horizontal" HorizontalContentAlignment="Right" Margin="1" ViewModel="{Binding}" IsHighlighted="{Binding Active.Value}">
-                        <controls:ConstraintsControl.ValueTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Number.Value}" FontWeight="{Binding IsSatisfied.Value, Converter={StaticResource isSatisfiedConverter}}" Margin="5,0" VerticalAlignment="Center" />
-                            </DataTemplate>
-                        </controls:ConstraintsControl.ValueTemplate>
-                    </controls:ConstraintsControl>
+                    <DockPanel LastChildFill="False" Margin="1" Background="{Binding IsSatisfied.Value, Converter={StaticResource isConstraintSatisfiedConverter}}">
+                        <ItemsControl ItemsSource="{Binding Values.Items}" DockPanel.Dock="Right">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid VerticalAlignment="Stretch">
+                                        <TextBlock Text="{Binding Number.Value}"
+                                               Margin="5,0"
+                                               FontWeight="{Binding IsSatisfied.Value, Converter={StaticResource isSatisfiedConverter}}"
+                                               VerticalAlignment="Center" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </DockPanel>
                 </DataTemplate>
             </controls:PuzzleControl.RowConstraintsTemplate>
         </controls:PuzzleControl>
