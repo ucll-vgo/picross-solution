@@ -1,15 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using GUI.Commands;
-using GUI.Controls;
-using PiCross.Cells;
+﻿using PiCross.Cells;
 using PiCross.DataStructures;
 using PiCross.Facade.Solving;
-using PiCross.Game;
 
 namespace GUI.ViewModels.PuzzleMode
 {
