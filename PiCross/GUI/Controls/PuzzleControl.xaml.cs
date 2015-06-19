@@ -174,7 +174,7 @@ namespace GUI.Controls
 
             if ( PuzzleData != null )
             {
-                this.grid.ColumnDefinitions.Add( new ColumnDefinition() { Width = new GridLength( 1, GridUnitType.Star ) } );
+                this.grid.ColumnDefinitions.Add( new ColumnDefinition() { Width = GridLength.Auto } );
 
                 for ( var i = 0; i != PuzzleData.ColumnConstraints.Length; ++i )
                 {
@@ -189,7 +189,7 @@ namespace GUI.Controls
 
             if ( PuzzleData != null )
             {
-                this.grid.RowDefinitions.Add( new RowDefinition() { Height = new GridLength( 1, GridUnitType.Star ) } );
+                this.grid.RowDefinitions.Add( new RowDefinition() { Height = GridLength.Auto } );
 
                 for ( var i = 0; i != PuzzleData.ColumnConstraints.Length; ++i )
                 {

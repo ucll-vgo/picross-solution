@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:converters="clr-namespace:GUI.Converters"
         xmlns:controls="clr-namespace:GUI.Controls"
-        Title="MainWindow" Height="400" Width="525">
+        Title="MainWindow" Height="450" Width="525">
     <Window.Resources>
         <converters:SquareConverter x:Key="backgroundConverter" Unknown="Gray" Empty="White" Filled="Black" />
         <converters:BoolConverter x:Key="isSatisfiedConverter" False="Normal" True="Bold" />
@@ -18,7 +18,7 @@
                 <MenuItem Header="Water" Command="{Binding SetTheme}" CommandParameter="water" />
             </MenuItem>
         </Menu>
-        <controls:PuzzleControl PuzzleData="{Binding}">            
+        <controls:PuzzleControl PuzzleData="{Binding}" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center">            
             <controls:PuzzleControl.SquareTemplate>
                 <DataTemplate>
                     <controls:PuzzleGridSquareControl Contents="{Binding Contents.Value}"
