@@ -52,7 +52,7 @@ namespace GUI
             var playGrid = editorGrid.CreatePlayGrid();
             // playGrid.Squares.Overwrite( editorGrid.Squares );
                         
-            this.DataContext = new PuzzleViewModel( new Puzzle( playGrid ) );
+            this.DataContext = new PuzzleViewModel( new PiCross.Facade.Solving.Puzzle( playGrid ) );
 
             setTheme = new SetThemeCommand();
             menu.DataContext = this;
