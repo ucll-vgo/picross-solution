@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using GUI.Commands;
 using GUI.Controls;
 using GUI.ViewModels;
+using GUI.ViewModels.EditMode;
 using GUI.ViewModels.PuzzleMode;
 using PiCross.Cells;
 using PiCross.DataStructures;
@@ -52,7 +53,7 @@ namespace GUI
             var playGrid = editorGrid.CreatePlayGrid();
             // playGrid.Squares.Overwrite( editorGrid.Squares );
                         
-            solveControl.DataContext = new PuzzleViewModel( new PiCross.Facade.Solving.Puzzle( playGrid ) );
+            // this.DataContext = new EditorViewModel( new PiCross.Facade.Editing.( playGrid ) );
 
             setTheme = new SetThemeCommand();
             menu.DataContext = this;
