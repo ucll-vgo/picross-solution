@@ -26,7 +26,7 @@ namespace GUI.ViewModels.EditMode
         public EditorViewModel( IPuzzleEditor puzzleEditor )
         {
             this.puzzleEditor = puzzleEditor;
-            this.squares = PiCross.DataStructures.Grid.Create( puzzleEditor.Width, puzzleEditor.Height, position => new EditorSquareViewModel( puzzleEditor[position] ) );
+            this.squares = PiCross.DataStructures.Grid.Create( puzzleEditor.Size, position => new EditorSquareViewModel( puzzleEditor[position] ) );
             this.columnConstraints = puzzleEditor.ColumnConstraints.Map( constraints => new EditorConstraintsViewModel( constraints ) );
             this.rowConstraints = puzzleEditor.RowConstraints.Map( constraints => new EditorConstraintsViewModel( constraints ) );
         }
