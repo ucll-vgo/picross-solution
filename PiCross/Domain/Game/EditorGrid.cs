@@ -76,6 +76,16 @@ namespace PiCross.Game
             }
         }
 
+        public Constraints DeriveColumnConstraints(int column)
+        {
+            return Column( column ).DeriveConstraints();
+        }
+
+        public Constraints DeriveRowConstraints(int row)
+        {
+            return Row( row ).DeriveConstraints();
+        }
+
         public ISequence<Constraints> DeriveColumnConstraints()
         {
             return Sequence.FromEnumerable( Columns.Select( column => column.DeriveConstraints() ) );
@@ -94,6 +104,22 @@ namespace PiCross.Game
         public SolverGrid CreateSolverGrid()
         {
             return new SolverGrid( columnConstraints: DeriveColumnConstraints(), rowConstraints: DeriveRowConstraints() );
+        }
+
+        public int Width
+        {
+            get
+            {
+                return this.grid.Width;
+            }
+        }
+
+        public int Height
+        {
+            get
+            {
+                return this.grid.Height;
+            }
         }
     }
 }
