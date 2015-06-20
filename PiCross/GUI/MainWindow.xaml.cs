@@ -50,10 +50,10 @@ namespace GUI
                 ".xxxxxxxx."
                 );
 
-            var playGrid = editorGrid.CreatePlayGrid();
+            
             // playGrid.Squares.Overwrite( editorGrid.Squares );
-                        
-            // this.DataContext = new EditorViewModel( new PiCross.Facade.Editing.( playGrid ) );
+
+            this.DataContext = new EditorViewModel( new PiCross.Facade.Editing.PuzzleEditor( editorGrid ) );
 
             setTheme = new SetThemeCommand();
             menu.DataContext = this;
