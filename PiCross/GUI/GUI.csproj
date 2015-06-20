@@ -60,7 +60,7 @@
     <Compile Include="ViewModels\PuzzleMode\GridSquareViewModel.cs" />
     <Compile Include="ViewModels\PuzzleMode\GridViewModel.cs" />
     <Compile Include="ViewModels\PuzzleMode\PuzzleViewModel.cs" />
-    <Page Include="Controls\PuzzleControl.xaml">
+    <Page Include="Controls\PiCrossControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -74,8 +74,8 @@
     </Compile>
     <Compile Include="Commands\CellCommand.cs" />
     <Compile Include="Commands\EnabledCommand.cs" />
-    <Compile Include="Controls\PuzzleControl.xaml.cs">
-      <DependentUpon>PuzzleControl.xaml</DependentUpon>
+    <Compile Include="Controls\PiCrossControl.xaml.cs">
+      <DependentUpon>PiCrossControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\BoolConverter.cs" />
     <Compile Include="Converters\SquareConverter.cs" />

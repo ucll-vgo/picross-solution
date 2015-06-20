@@ -18,8 +18,8 @@
                 <MenuItem Header="Water" Command="{Binding SetTheme}" CommandParameter="water" />
             </MenuItem>
         </Menu>
-        <controls:PuzzleControl PuzzleData="{Binding}" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center">            
-            <controls:PuzzleControl.SquareTemplate>
+        <controls:PiCrossControl PuzzleData="{Binding}" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center">            
+            <controls:PiCrossControl.SquareTemplate>
                 <DataTemplate>
                     <controls:PuzzleGridSquareControl Contents="{Binding Contents.Value}"
                                                       Width="24"
@@ -29,9 +29,9 @@
                                                       Activate="{Binding Activate}">
                     </controls:PuzzleGridSquareControl>
                 </DataTemplate>
-            </controls:PuzzleControl.SquareTemplate>
+            </controls:PiCrossControl.SquareTemplate>
 
-            <controls:PuzzleControl.ColumnConstraintsTemplate>
+            <controls:PiCrossControl.ColumnConstraintsTemplate>
                 <DataTemplate>
                     <DockPanel LastChildFill="False" Margin="1" Background="{Binding IsSatisfied.Value, Converter={StaticResource isConstraintSatisfiedConverter}}">
                         <ItemsControl ItemsSource="{Binding Values.Items}" DockPanel.Dock="Bottom">
@@ -53,9 +53,9 @@
                         </ItemsControl>
                     </DockPanel>
                 </DataTemplate>
-            </controls:PuzzleControl.ColumnConstraintsTemplate>
+            </controls:PiCrossControl.ColumnConstraintsTemplate>
 
-            <controls:PuzzleControl.RowConstraintsTemplate>
+            <controls:PiCrossControl.RowConstraintsTemplate>
                 <DataTemplate>
                     <DockPanel LastChildFill="False" Margin="1" Background="{Binding IsSatisfied.Value, Converter={StaticResource isConstraintSatisfiedConverter}}">
                         <ItemsControl ItemsSource="{Binding Values.Items}" DockPanel.Dock="Right">
@@ -77,7 +77,7 @@
                         </ItemsControl>
                     </DockPanel>
                 </DataTemplate>
-            </controls:PuzzleControl.RowConstraintsTemplate>
-        </controls:PuzzleControl>
+            </controls:PiCrossControl.RowConstraintsTemplate>
+        </controls:PiCrossControl>
     </DockPanel>
 </Window>

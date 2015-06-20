@@ -6,12 +6,9 @@ using UIGrid = System.Windows.Controls.Grid;
 
 namespace GUI.Controls
 {
-    /// <summary>
-    /// Interaction logic for PuzzleControl.xaml
-    /// </summary>
-    public partial class PuzzleControl : UserControl
+    public partial class PiCrossControl : UserControl
     {
-        public PuzzleControl()
+        public PiCrossControl()
         {
             InitializeComponent();
         }
@@ -25,7 +22,7 @@ namespace GUI.Controls
         }
 
         public static readonly DependencyProperty SquareTemplateProperty =
-            DependencyProperty.Register( "SquareTemplate", typeof( DataTemplate ), typeof( PuzzleControl ), new PropertyMetadata( null, ( obj, args ) => ( (PuzzleControl) obj ).OnSquareTemplateChanged( args ) ) );
+            DependencyProperty.Register( "SquareTemplate", typeof( DataTemplate ), typeof( PiCrossControl ), new PropertyMetadata( null, ( obj, args ) => ( (PiCrossControl) obj ).OnSquareTemplateChanged( args ) ) );
 
         private void OnSquareTemplateChanged( DependencyPropertyChangedEventArgs args )
         {
@@ -44,7 +41,7 @@ namespace GUI.Controls
         }
 
         public static readonly DependencyProperty ColumnConstraintsTemplateProperty =
-            DependencyProperty.Register( "ColumnConstraintsTemplate", typeof( DataTemplate ), typeof( PuzzleControl ), new PropertyMetadata( null, ( obj, args ) => ( (PuzzleControl) obj ).OnColumnConstraintsTemplateChanged( args ) ) );
+            DependencyProperty.Register( "ColumnConstraintsTemplate", typeof( DataTemplate ), typeof( PiCrossControl ), new PropertyMetadata( null, ( obj, args ) => ( (PiCrossControl) obj ).OnColumnConstraintsTemplateChanged( args ) ) );
 
         private void OnColumnConstraintsTemplateChanged( DependencyPropertyChangedEventArgs args )
         {
@@ -62,7 +59,7 @@ namespace GUI.Controls
         }
 
         public static readonly DependencyProperty RowConstraintsTemplateProperty =
-            DependencyProperty.Register( "RowConstraintsTemplate", typeof( DataTemplate ), typeof( PuzzleControl ), new PropertyMetadata( null, ( obj, args ) => ( (PuzzleControl) obj ).OnRowConstraintsTemplateChanged( args ) ) );
+            DependencyProperty.Register( "RowConstraintsTemplate", typeof( DataTemplate ), typeof( PiCrossControl ), new PropertyMetadata( null, ( obj, args ) => ( (PiCrossControl) obj ).OnRowConstraintsTemplateChanged( args ) ) );
 
         private void OnRowConstraintsTemplateChanged( DependencyPropertyChangedEventArgs args )
         {
@@ -80,7 +77,7 @@ namespace GUI.Controls
         }
 
         public static readonly DependencyProperty PuzzleDataProperty =
-            DependencyProperty.Register( "PuzzleData", typeof( IPuzzleData ), typeof( PuzzleControl ), new PropertyMetadata( null, ( obj, args ) => ( (PuzzleControl) obj ).OnDataChanged( args ) ) );
+            DependencyProperty.Register( "PuzzleData", typeof( IPuzzleData ), typeof( PiCrossControl ), new PropertyMetadata( null, ( obj, args ) => ( (PiCrossControl) obj ).OnDataChanged( args ) ) );
 
         private void OnDataChanged( DependencyPropertyChangedEventArgs args )
         {
