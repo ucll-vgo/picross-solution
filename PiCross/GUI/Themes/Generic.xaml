@@ -30,8 +30,8 @@
                                 </VisualState>
                                 <VisualState x:Name="Empty">
                                     <Storyboard>
-                                        <ColorAnimation To="White" Storyboard.TargetName="backgroundBrush_firstGradientStop" Storyboard.TargetProperty="Color" Duration="0:0:0.5" />
-                                        <ColorAnimation To="White" Storyboard.TargetName="backgroundBrush_lastGradientStop" Storyboard.TargetProperty="Color" Duration="0:0:0.5" />
+                                        <ColorAnimation To="#CCCCCC" Storyboard.TargetName="backgroundBrush_firstGradientStop" Storyboard.TargetProperty="Color" Duration="0:0:0.5" />
+                                        <ColorAnimation To="#CCCCCC" Storyboard.TargetName="backgroundBrush_lastGradientStop" Storyboard.TargetProperty="Color" Duration="0:0:0.5" />
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Filled">
@@ -50,7 +50,7 @@
                         </VisualStateManager.VisualStateGroups>
 
 
-                        <Border BorderThickness="1" Margin="1">
+                        <Border BorderThickness="1" Margin="1" CornerRadius="2">
                             <Border.BorderBrush>
                                 <SolidColorBrush x:Name="borderBrush" Color="Black" />
                             </Border.BorderBrush>
