@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PiCross.DataStructures;
 using PiCross.Facade.Editing;
-using PiCross.Facade.Solving;
+using PiCross.Facade.Playing;
 using PiCross.Game;
 
 namespace PiCross.Tests
@@ -24,21 +24,29 @@ namespace PiCross.Tests
 
         protected static ISequence<bool> CreateBooleans( string str )
         {
-            return Sequence.FromString( str ).Map( c =>
-            {
-                switch ( c )
-                {
-                    case 't':
-                        return true;
-
-                    case 'f':
-                        return false;
-
-                    default:
-                        throw new ArgumentException( "Invalid character" );
-                }
-            } );
+            return Sequence.FromString( str ).Map( CharToBool );
         }
+
+        protected static IGrid<bool> CreateBooleansGrid( params string[] str )
+        {
+            return Grid.CreateCharacterGrid( str ).Map( CharToBool );
+        }
+
+        private static bool CharToBool(char c)
+        {
+            switch ( c )
+            {
+                case 't':
+                    return true;
+
+                case 'f':
+                    return false;
+
+                default:
+                    throw new ArgumentException( "Invalid character" );
+            }
+        }
+       
 
         protected static IGrid<Square> ParseFullyKnown( params string[] rows )
         {
@@ -99,11 +107,11 @@ namespace PiCross.Tests
             return playGrid;
         }
 
-        protected static PiCross.Facade.Solving.Puzzle CreateManualPuzzle( params string[] rows )
+        protected static PiCross.Facade.Playing.Puzzle CreateManualPuzzle( params string[] rows )
         {
             var playGrid = CreatePlayGrid( rows );
 
-            return new PiCross.Facade.Solving.Puzzle( playGrid );
+            return new PiCross.Facade.Playing.Puzzle( playGrid );
         }
 
         protected static void OverwritePlayGrid( PlayGrid grid, params string[] rows)
@@ -116,6 +124,23 @@ namespace PiCross.Tests
             var editorGrid = EditorGrid.FromStrings( rows );
 
             return new PuzzleEditor( editorGrid );
+        }
+
+        protected static PiCross.Game.Puzzle CreatePuzzle(params string[] rows)
+        {
+            return PiCross.Game.Puzzle.FromRowStrings( rows );
+        }
+
+        protected static IPuzzleChecker CreatePuzzleChecker()
+        {
+            return new PuzzleChecker();
+        }
+
+        protected static SolverGrid CreateSolverGrid(params string[] rows)
+        {
+            var editorGrid = EditorGrid.FromStrings( rows );
+
+            return editorGrid.CreateSolverGrid();
         }
     }
 }
