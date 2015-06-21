@@ -20,7 +20,7 @@ using GUI.ViewModels.EditMode;
 using GUI.ViewModels.PuzzleMode;
 using PiCross.Cells;
 using PiCross.DataStructures;
-using PiCross.Facade.Solving;
+using PiCross.Facade.Playing;
 using PiCross.Game;
 using Grid = PiCross.DataStructures.Grid;
 

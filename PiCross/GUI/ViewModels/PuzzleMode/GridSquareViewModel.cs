@@ -3,7 +3,7 @@ using GUI.Commands;
 using GUI.Controls;
 using PiCross.Cells;
 using PiCross.DataStructures;
-using PiCross.Facade.Solving;
+using PiCross.Facade.Playing;
 using PiCross.Game;
 
 namespace GUI.ViewModels.PuzzleMode

@@ -1,6 +1,6 @@
 ﻿using PiCross.Cells;
 using PiCross.DataStructures;
-using PiCross.Facade.Solving;
+using PiCross.Facade.Playing;
 
 namespace GUI.ViewModels.PuzzleMode
 {
