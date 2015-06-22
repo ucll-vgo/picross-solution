@@ -27,7 +27,9 @@
 
         <controls:PiCrossControl.ColumnConstraintsTemplate>
             <DataTemplate>
-                <DockPanel LastChildFill="False" Margin="1" Background="{Binding IsSatisfied.Value, Converter={StaticResource isConstraintSatisfiedConverter}}">
+                <DockPanel LastChildFill="False"
+                           Margin="1"
+                           Background="{Binding IsSatisfied.Value, Converter={StaticResource isConstraintSatisfiedConverter}}">
                     <ItemsControl ItemsSource="{Binding Values.Items}" DockPanel.Dock="Bottom">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>

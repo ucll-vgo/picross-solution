@@ -86,9 +86,4 @@ namespace GUI.Controls
 
         #endregion
     }
-
-    public interface IPuzzleGridSquareViewModel
-    {
-        Cell<Square> Contents { get; }
-    }
 }

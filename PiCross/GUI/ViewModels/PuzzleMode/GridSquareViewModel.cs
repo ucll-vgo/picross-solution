@@ -8,7 +8,7 @@ using PiCross.Game;
 
 namespace GUI.ViewModels.PuzzleMode
 {
-    public class GridSquareViewModel : IPuzzleGridSquareViewModel
+    public class GridSquareViewModel
     {
         private readonly IPuzzleSquare square;
 

@@ -69,7 +69,7 @@ namespace GUI.Controls
         }
 
         public static readonly DependencyProperty ActivateProperty =
-            DependencyProperty.Register( "Activate", typeof( ICommand ), typeof( PuzzleGridSquareControl ), new PropertyMetadata( null ) );
+            DependencyProperty.Register( "Activate", typeof( ICommand ), typeof( SquareControl ), new PropertyMetadata( null ) );
 
         private void ExecuteActivateCommand()
         {

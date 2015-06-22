@@ -19,7 +19,7 @@ namespace GUI.ViewModels.PuzzleMode
             this.squares = Grid.Create( puzzle.Size, p => new GridSquareViewModel( puzzle[p], signalFactory.CreateSignal( p ) ) );
         }
 
-        public IGrid<IPuzzleGridSquareViewModel> Squares
+        public IGrid<GridSquareViewModel> Squares
         {
             get
             {

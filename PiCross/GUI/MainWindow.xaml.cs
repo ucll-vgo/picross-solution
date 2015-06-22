@@ -51,11 +51,13 @@ namespace GUI
                 ".xxxxxxxx."
                 );
 
-            
+            var playGrid = editorGrid.CreatePlayGrid();
+
             // playGrid.Squares.Overwrite( editorGrid.Squares );
 
             // this.DataContext = new EditorDataContext( this.Dispatcher, new PuzzleEditor( editorGrid ) );
-            this.DataContext = new EditorViewModel( new PuzzleEditor_ManualAmbiguity( editorGrid ) );
+            editorControl.DataContext = new EditorViewModel( new PuzzleEditor_ManualAmbiguity( editorGrid ) );
+            solveControl.DataContext = new PuzzleViewModel( new PiCross.Facade.Playing.Puzzle( playGrid ) );
 
             setTheme = new SetThemeCommand();
             menu.DataContext = this;

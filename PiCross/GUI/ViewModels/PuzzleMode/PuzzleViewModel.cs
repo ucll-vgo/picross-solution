@@ -1,4 +1,5 @@
-﻿using GUI.Controls;
+﻿using System.Diagnostics;
+using GUI.Controls;
 using PiCross.Cells;
 using PiCross.DataStructures;
 using PiCross.Facade.Playing;
