@@ -54,6 +54,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\EditorGridSquareControl.cs" />
     <Compile Include="Controls\PuzzleGridSquareControl.cs" />
     <Compile Include="Controls\SolveControl.xaml.cs">
       <DependentUpon>SolveControl.xaml</DependentUpon>
