@@ -100,7 +100,7 @@ namespace GUI.Controls
             }
         }
 
-        private void ChangeVisualState( string state, bool transition = true )
+        protected void ChangeVisualState( string state, bool transition = true )
         {
             if ( body != null )
             {
