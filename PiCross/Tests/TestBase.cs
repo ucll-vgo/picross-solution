@@ -123,7 +123,7 @@ namespace PiCross.Tests
         {
             var editorGrid = EditorGrid.FromStrings( rows );
 
-            return new PuzzleEditor( editorGrid );
+            return new PuzzleEditor_ManualAmbiguity( editorGrid );
         }
 
         protected static PiCross.Game.Puzzle CreatePuzzle(params string[] rows)
@@ -131,16 +131,18 @@ namespace PiCross.Tests
             return PiCross.Game.Puzzle.FromRowStrings( rows );
         }
 
-        protected static IPuzzleChecker CreatePuzzleChecker()
-        {
-            return new PuzzleChecker();
-        }
-
         protected static SolverGrid CreateSolverGrid(params string[] rows)
         {
             var editorGrid = EditorGrid.FromStrings( rows );
 
             return editorGrid.CreateSolverGrid();
+        }
+
+        protected static AmbiguityChecker CreateAmbiguityChecker(params string[] rows)
+        {
+            var puzzle = PiCross.Game.Puzzle.FromRowStrings( rows );
+
+            return new AmbiguityChecker( columnConstraints: puzzle.ColumnConstraints, rowConstraints: puzzle.RowContraints );
         }
     }
 }

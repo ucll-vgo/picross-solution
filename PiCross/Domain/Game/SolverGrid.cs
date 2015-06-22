@@ -65,51 +65,28 @@ namespace PiCross.Game
             return new Slice( Row( y ).Map( v => v.Value ) );
         }
 
-        private void Overwrite( ISequence<IVar<Square>> target, ISequence<Square> source )
+        private bool OverwriteColumn( int x, Slice slice )
         {
-            if ( target == null )
-            {
-                throw new ArgumentNullException( "target" );
-            }
-            else if ( source == null )
-            {
-                throw new ArgumentNullException( "source" );
-            }
-            else if ( target.Length != source.Length )
-            {
-                throw new ArgumentException( "source and target must have same length" );
-            }
-            else
-            {
-                foreach ( var index in target.Indices )
-                {
-                    target[index].Value = source[index];
-                }
-            }
+            return Column( x ).Overwrite( slice.Squares );
         }
 
-        private void OverwriteColumn( int x, Slice slice )
+        private bool OverwriteRow( int y, Slice slice )
         {
-            Overwrite( Column( x ), slice.Squares );
+            return Row( y ).Overwrite( slice.Squares );
         }
 
-        private void OverwriteRow( int y, Slice slice )
-        {
-            Overwrite( Row( y ), slice.Squares );
-        }
-
-        public void RefineColumn( int x )
+        public bool RefineColumn( int x )
         {
             var refined = ColumnSlice( x ).Refine( columnConstraints[x] );
 
-            OverwriteColumn( x, refined );
+            return OverwriteColumn( x, refined );
         }
 
-        public void RefineRow( int y )
+        public bool RefineRow( int y )
         {
             var refined = RowSlice( y ).Refine( rowConstraints[y] );
 
-            OverwriteRow( y, refined );
+            return OverwriteRow( y, refined );
         }
 
         public int CountUnknowns()
@@ -141,40 +118,41 @@ namespace PiCross.Game
             }
         }
 
-        public void RefineColumns()
+        public bool RefineColumns()
         {
+            var changeDetected = false;
+
             for ( var i = 0; i != Width; ++i )
             {
-                RefineColumn( i );
+                changeDetected = RefineColumn( i ) || changeDetected;
             }
+
+            return changeDetected;
         }
 
-        public void RefineRows()
+        public bool RefineRows()
         {
+            var changeDetected = false;
+
             for ( var i = 0; i != Height; ++i )
             {
-                RefineRow( i );
+                changeDetected = RefineRow( i ) || changeDetected;
             }
+
+            return changeDetected;
         }
 
-        public void SinglePassRefine()
+        public bool SinglePassRefine()
         {
-            RefineColumns();
-            RefineRows();
+            var columnChanged = RefineColumns();
+            var rowChanged = RefineRows();
+
+            return columnChanged || rowChanged;
         }
 
         public void Refine()
         {
-            var unknownCount = CountUnknowns();
-            var lastUnknownCount = unknownCount + 1;
-
-            while ( unknownCount < lastUnknownCount )
-            {
-                SinglePassRefine();
-
-                lastUnknownCount = unknownCount;
-                unknownCount = CountUnknowns();
-            }
+            while ( SinglePassRefine() );
         }
 
         public IGrid<Square> Squares

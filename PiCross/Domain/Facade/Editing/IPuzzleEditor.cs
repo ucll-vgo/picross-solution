@@ -24,6 +24,8 @@ namespace PiCross.Facade.Editing
     {
         Cell<bool> IsFilled { get; }
 
+        Cell<Ambiguity> Ambiguity { get; }
+
         Vector2D Position { get; }
     }
 
