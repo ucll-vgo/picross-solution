@@ -46,7 +46,7 @@ namespace GUI.Controls
 
         private void OnContentsChanged( DependencyPropertyChangedEventArgs args )
         {
-
+            UpdateVisualState( true );
         }
 
         #endregion

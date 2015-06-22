@@ -68,27 +68,66 @@
         </Setter>
     </Style>
 
-    <Style TargetType="{x:Type local:SquareControl}">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:SquareControl}">
-                    <Border Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}">
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
     <Style TargetType="{x:Type local:EditorGridSquareControl}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:EditorGridSquareControl}">
-                    <Border Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}">
-                    </Border>
+                    <Grid x:Name="Body">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="MouseStates">
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <ColorAnimation To="Red" Storyboard.TargetName="borderBrush" Storyboard.TargetProperty="Color" Duration="0:0:0.100" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="MouseNotOver">
+                                    <Storyboard>
+                                        <ColorAnimation To="Black" Storyboard.TargetName="borderBrush" Storyboard.TargetProperty="Color" Duration="0:0:0.250" />
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="FillStates">
+                                <VisualState x:Name="Unknown">
+                                    <Storyboard>
+                                        <ColorAnimation To="#FFAAAA" Storyboard.TargetName="backgroundBrush_firstGradientStop" Storyboard.TargetProperty="Color" Duration="0:0:0.5" />
+                                        <ColorAnimation To="#FFAAAA" Storyboard.TargetName="backgroundBrush_lastGradientStop" Storyboard.TargetProperty="Color" Duration="0:0:0.5" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Empty">
+                                    <Storyboard>
+                                        <ColorAnimation To="#CCCCCC" Storyboard.TargetName="backgroundBrush_firstGradientStop" Storyboard.TargetProperty="Color" Duration="0:0:0.5" />
+                                        <ColorAnimation To="#CCCCCC" Storyboard.TargetName="backgroundBrush_lastGradientStop" Storyboard.TargetProperty="Color" Duration="0:0:0.5" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Filled">
+                                    <Storyboard>
+                                        <ColorAnimation To="Black" Storyboard.TargetName="backgroundBrush_firstGradientStop" Storyboard.TargetProperty="Color" Duration="0:0:0.5" />
+                                        <ColorAnimation To="Black" Storyboard.TargetName="backgroundBrush_lastGradientStop" Storyboard.TargetProperty="Color" Duration="0:0:0.5" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="NoContents">
+                                    <Storyboard>
+                                        <ColorAnimation To="Red" Storyboard.TargetName="backgroundBrush_firstGradientStop" Storyboard.TargetProperty="Color" Duration="0:0:0.5" />
+                                        <ColorAnimation To="Red" Storyboard.TargetName="backgroundBrush_lastGradientStop" Storyboard.TargetProperty="Color" Duration="0:0:0.5" />
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+
+
+                        <Border BorderThickness="1" Margin="1" CornerRadius="2">
+                            <Border.BorderBrush>
+                                <SolidColorBrush x:Name="borderBrush" Color="Black" />
+                            </Border.BorderBrush>
+                            <Border.Background>
+                                <LinearGradientBrush x:Name="backgroundBrush" StartPoint="0,0" EndPoint="0.3,0.3">
+                                    <GradientStop x:Name="backgroundBrush_firstGradientStop" Offset="0" Color="Transparent" />
+                                    <GradientStop x:Name="backgroundBrush_middleGradientStop" Offset="0.5" Color="Transparent" />
+                                    <GradientStop x:Name="backgroundBrush_lastGradientStop" Offset="1" Color="Transparent" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+                        </Border>
+                    </Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

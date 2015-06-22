@@ -6,8 +6,6 @@
         xmlns:converters="clr-namespace:GUI.Converters"
         Title="MainWindow" Height="450" Width="800">
     <Window.Resources>
-        <converters:BoolConverter x:Key="isFilledConverter" True="{x:Static picross:Square.FILLED}" False="{x:Static picross:Square.EMPTY}" />
-
         <converters:BoolConverter x:Key="constraintBackgroundConverter" True="#DDDDDD" False="#FFFFFF" />
     </Window.Resources>
     <DockPanel>
@@ -28,13 +26,13 @@
             <controls:PiCrossControl x:Name="editorControl" PuzzleData="{Binding}" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0">
                 <controls:PiCrossControl.SquareTemplate>
                     <DataTemplate>
-                        <controls:PuzzleGridSquareControl Contents="{Binding IsFilled.Value, Converter={StaticResource isFilledConverter}}"
-                                                      Width="24"
-                                                      Height="24"
-                                                      Activate="{Binding Activate}"
-                                                      LeftClick="{Binding SetFilled}"                                                      
-                                                      RightClick="{Binding SetEmpty}">
-                        </controls:PuzzleGridSquareControl>
+                        <controls:EditorGridSquareControl Contents="{Binding IsFilled.Value}"
+                                                          Width="24"
+                                                          Height="24"
+                                                          Activate="{Binding Activate}"
+                                                          LeftClick="{Binding SetFilled}"                                                      
+                                                          RightClick="{Binding SetEmpty}">
+                        </controls:EditorGridSquareControl>
                     </DataTemplate>
                 </controls:PiCrossControl.SquareTemplate>
 
