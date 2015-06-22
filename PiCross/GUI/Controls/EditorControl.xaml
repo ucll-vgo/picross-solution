@@ -14,11 +14,12 @@
         <controls:PiCrossControl.SquareTemplate>
             <DataTemplate>
                 <controls:EditorGridSquareControl Contents="{Binding IsFilled.Value}"
-                                                          Width="24"
-                                                          Height="24"
-                                                          Activate="{Binding Activate}"
-                                                          LeftClick="{Binding SetFilled}"                                                      
-                                                          RightClick="{Binding SetEmpty}">
+                                                  Width="24"
+                                                  Height="24"
+                                                  Ambiguity="{Binding Ambiguity.Value}"
+                                                  Activate="{Binding Activate}"
+                                                  LeftClick="{Binding SetFilled}"                                                      
+                                                  RightClick="{Binding SetEmpty}">
                 </controls:EditorGridSquareControl>
             </DataTemplate>
         </controls:PiCrossControl.SquareTemplate>
@@ -36,8 +37,8 @@
                             <DataTemplate>
                                 <Grid VerticalAlignment="Stretch">
                                     <TextBlock Text="{Binding .}"
-                                                       Margin="0,5"
-                                                       HorizontalAlignment="Center" />
+                                               Margin="0,5"
+                                               HorizontalAlignment="Center" />
                                 </Grid>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
@@ -59,8 +60,8 @@
                             <DataTemplate>
                                 <Grid VerticalAlignment="Stretch">
                                     <TextBlock Text="{Binding .}"
-                                                   Margin="5,0"
-                                                   VerticalAlignment="Center" />
+                                               Margin="5,0"
+                                               VerticalAlignment="Center" />
                                 </Grid>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>

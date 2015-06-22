@@ -35,8 +35,6 @@ namespace GUI.ViewModels.EditMode
 
             var signalFactory = new SignalFactory<Vector2D>( activeSquare );
             this.squares = PiCross.DataStructures.Grid.Create( puzzleEditor.Size, position => new EditorSquareViewModel( puzzleEditor[position], signalFactory.CreateSignal( position ) ) );
-
-            activeSquare.ValueChanged += () => Debug.WriteLine( activeSquare.Value.ToString() );
         }
 
         public IGrid<object> Grid
