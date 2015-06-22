@@ -15,15 +15,15 @@ namespace GUI.ViewModels.EditMode
 {
     public class EditorViewModel : IPuzzleData
     {
-        private readonly IPuzzleEditor puzzleEditor;
+        private readonly PuzzleEditor_ManualAmbiguity puzzleEditor;
 
         private readonly IGrid<EditorSquareViewModel> squares;
 
         private readonly ISequence<EditorConstraintsViewModel> columnConstraints;
 
-        private readonly ISequence<EditorConstraintsViewModel> rowConstraints;
+        private readonly ISequence<EditorConstraintsViewModel> rowConstraints;        
 
-        public EditorViewModel( IPuzzleEditor puzzleEditor )
+        public EditorViewModel( PuzzleEditor_ManualAmbiguity puzzleEditor )
         {
             this.puzzleEditor = puzzleEditor;
             this.squares = PiCross.DataStructures.Grid.Create( puzzleEditor.Size, position => new EditorSquareViewModel( puzzleEditor[position] ) );
@@ -36,7 +36,7 @@ namespace GUI.ViewModels.EditMode
             get { return squares; }
         }
 
-        public ISequence<object> ColumnConstraints
+        public ISequence<EditorConstraintsViewModel> ColumnConstraints
         {
             get
             {
@@ -44,14 +44,30 @@ namespace GUI.ViewModels.EditMode
             }
         }
 
-        public ISequence<object> RowConstraints
+        public ISequence<EditorConstraintsViewModel> RowConstraints
         {
             get
             {
                 return rowConstraints;
             }
         }
-    }
+
+        ISequence<object> IPuzzleData.ColumnConstraints
+        {
+            get
+            {
+                return columnConstraints;
+            }
+        }
+
+        ISequence<object> IPuzzleData.RowConstraints
+        {
+            get
+            {
+                return rowConstraints;
+            }
+        }
+    }    
 
     public class EditorSquareViewModel
     {
@@ -76,6 +92,14 @@ namespace GUI.ViewModels.EditMode
             get
             {
                 return isFilled;
+            }
+        }
+
+        public Cell<Ambiguity> Ambiguity
+        {
+            get
+            {
+                return square.Ambiguity;
             }
         }
 

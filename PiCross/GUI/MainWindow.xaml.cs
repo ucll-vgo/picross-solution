@@ -20,6 +20,7 @@ using GUI.ViewModels.EditMode;
 using GUI.ViewModels.PuzzleMode;
 using PiCross.Cells;
 using PiCross.DataStructures;
+using PiCross.Facade.Editing;
 using PiCross.Facade.Playing;
 using PiCross.Game;
 using Grid = PiCross.DataStructures.Grid;
@@ -53,7 +54,8 @@ namespace GUI
             
             // playGrid.Squares.Overwrite( editorGrid.Squares );
 
-            this.DataContext = new EditorViewModel( new PiCross.Facade.Editing.PuzzleEditor( editorGrid ) );
+            // this.DataContext = new EditorDataContext( this.Dispatcher, new PuzzleEditor( editorGrid ) );
+            this.DataContext = new EditorViewModel( new PuzzleEditor_ManualAmbiguity( editorGrid ) );
 
             setTheme = new SetThemeCommand();
             menu.DataContext = this;
