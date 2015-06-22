@@ -81,7 +81,7 @@
                                 </VisualState>
                                 <VisualState x:Name="MouseNotOver">
                                     <Storyboard>
-                                        <DoubleAnimation To="0.5" Storyboard.TargetName="borderBrush" Storyboard.TargetProperty="Opacity" Duration="0:0:0.250" />
+                                        <DoubleAnimation To="0.75" Storyboard.TargetName="borderBrush" Storyboard.TargetProperty="Opacity" Duration="0:0:0.250" />
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>
@@ -120,7 +120,7 @@
 
                         <Border BorderThickness="1" Margin="1" CornerRadius="2">
                             <Border.BorderBrush>
-                                <SolidColorBrush x:Name="borderBrush" Color="Black" Opacity="0.5" />
+                                <SolidColorBrush x:Name="borderBrush" Color="Black" Opacity="0.75" />
                             </Border.BorderBrush>
                             <Border.Background>
                                 <LinearGradientBrush x:Name="backgroundBrush" StartPoint="0,0" EndPoint="0.3,0.3">

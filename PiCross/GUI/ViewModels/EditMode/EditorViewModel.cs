@@ -26,15 +26,32 @@ namespace GUI.ViewModels.EditMode
 
         private readonly Cell<Vector2D> activeSquare;
 
+        private readonly ICommand refine;
+
         public EditorViewModel( PuzzleEditor_ManualAmbiguity puzzleEditor )
         {
             this.puzzleEditor = puzzleEditor;
             this.activeSquare = Cell.Create<Vector2D>( null );
-            this.columnConstraints = puzzleEditor.ColumnConstraints.Map( ( x, constraints ) => new EditorConstraintsViewModel( constraints, Cell.Derived( activeSquare, p => p != null && p.X == x ) ) );
-            this.rowConstraints = puzzleEditor.RowConstraints.Map( ( y, constraints ) => new EditorConstraintsViewModel( constraints, Cell.Derived( activeSquare, p => p != null && p.Y == y ) ) );
+            this.columnConstraints = CreateColumnConstraints( puzzleEditor, activeSquare );
+            this.rowConstraints = CreateRowConstraints( puzzleEditor, activeSquare );
+            this.squares = CreateSquares( puzzleEditor, activeSquare );
+            this.refine = new RefineCommand( this );
+        }
 
+        private static ISequence<EditorConstraintsViewModel> CreateColumnConstraints( IPuzzleEditor puzzleEditor, Cell<Vector2D> activeSquare )
+        {
+            return puzzleEditor.ColumnConstraints.Map( ( x, constraints ) => new EditorConstraintsViewModel( constraints, Cell.Derived( activeSquare, p => p != null && p.X == x ) ) );
+        }
+
+        private static ISequence<EditorConstraintsViewModel> CreateRowConstraints( IPuzzleEditor puzzleEditor, Cell<Vector2D> activeSquare )
+        {
+            return puzzleEditor.RowConstraints.Map( ( y, constraints ) => new EditorConstraintsViewModel( constraints, Cell.Derived( activeSquare, p => p != null && p.Y == y ) ) );
+        }
+
+        private static IGrid<EditorSquareViewModel> CreateSquares( IPuzzleEditor puzzleEditor, Cell<Vector2D> activeSquare )
+        {
             var signalFactory = new SignalFactory<Vector2D>( activeSquare );
-            this.squares = PiCross.DataStructures.Grid.Create( puzzleEditor.Size, position => new EditorSquareViewModel( puzzleEditor[position], signalFactory.CreateSignal( position ) ) );
+            return PiCross.DataStructures.Grid.Create( puzzleEditor.Size, position => new EditorSquareViewModel( puzzleEditor[position], signalFactory.CreateSignal( position ) ) );
         }
 
         public IGrid<object> Grid
@@ -71,6 +88,34 @@ namespace GUI.ViewModels.EditMode
             get
             {
                 return rowConstraints;
+            }
+        }
+
+        public ICommand Refine
+        {
+            get
+            {
+                return refine;
+            }
+        }
+
+        private void PerformRefine()
+        {
+            this.puzzleEditor.ResolveAmbiguity();
+        }
+
+        private class RefineCommand : EnabledCommand
+        {
+            private readonly EditorViewModel parent;
+
+            public RefineCommand( EditorViewModel parent )
+            {
+                this.parent = parent;
+            }
+
+            public override void Execute( object parameter )
+            {
+                parent.PerformRefine();
             }
         }
     }

@@ -24,7 +24,10 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <controls:EditorControl x:Name="editorControl" Grid.Row="0" Grid.Column="0" />
+            <StackPanel x:Name="editorControl" Orientation="Vertical" Grid.Row="0" Grid.Column="0">
+                <controls:EditorControl  />
+                <Button Command="{Binding Refine}" Content="Refine" />
+            </StackPanel>
             <controls:SolveControl x:Name="solveControl" Grid.Row="0" Grid.Column="1" />
         </Grid>
     </DockPanel>
