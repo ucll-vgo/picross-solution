@@ -10,7 +10,33 @@
     <UserControl.Resources>
         <converters:SquareConverter x:Key="backgroundConverter" Unknown="Gray" Empty="White" Filled="Black" />
         <converters:BoolConverter x:Key="isSatisfiedConverter" False="Normal" True="Bold" />
-        <converters:BoolConverter x:Key="isConstraintSatisfiedConverter" True="#DDFFDD" False="#FFDDDD" />
+        <converters:CurriedConverter x:Key="constraintBackgroundConverter">
+            <converters:BoolConverter>
+                <converters:BoolConverter.True>
+                    <converters:BoolConverter>
+                        <converters:BoolConverter.True>
+                            <SolidColorBrush Color="#88FF88" />
+                        </converters:BoolConverter.True>
+
+                        <converters:BoolConverter.False>
+                            <SolidColorBrush Color="#DDFFDD" />
+                        </converters:BoolConverter.False>
+                    </converters:BoolConverter>
+                </converters:BoolConverter.True>
+
+                <converters:BoolConverter.False>
+                    <converters:BoolConverter>
+                        <converters:BoolConverter.True>
+                            <SolidColorBrush Color="#FF8888" />
+                        </converters:BoolConverter.True>
+
+                        <converters:BoolConverter.False>
+                            <SolidColorBrush Color="#FFDDDD" />
+                        </converters:BoolConverter.False>
+                    </converters:BoolConverter>
+                </converters:BoolConverter.False>
+            </converters:BoolConverter>
+        </converters:CurriedConverter>
     </UserControl.Resources>
     <controls:PiCrossControl PuzzleData="{Binding}" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center">
         <controls:PiCrossControl.SquareTemplate>
@@ -27,9 +53,13 @@
 
         <controls:PiCrossControl.ColumnConstraintsTemplate>
             <DataTemplate>
-                <DockPanel LastChildFill="False"
-                           Margin="1"
-                           Background="{Binding IsSatisfied.Value, Converter={StaticResource isConstraintSatisfiedConverter}}">
+                <DockPanel LastChildFill="False" Margin="1">
+                    <DockPanel.Background>
+                        <MultiBinding Converter="{StaticResource constraintBackgroundConverter}">
+                            <Binding Path="IsSatisfied.Value" />
+                            <Binding Path="Active.Value" />
+                        </MultiBinding>
+                    </DockPanel.Background>
                     <ItemsControl ItemsSource="{Binding Values.Items}" DockPanel.Dock="Bottom">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -53,7 +83,13 @@
 
         <controls:PiCrossControl.RowConstraintsTemplate>
             <DataTemplate>
-                <DockPanel LastChildFill="False" Margin="1" Background="{Binding IsSatisfied.Value, Converter={StaticResource isConstraintSatisfiedConverter}}">
+                <DockPanel LastChildFill="False" Margin="1">
+                    <DockPanel.Background>
+                        <MultiBinding Converter="{StaticResource constraintBackgroundConverter}">
+                            <Binding Path="IsSatisfied.Value" />
+                            <Binding Path="Active.Value" />
+                        </MultiBinding>
+                    </DockPanel.Background>
                     <ItemsControl ItemsSource="{Binding Values.Items}" DockPanel.Dock="Right">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
