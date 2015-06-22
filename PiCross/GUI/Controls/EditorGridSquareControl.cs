@@ -19,6 +19,9 @@ namespace GUI.Controls
 {
     [TemplateVisualState( GroupName = "FillStates", Name = "Empty" )]
     [TemplateVisualState( GroupName = "FillStates", Name = "Filled" )]
+    [TemplateVisualState( GroupName = "AmbiguityStates", Name = "Ambiguous" )]
+    [TemplateVisualState( GroupName = "AmbiguityStates", Name = "Unambiguous" )]
+    [TemplateVisualState( GroupName = "AmbiguityStates", Name = "UnknownAmbiguity" )]
     public class EditorGridSquareControl : SquareControl
     {
         static EditorGridSquareControl()
@@ -51,11 +54,30 @@ namespace GUI.Controls
 
         #endregion
 
+        #region Ambiguity
+
+        public Ambiguity Ambiguity
+        {
+            get { return (Ambiguity) GetValue( AmbiguityProperty ); }
+            set { SetValue( AmbiguityProperty, value ); }
+        }
+
+        public static readonly DependencyProperty AmbiguityProperty =
+            DependencyProperty.Register( "Ambiguity", typeof( Ambiguity ), typeof( EditorGridSquareControl ), new PropertyMetadata( Ambiguity.Unknown, (obj, args) => ((EditorGridSquareControl) obj).OnAmbiguityChanged(args) ) );
+
+        private void OnAmbiguityChanged(DependencyPropertyChangedEventArgs args)
+        {
+            UpdateAmbiguityVisialState( true );
+        }
+
+        #endregion
+
         #region Visual States
 
         private void UpdateVisualState( bool transition = true )
         {
             UpdateFillState( transition );
+            UpdateAmbiguityVisialState( transition );
         }
 
         private void UpdateFillState( bool transition = true )
@@ -69,6 +91,24 @@ namespace GUI.Controls
             else
             {
                 ChangeVisualState( "Empty", transition );
+            }
+        }
+
+        private void UpdateAmbiguityVisialState(bool transition)
+        {
+            switch ( Ambiguity )
+            {
+                case PiCross.Game.Ambiguity.Ambiguous:
+                    ChangeVisualState( "Ambiguous", transition );
+                    break;
+
+                case PiCross.Game.Ambiguity.Unambiguous:
+                    ChangeVisualState( "Unambiguous", transition );
+                    break;
+
+                case PiCross.Game.Ambiguity.Unknown:
+                    ChangeVisualState( "UnknownAmbiguity", transition );
+                    break;
             }
         }
 

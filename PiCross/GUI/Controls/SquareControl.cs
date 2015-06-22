@@ -31,7 +31,8 @@ namespace GUI.Controls
         {
             base.OnApplyTemplate();
 
-            body = (FrameworkElement) GetTemplateChild( "Body" );            
+            body = (FrameworkElement) GetTemplateChild( "Body" );
+            UpdateVisualState();
         }
 
         #region LeftClick
