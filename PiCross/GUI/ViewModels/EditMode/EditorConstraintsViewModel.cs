@@ -13,9 +13,12 @@ namespace GUI.ViewModels.EditMode
     {
         private readonly IPuzzleEditorConstraints constraints;
 
-        public EditorConstraintsViewModel( IPuzzleEditorConstraints constraints )
+        private readonly Cell<bool> isActive;
+
+        public EditorConstraintsViewModel( IPuzzleEditorConstraints constraints, Cell<bool> isActive )
         {
             this.constraints = constraints;
+            this.isActive = isActive;
         }
 
         public Cell<ISequence<int>> Values
@@ -23,6 +26,14 @@ namespace GUI.ViewModels.EditMode
             get
             {
                 return constraints.Values;
+            }
+        }
+
+        public Cell<bool> IsActive
+        {
+            get
+            {
+                return isActive;
             }
         }
     }

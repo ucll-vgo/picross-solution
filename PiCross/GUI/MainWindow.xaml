@@ -7,6 +7,8 @@
         Title="MainWindow" Height="450" Width="800">
     <Window.Resources>
         <converters:BoolConverter x:Key="isFilledConverter" True="{x:Static picross:Square.FILLED}" False="{x:Static picross:Square.EMPTY}" />
+
+        <converters:BoolConverter x:Key="constraintBackgroundConverter" True="#DDDDDD" False="#FFFFFF" />
     </Window.Resources>
     <DockPanel>
         <Menu x:Name="menu" DockPanel.Dock="Top" IsMainMenu="True">
@@ -29,6 +31,7 @@
                         <controls:PuzzleGridSquareControl Contents="{Binding IsFilled.Value, Converter={StaticResource isFilledConverter}}"
                                                       Width="24"
                                                       Height="24"
+                                                      Activate="{Binding Activate}"
                                                       LeftClick="{Binding SetFilled}"                                                      
                                                       RightClick="{Binding SetEmpty}">
                         </controls:PuzzleGridSquareControl>
@@ -37,7 +40,7 @@
 
                 <controls:PiCrossControl.ColumnConstraintsTemplate>
                     <DataTemplate>
-                        <DockPanel LastChildFill="False" Margin="1">
+                        <DockPanel LastChildFill="False" Margin="1" Background="{Binding IsActive.Value, Converter={StaticResource constraintBackgroundConverter}}">
                             <ItemsControl ItemsSource="{Binding Values.Value.Items}" DockPanel.Dock="Bottom">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
@@ -60,7 +63,7 @@
 
                 <controls:PiCrossControl.RowConstraintsTemplate>
                     <DataTemplate>
-                        <DockPanel LastChildFill="False" Margin="1">
+                        <DockPanel LastChildFill="False" Margin="1" Background="{Binding IsActive.Value, Converter={StaticResource constraintBackgroundConverter}}">                            
                             <ItemsControl ItemsSource="{Binding Values.Value.Items}" DockPanel.Dock="Right">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>

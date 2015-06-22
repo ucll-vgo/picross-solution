@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,12 +24,19 @@ namespace GUI.ViewModels.EditMode
 
         private readonly ISequence<EditorConstraintsViewModel> rowConstraints;
 
+        private readonly Cell<Vector2D> activeSquare;
+
         public EditorViewModel( PuzzleEditor_ManualAmbiguity puzzleEditor )
         {
             this.puzzleEditor = puzzleEditor;
-            this.squares = PiCross.DataStructures.Grid.Create( puzzleEditor.Size, position => new EditorSquareViewModel( puzzleEditor[position] ) );
-            this.columnConstraints = puzzleEditor.ColumnConstraints.Map( constraints => new EditorConstraintsViewModel( constraints ) );
-            this.rowConstraints = puzzleEditor.RowConstraints.Map( constraints => new EditorConstraintsViewModel( constraints ) );
+            this.activeSquare = Cell.Create<Vector2D>( null );
+            this.columnConstraints = puzzleEditor.ColumnConstraints.Map( ( x, constraints ) => new EditorConstraintsViewModel( constraints, Cell.Derived( activeSquare, p => p != null && p.X == x ) ) );
+            this.rowConstraints = puzzleEditor.RowConstraints.Map( ( y, constraints ) => new EditorConstraintsViewModel( constraints, Cell.Derived( activeSquare, p => p != null && p.Y == y ) ) );
+
+            var signalFactory = new SignalFactory<Vector2D>( activeSquare );
+            this.squares = PiCross.DataStructures.Grid.Create( puzzleEditor.Size, position => new EditorSquareViewModel( puzzleEditor[position], signalFactory.CreateSignal( position ) ) );
+
+            activeSquare.ValueChanged += () => Debug.WriteLine( activeSquare.Value.ToString() );
         }
 
         public IGrid<object> Grid
