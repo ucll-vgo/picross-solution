@@ -21,7 +21,7 @@ namespace GUI.ViewModels.EditMode
 
         private readonly ISequence<EditorConstraintsViewModel> columnConstraints;
 
-        private readonly ISequence<EditorConstraintsViewModel> rowConstraints;        
+        private readonly ISequence<EditorConstraintsViewModel> rowConstraints;
 
         public EditorViewModel( PuzzleEditor_ManualAmbiguity puzzleEditor )
         {
@@ -65,63 +65,6 @@ namespace GUI.ViewModels.EditMode
             get
             {
                 return rowConstraints;
-            }
-        }
-    }    
-
-    public class EditorSquareViewModel
-    {
-        private readonly IPuzzleEditorSquare square;
-
-        private readonly Cell<bool> isFilled;
-
-        private readonly ICommand setFilled;
-
-        private readonly ICommand setEmpty;
-
-        public EditorSquareViewModel( IPuzzleEditorSquare square )
-        {
-            this.square = square;
-            this.isFilled = square.IsFilled;
-            this.setFilled = EnabledCommand.FromDelegate( () => isFilled.Value = true );
-            this.setEmpty = EnabledCommand.FromDelegate( () => isFilled.Value = false );
-        }
-
-        public Cell<bool> IsFilled
-        {
-            get
-            {
-                return isFilled;
-            }
-        }
-
-        public Cell<Ambiguity> Ambiguity
-        {
-            get
-            {
-                return square.Ambiguity;
-            }
-        }
-
-        public ICommand SetFilled { get { return setFilled; } }
-
-        public ICommand SetEmpty { get { return setEmpty; } }
-    }
-
-    public class EditorConstraintsViewModel
-    {
-        private readonly IPuzzleEditorConstraints constraints;
-
-        public EditorConstraintsViewModel( IPuzzleEditorConstraints constraints )
-        {
-            this.constraints = constraints;
-        }
-
-        public Cell<ISequence<int>> Values
-        {
-            get
-            {
-                return constraints.Values;
             }
         }
     }
