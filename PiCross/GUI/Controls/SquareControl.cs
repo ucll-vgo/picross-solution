@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,54 +12,27 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using PiCross.Cells;
-using PiCross.Game;
 
 namespace GUI.Controls
 {
     [TemplatePart( Name = "Body", Type = typeof( FrameworkElement ) )]
     [TemplateVisualState( GroupName = "MouseStates", Name = "MouseOver" )]
     [TemplateVisualState( GroupName = "MouseStates", Name = "MouseNotOver" )]
-    [TemplateVisualState( GroupName = "FillStates", Name = "Unknown" )]
-    [TemplateVisualState( GroupName = "FillStates", Name = "Empty" )]
-    [TemplateVisualState( GroupName = "FillStates", Name = "Filled" )]
-    [TemplateVisualState( GroupName = "FillStates", Name = "NoContents" )]
-    public class PuzzleGridSquareControl : Control
+    public class SquareControl : Control
     {
         private FrameworkElement body;
 
-        static PuzzleGridSquareControl()
+        static SquareControl()
         {
-            DefaultStyleKeyProperty.OverrideMetadata( typeof( PuzzleGridSquareControl ), new FrameworkPropertyMetadata( typeof( PuzzleGridSquareControl ) ) );
+            DefaultStyleKeyProperty.OverrideMetadata( typeof( SquareControl ), new FrameworkPropertyMetadata( typeof( SquareControl ) ) );
         }
 
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
 
-            body = (FrameworkElement) GetTemplateChild( "Body" );
-
-            UpdateVisualState( false );
+            body = (FrameworkElement) GetTemplateChild( "Body" );            
         }
-
-        #region Contents
-
-        public Square Contents
-        {
-            get { return (Square) GetValue( ContentsProperty ); }
-            set { SetValue( ContentsProperty, value ); }
-        }
-
-        // Using a DependencyProperty as the backing store for Contents.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ContentsProperty =
-            DependencyProperty.Register( "Contents", typeof( Square ), typeof( PuzzleGridSquareControl ), new PropertyMetadata( null, (obj, args) => ((PuzzleGridSquareControl) obj).OnContentsChanged(args) ) );
-
-        private void OnContentsChanged(DependencyPropertyChangedEventArgs args)
-        {
-            UpdateFillState();
-        }
-
-        #endregion
 
         #region LeftClick
 
@@ -71,7 +43,7 @@ namespace GUI.Controls
         }
 
         public static readonly DependencyProperty LeftClickProperty =
-            DependencyProperty.Register( "LeftClick", typeof( ICommand ), typeof( PuzzleGridSquareControl ), new PropertyMetadata( null ) );
+            DependencyProperty.Register( "LeftClick", typeof( ICommand ), typeof( SquareControl ), new PropertyMetadata( null ) );
 
         #endregion
 
@@ -84,7 +56,7 @@ namespace GUI.Controls
         }
 
         public static readonly DependencyProperty RightClickProperty =
-            DependencyProperty.Register( "RightClick", typeof( ICommand ), typeof( PuzzleGridSquareControl ), new PropertyMetadata( null ) );
+            DependencyProperty.Register( "RightClick", typeof( ICommand ), typeof( SquareControl ), new PropertyMetadata( null ) );
 
         #endregion
 
@@ -114,7 +86,6 @@ namespace GUI.Controls
         private void UpdateVisualState( bool transition = true )
         {
             UpdateMouseOverState( transition );
-            UpdateFillState( transition );
         }
 
         private void UpdateMouseOverState( bool transition = true )
@@ -126,28 +97,6 @@ namespace GUI.Controls
             else
             {
                 ChangeVisualState( "MouseNotOver", transition );
-            }
-        }
-
-        private void UpdateFillState( bool transition = true )
-        {
-            var contents = this.Contents;
-
-            if ( contents == Square.EMPTY )
-            {
-                ChangeVisualState( "Empty", transition );
-            }
-            else if ( contents == Square.FILLED )
-            {
-                ChangeVisualState( "Filled", transition );
-            }
-            else if ( contents == Square.UNKNOWN )
-            {
-                ChangeVisualState( "Unknown", transition );
-            }
-            else
-            {
-                ChangeVisualState( "NoContents", transition );
             }
         }
 
@@ -199,10 +148,5 @@ namespace GUI.Controls
         }
 
         #endregion
-    }
-
-    public interface IPuzzleGridSquareViewModel
-    {
-        Cell<Square> Contents { get; }
     }
 }

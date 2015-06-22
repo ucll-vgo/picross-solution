@@ -58,6 +58,7 @@
     <Compile Include="Controls\SolveControl.xaml.cs">
       <DependentUpon>SolveControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\SquareControl.cs" />
     <Compile Include="ViewModels\EditMode\EditorViewModel.cs" />
     <Compile Include="ViewModels\PuzzleMode\ConstraintsValueViewModel.cs" />
     <Compile Include="ViewModels\PuzzleMode\ConstraintsViewModel.cs" />
