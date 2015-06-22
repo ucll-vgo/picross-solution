@@ -35,8 +35,7 @@ namespace GUI.ViewModels.PuzzleMode
             }
         }
 
-        // TODO Rename to IsActive
-        public Cell<bool> Active
+        public Cell<bool> IsActive
         {
             get
             {

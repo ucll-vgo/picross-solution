@@ -57,7 +57,7 @@
                     <DockPanel.Background>
                         <MultiBinding Converter="{StaticResource constraintBackgroundConverter}">
                             <Binding Path="IsSatisfied.Value" />
-                            <Binding Path="Active.Value" />
+                            <Binding Path="IsActive.Value" />
                         </MultiBinding>
                     </DockPanel.Background>
                     <ItemsControl ItemsSource="{Binding Values.Items}" DockPanel.Dock="Bottom">
@@ -87,7 +87,7 @@
                     <DockPanel.Background>
                         <MultiBinding Converter="{StaticResource constraintBackgroundConverter}">
                             <Binding Path="IsSatisfied.Value" />
-                            <Binding Path="Active.Value" />
+                            <Binding Path="IsActive.Value" />
                         </MultiBinding>
                     </DockPanel.Background>
                     <ItemsControl ItemsSource="{Binding Values.Items}" DockPanel.Dock="Right">
