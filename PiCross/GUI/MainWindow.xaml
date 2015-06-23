@@ -18,17 +18,16 @@
             </MenuItem>
         </Menu>
 
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-
-            <StackPanel x:Name="editorControl" Orientation="Vertical" Grid.Row="0" Grid.Column="0">
-                <controls:EditorControl  />
-                <Button Command="{Binding Refine}" Content="Refine" />
-            </StackPanel>
-            <controls:SolveControl x:Name="solveControl" Grid.Row="0" Grid.Column="1" />
-        </Grid>
+        <TabControl>
+            <TabItem Header="Play">
+                <controls:SolveControl x:Name="solveControl" />
+            </TabItem>
+            <TabItem Header="Edit">
+                <StackPanel x:Name="editorControl" Orientation="Vertical">
+                    <controls:EditorControl  />
+                    <Button Command="{Binding Refine}" Content="Refine" Margin="5" />
+                </StackPanel>
+            </TabItem>        
+        </TabControl>
     </DockPanel>
 </Window>
