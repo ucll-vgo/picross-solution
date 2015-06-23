@@ -22,11 +22,11 @@ namespace GUI.ViewModels.EditMode
             this.isActive = isActive;
         }
 
-        public Cell<Constraints> Values
+        public Cell<Constraints> Constraints
         {
             get
             {
-                return constraints.Values;
+                return constraints.Constraints;
             }
         }
 
