@@ -52,10 +52,5 @@ namespace GUI.Controls
             DependencyProperty.Register( "PixelSize", typeof( double ), typeof( ThumbnailControl ), new PropertyMetadata( 2.0 ) );
 
         #endregion
-
-        private void parent_MouseDown( object sender, MouseButtonEventArgs e )
-        {
-            
-        }
     }
 }

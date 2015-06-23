@@ -19,6 +19,36 @@
         </Menu>
 
         <TabControl>
+            <TabItem Header="Library">
+                <DockPanel x:Name="libraryControl">
+                    <Border DockPanel.Dock="Top">
+
+                    </Border>
+
+                    <ItemsControl ItemsSource="{Binding Entries}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border CornerRadius="10"
+                                        Margin="5"
+                                        Width="200" Height="200"
+                                        BorderBrush="Black"
+                                        BorderThickness="4"
+                                        Background="Gray">
+                                    <Viewbox>
+                                        <controls:ThumbnailControl Grid="{Binding Grid}" />
+                                    </Viewbox>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </DockPanel>
+            </TabItem>
+
             <TabItem Header="Play">
                 <controls:SolveControl x:Name="solveControl" />
             </TabItem>
@@ -27,7 +57,7 @@
                     <controls:EditorControl  />
                     <Button Command="{Binding Refine}" Content="Refine" Margin="5" />
                 </StackPanel>
-            </TabItem>        
+            </TabItem>
         </TabControl>
     </DockPanel>
 </Window>

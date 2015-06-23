@@ -17,10 +17,12 @@ using GUI.Commands;
 using GUI.Controls;
 using GUI.ViewModels;
 using GUI.ViewModels.EditMode;
+using GUI.ViewModels.LibraryMode;
 using GUI.ViewModels.PuzzleMode;
 using PiCross.Cells;
 using PiCross.DataStructures;
 using PiCross.Facade.Editing;
+using PiCross.Facade.IO;
 using PiCross.Facade.Playing;
 using PiCross.Game;
 using Grid = PiCross.DataStructures.Grid;
@@ -51,13 +53,13 @@ namespace GUI
                 ".xxxxxxxx."
                 );
 
+            var library = Library.CreateDummyLibrary();
+
             var playGrid = editorGrid.CreatePlayGrid();
 
-            // playGrid.Squares.Overwrite( editorGrid.Squares );
-
-            // this.DataContext = new EditorDataContext( this.Dispatcher, new PuzzleEditor( editorGrid ) );
             editorControl.DataContext = new EditorViewModel( new PuzzleEditor_ManualAmbiguity( editorGrid ) );
             solveControl.DataContext = new PuzzleViewModel( new PiCross.Facade.Playing.Puzzle( playGrid ) );
+            libraryControl.DataContext = new LibraryViewModel( library );
 
             setTheme = new SetThemeCommand();
             menu.DataContext = this;
