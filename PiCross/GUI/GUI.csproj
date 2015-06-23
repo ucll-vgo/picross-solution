@@ -63,6 +63,9 @@
       <DependentUpon>SolveControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\SquareControl.cs" />
+    <Compile Include="Controls\ThumbnailControl.xaml.cs">
+      <DependentUpon>ThumbnailControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converters\CurriedConverter.cs" />
     <Compile Include="ViewModels\EditMode\EditorConstraintsViewModel.cs" />
     <Compile Include="ViewModels\EditMode\EditorSquareViewModel.cs" />
@@ -81,6 +84,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\SolveControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ThumbnailControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
