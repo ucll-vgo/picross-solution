@@ -28,6 +28,8 @@ namespace GUI.ViewModels.EditMode
 
         private readonly ICommand refine;
 
+        private readonly IGrid<Cell<bool>> thumbnailData;
+
         public EditorViewModel( PuzzleEditor_ManualAmbiguity puzzleEditor )
         {
             this.puzzleEditor = puzzleEditor;
@@ -36,6 +38,7 @@ namespace GUI.ViewModels.EditMode
             this.rowConstraints = CreateRowConstraints( puzzleEditor, activeSquare );
             this.squares = CreateSquares( puzzleEditor, activeSquare );
             this.refine = new RefineCommand( this );
+            this.thumbnailData = PiCross.DataStructures.Grid.Create( puzzleEditor.Size, position => puzzleEditor[position].IsFilled );
         }
 
         private static ISequence<EditorConstraintsViewModel> CreateColumnConstraints( IPuzzleEditor puzzleEditor, Cell<Vector2D> activeSquare )
@@ -54,7 +57,12 @@ namespace GUI.ViewModels.EditMode
             return PiCross.DataStructures.Grid.Create( puzzleEditor.Size, position => new EditorSquareViewModel( puzzleEditor[position], signalFactory.CreateSignal( position ) ) );
         }
 
-        public IGrid<object> Grid
+        IGrid<object> IPuzzleData.Grid
+        {
+            get { return squares; }
+        }
+
+        public IGrid<EditorSquareViewModel> Grid
         {
             get { return squares; }
         }
@@ -96,6 +104,14 @@ namespace GUI.ViewModels.EditMode
             get
             {
                 return refine;
+            }
+        }
+
+        public IGrid<Cell<bool>> ThumbnailData
+        {
+            get
+            {
+                return thumbnailData;
             }
         }
 

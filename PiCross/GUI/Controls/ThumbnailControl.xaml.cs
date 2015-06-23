@@ -49,8 +49,13 @@ namespace GUI.Controls
         }
 
         public static readonly DependencyProperty PixelSizeProperty =
-            DependencyProperty.Register( "PixelSize", typeof( double ), typeof( ThumbnailControl ), new PropertyMetadata( 2 ) );
+            DependencyProperty.Register( "PixelSize", typeof( double ), typeof( ThumbnailControl ), new PropertyMetadata( 2.0 ) );
 
         #endregion
+
+        private void parent_MouseDown( object sender, MouseButtonEventArgs e )
+        {
+            
+        }
     }
 }

@@ -12,6 +12,39 @@ namespace GUI.Controls
         {
             InitializeComponent();
         }
+        
+        #region Thumbnail
+
+        public UIElement Thumbnail
+        {
+            get { return (UIElement) GetValue( ThumbnailProperty ); }
+            set { SetValue( ThumbnailProperty, value ); }
+        }
+
+        public static readonly DependencyProperty ThumbnailProperty =
+            DependencyProperty.Register( "Thumbnail", typeof( UIElement ), typeof( PiCrossControl ), new PropertyMetadata( null, (obj, args) => ((PiCrossControl) obj).OnThumbnailChanged(args) ) );
+
+        private void OnThumbnailChanged(DependencyPropertyChangedEventArgs args)
+        {
+            if ( args.OldValue != null )
+            {
+                var oldThumbnail = (UIElement) args.OldValue;
+
+                this.grid.Children.Remove( oldThumbnail );
+            }
+
+            if ( args.NewValue != null )
+            {
+                var newThumbnail = (UIElement) args.NewValue;
+
+                System.Windows.Controls.Grid.SetColumn( newThumbnail, 0 );
+                System.Windows.Controls.Grid.SetRow( newThumbnail, 0 );
+
+                this.grid.Children.Add( newThumbnail );
+            }            
+        }
+
+        #endregion
 
         #region SquareTemplate
 
@@ -185,8 +218,19 @@ namespace GUI.Controls
         {
             Debug.Assert( this.grid.Children.Count == 0 );
 
+            AddThumbnailChild();
             CreateSquareControls();
             CreateConstraintControls();
+        }
+
+        private void AddThumbnailChild()
+        {
+            if ( Thumbnail != null )
+            {
+                Debug.Assert( !this.grid.Children.Contains( Thumbnail ) );
+
+                this.grid.Children.Add( this.Thumbnail );
+            }
         }
 
         private void CreateSquareControls()

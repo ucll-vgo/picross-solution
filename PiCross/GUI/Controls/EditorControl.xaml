@@ -69,5 +69,9 @@
                 </DockPanel>
             </DataTemplate>
         </controls:PiCrossControl.RowConstraintsTemplate>
+        
+        <controls:PiCrossControl.Thumbnail>
+            <controls:ThumbnailControl Grid="{Binding ThumbnailData}" PixelSize="2" />
+        </controls:PiCrossControl.Thumbnail>
     </controls:PiCrossControl>
 </UserControl>
