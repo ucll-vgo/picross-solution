@@ -62,11 +62,13 @@
     <Compile Include="Cells\Var.cs" />
     <Compile Include="DataStructures\Signal.cs" />
     <Compile Include="DataStructures\Vector2D.cs" />
+    <Compile Include="Dynamic\IDynamicObject.cs" />
     <Compile Include="Facade\Editing\IPuzzleEditor.cs" />
     <Compile Include="Facade\Editing\PuzzleEditor.cs" />
     <Compile Include="Facade\Editing\PuzzleEditor_ManualAmbiguity.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Facade\IO\ILibrary.cs" />
     <Compile Include="Facade\Playing\Puzzle.cs" />
     <Compile Include="Facade\Playing\IPuzzle.cs" />
     <Compile Include="Game\Ambiguity.cs" />
