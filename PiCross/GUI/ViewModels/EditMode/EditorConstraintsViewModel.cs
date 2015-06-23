@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using PiCross.Cells;
 using PiCross.DataStructures;
 using PiCross.Facade.Editing;
+using PiCross.Game;
 
 namespace GUI.ViewModels.EditMode
 {
@@ -21,7 +22,7 @@ namespace GUI.ViewModels.EditMode
             this.isActive = isActive;
         }
 
-        public Cell<ISequence<int>> Values
+        public Cell<Constraints> Values
         {
             get
             {

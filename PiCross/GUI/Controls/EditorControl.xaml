@@ -27,7 +27,7 @@
         <controls:PiCrossControl.ColumnConstraintsTemplate>
             <DataTemplate>
                 <DockPanel LastChildFill="False" Margin="1" Background="{Binding IsActive.Value, Converter={StaticResource constraintBackgroundConverter}}">
-                    <ItemsControl ItemsSource="{Binding Values.Value.Items}" DockPanel.Dock="Bottom">
+                    <ItemsControl ItemsSource="{Binding Values.Value.Values.Items}" DockPanel.Dock="Bottom">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <StackPanel Orientation="Vertical" />
@@ -50,7 +50,7 @@
         <controls:PiCrossControl.RowConstraintsTemplate>
             <DataTemplate>
                 <DockPanel LastChildFill="False" Margin="1" Background="{Binding IsActive.Value, Converter={StaticResource constraintBackgroundConverter}}">
-                    <ItemsControl ItemsSource="{Binding Values.Value.Items}" DockPanel.Dock="Right">
+                    <ItemsControl ItemsSource="{Binding Values.Value.Values.Items}" DockPanel.Dock="Right">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <StackPanel Orientation="Horizontal" />
