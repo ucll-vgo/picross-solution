@@ -7,6 +7,7 @@
         Title="MainWindow" Height="450" Width="800">
     <Window.Resources>
         <converters:BoolConverter x:Key="constraintBackgroundConverter" True="#DDDDDD" False="Transparent" />
+        <converters:InterpolatedStringConverter x:Key="sizeConverter" String="[[Width]] x [[Height]]" />
     </Window.Resources>
 
     <DockPanel>
@@ -34,15 +35,17 @@
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Border CornerRadius="10"
-                                        Margin="5"
-                                        Width="200" Height="200"
-                                        BorderBrush="Black"
-                                        BorderThickness="4"
-                                        Background="Gray">
-                                        <Viewbox>
-                                            <controls:ThumbnailControl Grid="{Binding Grid}" />
-                                        </Viewbox>
+                                    <Border CornerRadius="10" Margin="5" Width="200" Height="200" BorderBrush="Black" BorderThickness="4" Background="Gray">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="auto" />
+                                            </Grid.RowDefinitions>
+                                            <Viewbox Grid.Row="0">
+                                                <controls:ThumbnailControl Grid="{Binding Grid}" />
+                                            </Viewbox>
+                                            <TextBlock Text="{Binding Puzzle.Size, Converter={StaticResource sizeConverter}}" Grid.Row="1" FontSize="32" HorizontalAlignment="Center" />
+                                        </Grid>
                                     </Border>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>

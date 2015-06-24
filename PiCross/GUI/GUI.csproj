@@ -67,6 +67,7 @@
       <DependentUpon>ThumbnailControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\CurriedConverter.cs" />
+    <Compile Include="Converters\InterpolatedStringConverter.cs" />
     <Compile Include="ViewModels\EditMode\EditorConstraintsViewModel.cs" />
     <Compile Include="ViewModels\EditMode\EditorSquareViewModel.cs" />
     <Compile Include="ViewModels\EditMode\EditorViewModel.cs" />
