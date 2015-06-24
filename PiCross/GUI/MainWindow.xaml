@@ -41,7 +41,7 @@
                                                 <RowDefinition Height="*" />
                                                 <RowDefinition Height="auto" />
                                             </Grid.RowDefinitions>
-                                            <Viewbox Grid.Row="0">
+                                            <Viewbox Grid.Row="0" Width="100" Height="100">
                                                 <controls:ThumbnailControl Grid="{Binding Grid}" />
                                             </Viewbox>
                                             <TextBlock Text="{Binding Puzzle.Size, Converter={StaticResource sizeConverter}}" Grid.Row="1" FontSize="32" HorizontalAlignment="Center" />

@@ -4,5 +4,8 @@
              xmlns:controls="clr-namespace:GUI.Controls"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="FontFamily" Value="Fonts/#SketchFlow Print" />
+        </Style>
     </Application.Resources>
 </Application>
