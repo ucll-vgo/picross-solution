@@ -52,14 +52,16 @@ namespace GUI
                 "x........x",
                 ".xxxxxxxx."
                 );
-
-            var library = new DummyData().Puzzles;
-
+            
             var playGrid = editorGrid.CreatePlayGrid();
+
+            var dummy = new DummyData();
+            var library = dummy.Puzzles;
+            var user = dummy.Users["Woumpousse"];
 
             editorControl.DataContext = new EditorViewModel( new PuzzleEditor_ManualAmbiguity( editorGrid ) );
             solveControl.DataContext = new PuzzleViewModel( new PiCross.Facade.Playing.Puzzle( playGrid ) );
-            libraryControl.DataContext = new LibraryViewModel( library );
+            libraryControl.DataContext = new LibraryViewModel( library, user );
 
             setTheme = new SetThemeCommand();
             menu.DataContext = this;

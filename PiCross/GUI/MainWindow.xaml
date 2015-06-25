@@ -8,6 +8,20 @@
     <Window.Resources>
         <converters:BoolConverter x:Key="constraintBackgroundConverter" True="#DDDDDD" False="Transparent" />
         <converters:InterpolatedStringConverter x:Key="sizeConverter" String="[[Width]] x [[Height]]" />
+        <converters:TemplateLoaderConverter x:Key="thumbnailConverter">
+            <converters:BoolConverter>
+                <converters:BoolConverter.True>
+                    <DataTemplate>
+                        <controls:ThumbnailControl Grid="{Binding Grid}" />
+                    </DataTemplate>
+                </converters:BoolConverter.True>
+                <converters:BoolConverter.False>
+                    <DataTemplate>
+                        <TextBlock Text="?" />
+                    </DataTemplate>
+                </converters:BoolConverter.False>
+            </converters:BoolConverter>
+        </converters:TemplateLoaderConverter>
     </Window.Resources>
 
     <DockPanel>
@@ -26,7 +40,7 @@
 
                     </Border>
 
-                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" Background="Black">
                         <ItemsControl ItemsSource="{Binding Entries}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
@@ -35,14 +49,16 @@
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Border CornerRadius="10" Margin="5" Width="200" Height="200" BorderBrush="Black" BorderThickness="4">
+                                    <Border CornerRadius="10" Margin="5" Width="200" Height="200">
                                         <Grid>
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="*" />
                                                 <RowDefinition Height="auto" />
                                             </Grid.RowDefinitions>
                                             <Viewbox Grid.Row="0" Width="100" Height="100">
-                                                <controls:ThumbnailControl Grid="{Binding Grid}" />
+                                                <ContentControl Content="{Binding Solved, Converter={StaticResource thumbnailConverter}}" />
+
+
                                             </Viewbox>
                                             <TextBlock Text="{Binding Puzzle.Size, Converter={StaticResource sizeConverter}}" Grid.Row="1" FontSize="32" HorizontalAlignment="Center" />
                                         </Grid>

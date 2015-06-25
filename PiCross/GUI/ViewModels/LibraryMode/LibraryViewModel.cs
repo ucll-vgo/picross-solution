@@ -13,14 +13,17 @@ namespace GUI.ViewModels.LibraryMode
 {
     public class LibraryViewModel
     {
+        private readonly IUserProfile activeUser;
+
         private readonly ILibrary library;
 
         private readonly List<LibraryEntryViewModel> entries;
 
-        public LibraryViewModel( ILibrary library )
+        public LibraryViewModel( ILibrary library, IUserProfile activeUser )
         {
             this.library = library;
-            this.entries = library.Entries.Select( x => new LibraryEntryViewModel( x ) ).ToList();
+            this.activeUser = activeUser;
+            this.entries = library.Entries.Select( x => new LibraryEntryViewModel( x, activeUser.PuzzleInformation[x.Puzzle] ) ).ToList();
         }
 
         public IEnumerable<LibraryEntryViewModel> Entries
@@ -34,13 +37,16 @@ namespace GUI.ViewModels.LibraryMode
 
     public class LibraryEntryViewModel
     {
+        private readonly IUserPuzzleInformationEntry userInfo;
+
         private readonly ILibraryEntry entry;
 
         private readonly IGrid<Cell<bool>> grid;
 
-        public LibraryEntryViewModel( ILibraryEntry entry )
+        public LibraryEntryViewModel( ILibraryEntry entry, IUserPuzzleInformationEntry userInfo )
         {
             this.entry = entry;
+            this.userInfo = userInfo;
             this.grid = entry.Puzzle.Grid.Map( (bool x) => Cell.Create( x ) ).Copy();
         }
 
@@ -57,6 +63,14 @@ namespace GUI.ViewModels.LibraryMode
             get
             {
                 return grid;
+            }
+        }
+
+        public bool Solved
+        {
+            get
+            {
+                return userInfo != null;
             }
         }
     }
