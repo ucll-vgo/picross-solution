@@ -53,7 +53,7 @@ namespace GUI
                 ".xxxxxxxx."
                 );
 
-            var library = Library.CreateDummyLibrary();
+            var library = new DummyData().Puzzles;
 
             var playGrid = editorGrid.CreatePlayGrid();
 
