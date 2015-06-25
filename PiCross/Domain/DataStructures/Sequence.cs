@@ -56,6 +56,11 @@ namespace PiCross.DataStructures
         {
             return Sequence.FromFunction( length, i => from + i );
         }
+
+        public static ISequence<bool> Bits( byte n )
+        {
+            return FromFunction( 8, i => ( ( n >> ( 7 - i ) ) & 1 ) == 1 );
+        }
     }
 
     public static class SequenceExtensions
@@ -184,6 +189,24 @@ namespace PiCross.DataStructures
             }
             else
             {
+                return Sequence.FromFunction( count, i => xs[i + from] );
+            }
+        }
+
+        private static ISequence<T> SafeSubsequence<T>( this ISequence<T> xs, int from, int count )
+        {
+            if ( !xs.IsValidIndex( from ) )
+            {
+                throw new ArgumentOutOfRangeException( "from" );
+            }
+            else if ( count < 0 )
+            {
+                throw new ArgumentOutOfRangeException( "count" );
+            }
+            else
+            {
+                count = Math.Min( count, xs.Length - from );
+
                 return Sequence.FromFunction( count, i => xs[i + from] );
             }
         }
@@ -347,7 +370,7 @@ namespace PiCross.DataStructures
                     var cell = xs[i];
                     var value = ys[i];
 
-                    if ( !Util.AreEqual(cell.Value, value))
+                    if ( !Util.AreEqual( cell.Value, value ) )
                     {
                         cell.Value = value;
                         overwriteDetected = true;
@@ -355,6 +378,51 @@ namespace PiCross.DataStructures
                 }
 
                 return overwriteDetected;
+            }
+        }
+
+        public static ISequence<ISequence<T>> Group<T>( this ISequence<T> xs, int groupSize )
+        {
+            return Sequence.FromFunction( ( xs.Length + groupSize - 1 ) / groupSize, i => xs.SafeSubsequence( i * groupSize, groupSize ) );
+        }
+
+        public static ISequence<byte> GroupBits( this ISequence<bool> bits )
+        {
+            var byteGroups = bits.Group( 8 );
+
+            return byteGroups.Map( group => group.ToByte() );
+        }
+
+        public static byte ToByte( this ISequence<bool> bits )
+        {
+            if ( bits == null )
+            {
+                throw new ArgumentNullException( "bits" );
+            }
+            else if ( bits.Length > 8 )
+            {
+                throw new ArgumentOutOfRangeException( "Maximum eight bits allowed" );
+            }
+            else
+            {
+                return (byte) ( bits.Map( ( i, b ) => ( b ? 1 : 0 ) << ( 7 - i ) ).Items.Aggregate( 0, ( x, y ) => x | y ) );
+            }
+        }
+
+        public static T[] ToArray<T>( this ISequence<T> seq )
+        {
+            var array = new T[seq.Length];
+
+            seq.Each( i => array[i] = seq[i] );
+
+            return array;
+        }
+
+        public static void Each<T>(this ISequence<T> xs, Action<int> action)
+        {
+            foreach ( var i in xs.Indices )
+            {
+                action( i );
             }
         }
     }

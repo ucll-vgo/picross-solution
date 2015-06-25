@@ -114,6 +114,11 @@ namespace PiCross.DataStructures
                 }
             }
         }
+
+        public static ISequence<T> Linearize<T>(this IGrid<T> grid)
+        {
+            return grid.Rows.ToSequence().Flatten();   
+        }
     }
 
     public static class Grid
@@ -175,6 +180,15 @@ namespace PiCross.DataStructures
         internal static int HashCode<T>( IGrid<T> grid )
         {
             return grid.Items.Select( x => x.GetHashCode() ).Aggregate( 0, ( x, y ) => x ^ y );
+        }
+
+        public static IGrid<T> FromRows<T>(ISequence<ISequence<T>> rows)
+        {
+            var width = rows[0].Length;
+            var height = rows.Length;
+            var size = new Size(width, height);
+
+            return Grid.Create( size, p => rows[p.Y][p.X] );
         }
     }
 

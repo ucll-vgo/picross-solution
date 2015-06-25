@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 
 namespace PiCross.Cells
 {
@@ -14,6 +10,7 @@ namespace PiCross.Cells
         }
     }
 
+    [DebuggerDisplay( "{Status}" )]
     public class Flag<T>
     {
         public Flag( Cell<T> cell )

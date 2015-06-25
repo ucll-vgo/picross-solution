@@ -71,9 +71,13 @@
     <Compile Include="Facade\Editing\PuzzleEditor_ManualAmbiguity.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Facade\IO\Dummy.cs" />
     <Compile Include="Facade\IO\ILibrary.cs" />
+    <Compile Include="Facade\IO\IPuzzleFormat.cs" />
+    <Compile Include="Facade\IO\IUserDatabase.cs" />
     <Compile Include="Facade\IO\Library.cs" />
     <Compile Include="Facade\IO\LibraryIO.cs" />
+    <Compile Include="Facade\IO\UserDatabase.cs" />
     <Compile Include="Facade\Playing\Puzzle.cs" />
     <Compile Include="Facade\Playing\IPuzzle.cs" />
     <Compile Include="Game\Ambiguity.cs" />
@@ -83,6 +87,7 @@
     <Compile Include="Game\PlayGrid.cs" />
     <Compile Include="Game\Puzzle.cs" />
     <Compile Include="DataStructures\Size.cs" />
+    <Compile Include="Game\PuzzleUID.cs" />
     <Compile Include="Game\SolverGrid.cs" />
     <Compile Include="Game\Slice.cs" />
     <Compile Include="Game\Square.cs" />
