@@ -19,6 +19,7 @@ using GUI.ViewModels;
 using GUI.ViewModels.EditMode;
 using GUI.ViewModels.LibraryMode;
 using GUI.ViewModels.PuzzleMode;
+using GUI.Views.PlayerSelection;
 using PiCross.Cells;
 using PiCross.DataStructures;
 using PiCross.Facade.Editing;
@@ -62,6 +63,9 @@ namespace GUI
             editorControl.DataContext = new EditorViewModel( new PuzzleEditor_ManualAmbiguity( editorGrid ) );
             solveControl.DataContext = new PuzzleViewModel( new PiCross.Facade.Playing.Puzzle( playGrid ) );
             libraryControl.DataContext = new LibraryViewModel( library, user );
+
+            var playersVM = new PlayersViewModel( dummy.Users );
+            playerSelectionScreen.DataContext = new PlayerList( playersVM );
 
             setTheme = new SetThemeCommand();
             menu.DataContext = this;

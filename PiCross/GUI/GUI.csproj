@@ -58,6 +58,9 @@
       <DependentUpon>EditorControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\EditorGridSquareControl.cs" />
+    <Compile Include="Views\PlayerSelection\PlayerSelectionScreen.xaml.cs">
+      <DependentUpon>PlayerSelectionScreen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\PuzzleGridSquareControl.cs" />
     <Compile Include="Controls\SolveControl.xaml.cs">
       <DependentUpon>SolveControl.xaml</DependentUpon>
@@ -69,20 +72,27 @@
     <Compile Include="Converters\CurriedConverter.cs" />
     <Compile Include="Converters\InterpolatedStringConverter.cs" />
     <Compile Include="Converters\TemplateLoaderConverter.cs" />
+    <Compile Include="TemplateSelectors\TypeBasedSelector.cs" />
     <Compile Include="ViewModels\EditMode\EditorConstraintsViewModel.cs" />
     <Compile Include="ViewModels\EditMode\EditorSquareViewModel.cs" />
     <Compile Include="ViewModels\EditMode\EditorViewModel.cs" />
     <Compile Include="ViewModels\LibraryMode\LibraryViewModel.cs" />
+    <Compile Include="ViewModels\PlayersViewModel.cs" />
     <Compile Include="ViewModels\PuzzleMode\ConstraintsValueViewModel.cs" />
     <Compile Include="ViewModels\PuzzleMode\ConstraintsViewModel.cs" />
     <Compile Include="ViewModels\PuzzleMode\GridSquareViewModel.cs" />
     <Compile Include="ViewModels\PuzzleMode\GridViewModel.cs" />
     <Compile Include="ViewModels\PuzzleMode\PuzzleViewModel.cs" />
+    <Compile Include="Views\PlayerSelection\PlayerList.cs" />
     <Page Include="Controls\EditorControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\PiCrossControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PlayerSelection\PlayerSelectionScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -160,6 +170,7 @@
       <Name>Domain</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
