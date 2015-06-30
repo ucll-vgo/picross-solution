@@ -8,18 +8,35 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
+        <Style x:Key="playerButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="FontSize" Value="32" />
+            <Setter Property="Background" Value="Black" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Width" Value="256" />
+            <Setter Property="Height" Value="256" />
+        </Style>
+        
         <selectors:TypeBasedSelector x:Key="selector">
             <selectors:TypeMapping Type="{x:Type ps:PlayerSelectionItem}">
                 <DataTemplate>
-                    <Button Padding="5" Margin="5">
-                        <TextBlock Text="{Binding Name}" FontSize="48" />
+                    <Button Padding="5" Margin="5" Style="{StaticResource playerButtonStyle}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <Image Grid.Row="0" Source="pack://application:,,,/Icons/user.png" Stretch="None" Margin="5" />
+                            <TextBlock Grid.Row="1" HorizontalAlignment="Center" Text="{Binding Name}" />
+                        </Grid>                        
                     </Button>
                 </DataTemplate>
             </selectors:TypeMapping>
 
             <selectors:TypeMapping Type="{x:Type ps:PlayerAdditionItem}">
                 <DataTemplate>
-                    <Button Content="Add New Player" FontSize="48" Padding="5" Margin="5" />
+                    <Button Padding="5" Margin="5" Style="{StaticResource playerButtonStyle}">
+                        <Image Source="pack://application:,,,/Icons/newuser.png" Width="64" Height="64" />
+                    </Button>
                 </DataTemplate>
             </selectors:TypeMapping>
         </selectors:TypeBasedSelector>
@@ -31,7 +48,13 @@
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Text="PiCross" FontSize="64" HorizontalAlignment="Center" Margin="5" />
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-            <ItemsControl ItemsSource="{Binding Players}" Margin="5" ItemTemplateSelector="{StaticResource selector}" />
+            <ItemsControl ItemsSource="{Binding Players}" Margin="5" ItemTemplateSelector="{StaticResource selector}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
         </ScrollViewer>
     </Grid>
 </UserControl>
