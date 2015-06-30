@@ -58,13 +58,13 @@ namespace GUI
 
             var dummy = new DummyData();
             var library = dummy.Puzzles;
-            var user = dummy.Users["Woumpousse"];
+            var user = dummy.Players["Woumpousse"];
 
             editorControl.DataContext = new EditorViewModel( new PuzzleEditor_ManualAmbiguity( editorGrid ) );
             solveControl.DataContext = new PuzzleViewModel( new PiCross.Facade.Playing.Puzzle( playGrid ) );
             libraryControl.DataContext = new LibraryViewModel( library, user );
 
-            var playersVM = new PlayersViewModel( dummy.Users );
+            var playersVM = new PlayersViewModel( dummy.Players );
             playerSelectionScreen.DataContext = new PlayerList( playersVM );
 
             setTheme = new SetThemeCommand();

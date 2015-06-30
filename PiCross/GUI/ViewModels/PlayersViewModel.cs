@@ -9,14 +9,14 @@ namespace GUI.ViewModels
 {
     public class PlayersViewModel
     {
-        private readonly IUserDatabase players;
+        private readonly IPlayerDatabase players;
 
         private readonly List<PlayerViewModel> playerViewModels;
 
-        public PlayersViewModel( IUserDatabase players )
+        public PlayersViewModel( IPlayerDatabase players )
         {
             this.players = players;
-            this.playerViewModels = players.UserNames.Select( name => new PlayerViewModel( players[name] ) ).ToList();
+            this.playerViewModels = players.PlayerNames.Select( name => new PlayerViewModel( players[name] ) ).ToList();
         }
 
         public IEnumerable<PlayerViewModel> Users
@@ -30,9 +30,9 @@ namespace GUI.ViewModels
 
     public class PlayerViewModel
     {
-        private readonly IUserProfile userProfile;
+        private readonly IPlayerProfile userProfile;
 
-        public PlayerViewModel( IUserProfile userProfile )
+        public PlayerViewModel( IPlayerProfile userProfile )
         {
             this.userProfile = userProfile;
         }

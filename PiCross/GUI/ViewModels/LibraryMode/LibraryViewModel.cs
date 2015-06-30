@@ -13,13 +13,13 @@ namespace GUI.ViewModels.LibraryMode
 {
     public class LibraryViewModel
     {
-        private readonly IUserProfile activeUser;
+        private readonly IPlayerProfile activeUser;
 
         private readonly ILibrary library;
 
         private readonly List<LibraryEntryViewModel> entries;
 
-        public LibraryViewModel( ILibrary library, IUserProfile activeUser )
+        public LibraryViewModel( ILibrary library, IPlayerProfile activeUser )
         {
             this.library = library;
             this.activeUser = activeUser;
@@ -37,13 +37,13 @@ namespace GUI.ViewModels.LibraryMode
 
     public class LibraryEntryViewModel
     {
-        private readonly IUserPuzzleInformationEntry userInfo;
+        private readonly IPlayerPuzzleInformationEntry userInfo;
 
         private readonly ILibraryEntry entry;
 
         private readonly IGrid<Cell<bool>> grid;
 
-        public LibraryEntryViewModel( ILibraryEntry entry, IUserPuzzleInformationEntry userInfo )
+        public LibraryEntryViewModel( ILibraryEntry entry, IPlayerPuzzleInformationEntry userInfo )
         {
             this.entry = entry;
             this.userInfo = userInfo;
