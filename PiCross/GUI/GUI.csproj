@@ -69,8 +69,8 @@
     <Compile Include="Views\IntroView.xaml.cs">
       <DependentUpon>IntroView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\PlayerSelection\PlayerSelectionScreen.xaml.cs">
-      <DependentUpon>PlayerSelectionScreen.xaml</DependentUpon>
+    <Compile Include="Views\PlayerSelection\PlayerSelectionView.xaml.cs">
+      <DependentUpon>PlayerSelectionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\PuzzleGridSquareControl.cs" />
     <Compile Include="Controls\SolveControl.xaml.cs">
@@ -110,7 +110,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\PlayerSelection\PlayerSelectionScreen.xaml">
+    <Page Include="Views\PlayerSelection\PlayerSelectionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
