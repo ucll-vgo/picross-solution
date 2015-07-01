@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using GUI.Commands;
 using PiCross.Facade.IO;
 
 namespace GUI.ViewModels.PlayerSelection
@@ -46,10 +48,17 @@ namespace GUI.ViewModels.PlayerSelection
 
     public class AddPlayerViewModel : ItemViewModel
     {
-        public AddPlayerViewModel( PlayerSelectionViewModel parent )
+        private readonly ICommand addPlayer;
+
+        public AddPlayerViewModel( PlayerSelectionViewModel parent, ICommand addPlayer )
             : base( parent )
         {
-            // NOP
+            this.addPlayer = addPlayer;
+        }
+
+        public ICommand AddPlayer
+        {
+            get { return addPlayer; }
         }
     }
 }

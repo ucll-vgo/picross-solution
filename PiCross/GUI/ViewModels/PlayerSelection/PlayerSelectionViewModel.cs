@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using GUI.Commands;
+using GUI.ViewModels.PlayerAddition;
 using PiCross.Facade.IO;
 
 namespace GUI.ViewModels.PlayerSelection
@@ -16,17 +18,23 @@ namespace GUI.ViewModels.PlayerSelection
 
         private readonly ObservableCollection<ItemViewModel> playerViewModels;
 
+        private readonly ICommand addPlayer;
+
         public PlayerSelectionViewModel( MasterController parent )
             : base( parent )
         {
             this.players = Parent.PlayerDatabase;
-            this.playerViewModels = CreateItemViewModels( this, parent.PlayerDatabase );
+            this.addPlayer = EnabledCommand.FromDelegate( PerformAddPlayer );
+            this.playerViewModels = CreateItemViewModels();
         }
 
-        private static ObservableCollection<ItemViewModel> CreateItemViewModels( PlayerSelectionViewModel parent, IPlayerDatabase players )
+        private ObservableCollection<ItemViewModel> CreateItemViewModels()
         {
-            var result = new ObservableCollection<ItemViewModel>( players.PlayerNames.Select( name => new SelectPlayerViewModel( parent, players[name] ) ) );
-            result.Add( new AddPlayerViewModel( parent ) );
+            Debug.Assert( players != null );
+            Debug.Assert( addPlayer != null );
+
+            var result = new ObservableCollection<ItemViewModel>( players.PlayerNames.Select( name => new SelectPlayerViewModel( this, players[name] ) ) );
+            result.Add( new AddPlayerViewModel( this, addPlayer ) );
 
             return result;
         }
@@ -38,7 +46,10 @@ namespace GUI.ViewModels.PlayerSelection
                 return playerViewModels;
             }
         }
-    }
 
-    
+        private void PerformAddPlayer()
+        {
+            Switch( new PlayerAdditionViewModel( Parent ) );
+        }
+    }
 }
