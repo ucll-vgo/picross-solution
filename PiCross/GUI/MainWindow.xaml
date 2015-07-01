@@ -5,96 +5,15 @@
         xmlns:controls="clr-namespace:GUI.Controls"
         xmlns:ps="clr-namespace:GUI.Views.PlayerSelection"
         xmlns:converters="clr-namespace:GUI.Converters"
+        xmlns:vm="clr-namespace:GUI.ViewModels"
+        xmlns:view="clr-namespace:GUI.Views"
+        xmlns:gui="clr-namespace:GUI"
         Title="MainWindow" Height="450" Width="800">
     <Window.Resources>
-        <converters:BoolConverter x:Key="constraintBackgroundConverter" True="#DDDDDD" False="Transparent" />
-        <converters:InterpolatedStringConverter x:Key="sizeConverter" String="[[Width]] x [[Height]]" />
-        <converters:TemplateLoaderConverter x:Key="thumbnailConverter">
-            <converters:BoolConverter>
-                <converters:BoolConverter.True>
-                    <DataTemplate>
-                        <controls:ThumbnailControl Grid="{Binding Grid}" />
-                    </DataTemplate>
-                </converters:BoolConverter.True>
-                <converters:BoolConverter.False>
-                    <DataTemplate>
-                        <TextBlock Text="?" />
-                    </DataTemplate>
-                </converters:BoolConverter.False>
-            </converters:BoolConverter>
-        </converters:TemplateLoaderConverter>
+        <DataTemplate DataType="{x:Type vm:IntroViewModel}">
+            <view:IntroView />
+        </DataTemplate>
     </Window.Resources>
-
-    <DockPanel>
-        <Menu x:Name="menu" DockPanel.Dock="Top" IsMainMenu="True">
-            <MenuItem Header="Themes">
-                <MenuItem Header="Generic" Command="{Binding SetTheme}" CommandParameter="generic" />
-                <MenuItem Header="Nature" Command="{Binding SetTheme}" CommandParameter="nature" />
-                <MenuItem Header="Water" Command="{Binding SetTheme}" CommandParameter="water" />
-            </MenuItem>
-        </Menu>
-
-        <TabControl>
-            <TabItem Header="Players">
-                <ps:PlayerSelectionScreen x:Name="playerSelectionScreen" />
-            </TabItem>
-            <TabItem Header="Library">
-                <DockPanel x:Name="libraryControl">
-                    <Border DockPanel.Dock="Top">
-
-                    </Border>
-
-                    <ScrollViewer VerticalScrollBarVisibility="Auto" Background="Black">
-                        <ItemsControl ItemsSource="{Binding Entries}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <WrapPanel Orientation="Horizontal" />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Border CornerRadius="10" Margin="5" Width="200" Height="200">
-                                        <Grid>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="*" />
-                                                <RowDefinition Height="auto" />
-                                            </Grid.RowDefinitions>
-                                            <Viewbox Grid.Row="0" Width="100" Height="100">
-                                                <ContentControl Content="{Binding Solved, Converter={StaticResource thumbnailConverter}}" />
-
-
-                                            </Viewbox>
-                                            <TextBlock Text="{Binding Puzzle.Size, Converter={StaticResource sizeConverter}}" Grid.Row="1" FontSize="32" HorizontalAlignment="Center" />
-                                        </Grid>
-                                        <Border.Style>
-                                            <Style TargetType="{x:Type Border}">
-                                                <Style.Triggers>
-                                                    <Trigger Property="IsMouseOver" Value="True">
-                                                        <Setter Property="Background" Value="#DDDDFF" />
-                                                    </Trigger>
-                                                    <Trigger Property="IsMouseOver" Value="False">
-                                                        <Setter Property="Background" Value="Gray" />
-                                                    </Trigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </Border.Style>
-                                    </Border>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </ScrollViewer>
-                </DockPanel>
-            </TabItem>
-
-            <TabItem Header="Play">
-                <controls:SolveControl x:Name="solveControl" />
-            </TabItem>
-            <TabItem Header="Edit">
-                <StackPanel x:Name="editorControl" Orientation="Vertical">
-                    <controls:EditorControl  />
-                    <Button Command="{Binding Refine}" Content="Refine" Margin="5" />
-                </StackPanel>
-            </TabItem>
-        </TabControl>
-    </DockPanel>
+    
+    <ContentControl Content="{Binding ActiveViewModel.Value}" />
 </Window>

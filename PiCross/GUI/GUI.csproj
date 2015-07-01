@@ -54,10 +54,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\DateTemplateSelector.cs" />
     <Compile Include="Controls\EditorControl.xaml.cs">
       <DependentUpon>EditorControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\EditorGridSquareControl.cs" />
+    <Compile Include="Controls\LibraryControl.xaml.cs">
+      <DependentUpon>LibraryControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TypeMapping.cs" />
+    <Compile Include="ViewModels\IntroViewModel.cs" />
+    <Compile Include="ViewModels\ViewController.cs" />
+    <Compile Include="ViewModels\ViewModel.cs" />
+    <Compile Include="Views\IntroView.xaml.cs">
+      <DependentUpon>IntroView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\PlayerSelection\PlayerSelectionScreen.xaml.cs">
       <DependentUpon>PlayerSelectionScreen.xaml</DependentUpon>
     </Compile>
@@ -88,7 +99,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\LibraryControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\PiCrossControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\IntroView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

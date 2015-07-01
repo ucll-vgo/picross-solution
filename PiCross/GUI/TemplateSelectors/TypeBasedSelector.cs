@@ -44,13 +44,5 @@ namespace GUI.TemplateSelectors
                 return pairs;
             }
         }
-    }
-
-    [ContentProperty("Template")]
-    public class TypeMapping
-    {
-        public Type Type { get; set; }
-
-        public DataTemplate Template { get; set; }
-    }
+    }    
 }

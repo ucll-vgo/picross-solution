@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using GUI.Commands;
 using GUI.ViewModels;
 
 namespace GUI.Views.PlayerSelection
@@ -18,7 +20,7 @@ namespace GUI.Views.PlayerSelection
             this.players = players;
             this.playerItems = ( from player in players.Users
                                  select (PlayerListItem) new PlayerSelectionItem( player ) ).ToList();
-            this.playerItems.Add( new PlayerAdditionItem() );
+            this.playerItems.Add( new PlayerAdditionItem(players) );
         }
 
         public IEnumerable<PlayerListItem> Players
@@ -55,6 +57,21 @@ namespace GUI.Views.PlayerSelection
 
     public class PlayerAdditionItem : PlayerListItem
     {
+        private readonly PlayersViewModel players;
 
+        private readonly ICommand addPlayer;
+
+        public PlayerAdditionItem(PlayersViewModel players)
+        {
+            this.players = players;
+            this.addPlayer = EnabledCommand.FromDelegate( PerformAddPlayer );
+        }
+
+
+
+        private void PerformAddPlayer()
+        {
+            // players.a
+        }
     }
 }

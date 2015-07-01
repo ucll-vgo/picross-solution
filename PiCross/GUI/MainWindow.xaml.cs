@@ -35,59 +35,11 @@ namespace GUI
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly ICommand setTheme;
-
         public MainWindow()
         {
             InitializeComponent();
 
-            var editorGrid = EditorGrid.FromStrings(
-                ".xxxxxxxx.",
-                "x........x",
-                "x.x......x",
-                "x.xxxxxx.x",
-                "x......x.x",
-                "x......x.x",
-                "x.xxxxxx.x",
-                "x.x......x",
-                "x........x",
-                ".xxxxxxxx."
-                );
-            
-            var playGrid = editorGrid.CreatePlayGrid();
-
-            var dummy = new DummyData();
-            var library = dummy.Puzzles;
-            var user = dummy.Players["Woumpousse"];
-
-            editorControl.DataContext = new EditorViewModel( new PuzzleEditor_ManualAmbiguity( editorGrid ) );
-            solveControl.DataContext = new PuzzleViewModel( new PiCross.Facade.Playing.Puzzle( playGrid ) );
-            libraryControl.DataContext = new LibraryViewModel( library, user );
-
-            var playersVM = new PlayersViewModel( dummy.Players );
-            playerSelectionScreen.DataContext = new PlayerList( playersVM );
-
-            setTheme = new SetThemeCommand();
-            menu.DataContext = this;
-        }
-
-        public ICommand SetTheme
-        {
-            get
-            {
-                return setTheme;
-            }
-        }
-
-        private class SetThemeCommand : EnabledCommand
-        {
-            public override void Execute( object parameter )
-            {
-                var dics = Application.Current.Resources.MergedDictionaries;
-
-                dics.Clear();
-                dics.Add( new ResourceDictionary() { Source = new Uri( string.Format( "pack://application:,,,/Themes/{0}.xaml", parameter ) ) } );
-            }
+            this.DataContext = new MasterController();
         }
     }
 }

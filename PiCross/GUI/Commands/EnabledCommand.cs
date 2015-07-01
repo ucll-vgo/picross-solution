@@ -7,7 +7,12 @@ namespace GUI.Commands
     {
         public static EnabledCommand FromDelegate( Action action )
         {
-            return new ActionEnabledCommand( ( parameter ) => action() );
+            return new ActionEnabledCommand( parameter => action() );
+        }
+
+        public static EnabledCommand FromDelegate<T>(Action<T> action)
+        {
+            return new ActionEnabledCommand( parameter => action( (T) parameter ) );
         }
 
         public static EnabledCommand FromDelegate( Action<object> action )
