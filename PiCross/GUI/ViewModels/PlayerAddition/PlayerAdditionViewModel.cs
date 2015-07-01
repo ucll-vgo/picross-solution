@@ -15,7 +15,7 @@ namespace GUI.ViewModels.PlayerAddition
     {
         private readonly Cell<string> playerName;
 
-        private readonly Cell<bool> isNameValid;
+        private readonly Cell<bool> isValidName;
 
         private readonly Cell<bool> isNameTaken;
 
@@ -29,9 +29,9 @@ namespace GUI.ViewModels.PlayerAddition
             : base( parent )
         {
             this.playerName = Cell.Create( "" );
-            this.isNameValid = Cell.Derived( this.playerName, Parent.PlayerDatabase.IsValidPlayerName );
+            this.isValidName = Cell.Derived( this.playerName, Parent.PlayerDatabase.IsValidPlayerName );
             this.isNameTaken = Cell.Derived( this.playerName, Parent.PlayerDatabase.PlayerNames.Contains );
-            this.canAddPlayer = Cell.Derived( isNameValid, isNameTaken, ( valid, taken ) => valid && !taken );            
+            this.canAddPlayer = Cell.Derived( isValidName, isNameTaken, ( valid, taken ) => valid && !taken );            
 
             this.addPlayer = CellCommand.FromDelegate( canAddPlayer, PerformAddPlayer );
             this.cancel = EnabledCommand.FromDelegate( PerformCancel );
@@ -49,7 +49,7 @@ namespace GUI.ViewModels.PlayerAddition
 
         public ICommand Cancel { get { return cancel; } }
 
-        public Cell<bool> IsNameValid { get { return isNameValid; } }
+        public Cell<bool> IsValidName { get { return isValidName; } }
                 
         public Cell<bool> IsNameTaken { get { return isNameTaken; } }
 
