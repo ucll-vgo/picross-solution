@@ -13,6 +13,9 @@
         <DataTemplate DataType="{x:Type vm:IntroViewModel}">
             <view:IntroView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:PlayerSelectionViewModel}">
+            <ps:PlayerSelectionScreen />
+        </DataTemplate>
     </Window.Resources>
     
     <ContentControl Content="{Binding ActiveViewModel.Value}" />

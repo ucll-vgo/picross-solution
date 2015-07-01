@@ -10,41 +10,60 @@ using PiCross.Facade.IO;
 
 namespace GUI.ViewModels
 {
-    public class PlayersViewModel
+    public class PlayerSelectionViewModel : ViewModel
     {
         private readonly IPlayerDatabase players;
 
-        private readonly ObservableCollection<PlayerViewModel> playerViewModels;
+        private readonly ObservableCollection<ItemViewModel> playerViewModels;
 
-        private readonly ICommand addPlayer;
-
-        public PlayersViewModel( IPlayerDatabase players )
+        public PlayerSelectionViewModel( MasterController parent )
+            : base( parent )
         {
-            this.players = players;
-            this.playerViewModels = new ObservableCollection<PlayerViewModel>( players.PlayerNames.Select( name => new PlayerViewModel( players[name] ) ) );
-            this.addPlayer = EnabledCommand.FromDelegate<string>( PerformAddPlayer );
+            this.players = Parent.PlayerDatabase;
+            this.playerViewModels = CreateItemViewModels( this, parent.PlayerDatabase );
         }
 
-        public ObservableCollection<PlayerViewModel> Users
+        private static ObservableCollection<ItemViewModel> CreateItemViewModels( PlayerSelectionViewModel parent, IPlayerDatabase players )
+        {
+            var result = new ObservableCollection<ItemViewModel>( players.PlayerNames.Select( name => new SelectPlayerViewModel( parent, players[name] ) ) );
+            result.Add( new AddPlayerViewModel( parent ) );
+
+            return result;
+        }
+
+        public ObservableCollection<ItemViewModel> Items
         {
             get
             {
                 return playerViewModels;
             }
         }
+    }
 
-        private void PerformAddPlayer(string name)
+    public abstract class ItemViewModel
+    {
+        private readonly PlayerSelectionViewModel parent;
+
+        protected ItemViewModel( PlayerSelectionViewModel parent )
         {
-            var profile = players.CreateNewProfile( name );
-            playerViewModels.Add( new PlayerViewModel( profile ) );
+            this.parent = parent;
+        }
+
+        protected PlayerSelectionViewModel Parent
+        {
+            get
+            {
+                return parent;
+            }
         }
     }
 
-    public class PlayerViewModel
+    public class SelectPlayerViewModel : ItemViewModel
     {
         private readonly IPlayerProfile userProfile;
 
-        public PlayerViewModel( IPlayerProfile userProfile )
+        public SelectPlayerViewModel( PlayerSelectionViewModel parent, IPlayerProfile userProfile )
+            : base( parent )
         {
             this.userProfile = userProfile;
         }
@@ -55,6 +74,15 @@ namespace GUI.ViewModels
             {
                 return userProfile.Name;
             }
+        }
+    }
+
+    public class AddPlayerViewModel : ItemViewModel
+    {
+        public AddPlayerViewModel( PlayerSelectionViewModel parent )
+            : base( parent )
+        {
+            // NOP
         }
     }
 }

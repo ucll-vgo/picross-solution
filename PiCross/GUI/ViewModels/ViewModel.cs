@@ -22,5 +22,10 @@ namespace GUI.ViewModels
                 return parent;
             }
         }
+
+        protected void Switch(ViewModel viewModel)
+        {
+            this.parent.ActiveViewModel.Value = viewModel;
+        }
     }
 }

@@ -64,7 +64,7 @@
     </Compile>
     <Compile Include="TypeMapping.cs" />
     <Compile Include="ViewModels\IntroViewModel.cs" />
-    <Compile Include="ViewModels\ViewController.cs" />
+    <Compile Include="ViewModels\MasterController.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
     <Compile Include="Views\IntroView.xaml.cs">
       <DependentUpon>IntroView.xaml</DependentUpon>
@@ -94,7 +94,6 @@
     <Compile Include="ViewModels\PuzzleMode\GridSquareViewModel.cs" />
     <Compile Include="ViewModels\PuzzleMode\GridViewModel.cs" />
     <Compile Include="ViewModels\PuzzleMode\PuzzleViewModel.cs" />
-    <Compile Include="Views\PlayerSelection\PlayerList.cs" />
     <Page Include="Controls\EditorControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
