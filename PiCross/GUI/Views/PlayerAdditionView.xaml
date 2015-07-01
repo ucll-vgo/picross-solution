@@ -6,16 +6,27 @@
              xmlns:converters="clr-namespace:GUI.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <Style x:Key="errorMessage" TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="Red" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+        </Style>
+        
+        <Style x:Key="button" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="Black" />
+            <Setter Property="Width" Value="96" />
+            <Setter Property="Height" Value="96" />
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
-            <RowDefinition />
         </Grid.RowDefinitions>
-        <TextBox Grid.Row="0" Text="{Binding PlayerName.Value, UpdateSourceTrigger=PropertyChanged}" FontSize="48" />
+        <TextBox Grid.Row="0" Text="{Binding PlayerName.Value, UpdateSourceTrigger=PropertyChanged}" FontSize="48" HorizontalContentAlignment="Center" VerticalAlignment="Center" />
         <StackPanel Grid.Row="1">
-            <TextBlock Text="Invalid name">
+            <TextBlock Text="Invalid name" Style="{StaticResource errorMessage}">
                 <TextBlock.Visibility>
                     <Binding Path="IsValidName.Value">
                         <Binding.Converter>
@@ -24,7 +35,7 @@
                     </Binding>
                 </TextBlock.Visibility>
             </TextBlock>
-            <TextBlock Text="Name already in use">
+            <TextBlock Text="Name already in use" Style="{StaticResource errorMessage}">
                 <TextBlock.Visibility>
                     <Binding Path="IsNameTaken.Value">
                         <Binding.Converter>
@@ -34,7 +45,18 @@
                 </TextBlock.Visibility>
             </TextBlock>
         </StackPanel>
-        <Button Grid.Row="2" Content="Create New Player" Command="{Binding AddPlayer}" />
-        <Button Grid.Row="3" Content="Cancel" Command="{Binding Cancel}" />
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Command="{Binding AddPlayer}" Style="{StaticResource button}" HorizontalAlignment="Right">
+                <Image Source="pack://application:,,,/Icons/newuser.png" Stretch="None" />
+            </Button>
+            <Button Grid.Column="1" Command="{Binding Cancel}" Style="{StaticResource button}" HorizontalAlignment="Left">
+                <Image Source="pack://application:,,,/Icons/back.png" Stretch="None" />
+            </Button>
+        </Grid>
+        
     </Grid>
 </UserControl>
