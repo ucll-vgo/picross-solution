@@ -65,6 +65,7 @@
     <Compile Include="TypeMapping.cs" />
     <Compile Include="ViewModels\IntroViewModel.cs" />
     <Compile Include="ViewModels\MasterController.cs" />
+    <Compile Include="ViewModels\PlayerSelection\ItemViewModel.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
     <Compile Include="Views\IntroView.xaml.cs">
       <DependentUpon>IntroView.xaml</DependentUpon>
