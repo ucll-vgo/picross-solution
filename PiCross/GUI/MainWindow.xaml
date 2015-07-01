@@ -6,6 +6,7 @@
         xmlns:ps="clr-namespace:GUI.Views.PlayerSelection"
         xmlns:converters="clr-namespace:GUI.Converters"
         xmlns:vm="clr-namespace:GUI.ViewModels"
+        xmlns:pvm="clr-namespace:GUI.ViewModels.PlayerSelection"
         xmlns:view="clr-namespace:GUI.Views"
         xmlns:gui="clr-namespace:GUI"
         Title="MainWindow" Height="450" Width="800">
@@ -13,7 +14,7 @@
         <DataTemplate DataType="{x:Type vm:IntroViewModel}">
             <view:IntroView />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:PlayerSelectionViewModel}">
+        <DataTemplate DataType="{x:Type pvm:PlayerSelectionViewModel}">
             <ps:PlayerSelectionScreen />
         </DataTemplate>
     </Window.Resources>

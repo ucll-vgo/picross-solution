@@ -8,7 +8,7 @@ using System.Windows.Input;
 using GUI.Commands;
 using PiCross.Facade.IO;
 
-namespace GUI.ViewModels
+namespace GUI.ViewModels.PlayerSelection
 {
     public class PlayerSelectionViewModel : ViewModel
     {

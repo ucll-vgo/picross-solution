@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using GUI.Commands;
+using GUI.ViewModels.PlayerSelection;
 using PiCross.Facade.IO;
 
 namespace GUI.ViewModels

@@ -88,7 +88,7 @@
     <Compile Include="ViewModels\EditMode\EditorSquareViewModel.cs" />
     <Compile Include="ViewModels\EditMode\EditorViewModel.cs" />
     <Compile Include="ViewModels\LibraryMode\LibraryViewModel.cs" />
-    <Compile Include="ViewModels\PlayerSelectionViewModel.cs" />
+    <Compile Include="ViewModels\PlayerSelection\PlayerSelectionViewModel.cs" />
     <Compile Include="ViewModels\PuzzleMode\ConstraintsValueViewModel.cs" />
     <Compile Include="ViewModels\PuzzleMode\ConstraintsViewModel.cs" />
     <Compile Include="ViewModels\PuzzleMode\GridSquareViewModel.cs" />
