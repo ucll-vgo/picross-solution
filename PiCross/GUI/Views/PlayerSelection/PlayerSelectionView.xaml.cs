@@ -18,9 +18,9 @@ namespace GUI.Views.PlayerSelection
     /// <summary>
     /// Interaction logic for PlayerSelectionScreen.xaml
     /// </summary>
-    public partial class PlayerSelectionScreen : UserControl
+    public partial class PlayerSelectionView : UserControl
     {
-        public PlayerSelectionScreen()
+        public PlayerSelectionView()
         {
             InitializeComponent();
         }

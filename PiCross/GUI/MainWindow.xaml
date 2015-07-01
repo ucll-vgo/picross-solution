@@ -16,7 +16,7 @@
             <view:IntroView />
         </DataTemplate>
         <DataTemplate DataType="{x:Type pvm:PlayerSelectionViewModel}">
-            <ps:PlayerSelectionScreen />
+            <ps:PlayerSelectionView />
         </DataTemplate>
         <DataTemplate DataType="{x:Type avm:PlayerAdditionViewModel}">
             <view:PlayerAdditionView />
