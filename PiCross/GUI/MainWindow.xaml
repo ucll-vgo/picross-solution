@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:picross="clr-namespace:PiCross.Game;assembly=PiCrossDomain"
         xmlns:controls="clr-namespace:GUI.Controls"
-        xmlns:ps="clr-namespace:GUI.Views.PlayerSelection"
         xmlns:converters="clr-namespace:GUI.Converters"
         xmlns:vm="clr-namespace:GUI.ViewModels"
         xmlns:pvm="clr-namespace:GUI.ViewModels.PlayerSelection"
@@ -16,7 +15,7 @@
             <view:IntroView />
         </DataTemplate>
         <DataTemplate DataType="{x:Type pvm:PlayerSelectionViewModel}">
-            <ps:PlayerSelectionView />
+            <view:PlayerSelectionView />
         </DataTemplate>
         <DataTemplate DataType="{x:Type avm:PlayerAdditionViewModel}">
             <view:PlayerAdditionView />
