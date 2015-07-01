@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using GUI.Commands;
+using GUI.ViewModels.PlayerSelection;
 using PiCross.Cells;
 
 namespace GUI.ViewModels.PlayerAddition
@@ -11,10 +15,26 @@ namespace GUI.ViewModels.PlayerAddition
     {
         private readonly Cell<string> playerName;
 
+        private readonly Cell<bool> isNameValid;
+
+        private readonly Cell<bool> isNameTaken;
+
+        private readonly Cell<bool> canAddPlayer;
+
+        private readonly ICommand addPlayer;
+
+        private readonly ICommand cancel;
+
         public PlayerAdditionViewModel( MasterController parent )
             : base( parent )
         {
             this.playerName = Cell.Create( "" );
+            this.isNameValid = Cell.Derived( this.playerName, Parent.PlayerDatabase.IsValidPlayerName );
+            this.isNameTaken = Cell.Derived( this.playerName, Parent.PlayerDatabase.PlayerNames.Contains );
+            this.canAddPlayer = Cell.Derived( isNameValid, isNameTaken, ( valid, taken ) => valid && !taken );            
+
+            this.addPlayer = CellCommand.FromDelegate( canAddPlayer, PerformAddPlayer );
+            this.cancel = EnabledCommand.FromDelegate( PerformCancel );
         }
 
         public Cell<string> PlayerName
@@ -23,6 +43,35 @@ namespace GUI.ViewModels.PlayerAddition
             {
                 return playerName;
             }
+        }
+
+        public ICommand AddPlayer { get { return addPlayer; } }
+
+        public ICommand Cancel { get { return cancel; } }
+
+        public Cell<bool> IsNameValid { get { return isNameValid; } }
+                
+        public Cell<bool> IsNameTaken { get { return isNameTaken; } }
+
+        public Cell<bool> CanAddPlayer { get { return canAddPlayer; } }
+
+        private void PerformAddPlayer()
+        {
+            Debug.Assert( CanAddPlayer.Value );
+
+            Parent.PlayerDatabase.CreateNewProfile( playerName.Value );
+
+            BackToPlayerSelection();
+        }
+
+        private void PerformCancel()
+        {
+            BackToPlayerSelection();
+        }
+
+        private void BackToPlayerSelection()
+        {
+            Switch( new PlayerSelectionViewModel( Parent ) );
         }
     }
 }
