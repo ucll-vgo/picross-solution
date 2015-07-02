@@ -6,7 +6,7 @@
              xmlns:gui="clr-namespace:GUI"
              xmlns:selectors="clr-namespace:GUI.TemplateSelectors"
              xmlns:vm="clr-namespace:GUI.ViewModels.PlayerSelection"
-             Background="#444444"
+             Background="Black"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
@@ -21,7 +21,7 @@
         <selectors:TypeBasedSelector x:Key="selector">
             <gui:TypeMapping Type="{x:Type vm:SelectPlayerViewModel}">
                 <DataTemplate>
-                    <Button Padding="5" Margin="5" Style="{StaticResource playerButtonStyle}">
+                    <Button Padding="5" Margin="5" Style="{StaticResource playerButtonStyle}" BorderThickness="2" BorderBrush="#222222">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition />
@@ -36,8 +36,8 @@
 
             <gui:TypeMapping Type="{x:Type vm:AddPlayerViewModel}">
                 <DataTemplate>
-                    <Button Padding="5" Margin="5" Style="{StaticResource playerButtonStyle}" Command="{Binding AddPlayer}">
-                        <Image Source="pack://application:,,,/Icons/newuser.png" Width="64" Height="64" />
+                    <Button Padding="5" Margin="5" Style="{StaticResource playerButtonStyle}" Command="{Binding AddPlayer}" BorderThickness="2" BorderBrush="#222222">
+                        <Image Source="pack://application:,,,/Icons/newuser.png" Stretch="None" Margin="5" />
                     </Button>
                 </DataTemplate>
             </gui:TypeMapping>
@@ -49,7 +49,7 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Text="PiCross" FontSize="64" HorizontalAlignment="Center" Margin="5" />
+        <TextBlock Grid.Row="0" Text="Player Selection" FontSize="64" HorizontalAlignment="Center" Margin="5" Foreground="White" />
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
             <ItemsControl ItemsSource="{Binding Items}" Margin="5" ItemTemplateSelector="{StaticResource selector}">
                 <ItemsControl.ItemsPanel>
