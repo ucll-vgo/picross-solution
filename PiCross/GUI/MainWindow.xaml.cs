@@ -39,9 +39,6 @@ namespace GUI
         {
             InitializeComponent();
 
-            Application.Current.Resources.MergedDictionaries.Clear();
-            Application.Current.Resources.MergedDictionaries.Add( new ResourceDictionary() { Source = new Uri( "pack://application:,,,/themes/Generic.xaml" ) } );
-
             this.DataContext = new MasterController();
         }
     }
