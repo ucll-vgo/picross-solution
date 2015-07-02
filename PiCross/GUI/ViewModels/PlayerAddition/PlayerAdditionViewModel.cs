@@ -71,7 +71,7 @@ namespace GUI.ViewModels.PlayerAddition
 
         private void BackToPlayerSelection()
         {
-            Switch( new PlayerSelectionViewModel( Parent ) );
+            PopView();
         }
     }
 }

@@ -27,6 +27,13 @@ namespace GUI.ViewModels.PlayerSelection
             this.players = Parent.PlayerDatabase;
             this.addPlayer = EnabledCommand.FromDelegate( PerformAddPlayer );
             this.playerViewModels = CreateItemViewModels();
+            this.players.PlayerNames.CollectionChanged += ( obj, args ) => OnPlayerDatabaseChanged();
+        }
+
+        private void OnPlayerDatabaseChanged()
+        {
+            // TODO Optimize it
+            RecreateItemViewModels();
         }
 
         private ObservableCollection<ItemViewModel> CreateItemViewModels()
@@ -49,6 +56,21 @@ namespace GUI.ViewModels.PlayerSelection
             return collection;
         }
 
+        private void RecreateItemViewModels()
+        {
+            playerViewModels.Clear();
+
+            foreach ( var playerName in players.PlayerNames )
+            {
+                var command = EnabledCommand.FromDelegate( () => PerformSelectPlayer( playerName ) );
+                var vm = new SelectPlayerViewModel( this, players[playerName], command );
+
+                playerViewModels.Add( vm );
+            }
+
+            playerViewModels.Add( new AddPlayerViewModel( this, addPlayer ) );
+        }
+
         public ObservableCollection<ItemViewModel> Items
         {
             get
@@ -59,7 +81,7 @@ namespace GUI.ViewModels.PlayerSelection
 
         private void PerformAddPlayer()
         {
-            Switch( new PlayerAdditionViewModel( Parent ) );
+            PushView( new PlayerAdditionViewModel( Parent ) );
         }
 
         private void PerformSelectPlayer( string playerName )
@@ -70,7 +92,7 @@ namespace GUI.ViewModels.PlayerSelection
             var playerProfile = Parent.PlayerDatabase[playerName];
             var libraryVM = new LibraryViewModel( Parent, library, playerProfile );
 
-            Switch( libraryVM );
+            PushView( libraryVM );
         }
     }
 }

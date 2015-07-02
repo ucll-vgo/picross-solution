@@ -13,17 +13,21 @@ namespace GUI.ViewModels
     {
         private readonly Cell<ViewModel> activeViewModel;
 
+        private readonly Stack<ViewModel> viewModelStack;
+
         private readonly IPlayerDatabase playerDatabase;
 
         private readonly ILibrary library;
 
         public MasterController()
         {
-            activeViewModel = Cell.Create<ViewModel>( new IntroViewModel( this ) );
+            this.viewModelStack = new Stack<ViewModel>();
+            viewModelStack.Push( new IntroViewModel( this ) );
+            activeViewModel = Cell.Derived( () => viewModelStack.Peek() );
 
             var dummy = new DummyData();
-            playerDatabase = dummy.Players;
-            library = dummy.Puzzles;
+            this.playerDatabase = dummy.Players;
+            this.library = dummy.Puzzles;
         }
 
         public Cell<ViewModel> ActiveViewModel
@@ -32,6 +36,25 @@ namespace GUI.ViewModels
             {
                 return activeViewModel;
             }
+        }
+
+        public void PushViewModel(ViewModel vm)
+        {
+            viewModelStack.Push( vm );
+
+            OnViewModelStackChanged();
+        }
+
+        public void PopViewModel()
+        {
+            viewModelStack.Pop();
+
+            OnViewModelStackChanged();
+        }
+
+        private void OnViewModelStackChanged()
+        {
+            activeViewModel.Refresh();
         }
 
         public IPlayerDatabase PlayerDatabase

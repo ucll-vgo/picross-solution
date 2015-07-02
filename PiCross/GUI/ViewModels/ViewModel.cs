@@ -21,11 +21,16 @@ namespace GUI.ViewModels
             {
                 return parent;
             }
+        }        
+
+        protected void PushView(ViewModel viewModel)
+        {
+            Parent.PushViewModel( viewModel );
         }
 
-        protected void Switch(ViewModel viewModel)
+        protected void PopView()
         {
-            this.parent.ActiveViewModel.Value = viewModel;
+            Parent.PopViewModel();
         }
     }
 }
