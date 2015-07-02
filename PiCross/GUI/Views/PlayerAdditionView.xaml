@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:converters="clr-namespace:GUI.Converters"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
+             Background="Black"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <Style x:Key="errorMessage" TargetType="{x:Type TextBlock}">
@@ -16,7 +17,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
-                        <Border x:Name="border" Width="96" Height="96" Background="Black">
+                        <Border x:Name="border" Width="96" Height="96" Background="Black" BorderThickness="2" BorderBrush="#222222">
                             <ContentPresenter Content="{TemplateBinding Content}" />
                         </Border>
                         
