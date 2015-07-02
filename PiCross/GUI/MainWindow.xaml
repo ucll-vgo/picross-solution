@@ -7,9 +7,10 @@
         xmlns:ivm="clr-namespace:GUI.ViewModels.Intro"
         xmlns:pvm="clr-namespace:GUI.ViewModels.PlayerSelection"
         xmlns:avm="clr-namespace:GUI.ViewModels.PlayerAddition"
+        xmlns:lvm="clr-namespace:GUI.ViewModels.LibraryMode"
         xmlns:view="clr-namespace:GUI.Views"
         xmlns:gui="clr-namespace:GUI"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="900">
     <Window.Resources>
         <DataTemplate DataType="{x:Type ivm:IntroViewModel}">
             <view:IntroView />
@@ -19,6 +20,9 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type avm:PlayerAdditionViewModel}">
             <view:PlayerAdditionView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type lvm:LibraryViewModel}">
+            <view:LibraryView />
         </DataTemplate>
     </Window.Resources>
     

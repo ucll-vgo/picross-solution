@@ -33,7 +33,7 @@
                     <selectors:TypeBasedSelector>
                         <gui:TypeMapping Type="{x:Type vm:SelectPlayerViewModel}">
                             <DataTemplate>
-                                <Button Padding="5" Margin="5" Style="{StaticResource playerButtonStyle}">
+                                <Button Padding="5" Margin="5" Style="{StaticResource playerButtonStyle}" Command="{Binding Select}">
                                     <Grid>
                                         <Grid.RowDefinitions>
                                             <RowDefinition />

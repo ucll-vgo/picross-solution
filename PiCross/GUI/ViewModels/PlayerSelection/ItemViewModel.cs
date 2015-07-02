@@ -31,10 +31,13 @@ namespace GUI.ViewModels.PlayerSelection
     {
         private readonly IPlayerProfile userProfile;
 
-        public SelectPlayerViewModel( PlayerSelectionViewModel parent, IPlayerProfile userProfile )
+        private readonly ICommand select;
+
+        public SelectPlayerViewModel( PlayerSelectionViewModel parent, IPlayerProfile userProfile, ICommand select )
             : base( parent )
         {
             this.userProfile = userProfile;
+            this.select = select;
         }
 
         public string Name
@@ -42,6 +45,14 @@ namespace GUI.ViewModels.PlayerSelection
             get
             {
                 return userProfile.Name;
+            }
+        }
+
+        public ICommand Select
+        {
+            get
+            {
+                return select;
             }
         }
     }

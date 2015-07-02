@@ -11,7 +11,7 @@ using PiCross.Game;
 
 namespace GUI.ViewModels.LibraryMode
 {
-    public class LibraryViewModel
+    public class LibraryViewModel : ViewModel
     {
         private readonly IPlayerProfile activeUser;
 
@@ -19,7 +19,8 @@ namespace GUI.ViewModels.LibraryMode
 
         private readonly List<LibraryEntryViewModel> entries;
 
-        public LibraryViewModel( ILibrary library, IPlayerProfile activeUser )
+        public LibraryViewModel( MasterController parent, ILibrary library, IPlayerProfile activeUser )
+            : base( parent )
         {
             this.library = library;
             this.activeUser = activeUser;
@@ -47,7 +48,7 @@ namespace GUI.ViewModels.LibraryMode
         {
             this.entry = entry;
             this.userInfo = userInfo;
-            this.grid = entry.Puzzle.Grid.Map( (bool x) => Cell.Create( x ) ).Copy();
+            this.grid = entry.Puzzle.Grid.Map( ( bool x ) => Cell.Create( x ) ).Copy();
         }
 
         public Puzzle Puzzle
@@ -57,7 +58,7 @@ namespace GUI.ViewModels.LibraryMode
                 return entry.Puzzle;
             }
         }
-        
+
         public IGrid<Cell<bool>> Grid
         {
             get

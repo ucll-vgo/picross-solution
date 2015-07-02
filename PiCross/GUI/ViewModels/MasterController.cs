@@ -15,12 +15,15 @@ namespace GUI.ViewModels
 
         private readonly IPlayerDatabase playerDatabase;
 
+        private readonly ILibrary library;
+
         public MasterController()
         {
             activeViewModel = Cell.Create<ViewModel>( new IntroViewModel( this ) );
 
             var dummy = new DummyData();
             playerDatabase = dummy.Players;
+            library = dummy.Puzzles;
         }
 
         public Cell<ViewModel> ActiveViewModel
@@ -36,6 +39,14 @@ namespace GUI.ViewModels
             get
             {
                 return playerDatabase;
+            }
+        }
+
+        public ILibrary Library
+        {
+            get
+            {
+                return library;
             }
         }
     }

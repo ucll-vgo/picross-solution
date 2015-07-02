@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using GUI.Commands;
+using GUI.ViewModels.LibraryMode;
 using GUI.ViewModels.PlayerAddition;
 using PiCross.Facade.IO;
 
@@ -33,10 +34,19 @@ namespace GUI.ViewModels.PlayerSelection
             Debug.Assert( players != null );
             Debug.Assert( addPlayer != null );
 
-            var result = new ObservableCollection<ItemViewModel>( players.PlayerNames.Select( name => new SelectPlayerViewModel( this, players[name] ) ) );
-            result.Add( new AddPlayerViewModel( this, addPlayer ) );
+            var collection = new ObservableCollection<ItemViewModel>();
 
-            return result;
+            foreach ( var playerName in players.PlayerNames )
+            {
+                var command = EnabledCommand.FromDelegate( () => PerformSelectPlayer( playerName ) );
+                var vm = new SelectPlayerViewModel( this, players[playerName], command );
+
+                collection.Add( vm );
+            }
+
+            collection.Add( new AddPlayerViewModel( this, addPlayer ) );
+
+            return collection;
         }
 
         public ObservableCollection<ItemViewModel> Items
@@ -50,6 +60,17 @@ namespace GUI.ViewModels.PlayerSelection
         private void PerformAddPlayer()
         {
             Switch( new PlayerAdditionViewModel( Parent ) );
+        }
+
+        private void PerformSelectPlayer( string playerName )
+        {
+            Debug.Assert( playerName != null );            
+
+            var library = Parent.Library;
+            var playerProfile = Parent.PlayerDatabase[playerName];
+            var libraryVM = new LibraryViewModel( Parent, library, playerProfile );
+
+            Switch( libraryVM );
         }
     }
 }
