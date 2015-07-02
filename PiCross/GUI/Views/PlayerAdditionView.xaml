@@ -40,7 +40,7 @@
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <TextBox Grid.Row="0" Text="{Binding PlayerName.Value, UpdateSourceTrigger=PropertyChanged}" FontSize="48" HorizontalContentAlignment="Center" VerticalAlignment="Center" />
+        <TextBox Grid.Row="0" Text="{Binding PlayerName.Value, UpdateSourceTrigger=PropertyChanged}" FontSize="48" HorizontalContentAlignment="Center" VerticalAlignment="Center" Margin="10" />
         <StackPanel Grid.Row="1">
             <TextBlock Text="Invalid name" Style="{StaticResource errorMessage}">
                 <TextBlock.Visibility>
@@ -66,10 +66,10 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Command="{Binding AddPlayer}" Style="{StaticResource button}" HorizontalAlignment="Right" Margin="5">
+            <Button Grid.Column="0" Command="{Binding AddPlayer}" Style="{StaticResource button}" HorizontalAlignment="Right" Margin="5" IsDefault="True">
                 <Image Source="pack://application:,,,/Icons/newuser.png" Stretch="None" />
             </Button>
-            <Button Grid.Column="1" Command="{Binding Cancel}" Style="{StaticResource button}" HorizontalAlignment="Left" Margin="5">
+            <Button Grid.Column="1" Command="{Binding Cancel}" Style="{StaticResource button}" HorizontalAlignment="Left" Margin="5" IsCancel="True">
                 <Image Source="pack://application:,,,/Icons/back.png" Stretch="None" />
             </Button>
         </Grid>
