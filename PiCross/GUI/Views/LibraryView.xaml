@@ -28,7 +28,7 @@
     <DockPanel Background="Black">
         <Border DockPanel.Dock="Bottom">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Padding="5" Margin="5">
+                <Button Padding="5" Margin="5" Style="{DynamicResource buttonStyle}">
                     <Image Source="pack://application:,,,/Icons/back.png" Stretch="None" />
                 </Button>
             </StackPanel>
