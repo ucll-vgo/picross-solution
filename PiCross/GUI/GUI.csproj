@@ -63,7 +63,7 @@
       <DependentUpon>LibraryControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="TypeMapping.cs" />
-    <Compile Include="ViewModels\IntroViewModel.cs" />
+    <Compile Include="ViewModels\Intro\IntroViewModel.cs" />
     <Compile Include="ViewModels\MasterController.cs" />
     <Compile Include="ViewModels\PlayerAddition\PlayerAdditionViewModel.cs" />
     <Compile Include="ViewModels\PlayerSelection\ItemViewModel.cs" />

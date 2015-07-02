@@ -4,14 +4,14 @@
         xmlns:picross="clr-namespace:PiCross.Game;assembly=PiCrossDomain"
         xmlns:controls="clr-namespace:GUI.Controls"
         xmlns:converters="clr-namespace:GUI.Converters"
-        xmlns:vm="clr-namespace:GUI.ViewModels"
+        xmlns:ivm="clr-namespace:GUI.ViewModels.Intro"
         xmlns:pvm="clr-namespace:GUI.ViewModels.PlayerSelection"
         xmlns:avm="clr-namespace:GUI.ViewModels.PlayerAddition"
         xmlns:view="clr-namespace:GUI.Views"
         xmlns:gui="clr-namespace:GUI"
         Title="MainWindow" Height="450" Width="800">
     <Window.Resources>
-        <DataTemplate DataType="{x:Type vm:IntroViewModel}">
+        <DataTemplate DataType="{x:Type ivm:IntroViewModel}">
             <view:IntroView />
         </DataTemplate>
         <DataTemplate DataType="{x:Type pvm:PlayerSelectionViewModel}">
