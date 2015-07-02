@@ -59,9 +59,6 @@
       <DependentUpon>EditorControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\EditorGridSquareControl.cs" />
-    <Compile Include="Controls\LibraryControl.xaml.cs">
-      <DependentUpon>LibraryControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="TypeMapping.cs" />
     <Compile Include="ViewModels\Intro\IntroViewModel.cs" />
     <Compile Include="ViewModels\MasterController.cs" />
@@ -103,10 +100,6 @@
     <Compile Include="ViewModels\PuzzleMode\GridViewModel.cs" />
     <Compile Include="ViewModels\PuzzleMode\PuzzleViewModel.cs" />
     <Page Include="Controls\EditorControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\LibraryControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
