@@ -25,12 +25,16 @@
 
         <converters:InterpolatedStringConverter x:Key="sizeConverter" String="[[Width]] x [[Height]]" />
     </UserControl.Resources>
-    <DockPanel>
-        <Border DockPanel.Dock="Top">
-
+    <DockPanel Background="Black">
+        <Border DockPanel.Dock="Bottom">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Padding="5" Margin="5">
+                    <Image Source="pack://application:,,,/Icons/back.png" Stretch="None" />
+                </Button>
+            </StackPanel>
         </Border>
 
-        <ScrollViewer VerticalScrollBarVisibility="Auto" Background="Black">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
             <ItemsControl ItemsSource="{Binding Entries}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
