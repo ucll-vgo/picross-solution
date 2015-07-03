@@ -1,7 +1,7 @@
 ﻿using PiCross.Cells;
 using PiCross.Facade.Playing;
 
-namespace GUI.ViewModels.PuzzleMode
+namespace GUI.ViewModels.PlayMode
 {
     public class ConstraintsValueViewModel
     {

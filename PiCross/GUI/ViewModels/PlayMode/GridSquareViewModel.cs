@@ -6,7 +6,7 @@ using PiCross.DataStructures;
 using PiCross.Facade.Playing;
 using PiCross.Game;
 
-namespace GUI.ViewModels.PuzzleMode
+namespace GUI.ViewModels.PlayMode
 {
     public class GridSquareViewModel
     {

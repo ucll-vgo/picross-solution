@@ -3,7 +3,7 @@ using PiCross.Cells;
 using PiCross.DataStructures;
 using PiCross.Facade.Playing;
 
-namespace GUI.ViewModels.PuzzleMode
+namespace GUI.ViewModels.PlayMode
 {
     public class GridViewModel
     {

@@ -18,7 +18,7 @@ using GUI.Controls;
 using GUI.ViewModels;
 using GUI.ViewModels.EditMode;
 using GUI.ViewModels.LibraryMode;
-using GUI.ViewModels.PuzzleMode;
+using GUI.ViewModels.PlayMode;
 using GUI.Views;
 using PiCross.Cells;
 using PiCross.DataStructures;

@@ -94,11 +94,11 @@
     <Compile Include="ViewModels\EditMode\EditorViewModel.cs" />
     <Compile Include="ViewModels\LibraryMode\LibraryViewModel.cs" />
     <Compile Include="ViewModels\PlayerSelection\PlayerSelectionViewModel.cs" />
-    <Compile Include="ViewModels\PuzzleMode\ConstraintsValueViewModel.cs" />
-    <Compile Include="ViewModels\PuzzleMode\ConstraintsViewModel.cs" />
-    <Compile Include="ViewModels\PuzzleMode\GridSquareViewModel.cs" />
-    <Compile Include="ViewModels\PuzzleMode\GridViewModel.cs" />
-    <Compile Include="ViewModels\PuzzleMode\PuzzleViewModel.cs" />
+    <Compile Include="ViewModels\PlayMode\ConstraintsValueViewModel.cs" />
+    <Compile Include="ViewModels\PlayMode\ConstraintsViewModel.cs" />
+    <Compile Include="ViewModels\PlayMode\GridSquareViewModel.cs" />
+    <Compile Include="ViewModels\PlayMode\GridViewModel.cs" />
+    <Compile Include="ViewModels\PlayMode\PuzzleViewModel.cs" />
     <Page Include="Controls\EditorControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
