@@ -8,21 +8,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
-        <converters:TemplateLoaderConverter x:Key="thumbnailConverter">
-            <converters:BoolConverter>
-                <converters:BoolConverter.True>
-                    <DataTemplate>
-                        <controls:ThumbnailControl Grid="{Binding Grid}" />
-                    </DataTemplate>
-                </converters:BoolConverter.True>
-                <converters:BoolConverter.False>
-                    <DataTemplate>
-                        <TextBlock Text="?" />
-                    </DataTemplate>
-                </converters:BoolConverter.False>
-            </converters:BoolConverter>
-        </converters:TemplateLoaderConverter>
-
         <converters:InterpolatedStringConverter x:Key="sizeConverter" String="[[Width]] x [[Height]]" />
     </UserControl.Resources>
     <DockPanel Background="Black">
@@ -50,9 +35,28 @@
                                     <RowDefinition Height="auto" />
                                 </Grid.RowDefinitions>
                                 <Viewbox Grid.Row="0" Width="100" Height="100">
-                                    <ContentControl Content="{Binding Solved, Converter={StaticResource thumbnailConverter}}" />
-
-
+                                    <ContentControl>
+                                        <ContentControl.Content>
+                                            <Binding Path="Solved">
+                                                <Binding.Converter>
+                                                    <converters:TemplateLoaderConverter>
+                                                        <converters:BoolConverter>
+                                                            <converters:BoolConverter.True>
+                                                                <DataTemplate>
+                                                                    <controls:ThumbnailControl Grid="{Binding Grid}" />
+                                                                </DataTemplate>
+                                                            </converters:BoolConverter.True>
+                                                            <converters:BoolConverter.False>
+                                                                <DataTemplate>
+                                                                    <TextBlock Text="?" />
+                                                                </DataTemplate>
+                                                            </converters:BoolConverter.False>
+                                                        </converters:BoolConverter>
+                                                    </converters:TemplateLoaderConverter>
+                                                </Binding.Converter>
+                                            </Binding>
+                                        </ContentControl.Content>
+                                    </ContentControl>
                                 </Viewbox>
                                 <TextBlock Text="{Binding Puzzle.Size, Converter={StaticResource sizeConverter}}" Grid.Row="1" FontSize="32" HorizontalAlignment="Center" />
                             </Grid>
