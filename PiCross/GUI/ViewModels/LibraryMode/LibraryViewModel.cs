@@ -4,6 +4,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using GUI.Commands;
 using PiCross.Cells;
 using PiCross.DataStructures;
 using PiCross.Facade.IO;
@@ -19,12 +21,15 @@ namespace GUI.ViewModels.LibraryMode
 
         private readonly List<LibraryEntryViewModel> entries;
 
+        private readonly ICommand back;
+
         public LibraryViewModel( MasterController parent, ILibrary library, IPlayerProfile activeUser )
             : base( parent )
         {
             this.library = library;
             this.activeUser = activeUser;
             this.entries = library.Entries.Select( x => new LibraryEntryViewModel( x, activeUser.PuzzleInformation[x.Puzzle] ) ).ToList();
+            this.back = EnabledCommand.FromDelegate( PerformBack );
         }
 
         public IEnumerable<LibraryEntryViewModel> Entries
@@ -33,6 +38,19 @@ namespace GUI.ViewModels.LibraryMode
             {
                 return this.entries;
             }
+        }
+
+        public ICommand Back
+        {
+            get
+            {
+                return back;
+            }
+        }
+
+        private void PerformBack()
+        {
+            PopView();
         }
     }
 
