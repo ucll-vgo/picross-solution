@@ -62,6 +62,7 @@
       <DependentUpon>EditorControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\EditorGridSquareControl.cs" />
+    <Compile Include="Converters\TimeSpanConverter.cs" />
     <Compile Include="Timer.cs" />
     <Compile Include="TypeMapping.cs" />
     <Compile Include="ViewModels\Intro\IntroViewModel.cs" />
