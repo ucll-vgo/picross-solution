@@ -102,7 +102,7 @@ namespace GUI.ViewModels.PlayMode
 
         private void PerformPause()
         {
-            PushView( new PauseViewModel( Parent ) );
+            Push( new PauseViewModel( Parent ) );
         }
     }
 }

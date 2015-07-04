@@ -56,7 +56,7 @@ namespace GUI.ViewModels.LibraryMode
 
         private void PerformSelect( ILibraryEntry entry )
         {
-            PushView( new PlayViewModel( Parent, new PiCross.Facade.Playing.Puzzle( entry.Puzzle.ColumnConstraints, entry.Puzzle.RowContraints ) ) );
+            Push( new PlayViewModel( Parent, new PiCross.Facade.Playing.Puzzle( entry.Puzzle.ColumnConstraints, entry.Puzzle.RowContraints ) ) );
         }
     }
 

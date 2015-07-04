@@ -30,7 +30,7 @@ namespace GUI.ViewModels.Intro
 
         private void PerformStart()
         {
-            PushView( new PlayerSelectionViewModel( Parent ) );
+            Push( new PlayerSelectionViewModel( Parent ) );
         }
     }
 }

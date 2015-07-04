@@ -23,7 +23,7 @@ namespace GUI.ViewModels
             }
         }        
 
-        protected void PushView(ViewModel viewModel)
+        protected void Push(ViewModel viewModel)
         {
             Parent.PushViewModel( viewModel );
         }

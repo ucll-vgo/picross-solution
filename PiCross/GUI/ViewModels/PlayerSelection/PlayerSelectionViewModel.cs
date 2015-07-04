@@ -81,7 +81,7 @@ namespace GUI.ViewModels.PlayerSelection
 
         private void PerformAddPlayer()
         {
-            PushView( new PlayerAdditionViewModel( Parent ) );
+            Push( new PlayerAdditionViewModel( Parent ) );
         }
 
         private void PerformSelectPlayer( string playerName )
@@ -92,7 +92,7 @@ namespace GUI.ViewModels.PlayerSelection
             var playerProfile = Parent.PlayerDatabase[playerName];
             var libraryVM = new LibraryViewModel( Parent, library, playerProfile );
 
-            PushView( libraryVM );
+            Push( libraryVM );
         }
     }
 }
