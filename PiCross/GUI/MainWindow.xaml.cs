@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using GUI.Commands;
 using GUI.Controls;
 using GUI.ViewModels;
@@ -39,7 +40,14 @@ namespace GUI
         {
             InitializeComponent();
 
-            this.DataContext = new MasterController();
+            var masterController = new MasterController();
+            this.DataContext = masterController;
+
+            var timer = new Timer();
+            var dispatcherTimer = new DispatcherTimer( TimeSpan.FromMilliseconds( 50 ), DispatcherPriority.Background, ( sender, args ) => timer.OnTick(), this.Dispatcher );
+            dispatcherTimer.Start();
+
+            timer.Tick += ( dt ) => masterController.ActiveViewModel.Value.OnTick( dt );
         }
     }
 }

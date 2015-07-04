@@ -46,5 +46,10 @@ namespace GUI.ViewModels
         {
             // NOP
         }
+
+        public virtual void OnTick(double dt)
+        {
+            // NOP
+        }
     }
 }
