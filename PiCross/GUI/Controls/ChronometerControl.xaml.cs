@@ -52,7 +52,7 @@ namespace GUI.Controls
 
         private void UpdateMinuteHand()
         {
-            minutesTransform.Angle = TransformToAngle( ElapsedTime.Minutes );
+            minutesTransform.Angle = TransformToAngle( ElapsedTime.Minutes + ElapsedTime.Seconds / 60.0 );
         }
 
         private double TransformToAngle( double handPosition )
