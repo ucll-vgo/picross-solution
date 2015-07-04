@@ -68,9 +68,7 @@
             <Button Grid.Column="0" Command="{Binding AddPlayer}" Style="{StaticResource buttonStyle}" HorizontalAlignment="Right" Margin="5" IsDefault="True">
                 <Image Source="pack://application:,,,/Icons/newuser.png" Stretch="None" />
             </Button>
-            <Button Grid.Column="1" Command="{Binding Cancel}" Style="{StaticResource buttonStyle}" HorizontalAlignment="Left" Margin="5" IsCancel="True">
-                <Image Source="pack://application:,,,/Icons/back.png" Stretch="None" />
-            </Button>
+            <Button Grid.Column="1" Command="{Binding Cancel}" Style="{StaticResource backButtonStyle}" HorizontalAlignment="Left" IsCancel="True" />
         </Grid>
     </Grid>
 </UserControl>
