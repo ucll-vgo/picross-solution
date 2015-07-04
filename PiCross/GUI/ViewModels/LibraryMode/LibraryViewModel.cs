@@ -10,6 +10,7 @@ using GUI.ViewModels.PlayMode;
 using PiCross.Cells;
 using PiCross.DataStructures;
 using PiCross.Facade.IO;
+using PiCross.Facade.Playing;
 using PiCross.Game;
 
 namespace GUI.ViewModels.LibraryMode
@@ -56,7 +57,7 @@ namespace GUI.ViewModels.LibraryMode
 
         private void PerformSelect( ILibraryEntry entry )
         {
-            Push( new PlayViewModel( Parent, new PiCross.Facade.Playing.Puzzle( entry.Puzzle.ColumnConstraints, entry.Puzzle.RowContraints ) ) );
+            Push( new PlayViewModel( Parent, PlayablePuzzle.Create( entry.Puzzle ) ) );
         }
     }
 

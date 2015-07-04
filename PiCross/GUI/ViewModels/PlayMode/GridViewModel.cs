@@ -7,11 +7,11 @@ namespace GUI.ViewModels.PlayMode
 {
     public class GridViewModel
     {
-        private readonly IPuzzle puzzle;
+        private readonly IPlayablePuzzle puzzle;
 
         private readonly IGrid<GridSquareViewModel> squares;
 
-        public GridViewModel( IPuzzle puzzle, Cell<Vector2D> activatedSquare )
+        public GridViewModel( IPlayablePuzzle puzzle, Cell<Vector2D> activatedSquare )
         {
             this.puzzle = puzzle;
 

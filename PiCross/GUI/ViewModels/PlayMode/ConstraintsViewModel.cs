@@ -6,13 +6,13 @@ namespace GUI.ViewModels.PlayMode
 {
     public class ConstraintsViewModel
     {
-        private readonly IPuzzleConstraints constraints;
+        private readonly IPlayablePuzzleConstraints constraints;
 
         private readonly ISequence<ConstraintsValueViewModel> values;
 
         private readonly Cell<bool> active;
 
-        public ConstraintsViewModel( IPuzzleConstraints constraints, Cell<bool> active )
+        public ConstraintsViewModel( IPlayablePuzzleConstraints constraints, Cell<bool> active )
         {
             this.constraints = constraints;
             this.active = active;

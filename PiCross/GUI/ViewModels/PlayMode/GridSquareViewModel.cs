@@ -10,7 +10,7 @@ namespace GUI.ViewModels.PlayMode
 {
     public class GridSquareViewModel
     {
-        private readonly IPuzzleSquare square;
+        private readonly IPlayablePuzzleSquare square;
 
         private readonly ICommand toggle;
 
@@ -20,7 +20,7 @@ namespace GUI.ViewModels.PlayMode
 
         private readonly ICommand activate;
 
-        public GridSquareViewModel( IPuzzleSquare square, ISignal activationSignal )
+        public GridSquareViewModel( IPlayablePuzzleSquare square, ISignal activationSignal )
         {
             this.square = square;
             this.toggle = new ToggleCommand( square.Contents );

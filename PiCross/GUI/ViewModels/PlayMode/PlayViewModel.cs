@@ -11,7 +11,7 @@ namespace GUI.ViewModels.PlayMode
 {
     public class PlayViewModel : ViewModel, IPuzzleData
     {
-        private readonly IPuzzle puzzle;
+        private readonly IPlayablePuzzle puzzle;
 
         private readonly GridViewModel grid;
 
@@ -25,7 +25,7 @@ namespace GUI.ViewModels.PlayMode
 
         private readonly ICommand pause;
 
-        public PlayViewModel( MasterController parent, IPuzzle puzzle )
+        public PlayViewModel( MasterController parent, IPlayablePuzzle puzzle )
             : base( parent )
         {
             this.puzzle = puzzle;

@@ -5,9 +5,9 @@ namespace GUI.ViewModels.PlayMode
 {
     public class ConstraintsValueViewModel
     {
-        private readonly IPuzzleConstraintsValue value;
+        private readonly IPlayablePuzzleConstraintsValue value;
 
-        public ConstraintsValueViewModel( IPuzzleConstraintsValue value )
+        public ConstraintsValueViewModel( IPlayablePuzzleConstraintsValue value )
         {
             this.value = value;
         }
