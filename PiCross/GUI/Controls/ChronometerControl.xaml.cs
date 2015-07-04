@@ -47,7 +47,7 @@ namespace GUI.Controls
 
         private void UpdateSecondHand()
         {
-            secondsTransform.Angle = TransformToAngle( ElapsedTime.Seconds );
+            secondsTransform.Angle = TransformToAngle( ElapsedTime.Seconds + ElapsedTime.Milliseconds / 1000.0);
         }
 
         private void UpdateMinuteHand()
