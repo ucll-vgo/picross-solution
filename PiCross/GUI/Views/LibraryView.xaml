@@ -10,9 +10,7 @@
     <DockPanel>
         <Border DockPanel.Dock="Bottom">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Padding="5" Margin="5" Style="{DynamicResource buttonStyle}" Command="{Binding Back}">
-                    <Image Source="pack://application:,,,/Icons/back.png" Stretch="None" />
-                </Button>
+                <Button Style="{DynamicResource backButtonStyle}" Command="{Binding Back}" />
             </StackPanel>
         </Border>
 
