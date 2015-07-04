@@ -34,5 +34,6 @@
         </DataTemplate>
     </Window.Resources>
     
-    <ContentControl Content="{Binding ActiveViewModel.Value}" />
+    <!--<ContentControl Content="{Binding ActiveViewModel.Value}" />-->
+    
 </Window>
