@@ -1,4 +1,6 @@
 ﻿using System.Diagnostics;
+using System.Windows.Input;
+using GUI.Commands;
 using GUI.Controls;
 using PiCross.Cells;
 using PiCross.DataStructures;
@@ -18,6 +20,8 @@ namespace GUI.ViewModels.PlayMode
 
         private readonly Cell<Vector2D> activatedSquare;
 
+        public readonly ICommand back;
+
         public PlayViewModel( MasterController parent, IPuzzle puzzle )
             : base( parent )
         {
@@ -26,6 +30,7 @@ namespace GUI.ViewModels.PlayMode
             this.grid = new GridViewModel( puzzle, activatedSquare );
             this.columnConstraints = puzzle.ColumnConstraints.Map( ( i, columnConstraints ) => new ConstraintsViewModel( columnConstraints, Cell.Derived( activatedSquare, v => v != null && v.X == i ) ) ).Copy();
             this.rowConstraints = puzzle.RowConstraints.Map( ( i, rowConstraints ) => new ConstraintsViewModel( rowConstraints, Cell.Derived( activatedSquare, v => v != null && v.Y == i ) ) ).Copy();
+            this.back = EnabledCommand.FromDelegate( PerformBack );
         }
 
         public GridViewModel Grid
@@ -68,6 +73,19 @@ namespace GUI.ViewModels.PlayMode
             {
                 return rowConstraints;
             }
+        }
+
+        public ICommand Back
+        {
+            get
+            {
+                return back;
+            }
+        }
+
+        private void PerformBack()
+        {
+            PopView();
         }
     }
 }

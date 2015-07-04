@@ -8,7 +8,7 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <DockPanel>
         <StackPanel DockPanel.Dock="Bottom" HorizontalAlignment="Right">
-            <Button Style="{StaticResource backButtonStyle}" />
+            <Button Style="{StaticResource backButtonStyle}" Command="{Binding Back}" />
         </StackPanel>
         <Viewbox>
             <controls:SolveControl />
