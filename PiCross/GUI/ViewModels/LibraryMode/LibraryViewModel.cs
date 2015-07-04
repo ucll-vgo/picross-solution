@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using GUI.Commands;
+using GUI.ViewModels.PlayMode;
 using PiCross.Cells;
 using PiCross.DataStructures;
 using PiCross.Facade.IO;
@@ -55,7 +56,7 @@ namespace GUI.ViewModels.LibraryMode
 
         private void PerformSelect( ILibraryEntry entry )
         {
-
+            PushView( new PlayViewModel( Parent, new PiCross.Facade.Playing.Puzzle( entry.Puzzle.ColumnConstraints, entry.Puzzle.RowContraints ) ) );
         }
     }
 

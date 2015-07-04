@@ -25,7 +25,7 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Button>
+                        <Button Command="{Binding Select}">
                             <Button.Template>
                                 <ControlTemplate TargetType="{x:Type Button}">
                                     <Border x:Name="border" CornerRadius="10" Margin="5" Width="200" Height="200" Background="Gray">

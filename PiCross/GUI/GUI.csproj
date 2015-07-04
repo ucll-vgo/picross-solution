@@ -99,6 +99,9 @@
     <Compile Include="ViewModels\PlayMode\GridSquareViewModel.cs" />
     <Compile Include="ViewModels\PlayMode\GridViewModel.cs" />
     <Compile Include="ViewModels\PlayMode\PlayViewModel.cs" />
+    <Compile Include="Views\PlayView.xaml.cs">
+      <DependentUpon>PlayView.xaml</DependentUpon>
+    </Compile>
     <Page Include="Controls\EditorControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -159,6 +162,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Water.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PlayView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
