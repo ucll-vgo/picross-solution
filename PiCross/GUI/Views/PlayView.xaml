@@ -6,9 +6,12 @@
              xmlns:controls="clr-namespace:GUI.Controls"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Bottom" HorizontalAlignment="Right">
+            <Button Style="{StaticResource backButtonStyle}" />
+        </StackPanel>
         <Viewbox>
             <controls:SolveControl />
         </Viewbox>
-    </Grid>
+    </DockPanel>
 </UserControl>
