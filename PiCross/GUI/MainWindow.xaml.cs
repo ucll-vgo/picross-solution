@@ -36,12 +36,32 @@ namespace GUI
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly MasterController masterController;
+
         public MainWindow()
         {
             InitializeComponent();
 
-            var masterController = new MasterController();
+            masterController = CreateMasterController();
+            SetUpDataContext();
+            SetUpTimer();
+        }
+
+        private MasterController CreateMasterController()
+        {
+            return new MasterController();
+        }
+
+        private void SetUpDataContext()
+        {
+            Debug.Assert( masterController != null );
+
             this.DataContext = masterController;
+        }
+
+        private void SetUpTimer()
+        {
+            Debug.Assert( masterController != null );
 
             var timer = new Timer();
             var dispatcherTimer = new DispatcherTimer( TimeSpan.FromMilliseconds( 50 ), DispatcherPriority.Background, ( sender, args ) => timer.OnTick(), this.Dispatcher );
