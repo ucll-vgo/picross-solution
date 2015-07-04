@@ -9,6 +9,7 @@
         xmlns:avm="clr-namespace:GUI.ViewModels.PlayerAddition"
         xmlns:lvm="clr-namespace:GUI.ViewModels.LibraryMode"
         xmlns:playvm="clr-namespace:GUI.ViewModels.PlayMode"
+        xmlns:pausevm="clr-namespace:GUI.ViewModels.PauseScreen"
         xmlns:view="clr-namespace:GUI.Views"
         xmlns:gui="clr-namespace:GUI" Background="Black"
         Title="MainWindow" Height="450" Width="900">
@@ -27,6 +28,9 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type playvm:PlayViewModel}">
             <view:PlayView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type pausevm:PauseViewModel}">
+            <view:PauseView />
         </DataTemplate>
     </Window.Resources>
     

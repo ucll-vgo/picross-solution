@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using GUI.Commands;
 using GUI.Controls;
+using GUI.ViewModels.PauseScreen;
 using PiCross.Cells;
 using PiCross.DataStructures;
 using PiCross.Facade.Playing;
@@ -22,6 +23,8 @@ namespace GUI.ViewModels.PlayMode
 
         public readonly ICommand back;
 
+        private readonly ICommand pause;
+
         public PlayViewModel( MasterController parent, IPuzzle puzzle )
             : base( parent )
         {
@@ -31,6 +34,7 @@ namespace GUI.ViewModels.PlayMode
             this.columnConstraints = puzzle.ColumnConstraints.Map( ( i, columnConstraints ) => new ConstraintsViewModel( columnConstraints, Cell.Derived( activatedSquare, v => v != null && v.X == i ) ) ).Copy();
             this.rowConstraints = puzzle.RowConstraints.Map( ( i, rowConstraints ) => new ConstraintsViewModel( rowConstraints, Cell.Derived( activatedSquare, v => v != null && v.Y == i ) ) ).Copy();
             this.back = EnabledCommand.FromDelegate( PerformBack );
+            this.pause = EnabledCommand.FromDelegate( PerformPause );
         }
 
         public GridViewModel Grid
@@ -86,6 +90,19 @@ namespace GUI.ViewModels.PlayMode
         private void PerformBack()
         {
             PopView();
+        }
+
+        public ICommand Pause
+        {
+            get
+            {
+                return pause;
+            }
+        }
+
+        private void PerformPause()
+        {
+            PushView( new PauseViewModel( Parent ) );
         }
     }
 }

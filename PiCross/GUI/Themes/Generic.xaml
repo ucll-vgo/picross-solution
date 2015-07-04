@@ -35,6 +35,14 @@
         </Setter>
     </Style>
 
+    <Style x:Key="pauseButtonStyle" BasedOn="{StaticResource buttonStyle}" TargetType="{x:Type Button}">
+        <Setter Property="Content">
+            <Setter.Value>
+                <Image Source="pack://application:,,,/Icons/pause.png" Stretch="None" />
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style TargetType="{x:Type local:PuzzleGridSquareControl}">
         <Setter Property="Template">
             <Setter.Value>
