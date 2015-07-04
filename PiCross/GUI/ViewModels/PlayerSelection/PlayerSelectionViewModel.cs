@@ -27,13 +27,6 @@ namespace GUI.ViewModels.PlayerSelection
             this.players = Parent.PlayerDatabase;
             this.addPlayer = EnabledCommand.FromDelegate( PerformAddPlayer );
             this.playerViewModels = CreateItemViewModels();
-            this.players.PlayerNames.CollectionChanged += ( obj, args ) => OnPlayerDatabaseChanged();
-        }
-
-        private void OnPlayerDatabaseChanged()
-        {
-            // TODO Optimize it
-            RecreateItemViewModels();
         }
 
         private ObservableCollection<ItemViewModel> CreateItemViewModels()
@@ -93,6 +86,11 @@ namespace GUI.ViewModels.PlayerSelection
             var libraryVM = new LibraryViewModel( Parent, library, playerProfile );
 
             Push( libraryVM );
+        }
+
+        protected override void OnActivation()
+        {
+            RecreateItemViewModels();
         }
     }
 }
