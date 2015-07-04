@@ -25,14 +25,14 @@ namespace GUI.Controls
             InitializeComponent();
         }
 
-        public DateTime ElapsedTime
+        public TimeSpan ElapsedTime
         {
-            get { return (DateTime) GetValue( ElapsedTimeProperty ); }
+            get { return (TimeSpan) GetValue( ElapsedTimeProperty ); }
             set { SetValue( ElapsedTimeProperty, value ); }
         }
 
         public static readonly DependencyProperty ElapsedTimeProperty =
-            DependencyProperty.Register( "ElapsedTime", typeof( DateTime ), typeof( ChronometerControl ), new PropertyMetadata( TimeSpan.Zero, ( obj, args ) => ( (ChronometerControl) obj ).OnTimeElapsedChanged( args ) ) );
+            DependencyProperty.Register( "ElapsedTime", typeof( TimeSpan ), typeof( ChronometerControl ), new PropertyMetadata( TimeSpan.Zero, ( obj, args ) => ( (ChronometerControl) obj ).OnTimeElapsedChanged( args ) ) );
 
         private void OnTimeElapsedChanged( DependencyPropertyChangedEventArgs args )
         {
@@ -47,17 +47,17 @@ namespace GUI.Controls
 
         private void UpdateSecondHand()
         {
-            secondsTransform.Angle = TransformToAngle( ElapsedTime.Second );
+            secondsTransform.Angle = TransformToAngle( ElapsedTime.Seconds );
         }
 
         private void UpdateMinuteHand()
         {
-            minutesTransform.Angle = TransformToAngle( ElapsedTime.Minute );
+            minutesTransform.Angle = TransformToAngle( ElapsedTime.Minutes );
         }
 
         private double TransformToAngle( double handPosition )
         {
-            return handPosition * 60;
+            return handPosition * 6;
         }
     }
 }

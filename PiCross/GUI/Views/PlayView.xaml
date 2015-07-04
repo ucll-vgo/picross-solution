@@ -10,8 +10,8 @@
         <StackPanel DockPanel.Dock="Bottom" HorizontalAlignment="Right" Orientation="Horizontal">
             <Button Style="{StaticResource pauseButtonStyle}" Command="{Binding Pause}" />
             <Button Style="{StaticResource backButtonStyle}" Command="{Binding Back}" />
-        </StackPanel>
-        <TextBlock DockPanel.Dock="Top" Text="{Binding ElapsedTime.Value}" FontSize="32" HorizontalAlignment="Center" Foreground="White" />
+        </StackPanel>        
+        <controls:ChronometerControl DockPanel.Dock="Top" HorizontalAlignment="Center" ElapsedTime="{Binding ElapsedTime.Value}" />
         <Viewbox>
             <controls:SolveControl />
         </Viewbox>
