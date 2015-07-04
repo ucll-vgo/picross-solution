@@ -11,6 +11,7 @@
             <Button Style="{StaticResource pauseButtonStyle}" Command="{Binding Pause}" />
             <Button Style="{StaticResource backButtonStyle}" Command="{Binding Back}" />
         </StackPanel>
+        <TextBlock DockPanel.Dock="Top" Text="{Binding ElapsedTime.Value}" FontSize="32" HorizontalAlignment="Center" Foreground="White" />
         <Viewbox>
             <controls:SolveControl />
         </Viewbox>
