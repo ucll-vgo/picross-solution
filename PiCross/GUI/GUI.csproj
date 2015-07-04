@@ -98,7 +98,7 @@
     <Compile Include="ViewModels\PlayMode\ConstraintsViewModel.cs" />
     <Compile Include="ViewModels\PlayMode\GridSquareViewModel.cs" />
     <Compile Include="ViewModels\PlayMode\GridViewModel.cs" />
-    <Compile Include="ViewModels\PlayMode\PuzzleViewModel.cs" />
+    <Compile Include="ViewModels\PlayMode\PlayViewModel.cs" />
     <Page Include="Controls\EditorControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

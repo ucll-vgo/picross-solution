@@ -6,7 +6,7 @@ using PiCross.Facade.Playing;
 
 namespace GUI.ViewModels.PlayMode
 {
-    public class PuzzleViewModel : IPuzzleData
+    public class PlayViewModel : ViewModel, IPuzzleData
     {
         private readonly IPuzzle puzzle;
 
@@ -18,7 +18,8 @@ namespace GUI.ViewModels.PlayMode
 
         private readonly Cell<Vector2D> activatedSquare;
 
-        public PuzzleViewModel( IPuzzle puzzle )
+        public PlayViewModel( MasterController parent, IPuzzle puzzle )
+            : base( parent )
         {
             this.puzzle = puzzle;
             this.activatedSquare = Cell.Create<Vector2D>( null );
@@ -58,7 +59,7 @@ namespace GUI.ViewModels.PlayMode
             get
             {
                 return columnConstraints;
-            }            
+            }
         }
 
         ISequence<object> IPuzzleData.RowConstraints
@@ -66,7 +67,7 @@ namespace GUI.ViewModels.PlayMode
             get
             {
                 return rowConstraints;
-            }            
+            }
         }
     }
 }
