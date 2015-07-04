@@ -5,7 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:converters="clr-namespace:GUI.Converters"
              mc:Ignorable="d"
-             Background="Black"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <Style x:Key="errorMessage" TargetType="{x:Type TextBlock}">

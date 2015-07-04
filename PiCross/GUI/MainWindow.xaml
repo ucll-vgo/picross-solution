@@ -10,7 +10,7 @@
         xmlns:lvm="clr-namespace:GUI.ViewModels.LibraryMode"
         xmlns:playvm="clr-namespace:GUI.ViewModels.PlayMode"
         xmlns:view="clr-namespace:GUI.Views"
-        xmlns:gui="clr-namespace:GUI"
+        xmlns:gui="clr-namespace:GUI" Background="Black"
         Title="MainWindow" Height="450" Width="900">
     <Window.Resources>
         <DataTemplate DataType="{x:Type ivm:IntroViewModel}">

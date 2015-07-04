@@ -7,7 +7,7 @@
              xmlns:converters="clr-namespace:GUI.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <DockPanel Background="Black">
+    <DockPanel>
         <Border DockPanel.Dock="Bottom">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button Padding="5" Margin="5" Style="{DynamicResource buttonStyle}" Command="{Binding Back}">
