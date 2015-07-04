@@ -1,10 +1,13 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Windows.Input;
 using GUI.Commands;
 using GUI.Controls;
 using GUI.ViewModels.PauseScreen;
+using PiCross;
 using PiCross.Cells;
 using PiCross.DataStructures;
+using PiCross.Facade;
 using PiCross.Facade.Playing;
 
 namespace GUI.ViewModels.PlayMode
@@ -25,6 +28,8 @@ namespace GUI.ViewModels.PlayMode
 
         private readonly ICommand pause;
 
+        private readonly Chronometer chronometer;
+
         public PlayViewModel( MasterController parent, IPlayablePuzzle puzzle )
             : base( parent )
         {
@@ -35,6 +40,7 @@ namespace GUI.ViewModels.PlayMode
             this.rowConstraints = puzzle.RowConstraints.Map( ( i, rowConstraints ) => new ConstraintsViewModel( rowConstraints, Cell.Derived( activatedSquare, v => v != null && v.Y == i ) ) ).Copy();
             this.back = EnabledCommand.FromDelegate( PerformBack );
             this.pause = EnabledCommand.FromDelegate( PerformPause );
+            this.chronometer = new Chronometer();
         }
 
         public GridViewModel Grid
@@ -103,6 +109,29 @@ namespace GUI.ViewModels.PlayMode
         private void PerformPause()
         {
             Push( new PauseViewModel( Parent ) );
+        }
+
+        public override void OnTick( double dt )
+        {
+            chronometer.Tick();
+        }
+
+        protected override void OnActivation()
+        {
+            chronometer.Start();
+        }
+
+        protected override void OnDeactivation()
+        {
+            chronometer.Pause();
+        }
+
+        public Cell<TimeSpan> ElapsedTime
+        {
+            get
+            {
+                return chronometer.TotalTime;
+            }
         }
     }
 }
