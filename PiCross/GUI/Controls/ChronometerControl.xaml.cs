@@ -47,12 +47,12 @@ namespace GUI.Controls
 
         private void UpdateSecondHand()
         {
-            secondsTransform.Angle = TransformToAngle( ElapsedTime.Seconds + ElapsedTime.Milliseconds / 1000.0);
+            secondsTransform.Angle = TransformToAngle( ElapsedTime.TotalSeconds % 60.0 );
         }
 
         private void UpdateMinuteHand()
         {
-            minutesTransform.Angle = TransformToAngle( ElapsedTime.Minutes + ElapsedTime.Seconds / 60.0 );
+            minutesTransform.Angle = TransformToAngle( ElapsedTime.TotalMinutes / 60.0 );
         }
 
         private double TransformToAngle( double handPosition )
