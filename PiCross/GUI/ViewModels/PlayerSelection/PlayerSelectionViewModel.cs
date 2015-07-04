@@ -26,27 +26,7 @@ namespace GUI.ViewModels.PlayerSelection
         {
             this.players = Parent.PlayerDatabase;
             this.addPlayer = EnabledCommand.FromDelegate( PerformAddPlayer );
-            this.playerViewModels = CreateItemViewModels();
-        }
-
-        private ObservableCollection<ItemViewModel> CreateItemViewModels()
-        {
-            Debug.Assert( players != null );
-            Debug.Assert( addPlayer != null );
-
-            var collection = new ObservableCollection<ItemViewModel>();
-
-            foreach ( var playerName in players.PlayerNames )
-            {
-                var command = EnabledCommand.FromDelegate( () => PerformSelectPlayer( playerName ) );
-                var vm = new SelectPlayerViewModel( this, players[playerName], command );
-
-                collection.Add( vm );
-            }
-
-            collection.Add( new AddPlayerViewModel( this, addPlayer ) );
-
-            return collection;
+            this.playerViewModels = new ObservableCollection<ItemViewModel>();
         }
 
         private void RecreateItemViewModels()
