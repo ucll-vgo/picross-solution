@@ -51,7 +51,7 @@ namespace GUI.ViewModels.LibraryMode
 
         private void PerformBack()
         {
-            PopView();
+            Pop();
         }
 
         private void PerformSelect( ILibraryEntry entry )

@@ -20,7 +20,7 @@ namespace GUI.ViewModels.PauseScreen
 
         private void PerformBack()
         {
-            PopView();
+            Pop();
         }
 
         public ICommand Back

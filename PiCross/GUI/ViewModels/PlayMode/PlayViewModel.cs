@@ -89,7 +89,7 @@ namespace GUI.ViewModels.PlayMode
 
         private void PerformBack()
         {
-            PopView();
+            Pop();
         }
 
         public ICommand Pause

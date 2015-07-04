@@ -28,7 +28,7 @@ namespace GUI.ViewModels
             Parent.PushViewModel( viewModel );
         }
 
-        protected void PopView()
+        protected void Pop()
         {
             Parent.PopViewModel();
         }
