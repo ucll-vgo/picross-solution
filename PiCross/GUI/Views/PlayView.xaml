@@ -4,16 +4,32 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:controls="clr-namespace:GUI.Controls"
+             xmlns:converters="clr-namespace:GUI.Converters"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
-    <DockPanel>
-        <StackPanel DockPanel.Dock="Bottom" HorizontalAlignment="Right" Orientation="Horizontal">
-            <Button Style="{StaticResource pauseButtonStyle}" Command="{Binding Pause}" />
-            <Button Style="{StaticResource backButtonStyle}" Command="{Binding Back}" />
-        </StackPanel>        
-        <controls:ChronometerControl DockPanel.Dock="Top" HorizontalAlignment="Center" ElapsedTime="{Binding ElapsedTime.Value}" />
-        <Viewbox>
-            <controls:SolveControl />
-        </Viewbox>
-    </DockPanel>
+             d:DesignHeight="300" d:DesignWidth="600">
+    <Grid>
+        <DockPanel>
+            <StackPanel DockPanel.Dock="Bottom" HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button Style="{StaticResource pauseButtonStyle}" Command="{Binding Pause}" />
+                <Button Style="{StaticResource backButtonStyle}" Command="{Binding Back}" />
+            </StackPanel>
+            <controls:ChronometerControl DockPanel.Dock="Top" HorizontalAlignment="Center" ElapsedTime="{Binding ElapsedTime.Value}" Margin="20" />
+            <Viewbox>
+                <controls:SolveControl />
+            </Viewbox>
+        </DockPanel>
+        <Border HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="20">
+            <Border.Background>
+                <SolidColorBrush Color="#DDDDDD" Opacity=".5" />
+            </Border.Background>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="128" Text="Solved" Foreground="Green" FontWeight="Bold" />
+            <Border.Visibility>
+                <Binding Path="IsSolved.Value">
+                    <Binding.Converter>
+                        <converters:BoolConverter True="{x:Static Visibility.Visible}" False="{x:Static Visibility.Hidden}" />
+                    </Binding.Converter>
+                </Binding>
+            </Border.Visibility>
+        </Border>
+    </Grid>
 </UserControl>

@@ -43,6 +43,14 @@ namespace GUI.ViewModels.PlayMode
             this.chronometer = new Chronometer();
         }
 
+        public Cell<bool> IsSolved
+        {
+            get
+            {
+                return this.puzzle.IsSolved;
+            }
+        }
+
         public GridViewModel Grid
         {
             get
@@ -59,7 +67,7 @@ namespace GUI.ViewModels.PlayMode
         public ISequence<ConstraintsViewModel> RowConstraints
         {
             get { return rowConstraints; }
-        }
+        }        
 
         IGrid<object> IPuzzleData.Grid
         {
