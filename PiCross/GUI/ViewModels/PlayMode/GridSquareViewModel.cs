@@ -20,12 +20,14 @@ namespace GUI.ViewModels.PlayMode
 
         private readonly ICommand activate;
 
-        public GridSquareViewModel( IPlayablePuzzleSquare square, ISignal activationSignal )
+        public GridSquareViewModel( IPlayablePuzzleSquare square, ISignal activationSignal, Cell<bool> isPuzzleSolved )
         {
+            var isEnabled = Cell.Derived( isPuzzleSolved, x => !x );
+
             this.square = square;
-            this.toggle = new ToggleCommand( square.Contents );
-            this.toggleEmpty = new ToggleEmptyCommand( square.Contents );
-            this.toggleFilled = new ToggleFilledCommand( square.Contents );
+            this.toggle = new ToggleCommand( square.Contents, isEnabled );
+            this.toggleEmpty = new ToggleEmptyCommand( square.Contents, isEnabled );
+            this.toggleFilled = new ToggleFilledCommand( square.Contents, isEnabled );
             this.activate = new ActivationCommand( activationSignal );
         }
 
@@ -69,11 +71,12 @@ namespace GUI.ViewModels.PlayMode
             }
         }
 
-        private class ToggleCommand : EnabledCommand
+        private class ToggleCommand : CellCommand
         {
             private readonly Cell<Square> square;
 
-            public ToggleCommand( Cell<Square> square )
+            public ToggleCommand( Cell<Square> square, Cell<bool> isEnabled )
+                : base( isEnabled )
             {
                 this.square = square;
             }
@@ -100,11 +103,12 @@ namespace GUI.ViewModels.PlayMode
             }
         }
 
-        private class ToggleEmptyCommand : EnabledCommand
+        private class ToggleEmptyCommand : CellCommand
         {
             private readonly Cell<Square> square;
 
-            public ToggleEmptyCommand( Cell<Square> square )
+            public ToggleEmptyCommand( Cell<Square> square, Cell<bool> isEnabled )
+                : base( isEnabled )
             {
                 this.square = square;
             }
@@ -127,11 +131,12 @@ namespace GUI.ViewModels.PlayMode
             }
         }
 
-        private class ToggleFilledCommand : EnabledCommand
+        private class ToggleFilledCommand : CellCommand
         {
             private readonly Cell<Square> square;
 
-            public ToggleFilledCommand( Cell<Square> square )
+            public ToggleFilledCommand( Cell<Square> square, Cell<bool> isEnabled )
+                : base( isEnabled )
             {
                 this.square = square;
             }
