@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Input;
 using GUI.Commands;
@@ -35,13 +36,21 @@ namespace GUI.ViewModels.PlayMode
             this.activatedSquare = Cell.Create<Vector2D>( null );
             this.grid = new GridViewModel( puzzle, activatedSquare );
             this.columnConstraints = puzzle.ColumnConstraints.Map( ( i, columnConstraints ) => new ConstraintsViewModel( columnConstraints, Cell.Derived( activatedSquare, v => v != null && v.X == i ) ) ).Copy();
-            this.rowConstraints = puzzle.RowConstraints.Map( ( i, rowConstraints ) => new ConstraintsViewModel( rowConstraints, Cell.Derived( activatedSquare, v => v != null && v.Y == i ) ) ).Copy();            
+            this.rowConstraints = puzzle.RowConstraints.Map( ( i, rowConstraints ) => new ConstraintsViewModel( rowConstraints, Cell.Derived( activatedSquare, v => v != null && v.Y == i ) ) ).Copy();
             this.chronometer = new Chronometer();
             this.bestTime = bestTime;
 
             // Commands
             this.back = EnabledCommand.FromDelegate( PerformBack );
             this.pause = EnabledCommand.FromDelegate( PerformPause );
+
+            SubscribeListeners();
+        }
+
+        private void SubscribeListeners()
+        {
+            // ( (INotifyPropertyChanged) this.puzzle.IsSolved ).PropertyChanged += ( sender, args ) => OnIsSolved();
+            this.puzzle.IsSolved.ValueChanged += OnIsSolved;
         }
 
         public Cell<bool> IsSolved
@@ -49,6 +58,19 @@ namespace GUI.ViewModels.PlayMode
             get
             {
                 return this.puzzle.IsSolved;
+            }
+        }
+
+        private void OnIsSolved()
+        {
+            SaveTimeIfBetterThanBest();
+        }
+
+        private void SaveTimeIfBetterThanBest()
+        {
+            if ( !bestTime.Value.HasValue || chronometer.TotalTime.Value < bestTime.Value )
+            {
+                bestTime.Value = chronometer.TotalTime.Value;
             }
         }
 
@@ -146,7 +168,10 @@ namespace GUI.ViewModels.PlayMode
 
         public override void OnTick( double dt )
         {
-            chronometer.Tick();
+            if ( !IsSolved.Value )
+            {
+                chronometer.Tick();
+            }
         }
 
         protected override void OnActivation()
