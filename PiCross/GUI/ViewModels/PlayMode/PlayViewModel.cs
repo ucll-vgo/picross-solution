@@ -24,10 +24,6 @@ namespace GUI.ViewModels.PlayMode
 
         private readonly Cell<Vector2D> activatedSquare;
 
-        public readonly ICommand back;
-
-        private readonly ICommand pause;
-
         private readonly Chronometer chronometer;
 
         public PlayViewModel( MasterController parent, IPlayablePuzzle puzzle )
@@ -37,10 +33,12 @@ namespace GUI.ViewModels.PlayMode
             this.activatedSquare = Cell.Create<Vector2D>( null );
             this.grid = new GridViewModel( puzzle, activatedSquare );
             this.columnConstraints = puzzle.ColumnConstraints.Map( ( i, columnConstraints ) => new ConstraintsViewModel( columnConstraints, Cell.Derived( activatedSquare, v => v != null && v.X == i ) ) ).Copy();
-            this.rowConstraints = puzzle.RowConstraints.Map( ( i, rowConstraints ) => new ConstraintsViewModel( rowConstraints, Cell.Derived( activatedSquare, v => v != null && v.Y == i ) ) ).Copy();
+            this.rowConstraints = puzzle.RowConstraints.Map( ( i, rowConstraints ) => new ConstraintsViewModel( rowConstraints, Cell.Derived( activatedSquare, v => v != null && v.Y == i ) ) ).Copy();            
+            this.chronometer = new Chronometer();
+
+            // Commands
             this.back = EnabledCommand.FromDelegate( PerformBack );
             this.pause = EnabledCommand.FromDelegate( PerformPause );
-            this.chronometer = new Chronometer();
         }
 
         public Cell<bool> IsSolved
@@ -93,6 +91,10 @@ namespace GUI.ViewModels.PlayMode
             }
         }
 
+        #region Back Command
+
+        private readonly ICommand back;
+
         public ICommand Back
         {
             get
@@ -106,6 +108,12 @@ namespace GUI.ViewModels.PlayMode
             Pop();
         }
 
+        #endregion
+
+        #region Pause Command
+
+        private readonly ICommand pause;
+
         public ICommand Pause
         {
             get
@@ -118,6 +126,8 @@ namespace GUI.ViewModels.PlayMode
         {
             Push( new PauseViewModel( Parent ) );
         }
+
+        #endregion
 
         public override void OnTick( double dt )
         {
