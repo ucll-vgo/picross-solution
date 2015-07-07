@@ -99,7 +99,7 @@ namespace GUI.ViewModels.LibraryMode
         {
             get
             {
-                return userInfo != null;
+                return userInfo.BestTime.Value.HasValue;
             }
         }
 
