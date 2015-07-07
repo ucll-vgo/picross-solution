@@ -25,6 +25,8 @@ namespace GUI.Controls
             InitializeComponent();
         }
 
+        #region ElapsedTime
+
         public TimeSpan ElapsedTime
         {
             get { return (TimeSpan) GetValue( ElapsedTimeProperty ); }
@@ -38,6 +40,10 @@ namespace GUI.Controls
         {
             UpdateHands();
         }
+
+        #endregion
+        
+        #region Hand updating
 
         private void UpdateHands()
         {
@@ -59,5 +65,7 @@ namespace GUI.Controls
         {
             return handPosition * 6;
         }
+
+        #endregion
     }
 }
