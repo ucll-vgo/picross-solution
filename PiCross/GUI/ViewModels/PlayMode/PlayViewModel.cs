@@ -70,6 +70,14 @@ namespace GUI.ViewModels.PlayMode
             get { return rowConstraints; }
         }
 
+        public Cell<TimeSpan?> BestTime
+        {
+            get
+            {
+                return bestTime;
+            }
+        }
+
         #region IPuzzleData explicit implementation
 
         IGrid<object> IPuzzleData.Grid
