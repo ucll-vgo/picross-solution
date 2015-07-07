@@ -68,7 +68,9 @@ namespace GUI.ViewModels.PlayMode
         public ISequence<ConstraintsViewModel> RowConstraints
         {
             get { return rowConstraints; }
-        }        
+        }
+
+        #region IPuzzleData explicit implementation
 
         IGrid<object> IPuzzleData.Grid
         {
@@ -93,6 +95,8 @@ namespace GUI.ViewModels.PlayMode
                 return rowConstraints;
             }
         }
+
+        #endregion
 
         #region Back Command
 
