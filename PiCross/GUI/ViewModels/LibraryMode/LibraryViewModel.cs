@@ -57,7 +57,11 @@ namespace GUI.ViewModels.LibraryMode
 
         private void PerformSelect( ILibraryEntry entry )
         {
-            Push( new PlayViewModel( Parent, PlayablePuzzle.Create( entry.Puzzle ) ) );
+            var puzzle = entry.Puzzle;
+            var playablePuzzle = PlayablePuzzle.Create( puzzle );
+            var bestTime = activeUser.PuzzleInformation[puzzle].BestTime;
+
+            Push( new PlayViewModel( Parent, playablePuzzle, bestTime ) );
         }
     }
 

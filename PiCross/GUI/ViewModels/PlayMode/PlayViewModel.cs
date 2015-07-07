@@ -26,7 +26,9 @@ namespace GUI.ViewModels.PlayMode
 
         private readonly Chronometer chronometer;
 
-        public PlayViewModel( MasterController parent, IPlayablePuzzle puzzle )
+        private readonly Cell<TimeSpan?> bestTime;
+
+        public PlayViewModel( MasterController parent, IPlayablePuzzle puzzle, Cell<TimeSpan?> bestTime )
             : base( parent )
         {
             this.puzzle = puzzle;
@@ -35,6 +37,7 @@ namespace GUI.ViewModels.PlayMode
             this.columnConstraints = puzzle.ColumnConstraints.Map( ( i, columnConstraints ) => new ConstraintsViewModel( columnConstraints, Cell.Derived( activatedSquare, v => v != null && v.X == i ) ) ).Copy();
             this.rowConstraints = puzzle.RowConstraints.Map( ( i, rowConstraints ) => new ConstraintsViewModel( rowConstraints, Cell.Derived( activatedSquare, v => v != null && v.Y == i ) ) ).Copy();            
             this.chronometer = new Chronometer();
+            this.bestTime = bestTime;
 
             // Commands
             this.back = EnabledCommand.FromDelegate( PerformBack );
