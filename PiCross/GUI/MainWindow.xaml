@@ -34,7 +34,5 @@
         </DataTemplate>        
     </Window.Resources>
 
-    <!--<ContentControl Content="{Binding ActiveViewModel.Value}" />-->
-    <view:PlayView />
-    
+    <ContentControl Content="{Binding ActiveViewModel.Value}" />
 </Window>
