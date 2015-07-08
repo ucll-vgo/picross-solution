@@ -42,14 +42,13 @@ namespace GUI.ViewModels.PlayMode
 
             // Commands
             this.back = EnabledCommand.FromDelegate( PerformBack );
-            this.pause = EnabledCommand.FromDelegate( PerformPause );
+            this.pause = CellCommand.FromDelegate( Cell.Derived( this.puzzle.IsSolved, x => !x ), PerformPause );
 
             SubscribeListeners();
         }
 
         private void SubscribeListeners()
         {
-            // ( (INotifyPropertyChanged) this.puzzle.IsSolved ).PropertyChanged += ( sender, args ) => OnIsSolved();
             this.puzzle.IsSolved.ValueChanged += OnIsSolved;
         }
 
