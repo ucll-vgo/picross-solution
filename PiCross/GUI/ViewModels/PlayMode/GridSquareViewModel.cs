@@ -22,6 +22,8 @@ namespace GUI.ViewModels.PlayMode
 
         private readonly Cell<int?> selectionIndex;
 
+        private readonly Cell<bool> isSelected;
+
         public GridSquareViewModel( IPlayablePuzzleSquare square, Cell<bool> isActive, Cell<bool> isPuzzleSolved, Cell<int?> selectionIndex )
         {
             var isEnabled = isPuzzleSolved.Negate();
@@ -32,6 +34,7 @@ namespace GUI.ViewModels.PlayMode
             this.toggleFilled = new ToggleFilledCommand( square.Contents, isEnabled );
             this.isActive = isActive;
             this.selectionIndex = selectionIndex.Map( x => x.HasValue ? (int?) ( x.Value + 1 ) : null );
+            this.isSelected = this.selectionIndex.Map( x => x.HasValue );
         }
 
         public Vector2D Position
@@ -47,6 +50,14 @@ namespace GUI.ViewModels.PlayMode
             get
             {
                 return selectionIndex;
+            }
+        }
+
+        public Cell<bool> IsSelected
+        {
+            get
+            {
+                return isSelected;
             }
         }
 

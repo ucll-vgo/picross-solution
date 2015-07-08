@@ -44,6 +44,7 @@
                 <controls:PuzzleGridSquareControl Contents="{Binding Contents.Value}"
                                                   Tag="{Binding Position}"
                                                   Text="{Binding SelectionIndex.Value}"
+                                                  IsSelected="{Binding IsSelected.Value}"
                                                   Width="24"
                                                   Height="24"
                                                   MouseDown="Square_MouseDown"

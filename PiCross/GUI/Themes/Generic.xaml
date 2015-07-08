@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="clr-namespace:GUI.Converters"
     xmlns:local="clr-namespace:GUI.Controls">
-    
+
     <Style x:Key="buttonStyle" TargetType="{x:Type Button}">
         <Setter Property="Padding" Value="5" />
         <Setter Property="Margin" Value="5" />
@@ -28,9 +28,9 @@
                             </Ellipse.Fill>
                         </Ellipse>
                         <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False" />
-                    </Grid>                    
+                    </Grid>
 
-                    <ControlTemplate.Triggers>                        
+                    <ControlTemplate.Triggers>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter TargetName="ellipse" Property="Fill" Value="#FF7777" />
                         </Trigger>
@@ -65,10 +65,21 @@
                             <VisualStateGroup x:Name="MouseStates">
                                 <VisualState x:Name="MouseOver">
                                     <Storyboard>
-                                        <ColorAnimation To="#FF0000" Storyboard.TargetName="borderBrush" Storyboard.TargetProperty="Color" Duration="0:0:0.250" />
+                                        <ColorAnimation To="White" Storyboard.TargetName="outerBorderBrush" Storyboard.TargetProperty="Color" Duration="0:0:0.1" />
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="MouseNotOver">
+                                    <Storyboard>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="SelectionStates">
+                                <VisualState x:Name="Selected">
+                                    <Storyboard>
+                                        <ColorAnimation To="#FF0000" Storyboard.TargetName="borderBrush" Storyboard.TargetProperty="Color" Duration="0:0:0.250" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="NotSelected">
                                     <Storyboard>
                                     </Storyboard>
                                 </VisualState>
@@ -101,19 +112,24 @@
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
 
-                        <Border BorderThickness="1" Margin="1" CornerRadius="2">
+                        <Border x:Name="outerBorder" Padding="1" BorderThickness="1" Background="Transparent">
                             <Border.BorderBrush>
-                                <SolidColorBrush x:Name="borderBrush" Color="Black" />
+                                <SolidColorBrush x:Name="outerBorderBrush" Color="Black" />
                             </Border.BorderBrush>
-                            <Border.Background>
-                                <LinearGradientBrush x:Name="backgroundBrush" StartPoint="0,0" EndPoint="0.3,0.3">
-                                    <GradientStop x:Name="backgroundBrush_firstGradientStop" Offset="0" Color="Transparent" />
-                                    <GradientStop x:Name="backgroundBrush_middleGradientStop" Offset="0.5" Color="Transparent" />
-                                    <GradientStop x:Name="backgroundBrush_lastGradientStop" Offset="1" Color="Transparent" />
-                                </LinearGradientBrush>
-                            </Border.Background>
-                            
-                            <TextBlock Text="{TemplateBinding Text}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" />
+                            <Border BorderThickness="1" Margin="1" CornerRadius="2">
+                                <Border.BorderBrush>
+                                    <SolidColorBrush x:Name="borderBrush" Color="Black" />
+                                </Border.BorderBrush>
+                                <Border.Background>
+                                    <LinearGradientBrush x:Name="backgroundBrush" StartPoint="0,0" EndPoint="0.3,0.3" Opacity="0.75">
+                                        <GradientStop x:Name="backgroundBrush_firstGradientStop" Offset="0" Color="Transparent" />
+                                        <GradientStop x:Name="backgroundBrush_middleGradientStop" Offset="0.5" Color="Transparent" />
+                                        <GradientStop x:Name="backgroundBrush_lastGradientStop" Offset="1" Color="Transparent" />
+                                    </LinearGradientBrush>
+                                </Border.Background>
+
+                                <TextBlock Text="{TemplateBinding Text}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" />
+                            </Border>
                         </Border>
                     </Grid>
                 </ControlTemplate>
