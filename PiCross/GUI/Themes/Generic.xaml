@@ -77,26 +77,26 @@
                             <VisualStateGroup x:Name="FillStates">
                                 <VisualState x:Name="Unknown">
                                     <Storyboard>
-                                        <ColorAnimation To="#FFAAAA" Storyboard.TargetName="backgroundBrush_firstGradientStop" Storyboard.TargetProperty="Color" Duration="0:0:0.5" />
-                                        <ColorAnimation To="#FFAAAA" Storyboard.TargetName="backgroundBrush_lastGradientStop" Storyboard.TargetProperty="Color" Duration="0:0:0.5" />
+                                        <ColorAnimation To="#FFAAAA" Storyboard.TargetName="backgroundBrush_firstGradientStop" Storyboard.TargetProperty="Color" Duration="0:0:0.1" />
+                                        <ColorAnimation To="#FFAAAA" Storyboard.TargetName="backgroundBrush_lastGradientStop" Storyboard.TargetProperty="Color" Duration="0:0:0.1" />
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Empty">
                                     <Storyboard>
-                                        <ColorAnimation To="#CCCCCC" Storyboard.TargetName="backgroundBrush_firstGradientStop" Storyboard.TargetProperty="Color" Duration="0:0:0.5" />
-                                        <ColorAnimation To="#CCCCCC" Storyboard.TargetName="backgroundBrush_lastGradientStop" Storyboard.TargetProperty="Color" Duration="0:0:0.5" />
+                                        <ColorAnimation To="#CCCCCC" Storyboard.TargetName="backgroundBrush_firstGradientStop" Storyboard.TargetProperty="Color" Duration="0:0:0.1" />
+                                        <ColorAnimation To="#CCCCCC" Storyboard.TargetName="backgroundBrush_lastGradientStop" Storyboard.TargetProperty="Color" Duration="0:0:0.1" />
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Filled">
                                     <Storyboard>
-                                        <ColorAnimation To="Black" Storyboard.TargetName="backgroundBrush_firstGradientStop" Storyboard.TargetProperty="Color" Duration="0:0:0.5" />
-                                        <ColorAnimation To="Black" Storyboard.TargetName="backgroundBrush_lastGradientStop" Storyboard.TargetProperty="Color" Duration="0:0:0.5" />
+                                        <ColorAnimation To="Black" Storyboard.TargetName="backgroundBrush_firstGradientStop" Storyboard.TargetProperty="Color" Duration="0:0:0.1" />
+                                        <ColorAnimation To="Black" Storyboard.TargetName="backgroundBrush_lastGradientStop" Storyboard.TargetProperty="Color" Duration="0:0:0.1" />
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="NoContents">
                                     <Storyboard>
-                                        <ColorAnimation To="Red" Storyboard.TargetName="backgroundBrush_firstGradientStop" Storyboard.TargetProperty="Color" Duration="0:0:0.5" />
-                                        <ColorAnimation To="Red" Storyboard.TargetName="backgroundBrush_lastGradientStop" Storyboard.TargetProperty="Color" Duration="0:0:0.5" />
+                                        <ColorAnimation To="Red" Storyboard.TargetName="backgroundBrush_firstGradientStop" Storyboard.TargetProperty="Color" Duration="0:0:0.1" />
+                                        <ColorAnimation To="Red" Storyboard.TargetName="backgroundBrush_lastGradientStop" Storyboard.TargetProperty="Color" Duration="0:0:0.1" />
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>
