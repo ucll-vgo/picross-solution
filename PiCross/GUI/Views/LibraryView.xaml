@@ -41,30 +41,35 @@
                                     <RowDefinition Height="*" />
                                     <RowDefinition Height="auto" />
                                 </Grid.RowDefinitions>
-                                <Viewbox Grid.Row="0" Width="100" Height="100">
-                                    <ContentControl>
-                                        <ContentControl.Content>
-                                            <Binding Path="Solved">
-                                                <Binding.Converter>
-                                                    <converters:TemplateLoaderConverter>
-                                                        <converters:BoolConverter>
-                                                            <converters:BoolConverter.True>
-                                                                <DataTemplate>
-                                                                    <controls:ThumbnailControl Grid="{Binding Grid}" />
-                                                                </DataTemplate>
-                                                            </converters:BoolConverter.True>
-                                                            <converters:BoolConverter.False>
-                                                                <DataTemplate>
+                                <ContentControl>
+                                    <ContentControl.Content>
+                                        <Binding Path="Solved">
+                                            <Binding.Converter>
+                                                <converters:TemplateLoaderConverter>
+                                                    <converters:BoolConverter>
+                                                        <converters:BoolConverter.True>
+                                                            <DataTemplate>
+                                                                <DockPanel>
+                                                                    <TextBlock DockPanel.Dock="Top" Text="{Binding BestTime}" HorizontalAlignment="Center" />
+                                                                    <Viewbox Grid.Row="0" Width="100" Height="100">
+                                                                        <controls:ThumbnailControl Grid="{Binding Grid}" />
+                                                                    </Viewbox>
+                                                                </DockPanel>
+                                                            </DataTemplate>
+                                                        </converters:BoolConverter.True>
+                                                        <converters:BoolConverter.False>
+                                                            <DataTemplate>
+                                                                <Viewbox Width="100" Height="100">
                                                                     <TextBlock Text="?" />
-                                                                </DataTemplate>
-                                                            </converters:BoolConverter.False>
-                                                        </converters:BoolConverter>
-                                                    </converters:TemplateLoaderConverter>
-                                                </Binding.Converter>
-                                            </Binding>
-                                        </ContentControl.Content>
-                                    </ContentControl>
-                                </Viewbox>
+                                                                </Viewbox>
+                                                            </DataTemplate>
+                                                        </converters:BoolConverter.False>
+                                                    </converters:BoolConverter>
+                                                </converters:TemplateLoaderConverter>
+                                            </Binding.Converter>
+                                        </Binding>
+                                    </ContentControl.Content>
+                                </ContentControl>
                                 <TextBlock Grid.Row="1" FontSize="32" HorizontalAlignment="Center">
                                     <TextBlock.Text>
                                         <Binding Path="Puzzle.Size">
@@ -74,7 +79,7 @@
                                         </Binding>
                                     </TextBlock.Text>
                                 </TextBlock>
-                            </Grid>                            
+                            </Grid>
                         </Button>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

@@ -107,6 +107,14 @@ namespace GUI.ViewModels.LibraryMode
             }
         }
 
+        public TimeSpan BestTime
+        {
+            get
+            {
+                return userInfo.BestTime.Value.HasValue ? userInfo.BestTime.Value.Value : TimeSpan.FromSeconds( -1 );
+            }
+        }
+
         public ICommand Select
         {
             get
