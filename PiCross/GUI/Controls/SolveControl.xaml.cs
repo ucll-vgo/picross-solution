@@ -36,6 +36,8 @@ namespace GUI.Controls
             }
         }
 
+        #region Square Selection Logic
+
         private void Square_MouseDown( object sender, MouseButtonEventArgs e )
         {
             var position = ExtractPosition( sender );
@@ -59,5 +61,7 @@ namespace GUI.Controls
 
             return (Vector2D) control.Tag;
         }
+
+        #endregion
     }
 }

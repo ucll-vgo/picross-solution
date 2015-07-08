@@ -211,6 +211,8 @@ namespace GUI.ViewModels.PlayMode
             }
         }
 
+        #region Multiselect Logic
+
         private Square newContents;
 
         public void StartSelection(Vector2D position, bool fillMode)
@@ -245,5 +247,7 @@ namespace GUI.ViewModels.PlayMode
             selectionHelper.SelectionStart = null;
             selectionHelper.SelectionEnd = null;
         }
+
+        #endregion
     }
 }
