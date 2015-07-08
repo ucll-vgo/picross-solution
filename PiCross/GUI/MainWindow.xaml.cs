@@ -43,8 +43,11 @@ namespace GUI
             InitializeComponent();
 
             masterController = CreateMasterController();
-            SetUpDataContext();
-            SetUpTimer();
+            //SetUpDataContext();
+            //SetUpTimer();
+
+            var puzzle = PlayablePuzzle.Create( masterController.Library.Entries[0].Puzzle );
+            this.DataContext = new PlayViewModel( masterController, puzzle, Cell.Create<TimeSpan?>( null ) );
         }
 
         private MasterController CreateMasterController()
