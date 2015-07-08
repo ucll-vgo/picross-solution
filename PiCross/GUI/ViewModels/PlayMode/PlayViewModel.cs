@@ -225,35 +225,44 @@ namespace GUI.ViewModels.PlayMode
 
         public void StartSelection( Vector2D position, bool fillMode )
         {
-            var oldContents = Grid.Squares[position].Contents.Value;
-
-            if ( fillMode )
+            if ( !IsSolved.Value )
             {
-                newContents = oldContents != Square.FILLED ? Square.FILLED : Square.UNKNOWN;
-            }
-            else
-            {
-                newContents = oldContents != Square.EMPTY ? Square.EMPTY : Square.UNKNOWN;
-            }
+                var oldContents = Grid.Squares[position].Contents.Value;
 
-            selectionHelper.SelectionStart = position;
-            selectionHelper.SelectionEnd = position;
+                if ( fillMode )
+                {
+                    newContents = oldContents != Square.FILLED ? Square.FILLED : Square.UNKNOWN;
+                }
+                else
+                {
+                    newContents = oldContents != Square.EMPTY ? Square.EMPTY : Square.UNKNOWN;
+                }
+
+                selectionHelper.SelectionStart = position;
+                selectionHelper.SelectionEnd = position;
+            }
         }
 
         public void DragSelection( Vector2D position )
         {
-            selectionHelper.SelectionEnd = position;
+            if ( !IsSolved.Value )
+            {
+                selectionHelper.SelectionEnd = position;
+            }
         }
 
         public void EndSelection()
         {
-            foreach ( var position in Grid.Squares.AllPositions )
+            if ( !IsSolved.Value )
             {
-                Grid.Squares[position].SetContentsIfSelected( newContents );
-            }
+                foreach ( var position in Grid.Squares.AllPositions )
+                {
+                    Grid.Squares[position].SetContentsIfSelected( newContents );
+                }
 
-            selectionHelper.SelectionStart = null;
-            selectionHelper.SelectionEnd = null;
+                selectionHelper.SelectionStart = null;
+                selectionHelper.SelectionEnd = null;
+            }
         }
 
         #endregion
