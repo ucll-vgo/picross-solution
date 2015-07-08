@@ -52,7 +52,10 @@ namespace GUI.Controls
 
         private void Square_MouseEnter( object sender, MouseEventArgs e )
         {
-            ViewModel.DragSelection( ExtractPosition( sender ) );
+            var position = ExtractPosition( sender ) ;
+
+            ViewModel.DragSelection( position );
+            ViewModel.ActivatedSquare.Value = position;
         }
 
         private Vector2D ExtractPosition( object sender )

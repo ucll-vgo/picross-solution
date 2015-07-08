@@ -211,11 +211,19 @@ namespace GUI.ViewModels.PlayMode
             }
         }
 
+        public Cell<Vector2D> ActivatedSquare
+        {
+            get
+            {
+                return activatedSquare;
+            }
+        }
+
         #region Multiselect Logic
 
         private Square newContents;
 
-        public void StartSelection(Vector2D position, bool fillMode)
+        public void StartSelection( Vector2D position, bool fillMode )
         {
             var oldContents = Grid.Squares[position].Contents.Value;
 
@@ -232,7 +240,7 @@ namespace GUI.ViewModels.PlayMode
             selectionHelper.SelectionEnd = position;
         }
 
-        public void DragSelection(Vector2D position)
+        public void DragSelection( Vector2D position )
         {
             selectionHelper.SelectionEnd = position;
         }

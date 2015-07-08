@@ -15,8 +15,7 @@ namespace GUI.ViewModels.PlayMode
         {
             this.puzzle = puzzle;
 
-            var signalFactory = new SignalFactory<Vector2D>( activatedSquare );
-            this.squares = Grid.Create( puzzle.Size, p => new GridSquareViewModel( puzzle[p], signalFactory.CreateSignal( p ), puzzle.IsSolved, selectionGrid[p] ) );
+            this.squares = Grid.Create( puzzle.Size, p => new GridSquareViewModel( puzzle[p], activatedSquare.Map( q => p == q ), puzzle.IsSolved, selectionGrid[p] ) );
         }
 
         public IGrid<GridSquareViewModel> Squares

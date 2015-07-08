@@ -18,11 +18,11 @@ namespace GUI.ViewModels.PlayMode
 
         private readonly ICommand toggleFilled;
 
-        private readonly ICommand activate;
+        private readonly Cell<bool> isActive;
 
         private readonly Cell<int?> selectionIndex;
 
-        public GridSquareViewModel( IPlayablePuzzleSquare square, ISignal activationSignal, Cell<bool> isPuzzleSolved, Cell<int?> selectionIndex )
+        public GridSquareViewModel( IPlayablePuzzleSquare square, Cell<bool> isActive, Cell<bool> isPuzzleSolved, Cell<int?> selectionIndex )
         {
             var isEnabled = isPuzzleSolved.Negate();
 
@@ -30,7 +30,7 @@ namespace GUI.ViewModels.PlayMode
             this.toggle = new ToggleCommand( square.Contents, isEnabled );
             this.toggleEmpty = new ToggleEmptyCommand( square.Contents, isEnabled );
             this.toggleFilled = new ToggleFilledCommand( square.Contents, isEnabled );
-            this.activate = new ActivationCommand( activationSignal );
+            this.isActive = isActive;
             this.selectionIndex = selectionIndex.Map( x => x.HasValue ? (int?) ( x.Value + 1 ) : null );
         }
 
@@ -58,11 +58,11 @@ namespace GUI.ViewModels.PlayMode
             }
         }
 
-        public ICommand Activate
+        public Cell<bool> IsActive
         {
             get
             {
-                return activate;
+                return isActive;
             }
         }
 

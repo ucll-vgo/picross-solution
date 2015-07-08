@@ -65,12 +65,11 @@
                             <VisualStateGroup x:Name="MouseStates">
                                 <VisualState x:Name="MouseOver">
                                     <Storyboard>
-                                        <DoubleAnimation To="1.0" Storyboard.TargetName="borderBrush" Storyboard.TargetProperty="Opacity" Duration="0:0:0.100" />
+                                        <ColorAnimation To="#FF0000" Storyboard.TargetName="borderBrush" Storyboard.TargetProperty="Color" Duration="0:0:0.250" />
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="MouseNotOver">
                                     <Storyboard>
-                                        <DoubleAnimation To="0.5" Storyboard.TargetName="borderBrush" Storyboard.TargetProperty="Opacity" Duration="0:0:0.250" />
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>
