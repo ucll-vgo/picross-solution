@@ -23,8 +23,6 @@ namespace GUI.Controls
     /// </summary>
     public partial class SolveControl : UserControl
     {
-        private Square newContents;
-
         public SolveControl()
         {
             InitializeComponent();
@@ -42,37 +40,17 @@ namespace GUI.Controls
         {
             var position = ExtractPosition( sender );
 
-            var oldContents = ViewModel.Grid.Squares[position].Contents.Value;
-
-            if ( e.LeftButton == MouseButtonState.Pressed )
-            {
-                newContents = oldContents != Square.FILLED ? Square.FILLED : Square.UNKNOWN;
-            }
-            else
-            {
-                newContents = oldContents != Square.EMPTY ? Square.EMPTY : Square.UNKNOWN;
-            }
-
-            ViewModel.SelectionStart = position;
-            ViewModel.SelectionEnd = position;
+            ViewModel.StartSelection( position, e.LeftButton == MouseButtonState.Pressed );
         }
 
         private void Square_MouseUp( object sender, MouseButtonEventArgs e )
         {
-            var vm = ViewModel;            
-
-            foreach ( var position in vm.Grid.Squares.AllPositions )
-            {
-                vm.Grid.Squares[position].SetContentsIfSelected( newContents );
-            }            
-
-            vm.SelectionStart = null;
-            vm.SelectionEnd = null;
+            ViewModel.EndSelection();
         }
 
         private void Square_MouseEnter( object sender, MouseEventArgs e )
         {
-            ViewModel.SelectionEnd = ExtractPosition( sender );
+            ViewModel.DragSelection( ExtractPosition( sender ) );
         }
 
         private Vector2D ExtractPosition( object sender )

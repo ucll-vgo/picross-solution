@@ -10,6 +10,7 @@ using PiCross.Cells;
 using PiCross.DataStructures;
 using PiCross.Facade;
 using PiCross.Facade.Playing;
+using PiCross.Game;
 
 namespace GUI.ViewModels.PlayMode
 {
@@ -210,28 +211,39 @@ namespace GUI.ViewModels.PlayMode
             }
         }
 
-        public Vector2D SelectionStart
+        private Square newContents;
+
+        public void StartSelection(Vector2D position, bool fillMode)
         {
-            get
+            var oldContents = Grid.Squares[position].Contents.Value;
+
+            if ( fillMode )
             {
-                return selectionHelper.SelectionStart;
+                newContents = oldContents != Square.FILLED ? Square.FILLED : Square.UNKNOWN;
             }
-            set
+            else
             {
-                selectionHelper.SelectionStart = value;
+                newContents = oldContents != Square.EMPTY ? Square.EMPTY : Square.UNKNOWN;
             }
+
+            selectionHelper.SelectionStart = position;
+            selectionHelper.SelectionEnd = position;
         }
 
-        public Vector2D SelectionEnd
+        public void DragSelection(Vector2D position)
         {
-            get
+            selectionHelper.SelectionEnd = position;
+        }
+
+        public void EndSelection()
+        {
+            foreach ( var position in Grid.Squares.AllPositions )
             {
-                return selectionHelper.SelectionEnd;
+                Grid.Squares[position].SetContentsIfSelected( newContents );
             }
-            set
-            {
-                selectionHelper.SelectionEnd = value;
-            }
+
+            selectionHelper.SelectionStart = null;
+            selectionHelper.SelectionEnd = null;
         }
     }
 }
