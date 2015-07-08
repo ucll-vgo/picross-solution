@@ -11,12 +11,12 @@ namespace GUI.ViewModels.PlayMode
 
         private readonly IGrid<GridSquareViewModel> squares;
 
-        public GridViewModel( IPlayablePuzzle puzzle, Cell<Vector2D> activatedSquare )
+        public GridViewModel( IPlayablePuzzle puzzle, Cell<Vector2D> activatedSquare, IGrid<Cell<int?>> selectionGrid )
         {
             this.puzzle = puzzle;
 
             var signalFactory = new SignalFactory<Vector2D>( activatedSquare );
-            this.squares = Grid.Create( puzzle.Size, p => new GridSquareViewModel( puzzle[p], signalFactory.CreateSignal( p ), puzzle.IsSolved ) );
+            this.squares = Grid.Create( puzzle.Size, p => new GridSquareViewModel( puzzle[p], signalFactory.CreateSignal( p ), puzzle.IsSolved, selectionGrid[p] ) );
         }
 
         public IGrid<GridSquareViewModel> Squares

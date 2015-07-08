@@ -35,6 +35,6 @@
     </Window.Resources>
 
     <!--<ContentControl Content="{Binding ActiveViewModel.Value}" />-->
-    <controls:PlayControl />
+    <view:PlayView />
     
 </Window>

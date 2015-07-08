@@ -42,11 +42,13 @@
         <controls:PiCrossControl.SquareTemplate>
             <DataTemplate>
                 <controls:PuzzleGridSquareControl Contents="{Binding Contents.Value}"
+                                                  Tag="{Binding Position}"
+                                                  Text="{Binding SelectionIndex.Value}"
                                                   Width="24"
                                                   Height="24"
-                                                  LeftClick="{Binding ToggleFilled}"
-                                                  RightClick="{Binding ToggleEmpty}"
-                                                  Activate="{Binding Activate}">
+                                                  MouseDown="Square_MouseDown"
+                                                  MouseUp="Square_MouseUp"
+                                                  MouseEnter="Square_MouseEnter">
                 </controls:PuzzleGridSquareControl>
             </DataTemplate>
         </controls:PiCrossControl.SquareTemplate>

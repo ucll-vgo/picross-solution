@@ -62,9 +62,6 @@
       <DependentUpon>EditorControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\EditorGridSquareControl.cs" />
-    <Compile Include="Controls\PlayControl.xaml.cs">
-      <DependentUpon>PlayControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Converters\TimeSpanConverter.cs" />
     <Compile Include="GridSelectionHelper.cs" />
     <Compile Include="Timer.cs" />
@@ -124,10 +121,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\PiCrossControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\PlayControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

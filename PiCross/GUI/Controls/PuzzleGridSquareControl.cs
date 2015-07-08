@@ -45,20 +45,34 @@ namespace GUI.Controls
         }
 
         public static readonly DependencyProperty ContentsProperty =
-            DependencyProperty.Register( "Contents", typeof( Square ), typeof( PuzzleGridSquareControl ), new PropertyMetadata( null, (obj, args) => ((PuzzleGridSquareControl) obj).OnContentsChanged(args) ) );
+            DependencyProperty.Register( "Contents", typeof( Square ), typeof( PuzzleGridSquareControl ), new PropertyMetadata( null, ( obj, args ) => ( (PuzzleGridSquareControl) obj ).OnContentsChanged( args ) ) );
 
-        private void OnContentsChanged(DependencyPropertyChangedEventArgs args)
+        private void OnContentsChanged( DependencyPropertyChangedEventArgs args )
         {
             UpdateFillState();
         }
 
         #endregion
+        
+        #region Text
+
+        public string Text
+        {
+            get { return (string) GetValue( TextProperty ); }
+            set { SetValue( TextProperty, value ); }
+        }
+
+        public static readonly DependencyProperty TextProperty =
+            DependencyProperty.Register( "Text", typeof( string ), typeof( PuzzleGridSquareControl ), new PropertyMetadata( "" ) );
+
+        #endregion
+
 
         #region Visual States
 
         private void UpdateVisualState( bool transition = true )
         {
-           
+
             UpdateFillState( transition );
         }
 

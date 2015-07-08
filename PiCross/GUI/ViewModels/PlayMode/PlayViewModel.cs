@@ -29,12 +29,15 @@ namespace GUI.ViewModels.PlayMode
 
         private readonly Cell<TimeSpan?> bestTime;
 
+        private readonly GridSelectionHelper selectionHelper;
+
         public PlayViewModel( MasterController parent, IPlayablePuzzle puzzle, Cell<TimeSpan?> bestTime )
             : base( parent )
         {
             this.puzzle = puzzle;
             this.activatedSquare = Cell.Create<Vector2D>( null );
-            this.grid = new GridViewModel( puzzle, activatedSquare );
+            this.selectionHelper = new GridSelectionHelper( puzzle.Size );
+            this.grid = new GridViewModel( puzzle, activatedSquare, selectionHelper.Selection );
             this.columnConstraints = CreateColumnConstraints();
             this.rowConstraints = CreateRowConstraints();
             this.chronometer = new Chronometer();
@@ -204,6 +207,30 @@ namespace GUI.ViewModels.PlayMode
             get
             {
                 return chronometer.TotalTime;
+            }
+        }
+
+        public Vector2D SelectionStart
+        {
+            get
+            {
+                return selectionHelper.SelectionStart;
+            }
+            set
+            {
+                selectionHelper.SelectionStart = value;
+            }
+        }
+
+        public Vector2D SelectionEnd
+        {
+            get
+            {
+                return selectionHelper.SelectionEnd;
+            }
+            set
+            {
+                selectionHelper.SelectionEnd = value;
             }
         }
     }

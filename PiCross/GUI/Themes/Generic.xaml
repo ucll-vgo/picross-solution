@@ -113,6 +113,8 @@
                                     <GradientStop x:Name="backgroundBrush_lastGradientStop" Offset="1" Color="Transparent" />
                                 </LinearGradientBrush>
                             </Border.Background>
+                            
+                            <TextBlock Text="{TemplateBinding Text}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" />
                         </Border>
                     </Grid>
                 </ControlTemplate>
