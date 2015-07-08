@@ -19,6 +19,8 @@ namespace GUI.Controls
     [TemplatePart( Name = "Body", Type = typeof( FrameworkElement ) )]
     [TemplateVisualState( GroupName = "MouseStates", Name = "MouseOver" )]
     [TemplateVisualState( GroupName = "MouseStates", Name = "MouseNotOver" )]
+    [TemplateVisualState( GroupName = "SelectionStates", Name = "Selected" )]
+    [TemplateVisualState( GroupName = "SelectionStates", Name = "NotSelected" )]
     public class SquareControl : Control
     {
         private FrameworkElement body;
@@ -35,6 +37,24 @@ namespace GUI.Controls
             body = (FrameworkElement) GetTemplateChild( "Body" );
             UpdateVisualState();
         }
+
+        #region Selection
+
+        public bool IsSelected
+        {
+            get { return (bool) GetValue( IsSelectedProperty ); }
+            set { SetValue( IsSelectedProperty, value ); }
+        }
+
+        public static readonly DependencyProperty IsSelectedProperty =
+            DependencyProperty.Register( "IsSelected", typeof( bool ), typeof( SquareControl ), new PropertyMetadata( false, ( obj, args ) => ( (SquareControl) obj ).OnIsSelectedChanged( args ) ) );
+
+        private void OnIsSelectedChanged(DependencyPropertyChangedEventArgs args)
+        {
+            UpdateSelectionVisualState();
+        }
+
+        #endregion
 
         #region LeftClick
 
@@ -88,6 +108,19 @@ namespace GUI.Controls
         private void UpdateVisualState( bool transition = true )
         {
             UpdateMouseOverState( transition );
+            UpdateSelectionVisualState( transition );
+        }
+
+        private void UpdateSelectionVisualState(bool transition = true)
+        {
+            if ( IsSelected )
+            {
+                ChangeVisualState( "Selected", transition );
+            }
+            else
+            {
+                ChangeVisualState( "NotSelected", transition );
+            }
         }
 
         private void UpdateMouseOverState( bool transition = true )
