@@ -35,14 +35,14 @@ namespace GUI.ViewModels.PlayMode
             this.puzzle = puzzle;
             this.activatedSquare = Cell.Create<Vector2D>( null );
             this.grid = new GridViewModel( puzzle, activatedSquare );
-            this.columnConstraints = puzzle.ColumnConstraints.Map( ( i, columnConstraints ) => new ConstraintsViewModel( columnConstraints, Cell.Derived( activatedSquare, v => v != null && v.X == i ) ) ).Copy();
-            this.rowConstraints = puzzle.RowConstraints.Map( ( i, rowConstraints ) => new ConstraintsViewModel( rowConstraints, Cell.Derived( activatedSquare, v => v != null && v.Y == i ) ) ).Copy();
+            this.columnConstraints = puzzle.ColumnConstraints.Map( ( i, columnConstraints ) => new ConstraintsViewModel( columnConstraints, activatedSquare.Map( v => v != null && v.X == i ) ) ).Copy();
+            this.rowConstraints = puzzle.RowConstraints.Map( ( i, rowConstraints ) => new ConstraintsViewModel( rowConstraints, activatedSquare.Map( v => v != null && v.Y == i ) ) ).Copy();
             this.chronometer = new Chronometer();
             this.bestTime = bestTime;
 
             // Commands
             this.back = EnabledCommand.FromDelegate( PerformBack );
-            this.pause = CellCommand.FromDelegate( Cell.Derived( this.puzzle.IsSolved, x => !x ), PerformPause );
+            this.pause = CellCommand.FromDelegate( this.puzzle.IsSolved.Negate(), PerformPause );
 
             SubscribeListeners();
         }

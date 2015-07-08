@@ -29,8 +29,8 @@ namespace GUI.ViewModels.PlayerAddition
             : base( parent )
         {
             this.playerName = Cell.Create( "" );
-            this.isValidName = Cell.Derived( this.playerName, Parent.PlayerDatabase.IsValidPlayerName );
-            this.isNameTaken = Cell.Derived( this.playerName, Parent.PlayerDatabase.PlayerNames.Contains );
+            this.isValidName = this.playerName.Map( Parent.PlayerDatabase.IsValidPlayerName );
+            this.isNameTaken = this.playerName.Map( Parent.PlayerDatabase.PlayerNames.Contains );
             this.canAddPlayer = Cell.Derived( isValidName, isNameTaken, ( valid, taken ) => valid && !taken );            
 
             this.addPlayer = CellCommand.FromDelegate( canAddPlayer, PerformAddPlayer );

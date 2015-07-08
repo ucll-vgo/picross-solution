@@ -43,12 +43,12 @@ namespace GUI.ViewModels.EditMode
 
         private static ISequence<EditorConstraintsViewModel> CreateColumnConstraints( IPuzzleEditor puzzleEditor, Cell<Vector2D> activeSquare )
         {
-            return puzzleEditor.ColumnConstraints.Map( ( x, constraints ) => new EditorConstraintsViewModel( constraints, Cell.Derived( activeSquare, p => p != null && p.X == x ) ) );
+            return puzzleEditor.ColumnConstraints.Map( ( x, constraints ) => new EditorConstraintsViewModel( constraints, activeSquare.Map( p => p != null && p.X == x ) ) );
         }
 
         private static ISequence<EditorConstraintsViewModel> CreateRowConstraints( IPuzzleEditor puzzleEditor, Cell<Vector2D> activeSquare )
         {
-            return puzzleEditor.RowConstraints.Map( ( y, constraints ) => new EditorConstraintsViewModel( constraints, Cell.Derived( activeSquare, p => p != null && p.Y == y ) ) );
+            return puzzleEditor.RowConstraints.Map( ( y, constraints ) => new EditorConstraintsViewModel( constraints, activeSquare.Map( p => p != null && p.Y == y ) ) );
         }
 
         private static IGrid<EditorSquareViewModel> CreateSquares( IPuzzleEditor puzzleEditor, Cell<Vector2D> activeSquare )

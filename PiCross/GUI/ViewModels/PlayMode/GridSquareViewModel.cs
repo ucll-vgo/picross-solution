@@ -22,7 +22,7 @@ namespace GUI.ViewModels.PlayMode
 
         public GridSquareViewModel( IPlayablePuzzleSquare square, ISignal activationSignal, Cell<bool> isPuzzleSolved )
         {
-            var isEnabled = Cell.Derived( isPuzzleSolved, x => !x );
+            var isEnabled = isPuzzleSolved.Negate();
 
             this.square = square;
             this.toggle = new ToggleCommand( square.Contents, isEnabled );
