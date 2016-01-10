@@ -12,7 +12,7 @@
         xmlns:pausevm="clr-namespace:GUI.ViewModels.PauseScreen"
         xmlns:view="clr-namespace:GUI.Views"
         xmlns:gui="clr-namespace:GUI" Background="Black"
-        Title="Reversi" Height="450" Width="900">
+        Title="PiCross" Height="450" Width="900">
     <Window.Resources>
         <DataTemplate DataType="{x:Type ivm:IntroViewModel}">
             <view:IntroView />
