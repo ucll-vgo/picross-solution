@@ -19,7 +19,9 @@ namespace GUI.ViewModels
 
         private readonly ILibrary library;
 
-        public MasterController()
+        private readonly Action quitAction;
+
+        public MasterController(Action quitAction)
         {
             this.viewModelStack = new Stack<ViewModel>();
             viewModelStack.Push( new IntroViewModel( this ) );
@@ -28,6 +30,7 @@ namespace GUI.ViewModels
             var dummy = new DummyData();
             this.playerDatabase = dummy.Players;
             this.library = dummy.Puzzles;
+            this.quitAction = quitAction;
         }
 
         public Cell<ViewModel> ActiveViewModel
@@ -49,7 +52,14 @@ namespace GUI.ViewModels
         {
             viewModelStack.Pop();
 
-            OnViewModelStackChanged();
+            if ( viewModelStack.Count == 0 )
+            {
+                Quit();
+            }
+            else
+            {
+                OnViewModelStackChanged();
+            }
         }
 
         private void OnViewModelStackChanged()
@@ -71,6 +81,11 @@ namespace GUI.ViewModels
             {
                 return library;
             }
+        }
+        
+        private void Quit()
+        {
+            quitAction();
         }
     }
 }

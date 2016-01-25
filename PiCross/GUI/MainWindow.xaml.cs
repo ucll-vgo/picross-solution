@@ -49,7 +49,7 @@ namespace GUI
 
         private MasterController CreateMasterController()
         {
-            return new MasterController();
+            return new MasterController( this.Close );
         }
 
         private void SetUpDataContext()

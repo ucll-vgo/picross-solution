@@ -16,11 +16,14 @@ namespace GUI.ViewModels.Intro
 
         private readonly ICommand edit;
 
+        private readonly ICommand quit;
+
         public IntroViewModel( MasterController parent )
             : base( parent )
         {
             play = EnabledCommand.FromDelegate( PerformPlay );
             edit = EnabledCommand.FromDelegate( PerformEdit );
+            quit = EnabledCommand.FromDelegate( PerformQuit );
         }
 
         public ICommand Play
@@ -39,6 +42,14 @@ namespace GUI.ViewModels.Intro
             }
         }
 
+        public ICommand Quit
+        {
+            get
+            {
+                return quit;
+            }
+        }
+
         private void PerformPlay()
         {
             Push( new PlayerSelectionViewModel( Parent ) );
@@ -47,6 +58,11 @@ namespace GUI.ViewModels.Intro
         private void PerformEdit()
         {
             Push( new PlayerSelectionViewModel( Parent ) );
+        }
+
+        private void PerformQuit()
+        {
+            Pop();
         }
     }
 }
