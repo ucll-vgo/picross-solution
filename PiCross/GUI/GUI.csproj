@@ -67,6 +67,7 @@
     <Compile Include="Timer.cs" />
     <Compile Include="TypeMapping.cs" />
     <Compile Include="ViewModels\Intro\IntroViewModel.cs" />
+    <Compile Include="ViewModels\LibraryMode\FilterViewModel.cs" />
     <Compile Include="ViewModels\MasterController.cs" />
     <Compile Include="ViewModels\PauseScreen\PauseViewModel.cs" />
     <Compile Include="ViewModels\PlayerAddition\PlayerAdditionViewModel.cs" />
@@ -74,6 +75,9 @@
     <Compile Include="ViewModels\ViewModel.cs" />
     <Compile Include="Views\IntroView.xaml.cs">
       <DependentUpon>IntroView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LibraryFilterView.xaml.cs">
+      <DependentUpon>LibraryFilterView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LibraryView.xaml.cs">
       <DependentUpon>LibraryView.xaml</DependentUpon>
@@ -125,6 +129,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\IntroView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LibraryFilterView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -233,6 +241,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icons\pause.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\filter.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

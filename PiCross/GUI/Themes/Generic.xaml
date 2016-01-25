@@ -40,6 +40,14 @@
         </Setter>
     </Style>
 
+    <Style x:Key="filterButtonStyle" BasedOn="{StaticResource buttonStyle}" TargetType="{x:Type Button}">
+        <Setter Property="Content">
+            <Setter.Value>
+                <Image Source="pack://application:,,,/Icons/filter.png" Stretch="None" />
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="backButtonStyle" BasedOn="{StaticResource buttonStyle}" TargetType="{x:Type Button}">
         <Setter Property="Content">
             <Setter.Value>

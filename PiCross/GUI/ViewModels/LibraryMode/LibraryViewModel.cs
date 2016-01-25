@@ -25,6 +25,8 @@ namespace GUI.ViewModels.LibraryMode
 
         private readonly ICommand back;
 
+        private readonly ICommand filter;
+
         public LibraryViewModel( MasterController parent, ILibrary library, IPlayerProfile activeUser )
             : base( parent )
         {
@@ -35,6 +37,7 @@ namespace GUI.ViewModels.LibraryMode
                             group entryVM by entry.Puzzle.Size into entryGroup
                             select new LibraryGroupViewModel( entryGroup.Key, entryGroup ) ).ToList();
             this.back = EnabledCommand.FromDelegate( PerformBack );
+            this.filter = EnabledCommand.FromDelegate( PerformFilter );
         }
 
         public IEnumerable<LibraryGroupViewModel> Groups
@@ -53,6 +56,14 @@ namespace GUI.ViewModels.LibraryMode
             }
         }
 
+        public ICommand Filter
+        {
+            get
+            {
+                return filter;
+            }
+        }
+
         private void PerformBack()
         {
             Pop();
@@ -65,6 +76,11 @@ namespace GUI.ViewModels.LibraryMode
             var bestTime = activeUser.PuzzleInformation[puzzle].BestTime;
 
             Push( new PlayViewModel( Parent, playablePuzzle, bestTime ) );
+        }
+
+        private void PerformFilter()
+        {
+            Push( new FilterViewModel(this.Parent) );
         }
     }
 
