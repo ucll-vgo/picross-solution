@@ -12,23 +12,39 @@ namespace GUI.ViewModels.Intro
 {
     public class IntroViewModel : ViewModel
     {
-        private readonly ICommand start;
+        private readonly ICommand play;
+
+        private readonly ICommand edit;
 
         public IntroViewModel( MasterController parent )
             : base( parent )
         {
-            start = EnabledCommand.FromDelegate( PerformStart );
+            play = EnabledCommand.FromDelegate( PerformPlay );
+            edit = EnabledCommand.FromDelegate( PerformEdit );
         }
 
-        public ICommand Start
+        public ICommand Play
         {
             get
             {
-                return start;
+                return play;
             }
         }
 
-        private void PerformStart()
+        public ICommand Edit
+        {
+            get
+            {
+                return edit;
+            }
+        }
+
+        private void PerformPlay()
+        {
+            Push( new PlayerSelectionViewModel( Parent ) );
+        }
+
+        private void PerformEdit()
         {
             Push( new PlayerSelectionViewModel( Parent ) );
         }
