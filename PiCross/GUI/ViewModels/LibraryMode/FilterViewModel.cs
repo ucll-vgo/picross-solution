@@ -11,10 +11,10 @@ namespace GUI.ViewModels.LibraryMode
     {
         private Cell<bool> flag;
 
-        public FilterViewModel( MasterController masterController )
+        public FilterViewModel( MasterController masterController, Cell<bool> showSolved )
             : base( masterController )
         {
-            flag = Cell.Create( false );
+            flag = showSolved;
         }
 
         public Cell<bool> Flag

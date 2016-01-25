@@ -21,26 +21,38 @@ namespace GUI.ViewModels.LibraryMode
 
         private readonly ILibrary library;
 
-        private readonly List<LibraryGroupViewModel> groups;
+        private readonly Cell<IList<LibraryGroupViewModel>> groups;
 
         private readonly ICommand back;
 
         private readonly ICommand filter;
+
+        private readonly Cell<bool> showSolved;
 
         public LibraryViewModel( MasterController parent, ILibrary library, IPlayerProfile activeUser )
             : base( parent )
         {
             this.library = library;
             this.activeUser = activeUser;
-            this.groups = ( from entry in library.Entries
-                            let entryVM = new LibraryEntryViewModel( entry, activeUser.PuzzleInformation[entry.Puzzle], EnabledCommand.FromDelegate( () => PerformSelect( entry ) ) )
-                            group entryVM by entry.Puzzle.Size into entryGroup
-                            select new LibraryGroupViewModel( entryGroup.Key, entryGroup ) ).ToList();
+            this.showSolved = Cell.Create( false );
+            this.groups = Cell.Create<IList<LibraryGroupViewModel>>( null );
             this.back = EnabledCommand.FromDelegate( PerformBack );
             this.filter = EnabledCommand.FromDelegate( PerformFilter );
         }
 
-        public IEnumerable<LibraryGroupViewModel> Groups
+        protected override void OnActivation()
+        {
+            base.OnActivation();
+
+            this.groups.Value = ( from entry in library.Entries
+                                  let puzzleInformation = activeUser.PuzzleInformation[entry.Puzzle]
+                                  where !puzzleInformation.BestTime.Value.HasValue || showSolved.Value
+                                  let entryVM = new LibraryEntryViewModel( entry, puzzleInformation, EnabledCommand.FromDelegate( () => PerformSelect( entry ) ) )
+                                  group entryVM by entry.Puzzle.Size into entryGroup
+                                  select new LibraryGroupViewModel( entryGroup.Key, entryGroup ) ).ToList();
+        }
+
+        public Cell<IList<LibraryGroupViewModel>> Groups
         {
             get
             {
@@ -80,7 +92,7 @@ namespace GUI.ViewModels.LibraryMode
 
         private void PerformFilter()
         {
-            Push( new FilterViewModel(this.Parent) );
+            Push( new FilterViewModel( this.Parent, showSolved ) );
         }
     }
 
