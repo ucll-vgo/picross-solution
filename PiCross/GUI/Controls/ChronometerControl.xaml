@@ -13,8 +13,8 @@
         <Ellipse Width="128" Height="128">
             <Ellipse.Fill>
                 <RadialGradientBrush>
-                    <GradientStop Offset="0.8" Color="Black" />
-                    <GradientStop Offset="0.9" Color="White" />
+                    <GradientStop Offset="0.9" Color="Black" />
+                    <GradientStop Offset="0.95" Color="White" />
                     <GradientStop Offset="1.0" Color="Black" />
                 </RadialGradientBrush>
             </Ellipse.Fill>
