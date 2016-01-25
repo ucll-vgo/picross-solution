@@ -12,7 +12,7 @@
             </StackPanel>
         </Border>
         <Grid>
-            <CheckBox IsChecked="{Binding Flag.Value}" Content="Flag" />
+            <CheckBox IsChecked="{Binding ShowSolved.Value}" Content="Flag" />
         </Grid>
     </DockPanel>
 </UserControl>

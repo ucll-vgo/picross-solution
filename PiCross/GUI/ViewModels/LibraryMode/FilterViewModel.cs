@@ -11,22 +11,22 @@ namespace GUI.ViewModels.LibraryMode
 {
     class FilterViewModel : ViewModel
     {
-        private Cell<bool> flag;
+        private Cell<bool> showSolved;
 
         private ICommand back;
 
         public FilterViewModel( MasterController masterController, Cell<bool> showSolved )
             : base( masterController )
         {
-            this.flag = showSolved;
+            this.showSolved = showSolved;
             this.back = EnabledCommand.FromDelegate( PerformBack );
         }
 
-        public Cell<bool> Flag
+        public Cell<bool> ShowSolved
         {
             get
             {
-                return flag;
+                return showSolved;
             }
         }
 
