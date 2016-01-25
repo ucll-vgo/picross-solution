@@ -11,8 +11,56 @@
                 <Button Style="{DynamicResource backButtonStyle}" Command="{Binding Back}" />
             </StackPanel>
         </Border>
-        <Grid>
-            <CheckBox IsChecked="{Binding ShowSolved.Value}" Content="Flag" />
-        </Grid>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+            <CheckBox IsChecked="{Binding ShowSolved.Value}" Margin="10">
+                <CheckBox.Content>
+                    <TextBlock Text="Show Solved" Foreground="White" FontSize="32" Margin="5" />
+                </CheckBox.Content>
+                <CheckBox.Template>
+                    <ControlTemplate TargetType="CheckBox">
+                        <Border BorderThickness="1" Background="Transparent">
+                            <StackPanel Orientation="Horizontal">
+                                <Canvas Width="50" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Rectangle Name="leftRectangle" Canvas.Left="10" Canvas.Top="5" Height="10" Width="0" Fill="White" />
+                                    <Rectangle Name="rightRectangle" Canvas.Right="10" Canvas.Top="5" Height="10" Width="30" Fill="Gray" />
+                                    <Ellipse Name="ellipse" Canvas.Left="0" Canvas.Top="0" Height="20" Width="20">
+                                        <Ellipse.Fill>
+                                            <RadialGradientBrush GradientOrigin=".25,.25">
+                                                <GradientStop Color="White" Offset="0" />
+                                                <GradientStop Color="Gray" Offset="1" />
+                                            </RadialGradientBrush>
+                                        </Ellipse.Fill>
+                                    </Ellipse>
+                                </Canvas>
+                                <ContentPresenter Content="{TemplateBinding Content}" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="leftRectangle" Storyboard.TargetProperty="Width" To="30" Duration="0:0:0.125" />
+                                            <DoubleAnimation Storyboard.TargetName="rightRectangle" Storyboard.TargetProperty="Width" To="0" Duration="0:0:0.125" />
+                                            <DoubleAnimation Storyboard.TargetName="ellipse" Storyboard.TargetProperty="(Canvas.Left)" To="30" Duration="0:0:0.125" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="leftRectangle" Storyboard.TargetProperty="Width" To="0" Duration="0:0:0.125" />
+                                            <DoubleAnimation Storyboard.TargetName="rightRectangle" Storyboard.TargetProperty="Width" To="30" Duration="0:0:0.125" />
+                                            <DoubleAnimation Storyboard.TargetName="ellipse" Storyboard.TargetProperty="(Canvas.Left)" To="0" Duration="0:0:0.125" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                                <!--<Setter TargetName="ellipse" Property="Canvas.Left" Value="40" />-->
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </CheckBox.Template>
+            </CheckBox>
+        </StackPanel>
     </DockPanel>
 </UserControl>
