@@ -21,7 +21,7 @@ namespace GUI.ViewModels.LibraryMode
 
         private readonly ILibrary library;
 
-        private readonly List<LibraryEntryViewModel> entries;
+        private readonly List<LibraryGroupViewModel> groups;
 
         private readonly ICommand back;
 
@@ -30,15 +30,18 @@ namespace GUI.ViewModels.LibraryMode
         {
             this.library = library;
             this.activeUser = activeUser;
-            this.entries = library.Entries.Select( x => new LibraryEntryViewModel( x, activeUser.PuzzleInformation[x.Puzzle], EnabledCommand.FromDelegate( () => PerformSelect( x ) ) ) ).ToList();
+            this.groups = ( from entry in library.Entries
+                            let entryVM = new LibraryEntryViewModel( entry, activeUser.PuzzleInformation[entry.Puzzle], EnabledCommand.FromDelegate( () => PerformSelect( entry ) ) )
+                            group entryVM by entry.Puzzle.Size into entryGroup
+                            select new LibraryGroupViewModel( entryGroup.Key, entryGroup ) ).ToList();
             this.back = EnabledCommand.FromDelegate( PerformBack );
         }
 
-        public IEnumerable<LibraryEntryViewModel> Entries
+        public IEnumerable<LibraryGroupViewModel> Groups
         {
             get
             {
-                return this.entries;
+                return this.groups;
             }
         }
 
@@ -62,6 +65,35 @@ namespace GUI.ViewModels.LibraryMode
             var bestTime = activeUser.PuzzleInformation[puzzle].BestTime;
 
             Push( new PlayViewModel( Parent, playablePuzzle, bestTime ) );
+        }
+    }
+
+    public class LibraryGroupViewModel
+    {
+        private readonly Size size;
+
+        private readonly IEnumerable<LibraryEntryViewModel> entries;
+
+        public LibraryGroupViewModel( Size size, IEnumerable<LibraryEntryViewModel> entries )
+        {
+            this.size = size;
+            this.entries = entries;
+        }
+
+        public IEnumerable<LibraryEntryViewModel> Entries
+        {
+            get
+            {
+                return entries;
+            }
+        }
+
+        public Size Size
+        {
+            get
+            {
+                return size;
+            }
         }
     }
 
