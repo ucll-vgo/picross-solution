@@ -17,11 +17,13 @@
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Text="PiCross" FontSize="128" HorizontalAlignment="Center" VerticalAlignment="Bottom" Foreground="White" />
-        <StackPanel Orientation="Vertical" Grid.Row="1">
+        <Viewbox Margin="20">
+            <TextBlock Grid.Row="0" Text="PiCross" FontSize="128" HorizontalAlignment="Center" VerticalAlignment="Bottom" Foreground="White" />
+        </Viewbox>
+        <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Button Content="Play" Command="{Binding Play}" />
             <Button Content="Edit" Command="{Binding Edit}" />
             <Button Content="Quit" Command="{Binding Quit}" />
