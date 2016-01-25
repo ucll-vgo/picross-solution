@@ -34,7 +34,7 @@ namespace GUI.ViewModels.LibraryMode
         {
             this.library = library;
             this.activeUser = activeUser;
-            this.showSolved = Cell.Create( false );
+            this.showSolved = Cell.Create( true );
             this.groups = Cell.Create<IList<LibraryGroupViewModel>>( null );
             this.back = EnabledCommand.FromDelegate( PerformBack );
             this.filter = EnabledCommand.FromDelegate( PerformFilter );
