@@ -11,8 +11,8 @@
                 <Button Style="{DynamicResource backButtonStyle}" Command="{Binding Back}" />
             </StackPanel>
         </Border>
-        <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
-            <CheckBox IsChecked="{Binding ShowSolved.Value}" Margin="10" Style="{DynamicResource slidingCheckBoxStyle}">
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <CheckBox IsChecked="{Binding ShowSolved.Value}" Margin="10" Style="{DynamicResource highlightCheckBoxStyle}">
                 <TextBlock Text="Show Solved" Foreground="White" FontSize="32" Margin="5" />
             </CheckBox>
         </StackPanel>

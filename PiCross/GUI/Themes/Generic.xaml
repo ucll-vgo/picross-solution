@@ -3,6 +3,25 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="clr-namespace:GUI.Converters"
     xmlns:local="clr-namespace:GUI.Controls">
+    
+    <Style x:Key="highlightCheckBoxStyle" TargetType="{x:Type CheckBox}">
+        <Style.Setters>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type CheckBox}">
+                        <Border Name="border" Background="#222222" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                            <ContentPresenter Content="{TemplateBinding Content}" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#888888" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style.Setters>
+    </Style>
 
     <Style x:Key="slidingCheckBoxStyle" TargetType="{x:Type CheckBox}">
         <Style.Setters>
