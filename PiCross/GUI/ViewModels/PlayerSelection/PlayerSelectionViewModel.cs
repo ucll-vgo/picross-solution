@@ -21,11 +21,14 @@ namespace GUI.ViewModels.PlayerSelection
 
         private readonly ICommand addPlayer;
 
+        private readonly ICommand back;
+
         public PlayerSelectionViewModel( MasterController parent )
             : base( parent )
         {
             this.players = Parent.PlayerDatabase;
             this.addPlayer = EnabledCommand.FromDelegate( PerformAddPlayer );
+            this.back = EnabledCommand.FromDelegate( PerformBack );
             this.playerViewModels = new ObservableCollection<ItemViewModel>();
         }
 
@@ -71,6 +74,18 @@ namespace GUI.ViewModels.PlayerSelection
         protected override void OnActivation()
         {
             RecreateItemViewModels();
+        }
+
+        public ICommand Back
+        {
+            get
+            {
+                return back;
+            }
+        }
+        private void PerformBack()
+        {
+            Pop();
         }
     }
 }

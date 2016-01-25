@@ -19,47 +19,55 @@
             <Setter Property="BorderThickness" Value="2" />
         </Style>
     </UserControl.Resources>
-    
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Text="Player Selection" FontSize="64" HorizontalAlignment="Center" Margin="5" Foreground="White" />
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-            <ItemsControl ItemsSource="{Binding Items}" Margin="5">
-                <ItemsControl.ItemTemplateSelector>
-                    <selectors:TypeBasedSelector>
-                        <gui:TypeMapping Type="{x:Type vm:SelectPlayerViewModel}">
-                            <DataTemplate>
-                                <Button Padding="5" Margin="5" Style="{StaticResource playerButtonStyle}" Command="{Binding Select}">
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition />
-                                            <RowDefinition Height="auto" />
-                                        </Grid.RowDefinitions>
-                                        <Image Grid.Row="0" Source="pack://application:,,,/Icons/user.png" Stretch="None" Margin="5" />
-                                        <TextBlock Grid.Row="1" HorizontalAlignment="Center" Text="{Binding Name}" />
-                                    </Grid>
-                                </Button>
-                            </DataTemplate>
-                        </gui:TypeMapping>
 
-                        <gui:TypeMapping Type="{x:Type vm:AddPlayerViewModel}">
-                            <DataTemplate>
-                                <Button Padding="5" Margin="5" Style="{StaticResource playerButtonStyle}" Command="{Binding AddPlayer}">
-                                    <Image Source="pack://application:,,,/Icons/newuser.png" Stretch="None" Margin="5" />
-                                </Button>
-                            </DataTemplate>
-                        </gui:TypeMapping>
-                    </selectors:TypeBasedSelector>
-                </ItemsControl.ItemTemplateSelector>
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel Orientation="Horizontal" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
-        </ScrollViewer>
-    </Grid>
+    <DockPanel>
+        <Border DockPanel.Dock="Bottom">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Style="{DynamicResource backButtonStyle}" Command="{Binding Back}" />
+            </StackPanel>
+        </Border>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Text="Player Selection" FontSize="64" HorizontalAlignment="Center" Margin="5" Foreground="White" />
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                <ItemsControl ItemsSource="{Binding Items}" Margin="5">
+                    <ItemsControl.ItemTemplateSelector>
+                        <selectors:TypeBasedSelector>
+                            <gui:TypeMapping Type="{x:Type vm:SelectPlayerViewModel}">
+                                <DataTemplate>
+                                    <Button Padding="5" Margin="5" Style="{StaticResource playerButtonStyle}" Command="{Binding Select}">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition />
+                                                <RowDefinition Height="auto" />
+                                            </Grid.RowDefinitions>
+                                            <Image Grid.Row="0" Source="pack://application:,,,/Icons/user.png" Stretch="None" Margin="5" />
+                                            <TextBlock Grid.Row="1" HorizontalAlignment="Center" Text="{Binding Name}" />
+                                        </Grid>
+                                    </Button>
+                                </DataTemplate>
+                            </gui:TypeMapping>
+
+                            <gui:TypeMapping Type="{x:Type vm:AddPlayerViewModel}">
+                                <DataTemplate>
+                                    <Button Padding="5" Margin="5" Style="{StaticResource playerButtonStyle}" Command="{Binding AddPlayer}">
+                                        <Image Source="pack://application:,,,/Icons/newuser.png" Stretch="None" Margin="5" />
+                                    </Button>
+                                </DataTemplate>
+                            </gui:TypeMapping>
+                        </selectors:TypeBasedSelector>
+                    </ItemsControl.ItemTemplateSelector>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
+    </DockPanel>
 </UserControl>
