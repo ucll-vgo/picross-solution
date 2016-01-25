@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using GUI.Commands;
 using PiCross.Cells;
 
 namespace GUI.ViewModels.LibraryMode
@@ -11,10 +13,13 @@ namespace GUI.ViewModels.LibraryMode
     {
         private Cell<bool> flag;
 
+        private ICommand back;
+
         public FilterViewModel( MasterController masterController, Cell<bool> showSolved )
             : base( masterController )
         {
-            flag = showSolved;
+            this.flag = showSolved;
+            this.back = EnabledCommand.FromDelegate( PerformBack );
         }
 
         public Cell<bool> Flag
@@ -23,6 +28,19 @@ namespace GUI.ViewModels.LibraryMode
             {
                 return flag;
             }
+        }
+
+        public ICommand Back
+        {
+            get
+            {
+                return back;
+            }
+        }
+
+        private void PerformBack()
+        {
+            Pop();
         }
     }
 }
