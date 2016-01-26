@@ -19,7 +19,9 @@ namespace GUI.Converters
 
         private object GetPropertyValue(object obj, string propertyName)
         {
-            return obj.GetType().GetProperty( propertyName ).GetValue( obj );
+            var property = obj.GetType().GetProperty( propertyName );
+
+            return property.GetValue( obj );
         }
 
         public object ConvertBack( object value, Type targetType, object parameter, System.Globalization.CultureInfo culture )
