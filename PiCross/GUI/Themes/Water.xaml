@@ -34,31 +34,29 @@
                                 <VisualState x:Name="Empty">
                                     <Storyboard>
                                         <ColorAnimation To="White" Storyboard.TargetName="backgroundBrush_firstGradientStop" Storyboard.TargetProperty="Color" Duration="0:0:0.5" />
-                                        <ColorAnimation To="White" Storyboard.TargetName="backgroundBrush_lastGradientStop" Storyboard.TargetProperty="Color" Duration="0:0:0.5" />
+                                        <ColorAnimation To="Gray" Storyboard.TargetName="backgroundBrush_lastGradientStop" Storyboard.TargetProperty="Color" Duration="0:0:0.5" />
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Filled">
                                     <Storyboard>
-                                        <ColorAnimation To="Blue" Storyboard.TargetName="backgroundBrush_firstGradientStop" Storyboard.TargetProperty="Color" Duration="0:0:0.5" />
+                                        <ColorAnimation To="White" Storyboard.TargetName="backgroundBrush_firstGradientStop" Storyboard.TargetProperty="Color" Duration="0:0:0.5" />
                                         <ColorAnimation To="Blue" Storyboard.TargetName="backgroundBrush_lastGradientStop" Storyboard.TargetProperty="Color" Duration="0:0:0.5" />
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
-
-
-                        <Border BorderThickness="1" Margin="1">
-                            <Border.BorderBrush>
+                        
+                        <Ellipse StrokeThickness="1" Margin="1">
+                            <Ellipse.Stroke>
                                 <SolidColorBrush x:Name="borderBrush" Color="Black" />
-                            </Border.BorderBrush>
-                            <Border.Background>
-                                <LinearGradientBrush x:Name="backgroundBrush" StartPoint="0,0" EndPoint="0.3,0.3">
+                            </Ellipse.Stroke>
+                            <Ellipse.Fill>
+                                <RadialGradientBrush x:Name="backgroundBrush" Center="0.25,0.25">
                                     <GradientStop x:Name="backgroundBrush_firstGradientStop" Offset="0" Color="Transparent" />
-                                    <GradientStop x:Name="backgroundBrush_middleGradientStop" Offset="0.5" Color="Transparent" />
                                     <GradientStop x:Name="backgroundBrush_lastGradientStop" Offset="1" Color="Transparent" />
-                                </LinearGradientBrush>
-                            </Border.Background>
-                        </Border>
+                                </RadialGradientBrush>
+                            </Ellipse.Fill>
+                        </Ellipse>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
