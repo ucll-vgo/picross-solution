@@ -21,7 +21,7 @@ namespace GUI.ViewModels.LibraryMode
 
         private readonly ILibrary library;
 
-        private readonly Cell<IList<LibraryGroupViewModel>> groups;
+        private readonly Cell<IList<GroupViewModel>> groups;
 
         private readonly ICommand back;
 
@@ -35,7 +35,7 @@ namespace GUI.ViewModels.LibraryMode
             this.library = library;
             this.activeUser = activeUser;
             this.showSolved = Cell.Create( true );
-            this.groups = Cell.Create<IList<LibraryGroupViewModel>>( null );
+            this.groups = Cell.Create<IList<GroupViewModel>>( null );
             this.back = EnabledCommand.FromDelegate( PerformBack );
             this.filter = EnabledCommand.FromDelegate( PerformFilter );
         }
@@ -49,10 +49,10 @@ namespace GUI.ViewModels.LibraryMode
                                   where !puzzleInformation.BestTime.Value.HasValue || showSolved.Value
                                   let entryVM = new LibraryEntryViewModel( entry, puzzleInformation, EnabledCommand.FromDelegate( () => PerformSelect( entry ) ) )
                                   group entryVM by entry.Puzzle.Size into entryGroup
-                                  select new LibraryGroupViewModel( entryGroup.Key, entryGroup ) ).ToList();
+                                  select new GroupViewModel( entryGroup.Key, entryGroup ) ).ToList();
         }
 
-        public Cell<IList<LibraryGroupViewModel>> Groups
+        public Cell<IList<GroupViewModel>> Groups
         {
             get
             {
@@ -95,13 +95,13 @@ namespace GUI.ViewModels.LibraryMode
             Push( new FilterViewModel( this.Parent, showSolved ) );
         }
 
-        public class LibraryGroupViewModel
+        public class GroupViewModel
         {
             private readonly Size size;
 
             private readonly IEnumerable<LibraryEntryViewModel> entries;
 
-            public LibraryGroupViewModel( Size size, IEnumerable<LibraryEntryViewModel> entries )
+            public GroupViewModel( Size size, IEnumerable<LibraryEntryViewModel> entries )
             {
                 this.size = size;
                 this.entries = entries;
