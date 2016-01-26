@@ -29,11 +29,11 @@
             </views:GeneralizedLibraryView.GroupHeaderTemplate>
             <views:GeneralizedLibraryView.ItemTemplate>
                 <DataTemplate>
-                    <Border Background="Red" Margin="10" Padding="10">
+                    <Button Style="{DynamicResource libraryButtonStyle}">
                         <Viewbox Width="100" Height="100">
                             <controls:ThumbnailControl PixelSize="16" Grid="{Binding Grid}" />
                         </Viewbox>
-                    </Border>
+                    </Button>
                 </DataTemplate>
             </views:GeneralizedLibraryView.ItemTemplate>
         </views:GeneralizedLibraryView>
