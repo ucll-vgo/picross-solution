@@ -94,33 +94,33 @@ namespace GUI.ViewModels.LibraryMode
         {
             Push( new FilterViewModel( this.Parent, showSolved ) );
         }
-    }
 
-    public class LibraryGroupViewModel
-    {
-        private readonly Size size;
-
-        private readonly IEnumerable<LibraryEntryViewModel> entries;
-
-        public LibraryGroupViewModel( Size size, IEnumerable<LibraryEntryViewModel> entries )
+        public class LibraryGroupViewModel
         {
-            this.size = size;
-            this.entries = entries;
-        }
+            private readonly Size size;
 
-        public IEnumerable<LibraryEntryViewModel> Entries
-        {
-            get
+            private readonly IEnumerable<LibraryEntryViewModel> entries;
+
+            public LibraryGroupViewModel( Size size, IEnumerable<LibraryEntryViewModel> entries )
             {
-                return entries;
+                this.size = size;
+                this.entries = entries;
             }
-        }
 
-        public Size Size
-        {
-            get
+            public IEnumerable<LibraryEntryViewModel> Entries
             {
-                return size;
+                get
+                {
+                    return entries;
+                }
+            }
+
+            public Size Size
+            {
+                get
+                {
+                    return size;
+                }
             }
         }
     }
