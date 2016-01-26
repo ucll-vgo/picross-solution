@@ -39,9 +39,6 @@
         <DataTemplate DataType="{x:Type pausevm:PauseViewModel}">
             <view:PauseView />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type lvm:FilterViewModel}">
-            <view:LibraryFilterView />
-        </DataTemplate>
     </Window.Resources>
 
     <Grid>

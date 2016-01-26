@@ -71,7 +71,6 @@
     <Compile Include="TypeMapping.cs" />
     <Compile Include="ViewModels\Intro\IntroViewModel.cs" />
     <Compile Include="ViewModels\LibraryMode\EditorLibraryViewModel.cs" />
-    <Compile Include="ViewModels\LibraryMode\FilterViewModel.cs" />
     <Compile Include="ViewModels\MasterController.cs" />
     <Compile Include="ViewModels\PauseScreen\PauseViewModel.cs" />
     <Compile Include="ViewModels\PlayerAddition\PlayerAdditionViewModel.cs" />

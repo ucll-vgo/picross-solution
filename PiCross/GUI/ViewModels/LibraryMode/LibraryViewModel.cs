@@ -25,8 +25,6 @@ namespace GUI.ViewModels.LibraryMode
 
         private readonly ICommand back;
 
-        private readonly ICommand filter;
-
         private readonly ICommand toggleFilter;
 
         private readonly Cell<bool> showSolved;
@@ -39,7 +37,6 @@ namespace GUI.ViewModels.LibraryMode
             this.showSolved = Cell.Create( true );
             this.groups = Cell.Create<IList<GroupViewModel>>( null );
             this.back = EnabledCommand.FromDelegate( PerformBack );
-            this.filter = EnabledCommand.FromDelegate( PerformFilter );
             this.toggleFilter = EnabledCommand.FromDelegate( PerformToggleFilter );
         }
 
@@ -81,14 +78,6 @@ namespace GUI.ViewModels.LibraryMode
             }
         }
 
-        public ICommand Filter
-        {
-            get
-            {
-                return filter;
-            }
-        }
-
         public ICommand ToggleFilter
         {
             get
@@ -109,11 +98,6 @@ namespace GUI.ViewModels.LibraryMode
             var bestTime = activeUser.PuzzleInformation[puzzle].BestTime;
 
             Push( new PlayViewModel( Parent, playablePuzzle, bestTime ) );
-        }
-
-        private void PerformFilter()
-        {
-            Push( new FilterViewModel( this.Parent, showSolved ) );
         }
 
         private void PerformToggleFilter()
