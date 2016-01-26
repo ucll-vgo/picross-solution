@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using GUI.Commands;
+using GUI.ViewModels.LibraryMode;
 using GUI.ViewModels.PlayerSelection;
 using PiCross.Facade.IO;
 
@@ -57,7 +58,7 @@ namespace GUI.ViewModels.Intro
 
         private void PerformEdit()
         {
-            Push( new PlayerSelectionViewModel( Parent ) );
+            Push( new EditorLibraryViewModel( Parent, Parent.Library ) );
         }
 
         private void PerformQuit()

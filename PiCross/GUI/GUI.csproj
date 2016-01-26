@@ -70,12 +70,16 @@
     <Compile Include="Timer.cs" />
     <Compile Include="TypeMapping.cs" />
     <Compile Include="ViewModels\Intro\IntroViewModel.cs" />
+    <Compile Include="ViewModels\LibraryMode\EditorLibraryViewModel.cs" />
     <Compile Include="ViewModels\LibraryMode\FilterViewModel.cs" />
     <Compile Include="ViewModels\MasterController.cs" />
     <Compile Include="ViewModels\PauseScreen\PauseViewModel.cs" />
     <Compile Include="ViewModels\PlayerAddition\PlayerAdditionViewModel.cs" />
     <Compile Include="ViewModels\PlayerSelection\ItemViewModel.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
+    <Compile Include="Views\EditorLibraryView.xaml.cs">
+      <DependentUpon>EditorLibraryView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\IntroView.xaml.cs">
       <DependentUpon>IntroView.xaml</DependentUpon>
     </Compile>
@@ -128,6 +132,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\PiCrossControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EditorLibraryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
