@@ -107,7 +107,7 @@ namespace GUI.ViewModels.LibraryMode
                 this.entries = entries;
             }
 
-            public IEnumerable<LibraryEntryViewModel> Entries
+            public IEnumerable<LibraryEntryViewModel> Members
             {
                 get
                 {

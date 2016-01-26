@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:views="clr-namespace:GUI.Views"
              xmlns:controls="clr-namespace:GUI.Controls"
              xmlns:converters="clr-namespace:GUI.Converters"
              mc:Ignorable="d" 
@@ -14,99 +15,80 @@
                 <Button Style="{DynamicResource backButtonStyle}" Command="{Binding Back}" />
             </StackPanel>
         </Border>
-
-        <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <ItemsControl ItemsSource="{Binding Groups.Value}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Vertical" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Vertical">
-                            <TextBlock Foreground="White" FontSize="64" HorizontalAlignment="Center" Margin="0,20,0,20">
+        
+        <views:GeneralizedLibraryView Groups="{Binding Groups.Value}">
+            <views:GeneralizedLibraryView.GroupHeaderTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Foreground="White" FontSize="64" HorizontalAlignment="Center" Margin="0,20,0,20">
+                            <TextBlock.Text>
+                                <Binding Path="Size">
+                                    <Binding.Converter>
+                                        <converters:InterpolatedStringConverter String="[[Width]] x [[Height]]" />
+                                    </Binding.Converter>
+                                </Binding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </views:GeneralizedLibraryView.GroupHeaderTemplate>
+            <views:GeneralizedLibraryView.ItemTemplate>
+                <DataTemplate>
+                    <Button Command="{Binding Select}">
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border CornerRadius="10" Margin="5" Width="200" Height="200" Background="Gray">
+                                    <ContentPresenter />
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <ContentControl>
+                                <ContentControl.Content>
+                                    <Binding Path="Solved">
+                                        <Binding.Converter>
+                                            <converters:TemplateLoaderConverter>
+                                                <converters:BoolConverter>
+                                                    <converters:BoolConverter.True>
+                                                        <DataTemplate>
+                                                            <DockPanel>
+                                                                <TextBlock DockPanel.Dock="Top" Text="{Binding BestTime}" HorizontalAlignment="Center" />
+                                                                <Viewbox Grid.Row="0" Width="100" Height="100">
+                                                                    <controls:ThumbnailControl Grid="{Binding Grid}" />
+                                                                </Viewbox>
+                                                            </DockPanel>
+                                                        </DataTemplate>
+                                                    </converters:BoolConverter.True>
+                                                    <converters:BoolConverter.False>
+                                                        <DataTemplate>
+                                                            <Viewbox Width="100" Height="100">
+                                                                <TextBlock Text="?" />
+                                                            </Viewbox>
+                                                        </DataTemplate>
+                                                    </converters:BoolConverter.False>
+                                                </converters:BoolConverter>
+                                            </converters:TemplateLoaderConverter>
+                                        </Binding.Converter>
+                                    </Binding>
+                                </ContentControl.Content>
+                            </ContentControl>
+                            <TextBlock Grid.Row="1" FontSize="32" HorizontalAlignment="Center">
                                 <TextBlock.Text>
-                                    <Binding Path="Size">
+                                    <Binding Path="Puzzle.Size">
                                         <Binding.Converter>
                                             <converters:InterpolatedStringConverter String="[[Width]] x [[Height]]" />
                                         </Binding.Converter>
                                     </Binding>
                                 </TextBlock.Text>
                             </TextBlock>
-                            <ItemsControl ItemsSource="{Binding Entries}">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <WrapPanel Orientation="Horizontal" />
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <Button Command="{Binding Select}">
-                                            <Button.Template>
-                                                <ControlTemplate TargetType="{x:Type Button}">
-                                                    <Border x:Name="border" CornerRadius="10" Margin="5" Width="200" Height="200" Background="Gray">
-                                                        <ContentPresenter />
-                                                    </Border>
-                                                    <ControlTemplate.Triggers>
-                                                        <Trigger Property="IsMouseOver" Value="True">
-                                                            <Setter TargetName="border" Property="Background" Value="#DDDDFF" />
-                                                        </Trigger>
-                                                    </ControlTemplate.Triggers>
-                                                </ControlTemplate>
-                                            </Button.Template>
-                                            <Grid>
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition Height="*" />
-                                                    <RowDefinition Height="auto" />
-                                                </Grid.RowDefinitions>
-                                                <ContentControl>
-                                                    <ContentControl.Content>
-                                                        <Binding Path="Solved">
-                                                            <Binding.Converter>
-                                                                <converters:TemplateLoaderConverter>
-                                                                    <converters:BoolConverter>
-                                                                        <converters:BoolConverter.True>
-                                                                            <DataTemplate>
-                                                                                <DockPanel>
-                                                                                    <TextBlock DockPanel.Dock="Top" Text="{Binding BestTime}" HorizontalAlignment="Center" />
-                                                                                    <Viewbox Grid.Row="0" Width="100" Height="100">
-                                                                                        <controls:ThumbnailControl Grid="{Binding Grid}" />
-                                                                                    </Viewbox>
-                                                                                </DockPanel>
-                                                                            </DataTemplate>
-                                                                        </converters:BoolConverter.True>
-                                                                        <converters:BoolConverter.False>
-                                                                            <DataTemplate>
-                                                                                <Viewbox Width="100" Height="100">
-                                                                                    <TextBlock Text="?" />
-                                                                                </Viewbox>
-                                                                            </DataTemplate>
-                                                                        </converters:BoolConverter.False>
-                                                                    </converters:BoolConverter>
-                                                                </converters:TemplateLoaderConverter>
-                                                            </Binding.Converter>
-                                                        </Binding>
-                                                    </ContentControl.Content>
-                                                </ContentControl>
-                                                <TextBlock Grid.Row="1" FontSize="32" HorizontalAlignment="Center">
-                                                    <TextBlock.Text>
-                                                        <Binding Path="Puzzle.Size">
-                                                            <Binding.Converter>
-                                                                <converters:InterpolatedStringConverter String="[[Width]] x [[Height]]" />
-                                                            </Binding.Converter>
-                                                        </Binding>
-                                                    </TextBlock.Text>
-                                                </TextBlock>
-                                            </Grid>
-                                        </Button>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </StackPanel>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </ScrollViewer>
+                        </Grid>
+                    </Button>
+                </DataTemplate>
+            </views:GeneralizedLibraryView.ItemTemplate>
+        </views:GeneralizedLibraryView>
     </DockPanel>
 </UserControl>
