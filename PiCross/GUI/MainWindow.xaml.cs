@@ -41,6 +41,8 @@ namespace GUI
 
         private readonly ICommand toggleConsole;
 
+        private readonly ICommand toggleFullScreen;
+
         private readonly ThemeManager themeManager;
 
         private readonly Cell<int> currentThemeIndex;
@@ -51,6 +53,7 @@ namespace GUI
 
             this.masterController = CreateMasterController();
             this.toggleConsole = EnabledCommand.FromDelegate( PerformToggleConsole );
+            this.toggleFullScreen = EnabledCommand.FromDelegate( PerformToggleFullScreen );
             this.themeManager = new ThemeManager();
             this.currentThemeIndex = Cell.Create( 0 );
 
@@ -91,6 +94,14 @@ namespace GUI
             }
         }
 
+        public ICommand ToggleFullScreen
+        {
+            get
+            {
+                return toggleFullScreen;
+            }
+        }
+
         private void PerformToggleConsole()
         {
             switch ( consoleContainer.Visibility )
@@ -103,6 +114,38 @@ namespace GUI
                     consoleContainer.Visibility = System.Windows.Visibility.Collapsed;
                     break;
             }
+        }
+
+        private void PerformToggleFullScreen()
+        {
+            if ( IsFullScreen )
+            {
+                MakeWindowed();
+            }
+            else
+            {
+                MakeFullScreen();
+            }
+        }
+
+        private bool IsFullScreen
+        {
+            get
+            {
+                return this.WindowStyle == System.Windows.WindowStyle.None;
+            }
+        }
+
+        private void MakeFullScreen()
+        {
+            this.WindowState = System.Windows.WindowState.Maximized;
+            this.WindowStyle = System.Windows.WindowStyle.None;
+        }
+
+        private void MakeWindowed()
+        {
+            this.WindowState = System.Windows.WindowState.Normal;
+            this.WindowStyle = System.Windows.WindowStyle.SingleBorderWindow;
         }
 
         public IEnumerable<Theme> Themes
