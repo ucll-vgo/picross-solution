@@ -9,9 +9,9 @@
                 <ResourceDictionary Source="pack://application:,,,/Themes/Generic.xaml" />
             </ResourceDictionary.MergedDictionaries>
             
-            <Style TargetType="{x:Type TextBlock}">
+            <!--<Style TargetType="{x:Type TextBlock}">
                 <Setter Property="FontFamily" Value="Fonts/#SketchFlow Print" />
-            </Style>
+            </Style>-->
         </ResourceDictionary>
     </Application.Resources>
 </Application>

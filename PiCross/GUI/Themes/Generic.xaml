@@ -3,7 +3,25 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="clr-namespace:GUI.Converters"
     xmlns:local="clr-namespace:GUI.Controls">
-    
+
+    <Style TargetType="{x:Type TextBlock}">
+        <Setter Property="FontFamily" Value="pack://application:,,,/Fonts/#SketchFlow Print" />
+    </Style>
+
+    <Style x:Key="introTitleStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+        <Setter Property="FontSize" Value="128" />
+        <Setter Property="Foreground" Value="White" />
+    </Style>
+
+    <Style x:Key="introButtonStyle" TargetType="{x:Type Button}">
+        <Setter Property="FontSize" Value="32" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="Padding" Value="10" />
+        <Setter Property="Margin" Value="10" />
+        <Setter Property="Width" Value="200" />
+    </Style>
+
     <Style x:Key="highlightCheckBoxStyle" TargetType="{x:Type CheckBox}">
         <Style.Setters>
             <Setter Property="Template">

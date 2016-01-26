@@ -5,28 +5,18 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <UserControl.Resources>
-        <Style TargetType="Button">
-            <Setter Property="FontSize" Value="32" />
-            <Setter Property="HorizontalAlignment" Value="Center" />
-            <Setter Property="VerticalAlignment" Value="Top" />
-            <Setter Property="Padding" Value="10" />
-            <Setter Property="Margin" Value="10" />
-            <Setter Property="Width" Value="200" />
-        </Style>
-    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Viewbox Margin="20">
-            <TextBlock Grid.Row="0" Text="PiCross" FontSize="128" HorizontalAlignment="Center" VerticalAlignment="Bottom" Foreground="White" />
+            <TextBlock Style="{DynamicResource introTitleStyle}" Grid.Row="0" Text="PiCross" HorizontalAlignment="Center" VerticalAlignment="Center" />
         </Viewbox>
         <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button Content="Play" Command="{Binding Play}" />
-            <Button Content="Edit" Command="{Binding Edit}" />
-            <Button Content="Quit" Command="{Binding Quit}" />
+            <Button Content="Play" Command="{Binding Play}" Style="{DynamicResource introButtonStyle}" />
+            <Button Content="Edit" Command="{Binding Edit}" Style="{DynamicResource introButtonStyle}" />
+            <Button Content="Quit" Command="{Binding Quit}" Style="{DynamicResource introButtonStyle}" />
         </StackPanel>
     </Grid>
 </UserControl>

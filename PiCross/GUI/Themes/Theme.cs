@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace GUI.Themes
 {
@@ -31,6 +32,14 @@ namespace GUI.Themes
             get
             {
                 return uri;
+            }
+        }
+
+        public ResourceDictionary ResourceDictionary
+        {
+            get
+            {
+                return new ResourceDictionary() { Source = Uri };
             }
         }
     }

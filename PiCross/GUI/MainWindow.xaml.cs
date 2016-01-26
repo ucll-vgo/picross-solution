@@ -120,10 +120,11 @@ namespace GUI
 
         private void UpdateTheme()
         {
-            var theme = this.themeManager.Themes[currentThemeIndex.Value];
+            var theme = this.themeManager.Themes[currentThemeIndex.Value];            
 
             Application.Current.Resources.MergedDictionaries.Clear();
-            Application.Current.Resources.MergedDictionaries.Add( new ResourceDictionary() { Source = theme.Uri } );
+            Application.Current.Resources.MergedDictionaries.Add( themeManager.DefaultTheme.ResourceDictionary );
+            Application.Current.Resources.MergedDictionaries.Add( theme.ResourceDictionary );
         }
 
         public Cell<int> CurrentThemeIndex
