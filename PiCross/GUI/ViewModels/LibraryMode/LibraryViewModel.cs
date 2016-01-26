@@ -27,6 +27,8 @@ namespace GUI.ViewModels.LibraryMode
 
         private readonly ICommand filter;
 
+        private readonly ICommand toggleFilter;
+
         private readonly Cell<bool> showSolved;
 
         public LibraryViewModel( MasterController parent, ILibrary library, IPlayerProfile activeUser )
@@ -38,18 +40,29 @@ namespace GUI.ViewModels.LibraryMode
             this.groups = Cell.Create<IList<GroupViewModel>>( null );
             this.back = EnabledCommand.FromDelegate( PerformBack );
             this.filter = EnabledCommand.FromDelegate( PerformFilter );
+            this.toggleFilter = EnabledCommand.FromDelegate( PerformToggleFilter );
+        }
+
+        private IList<GroupViewModel> BuildGroups()
+        {
+            return ( from entry in library.Entries
+                     let puzzleInformation = activeUser.PuzzleInformation[entry.Puzzle]
+                     where !puzzleInformation.BestTime.Value.HasValue || showSolved.Value
+                     let entryVM = new LibraryEntryViewModel( entry, puzzleInformation, EnabledCommand.FromDelegate( () => PerformSelect( entry ) ) )
+                     group entryVM by entry.Puzzle.Size into entryGroup
+                     select new GroupViewModel( entryGroup.Key, entryGroup ) ).ToList();
+        }
+
+        private void UpdateView()
+        {
+            this.groups.Value = BuildGroups();
         }
 
         protected override void OnActivation()
         {
             base.OnActivation();
 
-            this.groups.Value = ( from entry in library.Entries
-                                  let puzzleInformation = activeUser.PuzzleInformation[entry.Puzzle]
-                                  where !puzzleInformation.BestTime.Value.HasValue || showSolved.Value
-                                  let entryVM = new LibraryEntryViewModel( entry, puzzleInformation, EnabledCommand.FromDelegate( () => PerformSelect( entry ) ) )
-                                  group entryVM by entry.Puzzle.Size into entryGroup
-                                  select new GroupViewModel( entryGroup.Key, entryGroup ) ).ToList();
+            UpdateView();
         }
 
         public Cell<IList<GroupViewModel>> Groups
@@ -76,6 +89,14 @@ namespace GUI.ViewModels.LibraryMode
             }
         }
 
+        public ICommand ToggleFilter
+        {
+            get
+            {
+                return toggleFilter;
+            }
+        }
+
         private void PerformBack()
         {
             Pop();
@@ -93,6 +114,12 @@ namespace GUI.ViewModels.LibraryMode
         private void PerformFilter()
         {
             Push( new FilterViewModel( this.Parent, showSolved ) );
+        }
+
+        private void PerformToggleFilter()
+        {
+            this.showSolved.Value = !this.showSolved.Value;
+            UpdateView();
         }
 
         public class GroupViewModel

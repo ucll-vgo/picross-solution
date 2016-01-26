@@ -15,7 +15,7 @@
     <DockPanel>
         <Border DockPanel.Dock="Bottom">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Style="{DynamicResource filterButtonStyle}" Command="{Binding Filter}" />
+                <Button Style="{DynamicResource filterButtonStyle}" Command="{Binding ToggleFilter}" />
                 <Button Style="{DynamicResource backButtonStyle}" Command="{Binding Back}" />
             </StackPanel>
         </Border>
