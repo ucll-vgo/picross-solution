@@ -25,8 +25,6 @@ namespace GUI.ViewModels.LibraryMode
 
         private readonly ICommand back;
 
-        private readonly ICommand toggleFilter;
-
         private readonly Cell<bool> showSolved;
 
         public LibraryViewModel( MasterController parent, ILibrary library, IPlayerProfile activeUser )
@@ -37,7 +35,8 @@ namespace GUI.ViewModels.LibraryMode
             this.showSolved = Cell.Create( true );
             this.groups = Cell.Create<IList<GroupViewModel>>( null );
             this.back = EnabledCommand.FromDelegate( PerformBack );
-            this.toggleFilter = EnabledCommand.FromDelegate( PerformToggleFilter );
+
+            this.showSolved.ValueChanged += UpdateView;
         }
 
         private IList<GroupViewModel> BuildGroups()
@@ -62,6 +61,14 @@ namespace GUI.ViewModels.LibraryMode
             UpdateView();
         }
 
+        public Cell<bool> ShowSolved
+        {
+            get
+            {
+                return showSolved;
+            }
+        }
+
         public Cell<IList<GroupViewModel>> Groups
         {
             get
@@ -78,14 +85,6 @@ namespace GUI.ViewModels.LibraryMode
             }
         }
 
-        public ICommand ToggleFilter
-        {
-            get
-            {
-                return toggleFilter;
-            }
-        }
-
         private void PerformBack()
         {
             Pop();
@@ -98,12 +97,6 @@ namespace GUI.ViewModels.LibraryMode
             var bestTime = activeUser.PuzzleInformation[puzzle].BestTime;
 
             Push( new PlayViewModel( Parent, playablePuzzle, bestTime ) );
-        }
-
-        private void PerformToggleFilter()
-        {
-            this.showSolved.Value = !this.showSolved.Value;
-            UpdateView();
         }
 
         public class GroupViewModel
