@@ -41,15 +41,22 @@ namespace GUI
 
         private readonly ICommand toggleConsole;
 
+        private readonly ThemeManager themeManager;
+
+        private readonly Cell<int> currentThemeIndex;
+
         public MainWindow()
         {
             InitializeComponent();
 
-            masterController = CreateMasterController();
-            toggleConsole = EnabledCommand.FromDelegate( PerformToggleConsole );
+            this.masterController = CreateMasterController();
+            this.toggleConsole = EnabledCommand.FromDelegate( PerformToggleConsole );
+            this.themeManager = new ThemeManager();
+            this.currentThemeIndex = Cell.Create( 0 );
 
             SetUpDataContext();
             SetUpTimer();
+            SetUpTheme();
         }
 
         private MasterController CreateMasterController()
@@ -61,7 +68,8 @@ namespace GUI
         {
             Debug.Assert( masterController != null );
 
-            this.DataContext = masterController;
+            this.DataContext = this;
+            viewContainer.DataContext = masterController;
         }
 
         private void SetUpTimer()
@@ -101,10 +109,29 @@ namespace GUI
         {
             get
             {
-                return new ThemeManager().Themes;
+                return themeManager.Themes;
             }
         }
 
-        
+        private void SetUpTheme()
+        {
+            this.currentThemeIndex.ValueChanged += UpdateTheme;
+        }
+
+        private void UpdateTheme()
+        {
+            var theme = this.themeManager.Themes[currentThemeIndex.Value];
+
+            Application.Current.Resources.MergedDictionaries.Clear();
+            Application.Current.Resources.MergedDictionaries.Add( new ResourceDictionary() { Source = theme.Uri } );
+        }
+
+        public Cell<int> CurrentThemeIndex
+        {
+            get
+            {
+                return this.currentThemeIndex;
+            }
+        }
     }
 }

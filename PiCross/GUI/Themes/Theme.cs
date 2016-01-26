@@ -12,7 +12,7 @@ namespace GUI.Themes
 
         private readonly Uri uri;
 
-        public Theme(string name, Uri uri)
+        public Theme( string name, Uri uri )
         {
             this.name = name;
             this.uri = uri;
@@ -37,13 +37,30 @@ namespace GUI.Themes
 
     public class ThemeManager
     {
-        public IEnumerable<Theme> Themes
+        private readonly IList<Theme> themes;
+
+        public ThemeManager()
+        {
+            this.themes = new List<Theme>() { 
+                new Theme( "Generic", new Uri( "/Themes/Generic.xaml", UriKind.RelativeOrAbsolute ) ),
+                new Theme( "Nature", new Uri( "/Themes/Nature.xaml", UriKind.RelativeOrAbsolute ) ),
+                new Theme( "Water", new Uri( "/Themes/Water.xaml", UriKind.RelativeOrAbsolute ) ) 
+            };
+        }
+
+        public IList<Theme> Themes
         {
             get
             {
-                yield return new Theme( "Generic", new Uri("/Themes/Generic.xaml", UriKind.RelativeOrAbsolute) );
-                yield return new Theme( "Nature", new Uri( "/Themes/Nature.xaml", UriKind.RelativeOrAbsolute ) );
-                yield return new Theme( "Water", new Uri( "/Themes/Water.xaml", UriKind.RelativeOrAbsolute ) );
+                return themes;
+            }
+        }
+
+        public Theme DefaultTheme
+        {
+            get
+            {
+                return new Theme( "Generic", new Uri( "/Themes/Generic.xaml", UriKind.RelativeOrAbsolute ) );
             }
         }
     }
