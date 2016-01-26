@@ -9,7 +9,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type CheckBox}">
-                        <Border Name="border" Background="#222222" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                        <Border Name="border" Background="Black" BorderBrush="Gray" BorderThickness="1" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" Padding="{TemplateBinding Padding}">
                             <ContentPresenter Content="{TemplateBinding Content}" />
                         </Border>
                         <ControlTemplate.Triggers>
