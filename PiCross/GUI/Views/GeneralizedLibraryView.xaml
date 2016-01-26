@@ -6,41 +6,32 @@
              xmlns:views="clr-namespace:GUI.Views"
              xmlns:controls="clr-namespace:GUI.Controls"
              xmlns:converters="clr-namespace:GUI.Converters"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
-    <DockPanel>
-        <Border DockPanel.Dock="Bottom">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Style="{DynamicResource filterButtonStyle}" Command="{Binding Filter}" />
-                <Button Style="{DynamicResource backButtonStyle}" Command="{Binding Back}" />
-            </StackPanel>
-        </Border>
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <ItemsControl ItemsSource="{Binding RelativeSource={RelativeSource AncestorType={x:Type views:GeneralizedLibraryView}}, Path=Groups}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Vertical">
+                        <!-- Group header -->
+                        <ContentControl Content="{Binding}" ContentTemplate="{Binding RelativeSource={RelativeSource AncestorType={x:Type views:GeneralizedLibraryView}}, Path=GroupHeaderTemplate}" />
 
-        <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <ItemsControl ItemsSource="{Binding RelativeSource={RelativeSource AncestorType={x:Type views:GeneralizedLibraryView}}, Path=Groups}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Vertical" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Vertical">
-                            <!-- Group header -->
-                            <ContentControl Content="{Binding}" ContentTemplate="{Binding RelativeSource={RelativeSource AncestorType={x:Type views:GeneralizedLibraryView}}, Path=GroupHeaderTemplate}" />
-                            
-                            <!-- Group items -->
-                            <ItemsControl ItemsSource="{Binding Members}" ItemTemplate="{Binding RelativeSource={RelativeSource AncestorType={x:Type views:GeneralizedLibraryView}}, Path=ItemTemplate}">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <WrapPanel Orientation="Horizontal" />
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                            </ItemsControl>
-                        </StackPanel>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </ScrollViewer>
-    </DockPanel>
+                        <!-- Group items -->
+                        <ItemsControl ItemsSource="{Binding Members}" ItemTemplate="{Binding RelativeSource={RelativeSource AncestorType={x:Type views:GeneralizedLibraryView}}, Path=ItemTemplate}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </ScrollViewer>
 </UserControl>

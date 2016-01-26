@@ -8,28 +8,34 @@
              xmlns:converters="clr-namespace:GUI.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <views:GeneralizedLibraryView Groups="{Binding Groups.Value}">
-        <views:GeneralizedLibraryView.GroupHeaderTemplate>
-            <DataTemplate>
-                <TextBlock Foreground="White" FontSize="36" HorizontalAlignment="Center">
-                    <TextBlock.Text>
-                        <Binding Path="Size">
-                            <Binding.Converter>
-                                <converters:InterpolatedStringConverter String="[[Width]] x [[Height]]" />
-                            </Binding.Converter>
-                        </Binding>
-                    </TextBlock.Text>
-                </TextBlock>
-            </DataTemplate>
-        </views:GeneralizedLibraryView.GroupHeaderTemplate>
-        <views:GeneralizedLibraryView.ItemTemplate>
-            <DataTemplate>
-                <Border Background="Red" Margin="10" Padding="10">
-                    <Viewbox Width="100" Height="100">
-                        <controls:ThumbnailControl PixelSize="16" Grid="{Binding Grid}" />
-                    </Viewbox>
-                </Border>
-            </DataTemplate>
-        </views:GeneralizedLibraryView.ItemTemplate>
-    </views:GeneralizedLibraryView>
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Style="{DynamicResource backButtonStyle}" Command="{Binding Back}" />
+        </StackPanel>
+
+        <views:GeneralizedLibraryView Groups="{Binding Groups.Value}">
+            <views:GeneralizedLibraryView.GroupHeaderTemplate>
+                <DataTemplate>
+                    <TextBlock Foreground="White" FontSize="36" HorizontalAlignment="Center">
+                        <TextBlock.Text>
+                            <Binding Path="Size">
+                                <Binding.Converter>
+                                    <converters:InterpolatedStringConverter String="[[Width]] x [[Height]]" />
+                                </Binding.Converter>
+                            </Binding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </DataTemplate>
+            </views:GeneralizedLibraryView.GroupHeaderTemplate>
+            <views:GeneralizedLibraryView.ItemTemplate>
+                <DataTemplate>
+                    <Border Background="Red" Margin="10" Padding="10">
+                        <Viewbox Width="100" Height="100">
+                            <controls:ThumbnailControl PixelSize="16" Grid="{Binding Grid}" />
+                        </Viewbox>
+                    </Border>
+                </DataTemplate>
+            </views:GeneralizedLibraryView.ItemTemplate>
+        </views:GeneralizedLibraryView>
+    </DockPanel>
 </UserControl>
