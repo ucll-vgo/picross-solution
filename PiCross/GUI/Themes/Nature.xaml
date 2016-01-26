@@ -28,36 +28,28 @@
                             <VisualStateGroup x:Name="FillStates">
                                 <VisualState x:Name="Unknown">
                                     <Storyboard>
-                                        <ColorAnimation To="#FFAAAA" Storyboard.TargetName="backgroundBrush_firstGradientStop" Storyboard.TargetProperty="Color" Duration="0:0:0.5" />
-                                        <ColorAnimation To="#FFAAAA" Storyboard.TargetName="backgroundBrush_lastGradientStop" Storyboard.TargetProperty="Color" Duration="0:0:0.5" />
+                                        <ColorAnimation To="#FFAAAA" Storyboard.TargetName="backgroundBrush" Storyboard.TargetProperty="Color" Duration="0:0:0.5" />
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Empty">
                                     <Storyboard>
-                                        <ColorAnimation To="White" Storyboard.TargetName="backgroundBrush_firstGradientStop" Storyboard.TargetProperty="Color" Duration="0:0:0.5" />
-                                        <ColorAnimation To="White" Storyboard.TargetName="backgroundBrush_lastGradientStop" Storyboard.TargetProperty="Color" Duration="0:0:0.5" />
+                                        <ColorAnimation To="White" Storyboard.TargetName="backgroundBrush" Storyboard.TargetProperty="Color" Duration="0:0:0.5" />
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Filled">
                                     <Storyboard>
-                                        <ColorAnimation To="Green" Storyboard.TargetName="backgroundBrush_firstGradientStop" Storyboard.TargetProperty="Color" Duration="0:0:0.5" />
-                                        <ColorAnimation To="Green" Storyboard.TargetName="backgroundBrush_lastGradientStop" Storyboard.TargetProperty="Color" Duration="0:0:0.5" />
+                                        <ColorAnimation To="Green" Storyboard.TargetName="backgroundBrush" Storyboard.TargetProperty="Color" Duration="0:0:0.5" />
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
-
 
                         <Border BorderThickness="1" Margin="1">
                             <Border.BorderBrush>
                                 <SolidColorBrush x:Name="borderBrush" Color="Black" />
                             </Border.BorderBrush>
                             <Border.Background>
-                                <LinearGradientBrush x:Name="backgroundBrush" StartPoint="0,0" EndPoint="0.3,0.3">
-                                    <GradientStop x:Name="backgroundBrush_firstGradientStop" Offset="0" Color="Transparent" />
-                                    <GradientStop x:Name="backgroundBrush_middleGradientStop" Offset="0.5" Color="Transparent" />
-                                    <GradientStop x:Name="backgroundBrush_lastGradientStop" Offset="1" Color="Transparent" />
-                                </LinearGradientBrush>
+                                <SolidColorBrush x:Name="backgroundBrush" Color="Transparent" />
                             </Border.Background>
                         </Border>
                     </Grid>
