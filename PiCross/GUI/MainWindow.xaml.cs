@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using GUI.Commands;
 using GUI.Controls;
+using GUI.Themes;
 using GUI.ViewModels;
 using GUI.ViewModels.EditMode;
 using GUI.ViewModels.LibraryMode;
@@ -38,11 +39,15 @@ namespace GUI
     {
         private readonly MasterController masterController;
 
+        private readonly ICommand toggleConsole;
+
         public MainWindow()
         {
             InitializeComponent();
 
             masterController = CreateMasterController();
+            toggleConsole = EnabledCommand.FromDelegate( PerformToggleConsole );
+
             SetUpDataContext();
             SetUpTimer();
         }
@@ -69,5 +74,37 @@ namespace GUI
 
             timer.Tick += ( dt ) => masterController.ActiveViewModel.Value.OnTick( dt );
         }
+
+        public ICommand ToggleConsole
+        {
+            get
+            {
+                return toggleConsole;
+            }
+        }
+
+        private void PerformToggleConsole()
+        {
+            switch ( consoleContainer.Visibility )
+            {
+                case System.Windows.Visibility.Collapsed:
+                    consoleContainer.Visibility = System.Windows.Visibility.Visible;
+                    break;
+
+                case System.Windows.Visibility.Visible:
+                    consoleContainer.Visibility = System.Windows.Visibility.Collapsed;
+                    break;
+            }
+        }
+
+        public IEnumerable<Theme> Themes
+        {
+            get
+            {
+                return new ThemeManager().Themes;
+            }
+        }
+
+        
     }
 }
