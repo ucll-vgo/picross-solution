@@ -45,18 +45,22 @@
                                 </VisualState>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
-                        
-                        <Ellipse StrokeThickness="1" Margin="1">
-                            <Ellipse.Stroke>
-                                <SolidColorBrush x:Name="borderBrush" Color="Black" />
-                            </Ellipse.Stroke>
-                            <Ellipse.Fill>
-                                <RadialGradientBrush x:Name="backgroundBrush" Center="0.25,0.25">
-                                    <GradientStop x:Name="backgroundBrush_firstGradientStop" Offset="0" Color="Transparent" />
-                                    <GradientStop x:Name="backgroundBrush_lastGradientStop" Offset="1" Color="Transparent" />
-                                </RadialGradientBrush>
-                            </Ellipse.Fill>
-                        </Ellipse>
+
+                        <Grid>
+                            <Ellipse StrokeThickness="1" Margin="1">
+                                <Ellipse.Stroke>
+                                    <SolidColorBrush x:Name="borderBrush" Color="Black" />
+                                </Ellipse.Stroke>
+                                <Ellipse.Fill>
+                                    <RadialGradientBrush x:Name="backgroundBrush" Center="0.25,0.25">
+                                        <GradientStop x:Name="backgroundBrush_firstGradientStop" Offset="0" Color="Transparent" />
+                                        <GradientStop x:Name="backgroundBrush_lastGradientStop" Offset="1" Color="Transparent" />
+                                    </RadialGradientBrush>
+                                </Ellipse.Fill>
+                            </Ellipse>
+                            
+                            <TextBlock Text="{TemplateBinding Text}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" />
+                        </Grid>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
