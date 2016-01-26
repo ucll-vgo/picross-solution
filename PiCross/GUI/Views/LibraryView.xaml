@@ -8,6 +8,21 @@
              xmlns:converters="clr-namespace:GUI.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ControlTemplate x:Key="entryTemplate" TargetType="{x:Type Button}">
+            <Border Name="border" CornerRadius="10" Margin="5" Width="200" Height="200" Background="Gray">
+                <ContentPresenter />
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Trigger.Setters>
+                        <Setter TargetName="border" Property="Background" Value="#AAAAFF" />
+                    </Trigger.Setters>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </UserControl.Resources>
+
     <DockPanel>
         <Border DockPanel.Dock="Bottom">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
@@ -15,7 +30,7 @@
                 <Button Style="{DynamicResource backButtonStyle}" Command="{Binding Back}" />
             </StackPanel>
         </Border>
-        
+
         <views:GeneralizedLibraryView Groups="{Binding Groups.Value}">
             <views:GeneralizedLibraryView.GroupHeaderTemplate>
                 <DataTemplate>
@@ -34,14 +49,7 @@
             </views:GeneralizedLibraryView.GroupHeaderTemplate>
             <views:GeneralizedLibraryView.ItemTemplate>
                 <DataTemplate>
-                    <Button Command="{Binding Select}">
-                        <Button.Template>
-                            <ControlTemplate TargetType="{x:Type Button}">
-                                <Border CornerRadius="10" Margin="5" Width="200" Height="200" Background="Gray">
-                                    <ContentPresenter />
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
+                    <Button Command="{Binding Select}" Template="{StaticResource entryTemplate}">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*" />
