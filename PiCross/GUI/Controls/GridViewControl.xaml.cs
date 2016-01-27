@@ -36,7 +36,7 @@ namespace GUI.Controls
         }
 
         public static readonly DependencyProperty GridProperty =
-            DependencyProperty.Register( "Grid", typeof( IGrid<Cell<bool>> ), typeof( GridViewControl ), new PropertyMetadata( null ) );
+            DependencyProperty.Register( "Grid", typeof( IGrid<object> ), typeof( GridViewControl ), new PropertyMetadata( null ) );
 
         #endregion
 

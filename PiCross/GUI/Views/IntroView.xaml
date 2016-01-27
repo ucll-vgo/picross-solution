@@ -12,18 +12,15 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <!--<Viewbox Margin="20">
-            <TextBlock Style="{DynamicResource introTitleStyle}" Grid.Row="0" Text="PiCross" HorizontalAlignment="Center" VerticalAlignment="Center" />
-        </Viewbox>-->
         <Viewbox Margin="20">
-            <controls:GridViewControl Grid="{Binding LogoGrid}">
+            <controls:GridViewControl Grid="{Binding Path=LogoGrid}">
                 <controls:GridViewControl.ItemTemplate>
                     <DataTemplate>
                         <Border Width="10" Height="10" Margin="2">
                             <Border.Background>
                                 <Binding Path="Value">
                                     <Binding.Converter>
-                                        <converters:BoolConverter True="Black" False="White" />
+                                        <converters:SquareConverter Empty="White" Filled="Black" Unknown="Gray" />
                                     </Binding.Converter>
                                 </Binding>
                             </Border.Background>

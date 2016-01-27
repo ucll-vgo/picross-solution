@@ -25,7 +25,7 @@ namespace GUI.ViewModels.Intro
 
         private readonly StepwiseSolver solver;
 
-        private readonly IGrid<Cell<bool>> logoGrid;
+        private readonly IGrid<Cell<Square>> logoGrid;
 
         private Scheduler scheduler;
 
@@ -39,7 +39,8 @@ namespace GUI.ViewModels.Intro
             var puzzle = CreatePiCrossLogo();
             var solverGrid = SolverGrid.FromPuzzle( puzzle );
             solver = new StepwiseSolver( solverGrid );
-            logoGrid = solverGrid.Squares.Map( ( Square square ) => Cell.Create( false ) ).Copy();
+            logoGrid = solverGrid.Squares.Map( ( Square square ) => Cell.Create( Square.FILLED ) ).Copy();
+            SynchronizeLogoGridWithSolverGrid();
 
             ScheduleUpdate();
         }
@@ -48,7 +49,7 @@ namespace GUI.ViewModels.Intro
         {
             foreach ( var position in logoGrid.AllPositions )
             {
-                logoGrid[position].Value = solver.Grid.Squares[position] == Square.FILLED;
+                logoGrid[position].Value = solver.Grid.Squares[position];
             }
         }
 
@@ -90,7 +91,7 @@ namespace GUI.ViewModels.Intro
             return puzzle;
         }
 
-        public IGrid<Cell<bool>> LogoGrid
+        public IGrid<Cell<Square>> LogoGrid
         {
             get
             {

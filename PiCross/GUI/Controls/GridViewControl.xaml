@@ -14,7 +14,7 @@
         </ItemsControl.ItemsPanel>
         <ItemsControl.ItemTemplate>
             <DataTemplate>
-                <ItemsControl ItemsSource="{Binding Items}" ItemTemplate="{Binding ItemTemplate, RelativeSource={RelativeSource AncestorType={x:Type controls:GridViewControl}}}">
+                <ItemsControl ItemsSource="{Binding Items}" ItemTemplate="{Binding Path=ItemTemplate, RelativeSource={RelativeSource AncestorType={x:Type controls:GridViewControl}}}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Orientation="Horizontal" />
