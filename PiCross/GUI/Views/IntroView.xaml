@@ -3,6 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:controls="clr-namespace:GUI.Controls"
+             xmlns:converters="clr-namespace:GUI.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
@@ -10,8 +12,25 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Viewbox Margin="20">
+        <!--<Viewbox Margin="20">
             <TextBlock Style="{DynamicResource introTitleStyle}" Grid.Row="0" Text="PiCross" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Viewbox>-->
+        <Viewbox Margin="20">
+            <controls:GridViewControl Grid="{Binding LogoGrid}">
+                <controls:GridViewControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Width="10" Height="10" Margin="2">
+                            <Border.Background>
+                                <Binding Path="Value">
+                                    <Binding.Converter>
+                                        <converters:BoolConverter True="Black" False="White" />
+                                    </Binding.Converter>
+                                </Binding>
+                            </Border.Background>
+                        </Border>
+                    </DataTemplate>
+                </controls:GridViewControl.ItemTemplate>
+            </controls:GridViewControl>
         </Viewbox>
         <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Button Content="Play" Command="{Binding Play}" Style="{DynamicResource introButtonStyle}" />
