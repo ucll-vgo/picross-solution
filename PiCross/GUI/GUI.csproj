@@ -77,7 +77,7 @@
     <Compile Include="ViewModels\LibraryMode\EditorLibraryViewModel.cs" />
     <Compile Include="ViewModels\MasterController.cs" />
     <Compile Include="ViewModels\PauseViewModel.cs" />
-    <Compile Include="ViewModels\PlayerAddition\PlayerAdditionViewModel.cs" />
+    <Compile Include="ViewModels\PlayerAdditionViewModel.cs" />
     <Compile Include="ViewModels\PlayerSelection\ItemViewModel.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
     <Compile Include="Views\EditorLibraryView.xaml.cs">

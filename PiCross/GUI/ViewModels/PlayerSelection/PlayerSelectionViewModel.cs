@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using GUI.Commands;
 using GUI.ViewModels.LibraryMode;
-using GUI.ViewModels.PlayerAddition;
 using PiCross.Facade.IO;
 
 namespace GUI.ViewModels.PlayerSelection

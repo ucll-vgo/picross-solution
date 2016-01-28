@@ -9,7 +9,7 @@ using GUI.Commands;
 using GUI.ViewModels.PlayerSelection;
 using PiCross.Cells;
 
-namespace GUI.ViewModels.PlayerAddition
+namespace GUI.ViewModels
 {
     public class PlayerAdditionViewModel : ViewModel
     {

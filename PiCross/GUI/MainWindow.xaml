@@ -5,7 +5,6 @@
         xmlns:controls="clr-namespace:GUI.Controls"
         xmlns:converters="clr-namespace:GUI.Converters"
         xmlns:pvm="clr-namespace:GUI.ViewModels.PlayerSelection"
-        xmlns:avm="clr-namespace:GUI.ViewModels.PlayerAddition"
         xmlns:lvm="clr-namespace:GUI.ViewModels.LibraryMode"
         xmlns:lve="clr-namespace:GUI.ViewModels.EditMode"
         xmlns:playvm="clr-namespace:GUI.ViewModels.PlayMode"
@@ -24,7 +23,7 @@
         <DataTemplate DataType="{x:Type pvm:PlayerSelectionViewModel}">
             <view:PlayerSelectionView />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type avm:PlayerAdditionViewModel}">
+        <DataTemplate DataType="{x:Type viewmodels:PlayerAdditionViewModel}">
             <view:PlayerAdditionView />
         </DataTemplate>
         <DataTemplate DataType="{x:Type lvm:LibraryViewModel}">
