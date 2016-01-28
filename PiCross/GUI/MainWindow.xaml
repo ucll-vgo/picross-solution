@@ -4,7 +4,6 @@
         xmlns:picross="clr-namespace:PiCross.Game;assembly=PiCrossDomain"
         xmlns:controls="clr-namespace:GUI.Controls"
         xmlns:converters="clr-namespace:GUI.Converters"
-        xmlns:ivm="clr-namespace:GUI.ViewModels.Intro"
         xmlns:pvm="clr-namespace:GUI.ViewModels.PlayerSelection"
         xmlns:avm="clr-namespace:GUI.ViewModels.PlayerAddition"
         xmlns:lvm="clr-namespace:GUI.ViewModels.LibraryMode"
@@ -19,7 +18,7 @@
         <KeyBinding Key="Enter" Modifiers="Alt" Command="{Binding ToggleFullScreen}" />
     </Window.InputBindings>
     <Window.Resources>
-        <DataTemplate DataType="{x:Type ivm:IntroViewModel}">
+        <DataTemplate DataType="{x:Type viewmodels:IntroViewModel}">
             <view:IntroView />
         </DataTemplate>
         <DataTemplate DataType="{x:Type pvm:PlayerSelectionViewModel}">

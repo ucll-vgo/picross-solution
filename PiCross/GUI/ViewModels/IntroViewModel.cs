@@ -13,7 +13,7 @@ using PiCross.DataStructures;
 using PiCross.Facade.IO;
 using PiCross.Game;
 
-namespace GUI.ViewModels.Intro
+namespace GUI.ViewModels
 {
     public class IntroViewModel : ViewModel
     {
