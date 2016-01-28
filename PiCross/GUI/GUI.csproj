@@ -83,6 +83,9 @@
     <Compile Include="Views\EditorLibraryView.xaml.cs">
       <DependentUpon>EditorLibraryView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\EditorView.xaml.cs">
+      <DependentUpon>EditorView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\GeneralizedLibraryView.xaml.cs">
       <DependentUpon>GeneralizedLibraryView.xaml</DependentUpon>
     </Compile>
@@ -146,6 +149,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\EditorLibraryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EditorView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
