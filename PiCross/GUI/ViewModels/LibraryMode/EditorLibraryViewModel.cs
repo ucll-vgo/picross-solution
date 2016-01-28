@@ -5,9 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using GUI.Commands;
+using GUI.ViewModels.EditMode;
 using PiCross.Cells;
 using PiCross.DataStructures;
+using PiCross.Facade.Editing;
 using PiCross.Facade.IO;
+using PiCross.Game;
 
 namespace GUI.ViewModels.LibraryMode
 {
@@ -17,6 +20,8 @@ namespace GUI.ViewModels.LibraryMode
 
         private readonly ICommand back;
 
+        private readonly ICommand select;
+
         private readonly Cell<IEnumerable<Group>> groups;
 
         public EditorLibraryViewModel( MasterController parent, ILibrary library ) 
@@ -24,6 +29,7 @@ namespace GUI.ViewModels.LibraryMode
         {
             this.library = library;
             this.back = EnabledCommand.FromDelegate( PerformBack );
+            this.select = EnabledCommand.FromDelegate<Entry>( PerformSelect );
             this.groups = Cell.Create( from entry in library.Entries
                                        group entry by entry.Puzzle.Size into entryGroup
                                        select new Group( entryGroup.Key, entryGroup ) );
@@ -37,9 +43,24 @@ namespace GUI.ViewModels.LibraryMode
             }
         }
 
+        public ICommand Select
+        {
+            get
+            {
+                return select;
+            }
+        }
+
         private void PerformBack()
         {
             Pop();
+        }
+
+        private void PerformSelect(Entry entry)
+        {
+            var editorGrid = new EditorGrid( entry.Grid.Map( b => b.Value ? Square.FILLED : Square.EMPTY ) );
+            var puzzleEditor = new PuzzleEditor_ManualAmbiguity( editorGrid );
+            Push( new EditorViewModel( Parent, puzzleEditor ) );
         }
 
         public Cell<IEnumerable<Group>> Groups

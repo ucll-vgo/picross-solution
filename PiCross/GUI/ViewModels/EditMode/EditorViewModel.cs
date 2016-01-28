@@ -14,7 +14,7 @@ using PiCross.Game;
 
 namespace GUI.ViewModels.EditMode
 {
-    public class EditorViewModel : IPuzzleData
+    public class EditorViewModel : ViewModel, IPuzzleData
     {
         private readonly PuzzleEditor_ManualAmbiguity puzzleEditor;
 
@@ -28,9 +28,12 @@ namespace GUI.ViewModels.EditMode
 
         private readonly ICommand refine;
 
+        private readonly ICommand back;
+
         private readonly IGrid<Cell<bool>> thumbnailData;
 
-        public EditorViewModel( PuzzleEditor_ManualAmbiguity puzzleEditor )
+        public EditorViewModel( MasterController parent, PuzzleEditor_ManualAmbiguity puzzleEditor )
+            : base( parent )
         {
             this.puzzleEditor = puzzleEditor;
             this.activeSquare = Cell.Create<Vector2D>( null );
@@ -38,6 +41,7 @@ namespace GUI.ViewModels.EditMode
             this.rowConstraints = CreateRowConstraints( puzzleEditor, activeSquare );
             this.squares = CreateSquares( puzzleEditor, activeSquare );
             this.refine = new RefineCommand( this );
+            this.back = EnabledCommand.FromDelegate( PerformBack );
             this.thumbnailData = PiCross.DataStructures.Grid.Create( puzzleEditor.Size, position => puzzleEditor[position].IsFilled );
         }
 
@@ -99,6 +103,14 @@ namespace GUI.ViewModels.EditMode
             }
         }
 
+        public ICommand Back
+        {
+            get
+            {
+                return back;
+            }
+        }
+
         public ICommand Refine
         {
             get
@@ -113,6 +125,11 @@ namespace GUI.ViewModels.EditMode
             {
                 return thumbnailData;
             }
+        }
+
+        private void PerformBack()
+        {
+            Pop();
         }
 
         private void PerformRefine()

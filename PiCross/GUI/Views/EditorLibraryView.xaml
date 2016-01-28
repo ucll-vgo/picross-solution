@@ -29,7 +29,7 @@
             </views:GeneralizedLibraryView.GroupHeaderTemplate>
             <views:GeneralizedLibraryView.ItemTemplate>
                 <DataTemplate>
-                    <Button Style="{DynamicResource libraryButtonStyle}">
+                    <Button Style="{DynamicResource libraryButtonStyle}" Command="{Binding Path=DataContext.Select,RelativeSource={RelativeSource AncestorType={x:Type views:EditorLibraryView}}}" CommandParameter="{Binding .}">
                         <Viewbox Width="100" Height="100">
                             <controls:ThumbnailControl PixelSize="16" Grid="{Binding Grid}" />
                         </Viewbox>
