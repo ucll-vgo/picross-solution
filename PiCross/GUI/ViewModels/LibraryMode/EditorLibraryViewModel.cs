@@ -22,7 +22,7 @@ namespace GUI.ViewModels.LibraryMode
 
         private readonly ICommand select;
 
-        private readonly Cell<IEnumerable<Group>> groups;
+        private readonly Cell<IEnumerable<GroupViewModel>> groups;
 
         public EditorLibraryViewModel( MasterController parent, ILibrary library ) 
             : base(parent)
@@ -32,7 +32,7 @@ namespace GUI.ViewModels.LibraryMode
             this.select = EnabledCommand.FromDelegate<Entry>( PerformSelect );
             this.groups = Cell.Create( from entry in library.Entries
                                        group entry by entry.Puzzle.Size into entryGroup
-                                       select new Group( entryGroup.Key, entryGroup ) );
+                                       select new GroupViewModel( entryGroup.Key, entryGroup ) );
         }
 
         public ICommand Back
@@ -63,7 +63,7 @@ namespace GUI.ViewModels.LibraryMode
             Push( new EditorViewModel( Parent, puzzleEditor ) );
         }
 
-        public Cell<IEnumerable<Group>> Groups
+        public Cell<IEnumerable<GroupViewModel>> Groups
         {
             get
             {
@@ -71,13 +71,13 @@ namespace GUI.ViewModels.LibraryMode
             }
         }
         
-        public class Group
+        public class GroupViewModel
         {
             private readonly Size size;
 
             private readonly IEnumerable<ILibraryEntry> entries;
 
-            public Group(Size size, IEnumerable<ILibraryEntry> entries)
+            public GroupViewModel(Size size, IEnumerable<ILibraryEntry> entries)
             {
                 this.size = size;
                 this.entries = entries;
