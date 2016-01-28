@@ -18,7 +18,7 @@
                                                   Height="24"
                                                   Ambiguity="{Binding Ambiguity.Value}"
                                                   Activate="{Binding Activate}"
-                                                  LeftClick="{Binding SetFilled}"                                                      
+                                                  LeftClick="{Binding SetFilled}"
                                                   RightClick="{Binding SetEmpty}">
                 </controls:EditorGridSquareControl>
             </DataTemplate>
@@ -69,7 +69,7 @@
                 </DockPanel>
             </DataTemplate>
         </controls:PiCrossControl.RowConstraintsTemplate>
-        
+
         <controls:PiCrossControl.Thumbnail>
             <controls:ThumbnailControl Grid="{Binding ThumbnailData}" PixelSize="2" />
         </controls:PiCrossControl.Thumbnail>
