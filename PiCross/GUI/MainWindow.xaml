@@ -10,7 +10,7 @@
         xmlns:lvm="clr-namespace:GUI.ViewModels.LibraryMode"
         xmlns:lve="clr-namespace:GUI.ViewModels.EditMode"
         xmlns:playvm="clr-namespace:GUI.ViewModels.PlayMode"
-        xmlns:pausevm="clr-namespace:GUI.ViewModels.PauseScreen"
+        xmlns:viewmodels="clr-namespace:GUI.ViewModels"
         xmlns:view="clr-namespace:GUI.Views"
         xmlns:gui="clr-namespace:GUI" Background="Black"
         Title="PiCross" Height="450" Width="900">
@@ -40,7 +40,7 @@
         <DataTemplate DataType="{x:Type playvm:PlayViewModel}">
             <view:PlayView />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type pausevm:PauseViewModel}">
+        <DataTemplate DataType="{x:Type viewmodels:PauseViewModel}">
             <view:PauseView />
         </DataTemplate>
     </Window.Resources>

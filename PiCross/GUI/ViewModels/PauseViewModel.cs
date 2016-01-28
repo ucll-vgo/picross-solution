@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using GUI.Commands;
 
-namespace GUI.ViewModels.PauseScreen
+namespace GUI.ViewModels
 {
     public class PauseViewModel : ViewModel
     {

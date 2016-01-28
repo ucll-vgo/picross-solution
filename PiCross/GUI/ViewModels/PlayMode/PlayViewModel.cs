@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Windows.Input;
 using GUI.Commands;
 using GUI.Controls;
-using GUI.ViewModels.PauseScreen;
 using PiCross;
 using PiCross.Cells;
 using PiCross.DataStructures;
