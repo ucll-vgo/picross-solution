@@ -44,9 +44,9 @@
             </ItemsControl>
         </Viewbox>
         <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button Content="Play" Command="{Binding Play}" Style="{DynamicResource introButtonStyle}" />
-            <Button Content="Edit" Command="{Binding Edit}" Style="{DynamicResource introButtonStyle}" />
-            <Button Content="Quit" Command="{Binding Quit}" Style="{DynamicResource introButtonStyle}" />
+            <Button Content="Play" Command="{Binding Play}" Style="{DynamicResource Intro_ButtonStyle}" />
+            <Button Content="Edit" Command="{Binding Edit}" Style="{DynamicResource Intro_ButtonStyle}" />
+            <Button Content="Quit" Command="{Binding Quit}" Style="{DynamicResource Intro_ButtonStyle}" />
         </StackPanel>
     </Grid>
 </UserControl>

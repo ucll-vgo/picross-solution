@@ -3,9 +3,14 @@
                     xmlns:converters="clr-namespace:GUI.Converters"
                     xmlns:local="clr-namespace:GUI.Controls">
 
-    <Style x:Key="introTitleStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
-        <Setter Property="FontSize" Value="128" />
-        <Setter Property="Foreground" Value="Green" />
+    <Style x:Key="Intro_ButtonStyle" TargetType="{x:Type Button}">
+        <Setter Property="FontSize" Value="32" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="Padding" Value="10" />
+        <Setter Property="Margin" Value="10" />
+        <Setter Property="Width" Value="200" />
+        <Setter Property="Background" Value="#44AA44" />
     </Style>
 
     <Style TargetType="{x:Type local:PuzzleGridSquareControl}">

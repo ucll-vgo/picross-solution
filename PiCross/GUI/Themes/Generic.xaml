@@ -13,7 +13,7 @@
         <Setter Property="Foreground" Value="White" />
     </Style>
 
-    <Style x:Key="introButtonStyle" TargetType="{x:Type Button}">
+    <Style x:Key="Intro_ButtonStyle" TargetType="{x:Type Button}">
         <Setter Property="FontSize" Value="32" />
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="VerticalAlignment" Value="Top" />
