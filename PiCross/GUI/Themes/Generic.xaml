@@ -286,7 +286,28 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    <!-- Editing -->
 
+    <Style x:Key="Editor_Constraints_Style" TargetType="{x:Type DockPanel}">
+        <Setter Property="Background">
+            <Setter.Value>
+                <Binding Path="IsActive.Value">
+                    <Binding.Converter>
+                        <converters:BoolConverter>
+                            <converters:BoolConverter.True>
+                                <SolidColorBrush Color="#FFFFFF" />
+                            </converters:BoolConverter.True>
+                            <converters:BoolConverter.False>
+                                <SolidColorBrush Color="#AAAAAA" />
+                            </converters:BoolConverter.False>
+                        </converters:BoolConverter>
+                    </Binding.Converter>
+                </Binding>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
     <Style TargetType="{x:Type local:EditorGridSquareControl}">
         <Setter Property="Template">
             <Setter.Value>

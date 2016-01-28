@@ -23,21 +23,7 @@
 
         <controls:PiCrossControl.ColumnConstraintsTemplate>
             <DataTemplate>
-                <DockPanel LastChildFill="False" Margin="1">
-                    <DockPanel.Background>
-                        <Binding Path="IsActive.Value">
-                            <Binding.Converter>
-                                <converters:BoolConverter>
-                                    <converters:BoolConverter.True>
-                                        <SolidColorBrush Color="#DDDDDD" />
-                                    </converters:BoolConverter.True>
-                                    <converters:BoolConverter.False>
-                                        <SolidColorBrush Color="#555555" />
-                                    </converters:BoolConverter.False>
-                                </converters:BoolConverter>
-                            </Binding.Converter>
-                        </Binding>
-                    </DockPanel.Background>
+                <DockPanel LastChildFill="False" Margin="1" Style="{DynamicResource Editor_Constraints_Style}">
                     <ItemsControl ItemsSource="{Binding Constraints.Value.Values.Items}" DockPanel.Dock="Bottom">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -60,21 +46,7 @@
 
         <controls:PiCrossControl.RowConstraintsTemplate>
             <DataTemplate>
-                <DockPanel LastChildFill="False" Margin="1">
-                    <DockPanel.Background>
-                        <Binding Path="IsActive.Value">
-                            <Binding.Converter>
-                                <converters:BoolConverter>
-                                    <converters:BoolConverter.True>
-                                        <SolidColorBrush Color="#DDDDDD" />
-                                    </converters:BoolConverter.True>
-                                    <converters:BoolConverter.False>
-                                        <SolidColorBrush Color="#555555" />
-                                    </converters:BoolConverter.False>
-                                </converters:BoolConverter>
-                            </Binding.Converter>
-                        </Binding>
-                    </DockPanel.Background>
+                <DockPanel LastChildFill="False" Margin="1" Style="{DynamicResource Editor_Constraints_Style}">
                     <ItemsControl ItemsSource="{Binding Constraints.Value.Values.Items}" DockPanel.Dock="Right">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
