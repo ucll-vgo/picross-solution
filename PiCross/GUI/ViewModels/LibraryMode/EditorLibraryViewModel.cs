@@ -29,7 +29,7 @@ namespace GUI.ViewModels.LibraryMode
         {
             this.library = library;
             this.back = EnabledCommand.FromDelegate( PerformBack );
-            this.select = EnabledCommand.FromDelegate<Entry>( PerformSelect );
+            this.select = EnabledCommand.FromDelegate<EntryViewModel>( PerformSelect );
             this.groups = Cell.Create( from entry in library.Entries
                                        group entry by entry.Puzzle.Size into entryGroup
                                        select new GroupViewModel( entryGroup.Key, entryGroup ) );
@@ -56,7 +56,7 @@ namespace GUI.ViewModels.LibraryMode
             Pop();
         }
 
-        private void PerformSelect(Entry entry)
+        private void PerformSelect(EntryViewModel entry)
         {
             var editorGrid = new EditorGrid( entry.Grid.Map( b => b.Value ? Square.FILLED : Square.EMPTY ) );
             var puzzleEditor = new PuzzleEditor_ManualAmbiguity( editorGrid );
@@ -91,21 +91,21 @@ namespace GUI.ViewModels.LibraryMode
                 }
             }
 
-            public IEnumerable<Entry> Members
+            public IEnumerable<EntryViewModel> Members
             {
                 get
                 {
                     return from entry in entries
-                           select new Entry( entry );
+                           select new EntryViewModel( entry );
                 }
             }
         }
 
-        public class Entry
+        public class EntryViewModel
         {
             private readonly ILibraryEntry entry;
 
-            public Entry(ILibraryEntry entry)
+            public EntryViewModel(ILibraryEntry entry)
             {
                 this.entry = entry;
             }
