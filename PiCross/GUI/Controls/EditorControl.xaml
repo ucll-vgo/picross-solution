@@ -7,9 +7,6 @@
              xmlns:controls="clr-namespace:GUI.Controls"
              xmlns:converters="clr-namespace:GUI.Converters"
              d:DesignHeight="300" d:DesignWidth="300">
-    <UserControl.Resources>
-        <converters:BoolConverter x:Key="constraintBackgroundConverter" True="#DDDDDD" False="Transparent" />
-    </UserControl.Resources>
     <controls:PiCrossControl x:Name="editorControl" PuzzleData="{Binding}" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center">
         <controls:PiCrossControl.SquareTemplate>
             <DataTemplate>
@@ -26,7 +23,21 @@
 
         <controls:PiCrossControl.ColumnConstraintsTemplate>
             <DataTemplate>
-                <DockPanel LastChildFill="False" Margin="1" Background="{Binding IsActive.Value, Converter={StaticResource constraintBackgroundConverter}}">
+                <DockPanel LastChildFill="False" Margin="1">
+                    <DockPanel.Background>
+                        <Binding Path="IsActive.Value">
+                            <Binding.Converter>
+                                <converters:BoolConverter>
+                                    <converters:BoolConverter.True>
+                                        <SolidColorBrush Color="#DDDDDD" />
+                                    </converters:BoolConverter.True>
+                                    <converters:BoolConverter.False>
+                                        <SolidColorBrush Color="#555555" />
+                                    </converters:BoolConverter.False>
+                                </converters:BoolConverter>
+                            </Binding.Converter>
+                        </Binding>
+                    </DockPanel.Background>
                     <ItemsControl ItemsSource="{Binding Constraints.Value.Values.Items}" DockPanel.Dock="Bottom">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -49,7 +60,21 @@
 
         <controls:PiCrossControl.RowConstraintsTemplate>
             <DataTemplate>
-                <DockPanel LastChildFill="False" Margin="1" Background="{Binding IsActive.Value, Converter={StaticResource constraintBackgroundConverter}}">
+                <DockPanel LastChildFill="False" Margin="1">
+                    <DockPanel.Background>
+                        <Binding Path="IsActive.Value">
+                            <Binding.Converter>
+                                <converters:BoolConverter>
+                                    <converters:BoolConverter.True>
+                                        <SolidColorBrush Color="#DDDDDD" />
+                                    </converters:BoolConverter.True>
+                                    <converters:BoolConverter.False>
+                                        <SolidColorBrush Color="#555555" />
+                                    </converters:BoolConverter.False>
+                                </converters:BoolConverter>
+                            </Binding.Converter>
+                        </Binding>
+                    </DockPanel.Background>
                     <ItemsControl ItemsSource="{Binding Constraints.Value.Values.Items}" DockPanel.Dock="Right">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
