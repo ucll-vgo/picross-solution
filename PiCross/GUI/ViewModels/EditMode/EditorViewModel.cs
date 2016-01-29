@@ -40,7 +40,7 @@ namespace GUI.ViewModels.EditMode
             this.columnConstraints = CreateColumnConstraints( puzzleEditor, activeSquare );
             this.rowConstraints = CreateRowConstraints( puzzleEditor, activeSquare );
             this.squares = CreateSquares( puzzleEditor, activeSquare );
-            this.refine = new RefineCommand( this );
+            this.refine = EnabledCommand.FromDelegate( PerformRefine );
             this.back = EnabledCommand.FromDelegate( PerformBack );
             this.thumbnailData = PiCross.DataStructures.Grid.Create( puzzleEditor.Size, position => puzzleEditor[position].IsFilled );
         }
@@ -71,21 +71,21 @@ namespace GUI.ViewModels.EditMode
             get { return squares; }
         }
 
-        public ISequence<EditorConstraintsViewModel> ColumnConstraints
-        {
-            get
-            {
-                return columnConstraints;
-            }
-        }
+        //public ISequence<EditorConstraintsViewModel> ColumnConstraints
+        //{
+        //    get
+        //    {
+        //        return columnConstraints;
+        //    }
+        //}
 
-        public ISequence<EditorConstraintsViewModel> RowConstraints
-        {
-            get
-            {
-                return rowConstraints;
-            }
-        }
+        //public ISequence<EditorConstraintsViewModel> RowConstraints
+        //{
+        //    get
+        //    {
+        //        return rowConstraints;
+        //    }
+        //}
 
         ISequence<object> IPuzzleData.ColumnConstraints
         {
@@ -135,21 +135,6 @@ namespace GUI.ViewModels.EditMode
         private void PerformRefine()
         {
             this.puzzleEditor.ResolveAmbiguity();
-        }
-
-        private class RefineCommand : EnabledCommand
-        {
-            private readonly EditorViewModel parent;
-
-            public RefineCommand( EditorViewModel parent )
-            {
-                this.parent = parent;
-            }
-
-            public override void Execute( object parameter )
-            {
-                parent.PerformRefine();
-            }
         }
     }
 }
