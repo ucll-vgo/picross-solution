@@ -8,7 +8,7 @@ using System.Windows.Input;
 using GUI.Commands;
 using GUI.Controls;
 using Cells;
-using PiCross.DataStructures;
+using DataStructures;
 using PiCross.Facade.Editing;
 using PiCross.Game;
 
@@ -37,7 +37,7 @@ namespace GUI.ViewModels
             this.activeSquare = Cell.Create<Vector2D>( null );
             this.refine = EnabledCommand.FromDelegate( PerformRefine );
             this.back = EnabledCommand.FromDelegate( PerformBack );
-            this.thumbnailData = PiCross.DataStructures.Grid.Create( puzzleEditor.Size, position => puzzleEditor[position].IsFilled );
+            this.thumbnailData = DataStructures.Grid.Create( puzzleEditor.Size, position => puzzleEditor[position].IsFilled );
         }
 
         public ICommand Back
@@ -99,10 +99,10 @@ namespace GUI.ViewModels
                 var signalFactory = new SignalFactory<Vector2D>();
 
                 this.puzzleEditor = puzzleEditor;
-                this.grid = PiCross.DataStructures.Grid.Create<SquareViewModel>( puzzleEditor.Size, position => new SquareViewModel( puzzleEditor[position], signalFactory.CreateSignal( position ) ) );
+                this.grid = DataStructures.Grid.Create<SquareViewModel>( puzzleEditor.Size, position => new SquareViewModel( puzzleEditor[position], signalFactory.CreateSignal( position ) ) );
                 this.rowConstraints = puzzleEditor.RowConstraints.Map( ( index, cs ) => new ConstraintsViewModel( cs, signalFactory.Cell.Map( p => p != null && p.Y == index ) ) );
                 this.columnConstraints = puzzleEditor.ColumnConstraints.Map( ( index, cs ) => new ConstraintsViewModel( cs, signalFactory.Cell.Map( p => p != null && p.X == index ) ) );
-                this.thumbnail = PiCross.DataStructures.Grid.Create<Cell<bool>>( puzzleEditor.Size, position => puzzleEditor[position].IsFilled );
+                this.thumbnail = DataStructures.Grid.Create<Cell<bool>>( puzzleEditor.Size, position => puzzleEditor[position].IsFilled );
             }
 
             public IGrid<EditorControl.ISquareViewModel> Grid

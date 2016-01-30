@@ -8,7 +8,7 @@ using System.Windows.Input;
 using GUI.Commands;
 using GUI.ViewModels;
 using Cells;
-using PiCross.DataStructures;
+using DataStructures;
 using PiCross.Facade.IO;
 using PiCross.Facade.Playing;
 using PiCross.Game;

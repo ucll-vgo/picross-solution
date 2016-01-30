@@ -6,7 +6,7 @@ using GUI.Commands;
 using GUI.Controls;
 using PiCross;
 using Cells;
-using PiCross.DataStructures;
+using DataStructures;
 using PiCross.Facade;
 using PiCross.Facade.Playing;
 using PiCross.Game;
@@ -276,7 +276,7 @@ namespace GUI.ViewModels
             {
                 this.puzzle = puzzle;
 
-                this.squares = PiCross.DataStructures.Grid.Create( puzzle.Size, p => new GridSquareViewModel( puzzle[p], activatedSquare.Map( q => p == q ), puzzle.IsSolved, selectionGrid[p] ) );
+                this.squares = DataStructures.Grid.Create( puzzle.Size, p => new GridSquareViewModel( puzzle[p], activatedSquare.Map( q => p == q ), puzzle.IsSolved, selectionGrid[p] ) );
             }
 
             public IGrid<GridSquareViewModel> Squares

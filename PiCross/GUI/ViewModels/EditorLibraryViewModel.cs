@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using GUI.Commands;
 using Cells;
-using PiCross.DataStructures;
+using DataStructures;
 using PiCross.Facade.Editing;
 using PiCross.Facade.IO;
 using PiCross.Game;

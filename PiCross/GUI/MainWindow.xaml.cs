@@ -20,12 +20,12 @@ using GUI.Themes;
 using GUI.ViewModels;
 using GUI.Views;
 using Cells;
-using PiCross.DataStructures;
+using DataStructures;
 using PiCross.Facade.Editing;
 using PiCross.Facade.IO;
 using PiCross.Facade.Playing;
 using PiCross.Game;
-using Grid = PiCross.DataStructures.Grid;
+using Grid = DataStructures.Grid;
 
 namespace GUI
 {

@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Cells;
-using PiCross.DataStructures;
+using DataStructures;
 using PiCross.Game;
 
 namespace GUI.Controls

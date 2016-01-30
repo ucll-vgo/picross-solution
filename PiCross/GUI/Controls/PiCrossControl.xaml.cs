@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
-using PiCross.DataStructures;
+using DataStructures;
 using UIGrid = System.Windows.Controls.Grid;
 
 namespace GUI.Controls
