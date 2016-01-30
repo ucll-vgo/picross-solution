@@ -119,8 +119,6 @@
     <Compile Include="Converters\InterpolatedStringConverter.cs" />
     <Compile Include="Converters\TemplateLoaderConverter.cs" />
     <Compile Include="TemplateSelectors\TypeBasedSelector.cs" />
-    <Compile Include="ViewModels\EditMode\EditorConstraintsViewModel.cs" />
-    <Compile Include="ViewModels\EditMode\EditorSquareViewModel.cs" />
     <Compile Include="ViewModels\EditMode\EditorViewModel.cs" />
     <Compile Include="ViewModels\LibraryMode\LibraryViewModel.cs" />
     <Compile Include="ViewModels\PlayerSelection\PlayerSelectionViewModel.cs" />
