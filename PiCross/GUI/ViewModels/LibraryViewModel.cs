@@ -13,7 +13,7 @@ using PiCross.Facade.IO;
 using PiCross.Facade.Playing;
 using PiCross.Game;
 
-namespace GUI.ViewModels.LibraryMode
+namespace GUI.ViewModels
 {
     public class LibraryViewModel : ViewModel
     {

@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using GUI.Commands;
-using GUI.ViewModels.LibraryMode;
 using GUI.ViewModels.PlayerSelection;
 using PiCross.Cells;
 using PiCross.DataStructures;
