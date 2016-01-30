@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using PiCross.Cells;
+using PiCross.DataStructures;
+using PiCross.Game;
 
 namespace GUI.Controls
 {
@@ -23,6 +26,96 @@ namespace GUI.Controls
         public EditorControl()
         {
             InitializeComponent();
+        }
+
+        public IViewModel ViewModel
+        {
+            get { return (IViewModel) GetValue( ViewModelProperty ); }
+            set { SetValue( ViewModelProperty, value ); }
+        }
+
+        // Using a DependencyProperty as the backing store for ViewModel.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ViewModelProperty =
+            DependencyProperty.Register( "ViewModel", typeof( IViewModel ), typeof( EditorControl ), new PropertyMetadata( null ) );
+
+        
+
+        public interface IViewModel
+        {
+            IGrid<ISquareViewModel> Grid { get; }
+
+            ISequence<IConstraintsViewModel> ColumnConstraints { get; }
+
+            ISequence<IConstraintsViewModel> RowConstraints { get; }
+
+            IGrid<Cell<bool>> ThumbnailData { get; }
+        }
+
+        public interface ISquareViewModel
+        {
+            Cell<bool> IsFilled { get; }
+
+            Cell<Ambiguity> Ambiguity { get; }
+
+            ICommand Activate { get; }
+
+            ICommand SetFilled { get; }
+
+            ICommand SetEmpty { get; }
+        }
+
+        public interface IConstraintsViewModel
+        {
+            Cell<IEnumerable<int>> Constraints { get; }
+
+            Cell<bool> IsActive { get; }
+        }
+
+        public class PuzzleDataAdapter : IPuzzleData
+        {
+            private IViewModel viewModel;
+
+            public PuzzleDataAdapter(IViewModel viewModel)
+            {
+                this.viewModel = viewModel;
+            }
+
+            public IGrid<object> Grid
+            {
+                get { return viewModel.Grid; }
+            }
+
+            public ISequence<object> ColumnConstraints
+            {
+                get { return viewModel.ColumnConstraints; }
+            }
+
+            public ISequence<object> RowConstraints
+            {
+                get { return viewModel.RowConstraints; }
+            }
+        }
+    }
+
+    public class PuzzleDataConverter : IValueConverter
+    {
+        public object Convert( object value, Type targetType, object parameter, System.Globalization.CultureInfo culture )
+        {
+            if ( value == null )
+            {
+                return null;
+            }
+            else
+            {
+                var vm = (EditorControl.IViewModel) value;
+
+                return new EditorControl.PuzzleDataAdapter( vm );
+            }
+        }
+
+        public object ConvertBack( object value, Type targetType, object parameter, System.Globalization.CultureInfo culture )
+        {
+            throw new NotImplementedException();
         }
     }
 }

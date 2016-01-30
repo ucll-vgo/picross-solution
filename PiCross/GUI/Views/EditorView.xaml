@@ -13,7 +13,7 @@
             </StackPanel>
         </Border>
         <Viewbox>
-            <controls:EditorControl></controls:EditorControl>
+            <controls:EditorControl ViewModel="{Binding ViewModel}" />
         </Viewbox>
     </DockPanel>
 </UserControl>
