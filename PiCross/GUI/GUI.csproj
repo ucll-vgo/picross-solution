@@ -121,7 +121,6 @@
     <Compile Include="ViewModels\EditorViewModel.cs" />
     <Compile Include="ViewModels\PlayLibraryViewModel.cs" />
     <Compile Include="ViewModels\PlayerSelectionViewModel.cs" />
-    <Compile Include="ViewModels\PlayMode\ConstraintsValueViewModel.cs" />
     <Compile Include="ViewModels\PlayMode\PlayViewModel.cs" />
     <Compile Include="Views\PlayView.xaml.cs">
       <DependentUpon>PlayView.xaml</DependentUpon>

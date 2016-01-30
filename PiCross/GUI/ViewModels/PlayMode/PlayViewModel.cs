@@ -532,5 +532,31 @@ namespace GUI.ViewModels.PlayMode
                 }
             }
         }
+
+        public class ConstraintsValueViewModel
+        {
+            private readonly IPlayablePuzzleConstraintsValue value;
+
+            public ConstraintsValueViewModel( IPlayablePuzzleConstraintsValue value )
+            {
+                this.value = value;
+            }
+
+            public Cell<bool> IsSatisfied
+            {
+                get
+                {
+                    return this.value.IsSatisfied;
+                }
+            }
+
+            public Cell<int> Number
+            {
+                get
+                {
+                    return Cell.Create( this.value.Value );
+                }
+            }
+        }
     }
 }
