@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using GUI;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PiCross.DataStructures;
+using DataStructures;
 
 namespace PiCross.Tests
 {
