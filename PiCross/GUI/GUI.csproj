@@ -123,7 +123,6 @@
     <Compile Include="ViewModels\PlayerSelectionViewModel.cs" />
     <Compile Include="ViewModels\PlayMode\ConstraintsValueViewModel.cs" />
     <Compile Include="ViewModels\PlayMode\ConstraintsViewModel.cs" />
-    <Compile Include="ViewModels\PlayMode\GridSquareViewModel.cs" />
     <Compile Include="ViewModels\PlayMode\PlayViewModel.cs" />
     <Compile Include="Views\PlayView.xaml.cs">
       <DependentUpon>PlayView.xaml</DependentUpon>
