@@ -11,7 +11,7 @@ using PiCross.Facade.Editing;
 using PiCross.Facade.IO;
 using PiCross.Game;
 
-namespace GUI.ViewModels.LibraryMode
+namespace GUI.ViewModels
 {
     public class EditorLibraryViewModel : ViewModel
     {

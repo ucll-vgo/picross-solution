@@ -28,7 +28,7 @@
         <DataTemplate DataType="{x:Type lvm:LibraryViewModel}">
             <view:LibraryView />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type lvm:EditorLibraryViewModel}">
+        <DataTemplate DataType="{x:Type viewmodels:EditorLibraryViewModel}">
             <view:EditorLibraryView />
         </DataTemplate>
         <DataTemplate DataType="{x:Type viewmodels:EditorViewModel}">

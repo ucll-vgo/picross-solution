@@ -74,7 +74,7 @@
     <Compile Include="Timer.cs" />
     <Compile Include="TypeMapping.cs" />
     <Compile Include="ViewModels\IntroViewModel.cs" />
-    <Compile Include="ViewModels\LibraryMode\EditorLibraryViewModel.cs" />
+    <Compile Include="ViewModels\EditorLibraryViewModel.cs" />
     <Compile Include="ViewModels\MasterController.cs" />
     <Compile Include="ViewModels\PauseViewModel.cs" />
     <Compile Include="ViewModels\PlayerAdditionViewModel.cs" />
