@@ -37,7 +37,7 @@
                 <ItemsControl ItemsSource="{Binding Items}" Margin="5">
                     <ItemsControl.ItemTemplateSelector>
                         <selectors:TypeBasedSelector>
-                            <gui:TypeMapping Type="{x:Type vm:SelectPlayerViewModel}">
+                            <gui:TypeMapping Type="{x:Type vm:PlayerSelectionViewModel+SelectPlayerViewModel}">
                                 <DataTemplate>
                                     <Button Padding="5" Margin="5" Style="{StaticResource playerButtonStyle}" Command="{Binding Select}">
                                         <Grid>
@@ -52,7 +52,7 @@
                                 </DataTemplate>
                             </gui:TypeMapping>
 
-                            <gui:TypeMapping Type="{x:Type vm:AddPlayerViewModel}">
+                            <gui:TypeMapping Type="{x:Type vm:PlayerSelectionViewModel+AddPlayerViewModel}">
                                 <DataTemplate>
                                     <Button Padding="5" Margin="5" Style="{StaticResource playerButtonStyle}" Command="{Binding AddPlayer}">
                                         <Image Source="pack://application:,,,/Icons/newuser.png" Stretch="None" Margin="5" />
