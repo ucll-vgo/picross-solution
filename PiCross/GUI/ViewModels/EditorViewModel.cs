@@ -12,7 +12,7 @@ using PiCross.DataStructures;
 using PiCross.Facade.Editing;
 using PiCross.Game;
 
-namespace GUI.ViewModels.EditMode
+namespace GUI.ViewModels
 {
     public class EditorViewModel : ViewModel
     {

@@ -18,7 +18,6 @@ using GUI.Commands;
 using GUI.Controls;
 using GUI.Themes;
 using GUI.ViewModels;
-using GUI.ViewModels.EditMode;
 using GUI.ViewModels.LibraryMode;
 using GUI.ViewModels.PlayMode;
 using GUI.Views;

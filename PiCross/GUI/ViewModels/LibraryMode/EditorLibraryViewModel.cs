@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using GUI.Commands;
-using GUI.ViewModels.EditMode;
 using PiCross.Cells;
 using PiCross.DataStructures;
 using PiCross.Facade.Editing;

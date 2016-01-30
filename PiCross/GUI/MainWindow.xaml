@@ -6,7 +6,6 @@
         xmlns:converters="clr-namespace:GUI.Converters"
         xmlns:pvm="clr-namespace:GUI.ViewModels.PlayerSelection"
         xmlns:lvm="clr-namespace:GUI.ViewModels.LibraryMode"
-        xmlns:lve="clr-namespace:GUI.ViewModels.EditMode"
         xmlns:playvm="clr-namespace:GUI.ViewModels.PlayMode"
         xmlns:viewmodels="clr-namespace:GUI.ViewModels"
         xmlns:view="clr-namespace:GUI.Views"
@@ -32,7 +31,7 @@
         <DataTemplate DataType="{x:Type lvm:EditorLibraryViewModel}">
             <view:EditorLibraryView />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type lve:EditorViewModel}">
+        <DataTemplate DataType="{x:Type viewmodels:EditorViewModel}">
             <view:EditorView />
         </DataTemplate>
         <DataTemplate DataType="{x:Type playvm:PlayViewModel}">

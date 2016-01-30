@@ -119,7 +119,7 @@
     <Compile Include="Converters\InterpolatedStringConverter.cs" />
     <Compile Include="Converters\TemplateLoaderConverter.cs" />
     <Compile Include="TemplateSelectors\TypeBasedSelector.cs" />
-    <Compile Include="ViewModels\EditMode\EditorViewModel.cs" />
+    <Compile Include="ViewModels\EditorViewModel.cs" />
     <Compile Include="ViewModels\LibraryMode\LibraryViewModel.cs" />
     <Compile Include="ViewModels\PlayerSelection\PlayerSelectionViewModel.cs" />
     <Compile Include="ViewModels\PlayMode\ConstraintsValueViewModel.cs" />
@@ -274,6 +274,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icons\filter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ViewModels\EditMode\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
