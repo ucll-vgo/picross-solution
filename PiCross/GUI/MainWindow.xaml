@@ -4,7 +4,6 @@
         xmlns:picross="clr-namespace:PiCross.Game;assembly=PiCrossDomain"
         xmlns:controls="clr-namespace:GUI.Controls"
         xmlns:converters="clr-namespace:GUI.Converters"
-        xmlns:pvm="clr-namespace:GUI.ViewModels.PlayerSelection"
         xmlns:playvm="clr-namespace:GUI.ViewModels.PlayMode"
         xmlns:viewmodels="clr-namespace:GUI.ViewModels"
         xmlns:view="clr-namespace:GUI.Views"
@@ -18,7 +17,7 @@
         <DataTemplate DataType="{x:Type viewmodels:IntroViewModel}">
             <view:IntroView />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type pvm:PlayerSelectionViewModel}">
+        <DataTemplate DataType="{x:Type viewmodels:PlayerSelectionViewModel}">
             <view:PlayerSelectionView />
         </DataTemplate>
         <DataTemplate DataType="{x:Type viewmodels:PlayerAdditionViewModel}">
