@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using GUI.Commands;
 using GUI.Controls;
-using PiCross.Cells;
+using Cells;
 using PiCross.DataStructures;
 using PiCross.Facade.Editing;
 using PiCross.Game;

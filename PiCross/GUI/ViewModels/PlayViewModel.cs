@@ -5,7 +5,7 @@ using System.Windows.Input;
 using GUI.Commands;
 using GUI.Controls;
 using PiCross;
-using PiCross.Cells;
+using Cells;
 using PiCross.DataStructures;
 using PiCross.Facade;
 using PiCross.Facade.Playing;

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Input;
-using PiCross.Cells;
+using Cells;
 
 namespace GUI.Commands
 {

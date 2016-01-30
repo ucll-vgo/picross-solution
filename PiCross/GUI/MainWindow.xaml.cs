@@ -19,7 +19,7 @@ using GUI.Controls;
 using GUI.Themes;
 using GUI.ViewModels;
 using GUI.Views;
-using PiCross.Cells;
+using Cells;
 using PiCross.DataStructures;
 using PiCross.Facade.Editing;
 using PiCross.Facade.IO;

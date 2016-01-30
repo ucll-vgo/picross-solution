@@ -1,5 +1,5 @@
 ﻿using System;
-using PiCross.Cells;
+using Cells;
 
 namespace GUI.Commands
 {
