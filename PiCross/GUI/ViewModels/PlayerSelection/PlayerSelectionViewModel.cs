@@ -64,7 +64,7 @@ namespace GUI.ViewModels.PlayerSelection
 
             var library = Parent.Library;
             var playerProfile = Parent.PlayerDatabase[playerName];
-            var libraryVM = new LibraryViewModel( Parent, library, playerProfile );
+            var libraryVM = new PlayLibraryViewModel( Parent, library, playerProfile );
 
             Push( libraryVM );
         }

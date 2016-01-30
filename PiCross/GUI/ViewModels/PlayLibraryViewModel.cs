@@ -15,7 +15,7 @@ using PiCross.Game;
 
 namespace GUI.ViewModels
 {
-    public class LibraryViewModel : ViewModel
+    public class PlayLibraryViewModel : ViewModel
     {
         private readonly IPlayerProfile activeUser;
 
@@ -27,7 +27,7 @@ namespace GUI.ViewModels
 
         private readonly Cell<bool> showSolved;
 
-        public LibraryViewModel( MasterController parent, ILibrary library, IPlayerProfile activeUser )
+        public PlayLibraryViewModel( MasterController parent, ILibrary library, IPlayerProfile activeUser )
             : base( parent )
         {
             this.library = library;

@@ -120,7 +120,7 @@
     <Compile Include="Converters\TemplateLoaderConverter.cs" />
     <Compile Include="TemplateSelectors\TypeBasedSelector.cs" />
     <Compile Include="ViewModels\EditorViewModel.cs" />
-    <Compile Include="ViewModels\LibraryViewModel.cs" />
+    <Compile Include="ViewModels\PlayLibraryViewModel.cs" />
     <Compile Include="ViewModels\PlayerSelection\PlayerSelectionViewModel.cs" />
     <Compile Include="ViewModels\PlayMode\ConstraintsValueViewModel.cs" />
     <Compile Include="ViewModels\PlayMode\ConstraintsViewModel.cs" />
@@ -275,10 +275,7 @@
   <ItemGroup>
     <Resource Include="Icons\filter.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModels\EditMode\" />
-    <Folder Include="ViewModels\LibraryMode\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
