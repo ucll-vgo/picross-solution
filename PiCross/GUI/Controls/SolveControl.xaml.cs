@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using GUI.ViewModels.PlayMode;
+using GUI.ViewModels;
 using PiCross.DataStructures;
 using PiCross.Game;
 

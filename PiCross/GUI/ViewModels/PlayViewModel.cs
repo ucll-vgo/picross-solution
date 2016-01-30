@@ -11,7 +11,7 @@ using PiCross.Facade;
 using PiCross.Facade.Playing;
 using PiCross.Game;
 
-namespace GUI.ViewModels.PlayMode
+namespace GUI.ViewModels
 {
     public class PlayViewModel : ViewModel, IPuzzleData
     {

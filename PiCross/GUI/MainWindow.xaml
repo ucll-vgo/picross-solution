@@ -4,7 +4,6 @@
         xmlns:picross="clr-namespace:PiCross.Game;assembly=PiCrossDomain"
         xmlns:controls="clr-namespace:GUI.Controls"
         xmlns:converters="clr-namespace:GUI.Converters"
-        xmlns:playvm="clr-namespace:GUI.ViewModels.PlayMode"
         xmlns:viewmodels="clr-namespace:GUI.ViewModels"
         xmlns:view="clr-namespace:GUI.Views"
         xmlns:gui="clr-namespace:GUI" Background="Black"
@@ -32,7 +31,7 @@
         <DataTemplate DataType="{x:Type viewmodels:EditorViewModel}">
             <view:EditorView />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type playvm:PlayViewModel}">
+        <DataTemplate DataType="{x:Type viewmodels:PlayViewModel}">
             <view:PlayView />
         </DataTemplate>
         <DataTemplate DataType="{x:Type viewmodels:PauseViewModel}">

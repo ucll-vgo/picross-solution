@@ -18,7 +18,6 @@ using GUI.Commands;
 using GUI.Controls;
 using GUI.Themes;
 using GUI.ViewModels;
-using GUI.ViewModels.PlayMode;
 using GUI.Views;
 using PiCross.Cells;
 using PiCross.DataStructures;
