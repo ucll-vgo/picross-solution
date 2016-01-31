@@ -11,6 +11,7 @@ using Cells;
 using DataStructures;
 using PiCross.Facade.Editing;
 using PiCross.Game;
+using PiCross.Facade.IO;
 
 namespace GUI.ViewModels
 {
@@ -28,9 +29,12 @@ namespace GUI.ViewModels
 
         private readonly PuzzleViewModel puzzleViewModel;
 
-        public EditorViewModel( MasterController parent, PuzzleEditor_ManualAmbiguity puzzleEditor )
+        public EditorViewModel( MasterController parent, ILibraryEntry libraryEntry)
             : base( parent )
         {
+            var editorGrid = new EditorGrid( libraryEntry.Puzzle.Grid.Map( b => b ? Square.FILLED : Square.EMPTY ) );
+            var puzzleEditor = new PuzzleEditor_ManualAmbiguity( editorGrid );            
+
             this.puzzleViewModel = new PuzzleViewModel( puzzleEditor, activeSquare );
             
             this.puzzleEditor = puzzleEditor;

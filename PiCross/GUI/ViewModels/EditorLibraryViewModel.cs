@@ -57,9 +57,7 @@ namespace GUI.ViewModels
 
         private void PerformSelect(EntryViewModel entry)
         {
-            var editorGrid = new EditorGrid( entry.Grid.Map( b => b.Value ? Square.FILLED : Square.EMPTY ) );
-            var puzzleEditor = new PuzzleEditor_ManualAmbiguity( editorGrid );
-            Push( new EditorViewModel( Parent, puzzleEditor ) );
+            Push( new EditorViewModel( Parent, entry.LibraryEntry ) );
         }
 
         public Cell<IEnumerable<GroupViewModel>> Groups
@@ -114,6 +112,14 @@ namespace GUI.ViewModels
                 get
                 {
                     return entry.Puzzle.Grid.Map((bool x) => Cell.Create(x)).Copy();
+                }
+            }
+
+            public ILibraryEntry LibraryEntry
+            {
+                get
+                {
+                    return entry;
                 }
             }
         }
