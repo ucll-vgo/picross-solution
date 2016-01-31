@@ -214,6 +214,39 @@
         </Setter>
     </Style>
 
+    <Style x:Key="add5x5ButtonStyle" BasedOn="{StaticResource buttonStyle}" TargetType="{x:Type Button}">
+        <Setter Property="Content">
+            <Setter.Value>
+                <Grid>
+                    <TextBlock Text="+" FontWeight="Bold" FontFamily="Arial" FontSize="128" Foreground="White" Opacity=".5" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <TextBlock Text="5x5" FontSize="32" Foreground="White" HorizontalAlignment="Center"  VerticalAlignment="Center" />
+                </Grid>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="add10x10ButtonStyle" BasedOn="{StaticResource buttonStyle}" TargetType="{x:Type Button}">
+        <Setter Property="Content">
+            <Setter.Value>
+                <Grid>
+                    <TextBlock Text="+" FontWeight="Bold" FontFamily="Arial" FontSize="128" Foreground="White" Opacity=".5" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <TextBlock Text="10x10" FontSize="32" Foreground="White" HorizontalAlignment="Center"  VerticalAlignment="Center" />
+                </Grid>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="add15x15ButtonStyle" BasedOn="{StaticResource buttonStyle}" TargetType="{x:Type Button}">
+        <Setter Property="Content">
+            <Setter.Value>
+                <Grid>
+                    <TextBlock Text="+" FontWeight="Bold" FontFamily="Arial" FontSize="128" Foreground="White" Opacity=".5" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <TextBlock Text="15x15" FontSize="32" Foreground="White" HorizontalAlignment="Center"  VerticalAlignment="Center" />
+                </Grid>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style TargetType="{x:Type local:PuzzleGridSquareControl}">
         <Setter Property="Template">
             <Setter.Value>

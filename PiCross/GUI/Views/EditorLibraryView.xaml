@@ -10,6 +10,9 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <DockPanel>
         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Style="{DynamicResource add5x5ButtonStyle}" Command="{Binding Create}" CommandParameter="5x5" />
+            <Button Style="{DynamicResource add10x10ButtonStyle}" Command="{Binding Create}" CommandParameter="10x10" />
+            <Button Style="{DynamicResource add15x15ButtonStyle}" Command="{Binding Create}" CommandParameter="15x15" />
             <Button Style="{DynamicResource backButtonStyle}" Command="{Binding Back}" />
         </StackPanel>
 
