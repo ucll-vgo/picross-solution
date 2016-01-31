@@ -103,10 +103,10 @@ namespace GUI.ViewModels
                 var signalFactory = new SignalFactory<Vector2D>();
 
                 this.puzzleEditor = puzzleEditor;
-                this.grid = DataStructures.Grid.Create<SquareViewModel>( puzzleEditor.Size, position => new SquareViewModel( puzzleEditor[position], signalFactory.CreateSignal( position ) ) );
+                this.grid = DataStructures.Grid.Create<SquareViewModel>( puzzleEditor.Grid.Size, position => new SquareViewModel( puzzleEditor.Grid[position], signalFactory.CreateSignal( position ) ) );
                 this.rowConstraints = puzzleEditor.RowConstraints.Map( ( index, cs ) => new ConstraintsViewModel( cs, signalFactory.Cell.Map( p => p != null && p.Y == index ) ) );
                 this.columnConstraints = puzzleEditor.ColumnConstraints.Map( ( index, cs ) => new ConstraintsViewModel( cs, signalFactory.Cell.Map( p => p != null && p.X == index ) ) );
-                this.thumbnail = DataStructures.Grid.Create<Cell<bool>>( puzzleEditor.Size, position => puzzleEditor[position].IsFilled );
+                this.thumbnail = DataStructures.Grid.Create<Cell<bool>>( puzzleEditor.Grid.Size, position => puzzleEditor.Grid[position].IsFilled );
             }
 
             public IGrid<EditorControl.ISquareViewModel> Grid
