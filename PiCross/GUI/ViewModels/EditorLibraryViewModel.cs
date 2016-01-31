@@ -11,6 +11,7 @@ using PiCross.Facade.Editing;
 using PiCross.Facade.IO;
 using PiCross.Game;
 using System.Text.RegularExpressions;
+using System.Collections.ObjectModel;
 
 namespace GUI.ViewModels
 {
@@ -24,7 +25,7 @@ namespace GUI.ViewModels
 
         private readonly ICommand create;
 
-        private readonly Cell<IEnumerable<GroupViewModel>> groups;
+        private readonly ObservableCollection<GroupViewModel> groups;
 
         public EditorLibraryViewModel( MasterController parent, ILibrary library )
             : base( parent )
@@ -33,16 +34,21 @@ namespace GUI.ViewModels
             this.back = EnabledCommand.FromDelegate( PerformBack );
             this.select = EnabledCommand.FromDelegate<EntryViewModel>( PerformSelect );
             this.create = EnabledCommand.FromDelegate<string>( PerformCreate );
-            this.groups = Cell.Create<IEnumerable<GroupViewModel>>( null );
+            this.groups = new ObservableCollection<GroupViewModel>();
 
             UpdateGroups();
         }
 
         private void UpdateGroups()
         {
-            this.groups.Value = from entry in library.Entries
-                                group entry by entry.Puzzle.Size into entryGroup
-                                select new GroupViewModel( entryGroup.Key, entryGroup );
+            this.groups.Clear();
+
+            foreach ( var groupViewMode in from entry in library.Entries
+                                           group entry by entry.Puzzle.Size into entryGroup
+                                           select new GroupViewModel( entryGroup.Key, entryGroup ) )
+            {
+                this.groups.Add( groupViewMode );
+            }
         }
 
         public ICommand Back
@@ -99,7 +105,7 @@ namespace GUI.ViewModels
             }
         }
 
-        public Cell<IEnumerable<GroupViewModel>> Groups
+        public ObservableCollection<GroupViewModel> Groups
         {
             get
             {
