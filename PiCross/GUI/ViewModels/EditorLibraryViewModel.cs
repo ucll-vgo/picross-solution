@@ -117,12 +117,12 @@ namespace GUI.ViewModels
         {
             private readonly Size size;
 
-            private readonly IEnumerable<ILibraryEntry> entries;
+            private readonly ObservableCollection<EntryViewModel> entries;
 
             public GroupViewModel( Size size, IEnumerable<ILibraryEntry> entries )
             {
                 this.size = size;
-                this.entries = entries;
+                this.entries = new ObservableCollection<EntryViewModel>( entries.Select( e => new EntryViewModel( e ) ) );
             }
 
             public Size Size
@@ -133,12 +133,11 @@ namespace GUI.ViewModels
                 }
             }
 
-            public IEnumerable<EntryViewModel> Members
+            public ObservableCollection<EntryViewModel> Members
             {
                 get
                 {
-                    return from entry in entries
-                           select new EntryViewModel( entry );
+                    return entries;
                 }
             }
         }
