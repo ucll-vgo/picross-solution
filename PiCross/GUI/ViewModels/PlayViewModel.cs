@@ -36,7 +36,7 @@ namespace GUI.ViewModels
         {
             this.puzzle = puzzle;
             this.activatedSquare = Cell.Create<Vector2D>( null );
-            this.selectionHelper = new GridSelectionHelper( puzzle.Size );
+            this.selectionHelper = new GridSelectionHelper( puzzle.Grid.Size );
             this.grid = new GridViewModel( puzzle, activatedSquare, selectionHelper.Selection );
             this.columnConstraints = CreateColumnConstraints();
             this.rowConstraints = CreateRowConstraints();
@@ -276,7 +276,7 @@ namespace GUI.ViewModels
             {
                 this.puzzle = puzzle;
 
-                this.squares = DataStructures.Grid.Create( puzzle.Size, p => new GridSquareViewModel( puzzle[p], activatedSquare.Map( q => p == q ), puzzle.IsSolved, selectionGrid[p] ) );
+                this.squares = DataStructures.Grid.Create( puzzle.Grid.Size, p => new GridSquareViewModel( puzzle.Grid[p], activatedSquare.Map( q => p == q ), puzzle.IsSolved, selectionGrid[p] ) );
             }
 
             public IGrid<GridSquareViewModel> Squares
