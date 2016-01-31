@@ -43,11 +43,57 @@ namespace GUI.ViewModels
         {
             this.groups.Clear();
 
-            foreach ( var groupViewMode in from entry in library.Entries
-                                           group entry by entry.Puzzle.Size into entryGroup
-                                           select new GroupViewModel( entryGroup.Key, entryGroup ) )
+            foreach ( var group in from entry in library.Entries
+                                   group entry by entry.Puzzle.Size )
             {
-                this.groups.Add( groupViewMode );
+                var groupViewModel = FindGroupViewModelForSize( group.Key );
+
+                groupViewModel.Update( group );
+            }
+        }
+
+        private GroupViewModel FindGroupViewModelForSize(Size size)
+        {
+            // Look fore existing group
+            foreach ( var groupViewModel in groups )
+            {
+                if ( groupViewModel.Size == size )
+                {
+                    return groupViewModel;
+                }
+            }
+
+            // No group found, find insertion index
+            var index = 0;
+            while ( index < groups.Count && SizeComesBefore( groups[index].Size, size ) )
+            {
+                ++index;
+            }
+
+            // Create new group and insert it
+            var newGroupViewModel = new GroupViewModel( size, Enumerable.Empty<ILibraryEntry>() ) ;
+            groups.Insert( index, newGroupViewModel );
+
+            return newGroupViewModel;
+        }
+
+        private bool SizeComesBefore(Size sizeA, Size sizeB)
+        {
+            if ( sizeA.Width < sizeB.Width )
+            {
+                return true;
+            }
+            else if ( sizeA.Width > sizeB.Height )
+            {
+                return false;
+            }
+            else if ( sizeA.Height < sizeB.Height )
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
@@ -140,22 +186,50 @@ namespace GUI.ViewModels
                     return entries;
                 }
             }
+
+            public void Update(IEnumerable<ILibraryEntry> entries)
+            {
+                foreach ( var entry in entries )
+                {
+                    Update( entry );
+                }
+            }
+
+            private void Update(ILibraryEntry entry)
+            {
+                // Find corresponding view model
+                foreach ( var entryViewModel in this.entries )
+                {
+                    if ( entryViewModel.LibraryEntry == entry )
+                    {
+                        entryViewModel.Update();
+                        return;
+                    }
+                }
+
+                // No corresponding view model found
+                var viewModel = new EntryViewModel( entry );
+                this.entries.Add( viewModel );
+            }
         }
 
         public class EntryViewModel
         {
             private readonly ILibraryEntry entry;
 
+            private readonly Cell<IGrid<Cell<bool>>> grid;
+
             public EntryViewModel( ILibraryEntry entry )
             {
                 this.entry = entry;
+                this.grid = Cell.Create( entry.Puzzle.Grid.Map( ( bool x ) => Cell.Create( x ) ).Copy() );
             }
 
-            public IGrid<Cell<bool>> Grid
+            public Cell<IGrid<Cell<bool>>> Grid
             {
                 get
                 {
-                    return entry.Puzzle.Grid.Map( ( bool x ) => Cell.Create( x ) ).Copy();
+                    return grid;
                 }
             }
 
@@ -165,6 +239,11 @@ namespace GUI.ViewModels
                 {
                     return entry;
                 }
+            }
+
+            public void Update()
+            {
+                // TODO!
             }
         }
     }
