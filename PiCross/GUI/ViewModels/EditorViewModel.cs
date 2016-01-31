@@ -17,11 +17,11 @@ namespace GUI.ViewModels
 {
     public class EditorViewModel : ViewModel
     {
-        private readonly PuzzleEditor_ManualAmbiguity puzzleEditor;
+        private readonly IPuzzleEditor puzzleEditor;
 
         private readonly Cell<Vector2D> activeSquare;
 
-        private readonly ICommand refine;
+        private readonly ICommand resolve;
 
         private readonly ICommand back;
 
@@ -39,7 +39,7 @@ namespace GUI.ViewModels
             
             this.puzzleEditor = puzzleEditor;
             this.activeSquare = Cell.Create<Vector2D>( null );
-            this.refine = EnabledCommand.FromDelegate( PerformRefine );
+            this.resolve = EnabledCommand.FromDelegate( PerformRefine );
             this.back = EnabledCommand.FromDelegate( PerformBack );
             this.thumbnailData = DataStructures.Grid.Create( puzzleEditor.Size, position => puzzleEditor[position].IsFilled );
         }
@@ -52,11 +52,11 @@ namespace GUI.ViewModels
             }
         }
 
-        public ICommand Refine
+        public ICommand Resolve
         {
             get
             {
-                return refine;
+                return resolve;
             }
         }
 
