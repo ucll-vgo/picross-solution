@@ -10,7 +10,8 @@
         <Border DockPanel.Dock="Bottom">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button Style="{DynamicResource resolveButtonStyle}" Command="{Binding Resolve}" />
-                <Button Style="{DynamicResource backButtonStyle}" Command="{Binding Back}" />
+                <Button Style="{DynamicResource saveButtonStyle}" Command="{Binding Save}" />
+                <Button Style="{DynamicResource backButtonStyle}" Command="{Binding Cancel}" />
             </StackPanel>
         </Border>
         <Viewbox>

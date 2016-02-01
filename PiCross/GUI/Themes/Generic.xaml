@@ -198,6 +198,22 @@
         </Setter>
     </Style>
 
+    <Style x:Key="saveButtonStyle" BasedOn="{StaticResource buttonStyle}" TargetType="{x:Type Button}">
+        <Setter Property="Content">
+            <Setter.Value>
+                <Image Source="pack://application:,,,/Icons/save.png" Stretch="None" />
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="cancelButtonStyle" BasedOn="{StaticResource buttonStyle}" TargetType="{x:Type Button}">
+        <Setter Property="Content">
+            <Setter.Value>
+                <Image Source="pack://application:,,,/Icons/cancel.png" Stretch="None" />
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="pauseButtonStyle" BasedOn="{StaticResource buttonStyle}" TargetType="{x:Type Button}">
         <Setter Property="Content">
             <Setter.Value>

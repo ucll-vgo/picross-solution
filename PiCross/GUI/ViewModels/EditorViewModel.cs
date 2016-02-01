@@ -17,13 +17,17 @@ namespace GUI.ViewModels
 {
     public class EditorViewModel : ViewModel
     {
+        private readonly ILibraryEntry libraryEntry;
+
         private readonly IPuzzleEditor puzzleEditor;
 
         private readonly Cell<Vector2D> activeSquare;
 
         private readonly ICommand resolve;
 
-        private readonly ICommand back;
+        private readonly ICommand cancel;
+
+        private readonly ICommand save;
 
         private readonly IGrid<Cell<bool>> thumbnailData;
 
@@ -32,6 +36,8 @@ namespace GUI.ViewModels
         public EditorViewModel( MasterController parent, ILibraryEntry libraryEntry)
             : base( parent )
         {
+            this.libraryEntry = libraryEntry;
+
             var editorGrid = new EditorGrid( libraryEntry.Puzzle.Grid.Map( b => b ? Square.FILLED : Square.EMPTY ) );
             var puzzleEditor = new PuzzleEditor_ManualAmbiguity( editorGrid );            
 
@@ -40,15 +46,24 @@ namespace GUI.ViewModels
             this.puzzleEditor = puzzleEditor;
             this.activeSquare = Cell.Create<Vector2D>( null );
             this.resolve = EnabledCommand.FromDelegate( PerformRefine );
-            this.back = EnabledCommand.FromDelegate( PerformBack );
+            this.cancel = EnabledCommand.FromDelegate( PerformCancel );
+            this.save = EnabledCommand.FromDelegate( PerformSave );
             this.thumbnailData = DataStructures.Grid.Create( puzzleEditor.Size, position => puzzleEditor[position].IsFilled );
         }
 
-        public ICommand Back
+        public ICommand Cancel
         {
             get
             {
-                return back;
+                return cancel;
+            }
+        }
+
+        public ICommand Save
+        {
+            get
+            {
+                return save;
             }
         }
 
@@ -68,8 +83,14 @@ namespace GUI.ViewModels
             }
         }
 
-        private void PerformBack()
+        private void PerformCancel()
         {
+            Pop();
+        }
+
+        private void PerformSave()
+        {
+            this.libraryEntry.Puzzle = this.puzzleEditor.BuildPuzzle();
             Pop();
         }
 

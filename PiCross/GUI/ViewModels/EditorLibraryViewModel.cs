@@ -35,7 +35,10 @@ namespace GUI.ViewModels
             this.select = EnabledCommand.FromDelegate<EntryViewModel>( PerformSelect );
             this.create = EnabledCommand.FromDelegate<string>( PerformCreate );
             this.groups = new ObservableCollection<GroupViewModel>();
+        }
 
+        protected override void OnActivation()
+        {
             UpdateGroups();
         }
 
