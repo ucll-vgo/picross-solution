@@ -10,6 +10,7 @@ using DataStructures;
 using PiCross.Facade;
 using PiCross.Facade.Playing;
 using PiCross.Game;
+using Utility;
 
 namespace GUI.ViewModels
 {
