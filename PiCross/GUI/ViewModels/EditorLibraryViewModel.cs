@@ -57,7 +57,7 @@ namespace GUI.ViewModels
 
         private GroupViewModel FindGroupViewModelForSize(Size size)
         {
-            // Look fore existing group
+            // Look for existing group
             foreach ( var groupViewModel in groups )
             {
                 if ( groupViewModel.Size == size )
