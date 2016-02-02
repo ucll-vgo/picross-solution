@@ -147,8 +147,9 @@ namespace GUI.ViewModels
                 var width = int.Parse( match.Groups[1].Value );
                 var height = int.Parse( match.Groups[2].Value );
                 var size = new Size( width, height );
+                var puzzle = Puzzle.CreateEmpty( size );
 
-                var newEntry = library.Create( size, "unnamed" );
+                var newEntry = library.Create( puzzle, "unnamed" );
 
                 UpdateGroups();
             }
