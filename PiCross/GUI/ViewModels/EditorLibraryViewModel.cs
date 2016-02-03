@@ -12,6 +12,7 @@ using PiCross.Facade.IO;
 using PiCross.Game;
 using System.Text.RegularExpressions;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace GUI.ViewModels
 {
@@ -44,7 +45,7 @@ namespace GUI.ViewModels
 
         private void UpdateGroups()
         {
-            this.groups.Clear();
+            // this.groups.Clear();
 
             foreach ( var group in from entry in library.Entries
                                    group entry by entry.Puzzle.Size )
@@ -221,15 +222,15 @@ namespace GUI.ViewModels
         {
             private readonly ILibraryEntry entry;
 
-            private readonly Cell<IGrid<Cell<bool>>> grid;
+            private readonly IGrid<Cell<bool>> grid;
 
             public EntryViewModel( ILibraryEntry entry )
             {
                 this.entry = entry;
-                this.grid = Cell.Create( entry.Puzzle.Grid.Map( ( bool x ) => Cell.Create( x ) ).Copy() );
+                this.grid = entry.Puzzle.Grid.Map( ( pos, val ) => Cell.Derived( () => entry.Puzzle.Grid[pos] ) );
             }
 
-            public Cell<IGrid<Cell<bool>>> Grid
+            public IGrid<Cell<bool>> Grid
             {
                 get
                 {
@@ -247,7 +248,7 @@ namespace GUI.ViewModels
 
             public void Update()
             {
-                // TODO!
+                grid.ForEach<Cell<bool>>( cell => cell.Refresh() );
             }
         }
     }
