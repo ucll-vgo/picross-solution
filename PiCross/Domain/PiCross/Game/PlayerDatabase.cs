@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Cells;
 using PiCross.Game;
 using PiCross.Facade.IO;
+using Utility;
 
 namespace PiCross.Game
 {
@@ -15,7 +16,7 @@ namespace PiCross.Game
     {
         private readonly Dictionary<string, PlayerProfile> playerProfiles;
 
-        private readonly List<string> names;
+        private readonly List<string> names; // TODO Remove this
 
         public PlayerDatabase()
         {
@@ -23,7 +24,15 @@ namespace PiCross.Game
             names = new List<string>();
         }
 
-        public IPlayerProfile this[string name]
+        IPlayerProfile IPlayerDatabase.this[string name]
+        {
+            get
+            {
+                return this[name];
+            }
+        }
+
+        public PlayerProfile this[string name]
         {
             get
             {
@@ -42,8 +51,13 @@ namespace PiCross.Game
         {
             return !string.IsNullOrWhiteSpace( name );
         }
-        
-        public IPlayerProfile CreateNewProfile( string name )
+
+        IPlayerProfile IPlayerDatabase.CreateNewProfile( string name )
+        {
+            return CreateNewProfile( name );
+        }
+
+        public PlayerProfile CreateNewProfile( string name )
         {
             if ( !IsValidPlayerName( name ) )
             {
@@ -64,13 +78,13 @@ namespace PiCross.Game
             }
         }
 
-        public void DeleteProfile(string name)
+        public void DeleteProfile( string name )
         {
             if ( name == null )
             {
                 throw new ArgumentNullException( "name" );
             }
-            else if ( !playerProfiles.ContainsKey(name))
+            else if ( !playerProfiles.ContainsKey( name ) )
             {
                 throw new ArgumentException( "No player with name " + name );
             }
@@ -105,6 +119,21 @@ namespace PiCross.Game
                 return names;
             }
         }
+
+        public override bool Equals( object obj )
+        {
+            return Equals( obj as PlayerDatabase );
+        }
+
+        public bool Equals( PlayerDatabase playerDatabase )
+        {
+            return playerDatabase != null && playerProfiles.EqualItems( playerDatabase.playerProfiles );
+        }
+
+        public override int GetHashCode()
+        {
+            return playerProfiles.GetHashCode();
+        }
     }
 
     public class PlayerProfile : IPlayerProfile
@@ -119,7 +148,15 @@ namespace PiCross.Game
             puzzleInformation = new PlayerPuzzleInformation();
         }
 
-        public IPlayerPuzzleInformation PuzzleInformation
+        IPlayerPuzzleInformation IPlayerProfile.PuzzleInformation
+        {
+            get
+            {
+                return PuzzleInformation;
+            }
+        }
+
+        public PlayerPuzzleInformation PuzzleInformation
         {
             get { return puzzleInformation; }
         }
@@ -128,18 +165,41 @@ namespace PiCross.Game
         {
             get { return name; }
         }
+
+        public override bool Equals( object obj )
+        {
+            return Equals( obj as PlayerProfile );
+        }
+
+        public bool Equals( PlayerProfile playerProfile )
+        {
+            return playerProfile != null && name == playerProfile.name && puzzleInformation.Equals( playerProfile.puzzleInformation );
+        }
+
+        public override int GetHashCode()
+        {
+            return name.GetHashCode();
+        }
     }
 
     public class PlayerPuzzleInformation : IPlayerPuzzleInformation
     {
-        private readonly Dictionary<ILibraryEntry, IPlayerPuzzleInformationEntry> entries;
+        private readonly Dictionary<LibraryEntry, PlayerPuzzleInformationEntry> entries;
 
         public PlayerPuzzleInformation()
         {
-            this.entries = new Dictionary<ILibraryEntry, IPlayerPuzzleInformationEntry>();
+            this.entries = new Dictionary<LibraryEntry, PlayerPuzzleInformationEntry>();
         }
 
-        public IPlayerPuzzleInformationEntry this[ILibraryEntry libraryEntry]
+        IPlayerPuzzleInformationEntry IPlayerPuzzleInformation.this[ILibraryEntry libraryEntry]
+        {
+            get
+            {
+                return this[(LibraryEntry) libraryEntry];
+            }
+        }
+
+        public PlayerPuzzleInformationEntry this[LibraryEntry libraryEntry]
         {
             get
             {
@@ -150,6 +210,30 @@ namespace PiCross.Game
 
                 return entries[libraryEntry];
             }
+        }
+
+        public override bool Equals( object obj )
+        {
+            return Equals( obj as PlayerPuzzleInformation );
+        }
+
+        public bool Equals( PlayerPuzzleInformation playerPuzzleInformation )
+        {
+            if ( playerPuzzleInformation == null )
+            {
+                return false;
+            }
+            else
+            {
+                var libraryEntries = new HashSet<LibraryEntry>( this.entries.Keys.Concat(playerPuzzleInformation.entries.Keys) );
+
+                return libraryEntries.All( entry => this[entry].Equals( playerPuzzleInformation[entry] ) );
+            }
+        }        
+
+        public override int GetHashCode()
+        {
+            return this.entries.GetHashCode();
         }
     }
 
@@ -168,6 +252,21 @@ namespace PiCross.Game
             {
                 return bestTime;
             }
+        }
+
+        public override bool Equals( object obj )
+        {
+            return Equals( obj as PlayerPuzzleInformationEntry );
+        }
+
+        public bool Equals(PlayerPuzzleInformationEntry  entry)
+        {
+            return entry != null && bestTime.Equals( entry.bestTime );
+        }
+
+        public override int GetHashCode()
+        {
+            return bestTime.GetHashCode();
         }
     }
 }

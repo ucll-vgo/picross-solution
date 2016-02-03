@@ -12,7 +12,7 @@ namespace PiCross
 {
     public class Library : ILibrary
     {
-        private readonly List<ILibraryEntry> entries;
+        private readonly List<LibraryEntry> entries;
 
         private int nextUID;
 
@@ -23,11 +23,19 @@ namespace PiCross
 
         private Library()
         {
-            this.entries = new List<ILibraryEntry>();
+            this.entries = new List<LibraryEntry>();
             nextUID = 0;
         }
 
-        public IList<ILibraryEntry> Entries
+        IList<ILibraryEntry> ILibrary.Entries
+        {
+            get
+            {
+                return Entries.Cast<ILibraryEntry>().ToList();
+            }
+        }
+
+        public IList<LibraryEntry> Entries
         {
             get
             {
@@ -35,7 +43,26 @@ namespace PiCross
             }
         }
 
-        public ILibraryEntry Create( Puzzle puzzle, string author)
+        public LibraryEntry GetEntryWithId(int id)
+        {
+            var result = entries.Find( entry => entry.UID == id );
+
+            if ( result == null )
+            {
+                throw new ArgumentException( "No entry found" );
+            }
+            else
+            {
+                return result;
+            }
+        }
+
+        ILibraryEntry ILibrary.Create(Puzzle puzzle, string author)
+        {
+            return Create( puzzle, author );
+        }
+
+        public LibraryEntry Create( Puzzle puzzle, string author)
         {
             var newEntry = new LibraryEntry( nextUID++, puzzle, author );
 
@@ -43,9 +70,71 @@ namespace PiCross
 
             return newEntry;
         }
+
+        public void Add(LibraryEntry libraryEntry)
+        {
+            if ( libraryEntry == null )
+            {
+                throw new ArgumentNullException( "libraryEntry" );
+            }
+            else if ( ContainsEntryWithUID(libraryEntry.UID))
+            {
+                throw new ArgumentException();
+            }
+            else
+            {
+                this.entries.Add( libraryEntry );
+            }
+        }
+
+        private bool ContainsEntryWithUID(int uid)
+        {
+            return entries.Any( entry => entry.UID == uid );
+        }
+
+        public override bool Equals( object obj )
+        {
+            return Equals( obj as Library );
+        }
+
+        public bool Equals(Library library)
+        {
+            if ( library == null )
+            {
+                return false;
+            }
+            else
+            {
+                if ( this.entries.Count != library.entries.Count )
+                {
+                    return false;
+                }
+                else
+                {
+                    return Enumerable.Range( 0, this.entries.Count ).All( i => entries[i].Equals( library.entries[i] ) );                           
+                }
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            return entries.Select( x => x.GetHashCode() ).Aggregate( ( acc, n ) => acc ^ n );
+        }
+
+        public IDictionary<int, ILibraryEntry> ToDictionary()
+        {
+            var result = new Dictionary<int, ILibraryEntry>();
+
+            foreach ( var entry in this.entries )
+            {
+                result[entry.UID] = entry;
+            }
+
+            return result;
+        }
     }
 
-    internal class LibraryEntry : ILibraryEntry
+    public class LibraryEntry : ILibraryEntry, IComparable<LibraryEntry>
     {
         private readonly int uid;
 
@@ -95,6 +184,11 @@ namespace PiCross
         public override int GetHashCode()
         {
             return uid.GetHashCode();
+        }
+
+        public int CompareTo( LibraryEntry other )
+        {
+            return this.uid.CompareTo( other.uid );
         }
     }
 }
