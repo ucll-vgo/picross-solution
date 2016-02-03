@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="AmbiguityCheckerTests.cs" />
     <Compile Include="CellTests.cs" />
+    <Compile Include="GridSelectionHelperTests.cs" />
     <Compile Include="PuzzleIOTests.cs" />
     <Compile Include="Constraints_IsSatisfied.cs" />
     <Compile Include="Constraints_SatisfiedPrefix.cs" />
@@ -80,6 +81,10 @@
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{06f9475c-dbda-49b3-a461-21821ca8be76}</Project>
       <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GUI\GUI.csproj">
+      <Project>{146df8b5-ba89-460e-a7a6-1cff3dbd95a9}</Project>
+      <Name>GUI</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>
