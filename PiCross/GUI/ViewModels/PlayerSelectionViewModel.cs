@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using GUI.Commands;
-using PiCross.Facade.IO;
+using PiCross.Facade;
 
 namespace GUI.ViewModels
 {

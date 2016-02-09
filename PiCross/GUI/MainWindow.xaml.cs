@@ -21,9 +21,7 @@ using GUI.ViewModels;
 using GUI.Views;
 using Cells;
 using DataStructures;
-using PiCross.Facade.Editing;
-using PiCross.Facade.IO;
-using PiCross.Facade.Playing;
+using PiCross.Facade;
 using PiCross.Game;
 using Grid = DataStructures.Grid;
 

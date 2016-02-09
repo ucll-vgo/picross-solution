@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Cells;
-using PiCross.Facade.IO;
+using PiCross.Facade;
 
 namespace GUI.ViewModels
 {

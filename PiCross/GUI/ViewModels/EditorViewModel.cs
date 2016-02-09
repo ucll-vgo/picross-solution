@@ -9,9 +9,8 @@ using GUI.Commands;
 using GUI.Controls;
 using Cells;
 using DataStructures;
-using PiCross.Facade.Editing;
+using PiCross.Facade;
 using PiCross.Game;
-using PiCross.Facade.IO;
 
 namespace GUI.ViewModels
 {
@@ -35,16 +34,16 @@ namespace GUI.ViewModels
 
         private readonly PuzzleViewModel puzzleViewModel;
 
-        public EditorViewModel( MasterController parent, ILibraryEntry libraryEntry)
+        public EditorViewModel( MasterController parent, ILibraryEntry libraryEntry )
             : base( parent )
         {
             this.libraryEntry = libraryEntry;
 
             var editorGrid = new EditorGrid( libraryEntry.Puzzle.Grid.Map( b => b ? Square.FILLED : Square.EMPTY ) );
-            var puzzleEditor = new PuzzleEditor_ManualAmbiguity( editorGrid );            
+            var puzzleEditor = new PuzzleEditor_ManualAmbiguity( editorGrid ); // TODO Remove reference
 
             this.puzzleViewModel = new PuzzleViewModel( puzzleEditor, activeSquare );
-            
+
             this.puzzleEditor = puzzleEditor;
             this.activeSquare = Cell.Create<Vector2D>( null );
             this.resolve = EnabledCommand.FromDelegate( PerformRefine );
@@ -160,7 +159,7 @@ namespace GUI.ViewModels
             {
                 get { return rowConstraints; }
             }
-            
+
             public IGrid<Cell<bool>> ThumbnailData
             {
                 get { return thumbnail; }
@@ -233,7 +232,7 @@ namespace GUI.ViewModels
             {
                 get
                 {
-                    return constraints.Constraints.Map(x => x.Values.Items);
+                    return constraints.Constraints.Map( x => x.Values.Items );
                 }
             }
 

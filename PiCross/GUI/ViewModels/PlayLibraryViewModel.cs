@@ -9,8 +9,7 @@ using GUI.Commands;
 using GUI.ViewModels;
 using Cells;
 using DataStructures;
-using PiCross.Facade.IO;
-using PiCross.Facade.Playing;
+using PiCross.Facade;
 using PiCross.Game;
 
 namespace GUI.ViewModels
