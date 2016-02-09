@@ -8,11 +8,20 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <DockPanel>
         <Border DockPanel.Dock="Bottom">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Style="{DynamicResource resolveButtonStyle}" Command="{Binding Resolve}" />
-                <Button Style="{DynamicResource saveButtonStyle}" Command="{Binding Save}" />
-                <Button Style="{DynamicResource cancelButtonStyle}" Command="{Binding Cancel}" />
-            </StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
+                    <Button Style="{DynamicResource resetButtonStyle}" Command="{Binding Reset}" ToolTip="Clear" />
+                </StackPanel>
+                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Style="{DynamicResource resolveButtonStyle}" Command="{Binding Resolve}" ToolTip="Check for ambiguities" />
+                    <Button Style="{DynamicResource saveButtonStyle}" Command="{Binding Save}" ToolTip="Save and exit" />
+                    <Button Style="{DynamicResource cancelButtonStyle}" Command="{Binding Cancel}" ToolTip="Exit without saving" />
+                </StackPanel>
+            </Grid>
         </Border>
         <Viewbox>
             <controls:EditorControl ViewModel="{Binding ViewModel}" />

@@ -29,6 +29,8 @@ namespace GUI.ViewModels
 
         private readonly ICommand save;
 
+        private readonly ICommand reset;
+
         private readonly IGrid<Cell<bool>> thumbnailData;
 
         private readonly PuzzleViewModel puzzleViewModel;
@@ -48,6 +50,7 @@ namespace GUI.ViewModels
             this.resolve = EnabledCommand.FromDelegate( PerformRefine );
             this.cancel = EnabledCommand.FromDelegate( PerformCancel );
             this.save = EnabledCommand.FromDelegate( PerformSave );
+            this.reset = EnabledCommand.FromDelegate( PerformReset );
             this.thumbnailData = DataStructures.Grid.Create( puzzleEditor.Size, position => puzzleEditor[position].IsFilled );
         }
 
@@ -75,6 +78,14 @@ namespace GUI.ViewModels
             }
         }
 
+        public ICommand Reset
+        {
+            get
+            {
+                return reset;
+            }
+        }
+
         public IGrid<Cell<bool>> ThumbnailData
         {
             get
@@ -97,6 +108,11 @@ namespace GUI.ViewModels
         private void PerformRefine()
         {
             this.puzzleEditor.ResolveAmbiguity();
+        }
+
+        private void PerformReset()
+        {
+            this.puzzleEditor.Grid.ForEach( ( IPuzzleEditorSquare square ) => { square.IsFilled.Value = false; } );
         }
 
         public EditorControl.IViewModel ViewModel

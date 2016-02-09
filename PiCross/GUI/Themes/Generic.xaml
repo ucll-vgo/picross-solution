@@ -230,6 +230,14 @@
         </Setter>
     </Style>
 
+    <Style x:Key="resetButtonStyle" BasedOn="{StaticResource buttonStyle}" TargetType="{x:Type Button}">
+        <Setter Property="Content">
+            <Setter.Value>
+                <Image Source="pack://application:,,,/Icons/garbage.png" Stretch="None" />
+            </Setter.Value>
+        </Setter>
+    </Style>    
+
     <Style x:Key="add5x5ButtonStyle" BasedOn="{StaticResource buttonStyle}" TargetType="{x:Type Button}">
         <Setter Property="Content">
             <Setter.Value>
