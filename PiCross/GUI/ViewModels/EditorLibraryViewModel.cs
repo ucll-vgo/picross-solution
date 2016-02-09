@@ -45,8 +45,6 @@ namespace GUI.ViewModels
 
         private void UpdateGroups()
         {
-            // this.groups.Clear();
-
             foreach ( var group in from entry in library.Entries
                                    group entry by entry.Puzzle.Size )
             {
