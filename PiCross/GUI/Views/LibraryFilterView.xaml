@@ -8,7 +8,7 @@
     <DockPanel>
         <Border DockPanel.Dock="Bottom">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Style="{DynamicResource backButtonStyle}" Command="{Binding Back}" ToolTip="Back" />
+                <Button Style="{DynamicResource backButtonStyle}" Command="{Binding Back}" ToolTip="Back" IsCancel="True" />
             </StackPanel>
         </Border>
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">

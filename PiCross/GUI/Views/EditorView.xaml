@@ -19,7 +19,7 @@
                 <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
                     <Button Style="{DynamicResource resolveButtonStyle}" Command="{Binding Resolve}" ToolTip="Check for ambiguities" />
                     <Button Style="{DynamicResource saveButtonStyle}" Command="{Binding Save}" ToolTip="Save and exit" />
-                    <Button Style="{DynamicResource cancelButtonStyle}" Command="{Binding Cancel}" ToolTip="Exit without saving" />
+                    <Button Style="{DynamicResource cancelButtonStyle}" Command="{Binding Cancel}" ToolTip="Exit without saving" IsCancel="True" />
                 </StackPanel>
             </Grid>
         </Border>

@@ -13,7 +13,7 @@
             <Button Style="{DynamicResource add5x5ButtonStyle}" Command="{Binding Create}" CommandParameter="5x5" ToolTip="Add 5x5 puzzle" />
             <Button Style="{DynamicResource add10x10ButtonStyle}" Command="{Binding Create}" CommandParameter="10x10" ToolTip="Add 10x10 puzzle" />
             <Button Style="{DynamicResource add15x15ButtonStyle}" Command="{Binding Create}" CommandParameter="15x15" ToolTip="Add 15x15 puzzle" />
-            <Button Style="{DynamicResource backButtonStyle}" Command="{Binding Back}" />
+            <Button Style="{DynamicResource backButtonStyle}" Command="{Binding Back}" IsCancel="True" />
         </StackPanel>
 
         <views:GeneralizedLibraryView Groups="{Binding Groups}">

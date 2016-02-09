@@ -16,7 +16,7 @@
         <Border DockPanel.Dock="Bottom">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <ToggleButton Style="{DynamicResource filterButtonStyle}" IsChecked="{Binding ShowSolved.Value}" ToolTip="Toggle show solved" />
-                <Button Style="{DynamicResource backButtonStyle}" Command="{Binding Back}" ToolTip="Back" />
+                <Button Style="{DynamicResource backButtonStyle}" Command="{Binding Back}" ToolTip="Back" IsCancel="True" />
             </StackPanel>
         </Border>
 
