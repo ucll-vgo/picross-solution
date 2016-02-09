@@ -21,7 +21,7 @@
         <Setter Property="Margin" Value="10" />
         <Setter Property="Width" Value="200" />
     </Style>
-    
+
     <Style x:Key="libraryButtonStyle" TargetType="{x:Type Button}">
         <Setter Property="Template">
             <Setter.Value>
@@ -236,7 +236,15 @@
                 <Image Source="pack://application:,,,/Icons/garbage.png" Stretch="None" />
             </Setter.Value>
         </Setter>
-    </Style>    
+    </Style>
+
+    <Style x:Key="addUserButtonStyle" BasedOn="{StaticResource buttonStyle}" TargetType="{x:Type Button}">
+        <Setter Property="Content">
+            <Setter.Value>
+                <Image Source="pack://application:,,,/Icons/newuser.png" Stretch="None" />
+            </Setter.Value>
+        </Setter>
+    </Style>
 
     <Style x:Key="add5x5ButtonStyle" BasedOn="{StaticResource buttonStyle}" TargetType="{x:Type Button}">
         <Setter Property="Content">
@@ -351,7 +359,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
     <!-- Editing -->
 
     <Style x:Key="Editor_Constraints_Style" TargetType="{x:Type DockPanel}">
@@ -372,7 +380,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
     <Style TargetType="{x:Type local:EditorGridSquareControl}">
         <Setter Property="Template">
             <Setter.Value>

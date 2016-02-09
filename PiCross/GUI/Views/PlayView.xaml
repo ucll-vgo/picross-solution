@@ -10,8 +10,8 @@
     <Grid>
         <DockPanel>
             <StackPanel DockPanel.Dock="Bottom" HorizontalAlignment="Right" Orientation="Horizontal">
-                <Button Style="{StaticResource pauseButtonStyle}" Command="{Binding Pause}" />
-                <Button Style="{StaticResource backButtonStyle}" Command="{Binding Back}" />
+                <Button Style="{StaticResource pauseButtonStyle}" Command="{Binding Pause}" ToolTip="Pause" />
+                <Button Style="{StaticResource backButtonStyle}" Command="{Binding Back}" ToolTip="Back" />
             </StackPanel>
             <controls:ChronometerControl DockPanel.Dock="Top" HorizontalAlignment="Center" ElapsedTime="{Binding ElapsedTime.Value}" Margin="20" />
             <Viewbox>
