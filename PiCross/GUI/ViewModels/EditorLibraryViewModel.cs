@@ -17,7 +17,7 @@ namespace GUI.ViewModels
 {
     public class EditorLibraryViewModel : ViewModel
     {
-        private readonly ILibrary library;
+        private readonly IPuzzleLibrary library;
 
         private readonly ICommand back;
 
@@ -27,7 +27,7 @@ namespace GUI.ViewModels
 
         private readonly ObservableCollection<GroupViewModel> groups;
 
-        public EditorLibraryViewModel( MasterController parent, ILibrary library )
+        public EditorLibraryViewModel( MasterController parent, IPuzzleLibrary library )
             : base( parent )
         {
             this.library = library;
@@ -72,7 +72,7 @@ namespace GUI.ViewModels
             }
 
             // Create new group and insert it
-            var newGroupViewModel = new GroupViewModel( size, Enumerable.Empty<ILibraryEntry>() ) ;
+            var newGroupViewModel = new GroupViewModel( size, Enumerable.Empty<IPuzzleLibraryEntry>() ) ;
             groups.Insert( index, newGroupViewModel );
 
             return newGroupViewModel;
@@ -167,7 +167,7 @@ namespace GUI.ViewModels
 
             private readonly ObservableCollection<EntryViewModel> entries;
 
-            public GroupViewModel( Size size, IEnumerable<ILibraryEntry> entries )
+            public GroupViewModel( Size size, IEnumerable<IPuzzleLibraryEntry> entries )
             {
                 this.size = size;
                 this.entries = new ObservableCollection<EntryViewModel>( entries.Select( e => new EntryViewModel( e ) ) );
@@ -189,7 +189,7 @@ namespace GUI.ViewModels
                 }
             }
 
-            public void Update(IEnumerable<ILibraryEntry> entries)
+            public void Update(IEnumerable<IPuzzleLibraryEntry> entries)
             {
                 foreach ( var entry in entries )
                 {
@@ -197,7 +197,7 @@ namespace GUI.ViewModels
                 }
             }
 
-            private void Update(ILibraryEntry entry)
+            private void Update(IPuzzleLibraryEntry entry)
             {
                 // Find corresponding view model
                 foreach ( var entryViewModel in this.entries )
@@ -217,11 +217,11 @@ namespace GUI.ViewModels
 
         public class EntryViewModel
         {
-            private readonly ILibraryEntry entry;
+            private readonly IPuzzleLibraryEntry entry;
 
             private readonly IGrid<Cell<bool>> grid;
 
-            public EntryViewModel( ILibraryEntry entry )
+            public EntryViewModel( IPuzzleLibraryEntry entry )
             {
                 this.entry = entry;
                 this.grid = entry.Puzzle.Grid.Map( ( pos, val ) => Cell.Derived( () => entry.Puzzle.Grid[pos] ) );
@@ -235,7 +235,7 @@ namespace GUI.ViewModels
                 }
             }
 
-            public ILibraryEntry LibraryEntry
+            public IPuzzleLibraryEntry LibraryEntry
             {
                 get
                 {

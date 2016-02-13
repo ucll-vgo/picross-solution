@@ -16,7 +16,7 @@ namespace GUI.ViewModels
 {
     public class EditorViewModel : ViewModel
     {
-        private readonly ILibraryEntry libraryEntry;
+        private readonly IPuzzleLibraryEntry libraryEntry;
 
         private readonly IPuzzleEditor puzzleEditor;
 
@@ -34,7 +34,7 @@ namespace GUI.ViewModels
 
         private readonly PuzzleViewModel puzzleViewModel;
 
-        public EditorViewModel( MasterController parent, ILibraryEntry libraryEntry )
+        public EditorViewModel( MasterController parent, IPuzzleLibraryEntry libraryEntry )
             : base( parent )
         {
             this.libraryEntry = libraryEntry;

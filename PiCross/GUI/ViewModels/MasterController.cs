@@ -16,7 +16,7 @@ namespace GUI.ViewModels
 
         private readonly IPlayerDatabase playerDatabase;
 
-        private readonly ILibrary library;
+        private readonly IPuzzleLibrary library;
 
         private readonly Action quitAction;
 
@@ -74,7 +74,7 @@ namespace GUI.ViewModels
             }
         }
 
-        public ILibrary Library
+        public IPuzzleLibrary Library
         {
             get
             {

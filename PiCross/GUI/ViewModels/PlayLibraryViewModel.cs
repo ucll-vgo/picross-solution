@@ -18,7 +18,7 @@ namespace GUI.ViewModels
     {
         private readonly IPlayerProfile activeUser;
 
-        private readonly ILibrary library;
+        private readonly IPuzzleLibrary library;
 
         private readonly Cell<IList<GroupViewModel>> groups;
 
@@ -26,7 +26,7 @@ namespace GUI.ViewModels
 
         private readonly Cell<bool> showSolved;
 
-        public PlayLibraryViewModel( MasterController parent, ILibrary library, IPlayerProfile activeUser )
+        public PlayLibraryViewModel( MasterController parent, IPuzzleLibrary library, IPlayerProfile activeUser )
             : base( parent )
         {
             this.library = library;
@@ -89,7 +89,7 @@ namespace GUI.ViewModels
             Pop();
         }
 
-        private void PerformSelect( ILibraryEntry entry )
+        private void PerformSelect( IPuzzleLibraryEntry entry )
         {
             var puzzle = entry.Puzzle;
             var playablePuzzle = PlayablePuzzle.Create( puzzle );
@@ -132,13 +132,13 @@ namespace GUI.ViewModels
     {
         private readonly IPlayerPuzzleInformationEntry userInfo;
 
-        private readonly ILibraryEntry entry;
+        private readonly IPuzzleLibraryEntry entry;
 
         private readonly IGrid<Cell<bool>> grid;
 
         private readonly ICommand select;
 
-        public LibraryEntryViewModel( ILibraryEntry entry, IPlayerPuzzleInformationEntry userInfo, ICommand select )
+        public LibraryEntryViewModel( IPuzzleLibraryEntry entry, IPlayerPuzzleInformationEntry userInfo, ICommand select )
         {
             this.entry = entry;
             this.userInfo = userInfo;
