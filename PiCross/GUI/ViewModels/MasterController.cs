@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Cells;
-using PiCross.Facade;
+using PiCross;
 
 namespace GUI.ViewModels
 {
@@ -14,13 +14,11 @@ namespace GUI.ViewModels
 
         private readonly Stack<ViewModel> viewModelStack;
 
-        private readonly IPlayerDatabase playerDatabase;
-
-        private readonly IPuzzleLibrary library;
-
         private readonly Action quitAction;
 
         private readonly PiCrossFacade picrossFacade;
+
+        private readonly IGameData gameData;
 
         public MasterController(Action quitAction)
         {
@@ -29,9 +27,7 @@ namespace GUI.ViewModels
             activeViewModel = Cell.Derived( () => viewModelStack.Peek() );
 
             this.picrossFacade = new PiCrossFacade();
-            var data = picrossFacade.CreateDummyGameData();
-            this.library = data.PuzzleLibrary;
-            this.playerDatabase = data.PlayerDatabase;
+            gameData = picrossFacade.CreateDummyGameData();
             this.quitAction = quitAction;
         }
 
@@ -69,19 +65,11 @@ namespace GUI.ViewModels
             activeViewModel.Refresh();
         }
 
-        public IPlayerDatabase PlayerDatabase
+        public IGameData GameData
         {
             get
             {
-                return playerDatabase;
-            }
-        }
-
-        public IPuzzleLibrary Library
-        {
-            get
-            {
-                return library;
+                return gameData;
             }
         }
         

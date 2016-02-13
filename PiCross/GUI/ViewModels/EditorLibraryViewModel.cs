@@ -7,7 +7,7 @@ using System.Windows.Input;
 using GUI.Commands;
 using Cells;
 using DataStructures;
-using PiCross.Facade;
+using PiCross;
 using PiCross.Game;
 using System.Text.RegularExpressions;
 using System.Collections.ObjectModel;

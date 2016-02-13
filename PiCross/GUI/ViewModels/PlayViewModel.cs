@@ -7,7 +7,6 @@ using GUI.Controls;
 using PiCross;
 using Cells;
 using DataStructures;
-using PiCross.Facade;
 using PiCross.Game;
 using Utility;
 

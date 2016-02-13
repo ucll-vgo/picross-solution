@@ -9,7 +9,7 @@ using GUI.Commands;
 using GUI.ViewModels;
 using Cells;
 using DataStructures;
-using PiCross.Facade;
+using PiCross;
 using PiCross.Game;
 
 namespace GUI.ViewModels

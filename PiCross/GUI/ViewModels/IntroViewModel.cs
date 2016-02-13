@@ -8,7 +8,7 @@ using System.Windows.Input;
 using GUI.Commands;
 using Cells;
 using DataStructures;
-using PiCross.Facade;
+using PiCross;
 using PiCross.Game;
 
 namespace GUI.ViewModels
@@ -248,7 +248,7 @@ namespace GUI.ViewModels
 
         private void PerformEdit()
         {
-            Push( new EditorLibraryViewModel( Parent, Parent.Library ) );
+            Push( new EditorLibraryViewModel( Parent, Parent.GameData.PuzzleLibrary ) );
         }
 
         private void PerformQuit()

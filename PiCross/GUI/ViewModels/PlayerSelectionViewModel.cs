@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using GUI.Commands;
-using PiCross.Facade;
+using PiCross;
 
 namespace GUI.ViewModels
 {
@@ -24,7 +24,7 @@ namespace GUI.ViewModels
         public PlayerSelectionViewModel( MasterController parent )
             : base( parent )
         {
-            this.players = Parent.PlayerDatabase;
+            this.players = Parent.GameData.PlayerDatabase;
             this.addPlayer = EnabledCommand.FromDelegate( PerformAddPlayer );
             this.back = EnabledCommand.FromDelegate( PerformBack );
             this.playerViewModels = new ObservableCollection<ItemViewModel>();
@@ -60,10 +60,10 @@ namespace GUI.ViewModels
 
         private void PerformSelectPlayer( string playerName )
         {
-            Debug.Assert( playerName != null );            
+            Debug.Assert( playerName != null );
 
-            var library = Parent.Library;
-            var playerProfile = Parent.PlayerDatabase[playerName];
+            var library = Parent.GameData.PuzzleLibrary;
+            var playerProfile = Parent.GameData.PlayerDatabase[playerName];
             var libraryVM = new PlayLibraryViewModel( Parent, library, playerProfile );
 
             Push( libraryVM );

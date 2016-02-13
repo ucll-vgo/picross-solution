@@ -28,8 +28,8 @@ namespace GUI.ViewModels
             : base( parent )
         {
             this.playerName = Cell.Create( "" );
-            this.isValidName = this.playerName.Map( Parent.PlayerDatabase.IsValidPlayerName );
-            this.isNameTaken = this.playerName.Map( Parent.PlayerDatabase.PlayerNames.Contains );
+            this.isValidName = this.playerName.Map( Parent.GameData.PlayerDatabase.IsValidPlayerName );
+            this.isNameTaken = this.playerName.Map( Parent.GameData.PlayerDatabase.PlayerNames.Contains );
             this.canAddPlayer = Cell.Derived( isValidName, isNameTaken, ( valid, taken ) => valid && !taken );            
 
             this.addPlayer = CellCommand.FromDelegate( canAddPlayer, PerformAddPlayer );
@@ -58,7 +58,7 @@ namespace GUI.ViewModels
         {
             Debug.Assert( CanAddPlayer.Value );
 
-            Parent.PlayerDatabase.CreateNewProfile( playerName.Value );
+            Parent.GameData.PlayerDatabase.CreateNewProfile( playerName.Value );
 
             BackToPlayerSelection();
         }
