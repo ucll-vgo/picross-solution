@@ -73,7 +73,7 @@
     <Compile Include="DataStructures\Signal.cs" />
     <Compile Include="DataStructures\Vector2D.cs" />
     <Compile Include="PiCross\IPuzzleEditor.cs" />
-    <Compile Include="PiCross\PuzzleEditor_ManualAmbiguity.cs">
+    <Compile Include="PiCross\PuzzleEditor.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PiCross\DummyData.cs" />
@@ -82,7 +82,7 @@
     <Compile Include="PiCross\Library.cs" />
     <Compile Include="PiCross\LibrarySerializer.cs" />
     <Compile Include="PiCross\PlayerDatabase.cs" />
-    <Compile Include="PiCross\PlayablePuzzleImplementation.cs" />
+    <Compile Include="PiCross\PlayablePuzzle.cs" />
     <Compile Include="PiCross\IPlayablePuzzle.cs" />
     <Compile Include="PiCross\Ambiguity.cs" />
     <Compile Include="PiCross\AmbiguityChecker.cs" />

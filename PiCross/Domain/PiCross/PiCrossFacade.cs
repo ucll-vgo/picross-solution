@@ -34,7 +34,7 @@ namespace PiCross
         public IPuzzleEditor CreatePuzzleEditor(Puzzle puzzle)
         {
             var editorGrid = EditorGrid.FromPuzzle( puzzle );
-            var puzzleEditor = new PuzzleEditor_ManualAmbiguity( editorGrid );
+            var puzzleEditor = new PuzzleEditor( editorGrid );
 
             return puzzleEditor;
         }
@@ -44,6 +44,11 @@ namespace PiCross
             var solverGrid = new SolverGrid( columnConstraints: columnConstraints, rowConstraints: rowConstraints );
 
             return new StepwiseSolver( solverGrid );
+        }
+
+        public IPlayablePuzzle CreatePlayablePuzzle(Puzzle puzzle)
+        {
+            return new PlayablePuzzle( columnConstraints: puzzle.ColumnConstraints, rowConstraints: puzzle.RowConstraints );
         }
     }
 }
