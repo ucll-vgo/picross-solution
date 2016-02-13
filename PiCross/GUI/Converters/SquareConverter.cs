@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Data;
-using PiCross.Game;
+using PiCross;
 
 namespace GUI.Converters
 {

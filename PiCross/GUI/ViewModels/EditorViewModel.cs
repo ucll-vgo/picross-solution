@@ -10,7 +10,6 @@ using GUI.Controls;
 using Cells;
 using DataStructures;
 using PiCross;
-using PiCross.Game;
 
 namespace GUI.ViewModels
 {

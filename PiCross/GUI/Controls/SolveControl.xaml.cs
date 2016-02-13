@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using GUI.ViewModels;
 using DataStructures;
-using PiCross.Game;
+using PiCross;
 
 namespace GUI.Controls
 {

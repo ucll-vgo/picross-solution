@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Cells;
-using PiCross.Game;
+using PiCross;
 
 namespace GUI.Controls
 {
@@ -98,15 +98,15 @@ namespace GUI.Controls
         {
             switch ( Ambiguity )
             {
-                case PiCross.Game.Ambiguity.Ambiguous:
+                case PiCross.Ambiguity.Ambiguous:
                     ChangeVisualState( "Ambiguous", transition );
                     break;
 
-                case PiCross.Game.Ambiguity.Unambiguous:
+                case PiCross.Ambiguity.Unambiguous:
                     ChangeVisualState( "Unambiguous", transition );
                     break;
 
-                case PiCross.Game.Ambiguity.Unknown:
+                case PiCross.Ambiguity.Unknown:
                     ChangeVisualState( "UnknownAmbiguity", transition );
                     break;
             }

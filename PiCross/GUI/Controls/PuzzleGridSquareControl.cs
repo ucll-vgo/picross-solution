@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Cells;
-using PiCross.Game;
+using PiCross;
 
 namespace GUI.Controls
 {

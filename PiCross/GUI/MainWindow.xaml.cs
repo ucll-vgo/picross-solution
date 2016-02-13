@@ -22,7 +22,6 @@ using GUI.Views;
 using Cells;
 using DataStructures;
 using PiCross;
-using PiCross.Game;
 using Grid = DataStructures.Grid;
 
 namespace GUI
