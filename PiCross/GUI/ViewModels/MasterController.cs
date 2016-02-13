@@ -26,9 +26,10 @@ namespace GUI.ViewModels
             viewModelStack.Push( new IntroViewModel( this ) );
             activeViewModel = Cell.Derived( () => viewModelStack.Peek() );
 
-            var dummy = new PiCross.Game.DummyData();
-            this.playerDatabase = dummy.Players;
-            this.library = dummy.Puzzles;
+            var facade = new PiCrossFacade();
+            var data = facade.CreateDummyGameData();
+            this.library = data.PuzzleLibrary;
+            this.playerDatabase = data.PlayerDatabase;
             this.quitAction = quitAction;
         }
 
