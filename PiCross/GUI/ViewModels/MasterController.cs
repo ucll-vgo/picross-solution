@@ -20,14 +20,16 @@ namespace GUI.ViewModels
 
         private readonly Action quitAction;
 
+        private readonly PiCrossFacade picrossFacade;
+
         public MasterController(Action quitAction)
         {
             this.viewModelStack = new Stack<ViewModel>();
             viewModelStack.Push( new IntroViewModel( this ) );
             activeViewModel = Cell.Derived( () => viewModelStack.Peek() );
 
-            var facade = new PiCrossFacade();
-            var data = facade.CreateDummyGameData();
+            this.picrossFacade = new PiCrossFacade();
+            var data = picrossFacade.CreateDummyGameData();
             this.library = data.PuzzleLibrary;
             this.playerDatabase = data.PlayerDatabase;
             this.quitAction = quitAction;
@@ -86,6 +88,14 @@ namespace GUI.ViewModels
         private void Quit()
         {
             quitAction();
+        }
+
+        public PiCrossFacade PicrossFacade
+        {
+            get
+            {
+                return picrossFacade;
+            }
         }
     }
 }
