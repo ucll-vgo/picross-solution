@@ -174,11 +174,11 @@ namespace PiCross
 
     internal class PlayerPuzzleInformation : IPlayerPuzzleInformation
     {
-        private readonly Dictionary<PuzzleLibraryEntry, PlayerPuzzleInformationEntry> entries;
+        private readonly Dictionary<int, PlayerPuzzleInformationEntry> entries;
 
         public PlayerPuzzleInformation()
         {
-            this.entries = new Dictionary<PuzzleLibraryEntry, PlayerPuzzleInformationEntry>();
+            this.entries = new Dictionary<int, PlayerPuzzleInformationEntry>();
         }
 
         IPlayerPuzzleInformationEntry IPlayerPuzzleInformation.this[IPuzzleLibraryEntry libraryEntry]
@@ -193,12 +193,20 @@ namespace PiCross
         {
             get
             {
-                if ( !entries.ContainsKey( libraryEntry ) )
+                return this[libraryEntry.UID];
+            }
+        }
+
+        public PlayerPuzzleInformationEntry this[int id]
+        {
+            get
+            {
+                if ( !entries.ContainsKey( id ) )
                 {
-                    entries[libraryEntry] = new PlayerPuzzleInformationEntry();
+                    entries[id] = new PlayerPuzzleInformationEntry();
                 }
 
-                return entries[libraryEntry];
+                return entries[id];
             }
         }
 
@@ -215,11 +223,11 @@ namespace PiCross
             }
             else
             {
-                var libraryEntries = new HashSet<PuzzleLibraryEntry>( this.entries.Keys.Concat(playerPuzzleInformation.entries.Keys) );
+                var ids = new HashSet<int>( this.entries.Keys.Concat( playerPuzzleInformation.entries.Keys ) );
 
-                return libraryEntries.All( entry => this[entry].Equals( playerPuzzleInformation[entry] ) );
+                return ids.All( id => this[id].Equals( playerPuzzleInformation[id] ) );
             }
-        }        
+        }
 
         public override int GetHashCode()
         {
@@ -249,7 +257,7 @@ namespace PiCross
             return Equals( obj as PlayerPuzzleInformationEntry );
         }
 
-        public bool Equals(PlayerPuzzleInformationEntry  entry)
+        public bool Equals( PlayerPuzzleInformationEntry entry )
         {
             return entry != null && bestTime.Equals( entry.bestTime );
         }
