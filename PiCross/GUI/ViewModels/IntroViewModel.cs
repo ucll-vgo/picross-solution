@@ -20,7 +20,7 @@ namespace GUI.ViewModels
 
         private readonly ICommand quit;
 
-        private readonly IList<StepwiseSolver> solvers;
+        private readonly IList<IStepwisePuzzleSolver> solvers;
 
         private readonly IList<IGrid<Cell<Square>>> logoLetters;
 
@@ -33,19 +33,25 @@ namespace GUI.ViewModels
             edit = EnabledCommand.FromDelegate( PerformEdit );
             quit = EnabledCommand.FromDelegate( PerformQuit );
 
-
-            solvers = CreateLogoLetters().Select( puzzle => new StepwiseSolver( SolverGrid.FromPuzzle( puzzle ) ) ).ToList();
-            logoLetters = solvers.Select( solver => solver.Grid.Squares.Map( ( Square square ) => Cell.Create( Square.FILLED ) ).Copy() ).ToList();
+            solvers = CreateLogoLetters().Select( CreateSolverForPuzzle ).ToList();
+            logoLetters = solvers.Select( solver => solver.Grid.Map( ( Square square ) => Cell.Create( Square.FILLED ) ).Copy() ).ToList();
             SynchronizeLogoGridWithSolverGrid();
 
             ScheduleUpdate();
+        }
+
+        private IStepwisePuzzleSolver CreateSolverForPuzzle(Puzzle puzzle)
+        {
+            var result = Parent.PicrossFacade.CreateStepwisePuzzleSolver( columnConstraints: puzzle.ColumnConstraints, rowConstraints: puzzle.RowConstraints );
+
+            return result;
         }
 
         private void SynchronizeLogoGridWithSolverGrid()
         {
             for ( var i = 0; i != solvers.Count; ++i )
             {
-                logoLetters[i].Overwrite( solvers[i].Grid.Squares );
+                logoLetters[i].Overwrite( solvers[i].Grid );
             }
         }
 

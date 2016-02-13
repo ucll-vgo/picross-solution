@@ -22,11 +22,11 @@ namespace GUI.ViewModels
 
         public MasterController(Action quitAction)
         {
+            this.picrossFacade = new PiCrossFacade();
             this.viewModelStack = new Stack<ViewModel>();
             viewModelStack.Push( new IntroViewModel( this ) );
             activeViewModel = Cell.Derived( () => viewModelStack.Peek() );
-
-            this.picrossFacade = new PiCrossFacade();
+            
             gameData = picrossFacade.CreateDummyGameData();
             this.quitAction = quitAction;
         }
