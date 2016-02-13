@@ -39,18 +39,14 @@ namespace GUI.ViewModels
         {
             this.libraryEntry = libraryEntry;
 
-            var editorGrid = new EditorGrid( libraryEntry.Puzzle.Grid.Map( b => b ? Square.FILLED : Square.EMPTY ) );
-            var puzzleEditor = new PuzzleEditor_ManualAmbiguity( editorGrid ); // TODO Remove reference
-
+            this.puzzleEditor = this.Parent.PicrossFacade.CreatePuzzleEditor( libraryEntry.Puzzle );
             this.puzzleViewModel = new PuzzleViewModel( puzzleEditor, activeSquare );
-
-            this.puzzleEditor = puzzleEditor;
             this.activeSquare = Cell.Create<Vector2D>( null );
             this.resolve = EnabledCommand.FromDelegate( PerformRefine );
             this.cancel = EnabledCommand.FromDelegate( PerformCancel );
             this.save = EnabledCommand.FromDelegate( PerformSave );
             this.reset = EnabledCommand.FromDelegate( PerformReset );
-            this.thumbnailData = DataStructures.Grid.Create( puzzleEditor.Size, position => puzzleEditor[position].IsFilled );
+            this.thumbnailData = DataStructures.Grid.Create( puzzleEditor.Grid.Size, position => puzzleEditor.Grid[position].IsFilled );
         }
 
         public ICommand Cancel
