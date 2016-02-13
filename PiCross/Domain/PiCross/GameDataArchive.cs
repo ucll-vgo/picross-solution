@@ -9,7 +9,22 @@ using System.Threading.Tasks;
 
 namespace PiCross.PiCross
 {
-    internal class GameDataArchive : IDisposable
+    internal interface IGameDataArchive : IDisposable
+    {
+        IList<int> PuzzleLibraryUIDs { get; }
+
+        IList<string> PlayerNames { get; }
+
+        InMemoryPuzzleLibraryEntry ReadPuzzleLibraryEntry( int id );
+
+        InMemoryPlayerProfile ReadPlayerProfile( string playerName );
+
+        void UpdateLibraryEntry( InMemoryPuzzleLibraryEntry entry );
+
+        void UpdatePlayerProfile( InMemoryPlayerProfile playerProfile );
+    }
+
+    internal class GameDataArchive : IGameDataArchive
     {
         private readonly ZipArchive zipArchive;
 
@@ -23,44 +38,110 @@ namespace PiCross.PiCross
             return new PuzzleSerializer().Read( streamReader );
         }
 
-        public PuzzleLibraryEntry ReadPuzzleLibraryEntry( int id )
+        public IList<int> PuzzleLibraryUIDs
+        {
+            get
+            {
+                return ( from entry in this.zipArchive.Entries
+                         let uid = ExtractEntryID( entry.FullName )
+                         where uid.HasValue
+                         select uid.Value ).ToList();
+            }
+        }
+
+        public IList<string> PlayerNames
+        {
+            get
+            {
+                return ( from entry in this.zipArchive.Entries
+                         let playerName = ExtractPlayerName( entry.FullName )
+                         where playerName != null
+                         select playerName ).ToList();
+            }
+        }
+
+        public InMemoryPuzzleLibraryEntry ReadPuzzleLibraryEntry( int id )
         {
             var path = GetLibraryEntryPath( id );
 
-            using ( var reader = OpenZipArchiveEntry( path ) )
+            using ( var reader = OpenZipArchiveEntryForReading( path ) )
             {
                 var author = reader.ReadLine();
                 var puzzle = ReadPuzzle( reader );
 
-                return new PuzzleLibraryEntry( id, puzzle, author );
+                return new InMemoryPuzzleLibraryEntry( id, puzzle, author );
             }
         }
 
-        public PlayerProfile ReadPlayerProfile( string playerName )
+        public InMemoryPlayerProfile ReadPlayerProfile( string playerName )
         {
             var path = GetPlayerProfilePath( playerName );
 
-            using ( var reader = OpenZipArchiveEntry( path ) )
+            using ( var reader = OpenZipArchiveEntryForReading( path ) )
             {
-                var playerProfile = new PlayerProfile( playerName );
+                var playerProfile = new InMemoryPlayerProfile( playerName );
                 var entryCount = int.Parse( reader.ReadLine() );
 
                 for ( var i = 0; i != entryCount; ++i )
                 {
                     var parts = reader.ReadLine().Split( ' ' );
                     var uid = int.Parse( parts[0] );
-                    var bestTime = double.Parse( parts[1] );
+                    var bestTime = long.Parse( parts[1] );
 
-                    // playerProfile.PuzzleInformation[libraryEntry].BestTime.Value = TimeSpan.FromMilliseconds( bestTime );
+                    playerProfile.PuzzleInformation[uid].BestTime.Value = TimeSpan.FromTicks( bestTime );
                 }
 
                 return playerProfile;
             }
         }
 
-        private StreamReader OpenZipArchiveEntry( string path )
+        public void UpdateLibraryEntry( InMemoryPuzzleLibraryEntry entry )
         {
-            return new StreamReader( zipArchive.GetEntry( path ).Open() );
+            var path = GetLibraryEntryPath( entry.UID );
+
+            using ( var writer = OpenZipArchiveEntryForWriting( path ) )
+            {
+                writer.WriteLine( entry.Author );
+                new PuzzleSerializer().Write( writer, entry.Puzzle );
+            }
+        }
+
+        public void UpdatePlayerProfile( InMemoryPlayerProfile playerProfile )
+        {
+            var path = GetPlayerProfilePath( playerProfile.Name );
+
+            using ( var writer = OpenZipArchiveEntryForWriting( path ) )
+            {
+                foreach ( var id in playerProfile.PuzzleInformation.EntryUIDs )
+                {
+                    var bestTime = playerProfile.PuzzleInformation[id].BestTime;
+
+                    if ( bestTime.Value.HasValue )
+                    {
+                        writer.WriteLine( "{0} {1}", id, bestTime.Value.Value.Ticks );
+                    }
+                }
+            }
+        }
+
+        private StreamReader OpenZipArchiveEntryForReading( string path )
+        {
+            return new StreamReader( OpenZipArchive( path ) );
+        }
+
+        private StreamWriter OpenZipArchiveEntryForWriting( string path )
+        {
+            return new StreamWriter( OpenZipArchive( path ) );
+        }
+
+        private Stream OpenZipArchive( string path )
+        {
+            return zipArchive.GetEntry( path ).Open() ?? CreateAndOpenZipArchive( path );
+        }
+
+        private Stream CreateAndOpenZipArchive( string path )
+        {
+            return zipArchive.CreateEntry( path, CompressionLevel.Optimal ).Open();
         }
 
         private static string GetLibraryEntryPath( int id )
@@ -73,7 +154,7 @@ namespace PiCross.PiCross
             return string.Format( "players/{0}.txt", playerName );
         }
 
-        private static int ExtractEntryID( string filename )
+        private static int? ExtractEntryID( string filename )
         {
             var regex = new Regex( @"^library/entry(\d+)\.txt$" );
             var match = regex.Match( filename );
@@ -84,7 +165,7 @@ namespace PiCross.PiCross
             }
             else
             {
-                throw new IOException();
+                return null;
             }
         }
 
@@ -99,13 +180,126 @@ namespace PiCross.PiCross
             }
             else
             {
-                throw new IOException();
+                return null;
             }
         }
 
         public void Dispose()
         {
             this.zipArchive.Dispose();
+        }
+    }
+
+    internal class AutoCloseGameDataArchive : IGameDataArchive
+    {
+        private readonly string path;
+
+        public AutoCloseGameDataArchive( string path )
+        {
+            this.path = path;
+        }
+
+        private ZipArchive OpenZipArchiveForReading()
+        {
+            return new ZipArchive( new FileStream( path, FileMode.Open, FileAccess.Read ), ZipArchiveMode.Read );
+        }
+
+        private ZipArchive OpenZipArchiveForWriting()
+        {
+            return new ZipArchive( new FileStream( path, FileMode.Open, FileAccess.Write ), ZipArchiveMode.Update );
+        }
+
+        private void WithReadOnlyZipArchive( Action<ZipArchive> action )
+        {
+            using ( var zipArchive = OpenZipArchiveForReading() )
+            {
+                action( zipArchive );
+            }
+        }
+
+        private T WithReadOnlyZipArchive<T>( Func<ZipArchive, T> function )
+        {
+            using ( var zipArchive = OpenZipArchiveForReading() )
+            {
+                return function( zipArchive );
+            }
+        }
+
+        private void WithWriteableZipArchive( Action<ZipArchive> action )
+        {
+            using ( var zipArchive = OpenZipArchiveForWriting() )
+            {
+                action( zipArchive );
+            }
+        }
+
+        private T WithWriteableZipArchive<T>( Func<ZipArchive, T> function )
+        {
+            using ( var zipArchive = OpenZipArchiveForWriting() )
+            {
+                return function( zipArchive );
+            }
+        }
+
+        private void WithReadOnlyArchive( Action<GameDataArchive> action )
+        {
+            WithReadOnlyZipArchive( archive => action( new GameDataArchive( archive ) ) );
+        }
+
+        private T WithReadOnlyArchive<T>( Func<GameDataArchive, T> function )
+        {
+            return WithReadOnlyZipArchive( archive => function( new GameDataArchive( archive ) ) );
+        }
+
+        private void WithWriteableArchive( Action<GameDataArchive> action )
+        {
+            WithWriteableZipArchive( archive => action( new GameDataArchive( archive ) ) );
+        }
+
+        private T WithWriteableArchive<T>( Func<GameDataArchive, T> function )
+        {
+            return WithWriteableZipArchive( archive => function( new GameDataArchive( archive ) ) );
+        }
+
+        public IList<int> PuzzleLibraryUIDs
+        {
+            get
+            {
+                return WithReadOnlyArchive( archive => archive.PuzzleLibraryUIDs );
+            }
+        }
+
+        public IList<string> PlayerNames
+        {
+            get
+            {
+                return WithReadOnlyArchive( archive => archive.PlayerNames );
+            }
+        }
+
+        public InMemoryPuzzleLibraryEntry ReadPuzzleLibraryEntry( int id )
+        {
+            return WithReadOnlyArchive( archive => archive.ReadPuzzleLibraryEntry( id ) );
+        }
+
+        public InMemoryPlayerProfile ReadPlayerProfile( string playerName )
+        {
+            return WithReadOnlyArchive( archive => archive.ReadPlayerProfile( playerName ) );
+        }
+
+        public void UpdateLibraryEntry( InMemoryPuzzleLibraryEntry entry )
+        {
+            WithWriteableArchive( archive => archive.UpdateLibraryEntry( entry ) );
+        }
+
+        public void UpdatePlayerProfile( InMemoryPlayerProfile playerProfile )
+        {
+            WithWriteableArchive( archive => archive.UpdatePlayerProfile( playerProfile ) );
+        }
+
+        public void Dispose()
+        {
+            // BOP
         }
     }
 }

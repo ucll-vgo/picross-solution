@@ -62,7 +62,7 @@
     <Compile Include="PiCross\IStepwisePuzzleSolver.cs" />
     <Compile Include="PiCross\PiCrossFacade.cs" />
     <Compile Include="PiCross\GameDataIO.cs" />
-    <Compile Include="PiCross\GameData.cs" />
+    <Compile Include="PiCross\InMemoryGameData.cs" />
     <Compile Include="Utility\Chronometer.cs" />
     <Compile Include="DataStructures\Grid.cs" />
     <Compile Include="Cells\Cell.cs" />
@@ -81,9 +81,8 @@
     <Compile Include="PiCross\DummyData.cs" />
     <Compile Include="PiCross\IPuzzleLibrary.cs" />
     <Compile Include="PiCross\IPlayerDatabase.cs" />
-    <Compile Include="PiCross\Library.cs" />
+    <Compile Include="PiCross\PuzzleLibrary.cs" />
     <Compile Include="PiCross\LibrarySerializer.cs" />
-    <Compile Include="PiCross\PlayerDatabase.cs" />
     <Compile Include="PiCross\PlayablePuzzle.cs" />
     <Compile Include="PiCross\IPlayablePuzzle.cs" />
     <Compile Include="PiCross\Ambiguity.cs" />
