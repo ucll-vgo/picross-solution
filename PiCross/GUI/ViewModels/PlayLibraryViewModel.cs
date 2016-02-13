@@ -91,7 +91,7 @@ namespace GUI.ViewModels
         private void PerformSelect( IPuzzleLibraryEntry entry )
         {
             var puzzle = entry.Puzzle;
-            var playablePuzzle = PlayablePuzzle.Create( puzzle );
+            var playablePuzzle = Parent.PicrossFacade.CreatePlayablePuzzle( puzzle );
             var bestTime = activeUser.PuzzleInformation[entry].BestTime;
 
             Push( new PlayViewModel( Parent, playablePuzzle, bestTime ) );
