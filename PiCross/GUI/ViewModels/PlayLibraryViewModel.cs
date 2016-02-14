@@ -40,7 +40,7 @@ namespace GUI.ViewModels
         private IList<GroupViewModel> BuildGroups()
         {
             return ( from entry in library.Entries
-                     let puzzleInformation = activeUser.PuzzleInformation[entry]
+                     let puzzleInformation = activeUser[entry]
                      where !puzzleInformation.BestTime.HasValue || showSolved.Value
                      let entryVM = new LibraryEntryViewModel( entry, puzzleInformation, EnabledCommand.FromDelegate( () => PerformSelect( entry ) ) )
                      group entryVM by entry.Puzzle.Size into entryGroup
@@ -92,7 +92,7 @@ namespace GUI.ViewModels
         {
             var puzzle = puzzleLibraryEntry.Puzzle;
             var playablePuzzle = Parent.PicrossFacade.CreatePlayablePuzzle( puzzle );
-            var puzzleInformationEntry = activeUser.PuzzleInformation[puzzleLibraryEntry];
+            var puzzleInformationEntry = activeUser[puzzleLibraryEntry];
 
             Push( new PlayViewModel( Parent, playablePuzzle, puzzleInformationEntry ) );
         }

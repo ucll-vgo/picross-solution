@@ -13,7 +13,7 @@ namespace GUI.ViewModels
 {
     public class PlayerSelectionViewModel : ViewModel
     {
-        private readonly IPlayerDatabase players;
+        private readonly IPlayerLibrary players;
 
         private readonly ObservableCollection<ItemViewModel> playerViewModels;
 
