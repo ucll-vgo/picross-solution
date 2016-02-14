@@ -25,11 +25,11 @@ namespace GUI.ViewModels
 
         private readonly Chronometer chronometer;
 
-        private readonly Cell<TimeSpan?> bestTime;
+        private readonly IPlayerPuzzleInformationEntry entry;
 
         private readonly GridSelectionHelper selectionHelper;
 
-        public PlayViewModel( MasterController parent, IPlayablePuzzle puzzle, Cell<TimeSpan?> bestTime )
+        public PlayViewModel( MasterController parent, IPlayablePuzzle puzzle, IPlayerPuzzleInformationEntry entry )
             : base( parent )
         {
             this.puzzle = puzzle;
@@ -39,7 +39,7 @@ namespace GUI.ViewModels
             this.columnConstraints = CreateColumnConstraints();
             this.rowConstraints = CreateRowConstraints();
             this.chronometer = new Chronometer();
-            this.bestTime = bestTime;
+            this.entry = entry;
 
             // Commands
             this.back = EnabledCommand.FromDelegate( PerformBack );
@@ -84,9 +84,9 @@ namespace GUI.ViewModels
 
         private void SaveTimeIfBetterThanBest()
         {
-            if ( !bestTime.Value.HasValue || chronometer.TotalTime.Value < bestTime.Value )
+            if ( !entry.BestTime.HasValue || chronometer.TotalTime.Value < entry.BestTime.Value )
             {
-                bestTime.Value = chronometer.TotalTime.Value;
+                entry.BestTime = chronometer.TotalTime.Value;
             }
         }
 
@@ -108,11 +108,11 @@ namespace GUI.ViewModels
             get { return rowConstraints; }
         }
 
-        public Cell<TimeSpan?> BestTime
+        public TimeSpan? BestTime
         {
             get
             {
-                return bestTime;
+                return entry.BestTime;
             }
         }
 

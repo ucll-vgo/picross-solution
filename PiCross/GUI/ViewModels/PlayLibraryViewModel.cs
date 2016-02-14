@@ -41,7 +41,7 @@ namespace GUI.ViewModels
         {
             return ( from entry in library.Entries
                      let puzzleInformation = activeUser.PuzzleInformation[entry]
-                     where !puzzleInformation.BestTime.Value.HasValue || showSolved.Value
+                     where !puzzleInformation.BestTime.HasValue || showSolved.Value
                      let entryVM = new LibraryEntryViewModel( entry, puzzleInformation, EnabledCommand.FromDelegate( () => PerformSelect( entry ) ) )
                      group entryVM by entry.Puzzle.Size into entryGroup
                      select new GroupViewModel( entryGroup.Key, entryGroup ) ).ToList();
@@ -88,13 +88,13 @@ namespace GUI.ViewModels
             Pop();
         }
 
-        private void PerformSelect( IPuzzleLibraryEntry entry )
+        private void PerformSelect( IPuzzleLibraryEntry puzzleLibraryEntry )
         {
-            var puzzle = entry.Puzzle;
+            var puzzle = puzzleLibraryEntry.Puzzle;
             var playablePuzzle = Parent.PicrossFacade.CreatePlayablePuzzle( puzzle );
-            var bestTime = activeUser.PuzzleInformation[entry].BestTime;
+            var puzzleInformationEntry = activeUser.PuzzleInformation[puzzleLibraryEntry];
 
-            Push( new PlayViewModel( Parent, playablePuzzle, bestTime ) );
+            Push( new PlayViewModel( Parent, playablePuzzle, puzzleInformationEntry ) );
         }
 
         public class GroupViewModel
@@ -165,7 +165,7 @@ namespace GUI.ViewModels
         {
             get
             {
-                return userInfo.BestTime.Value.HasValue;
+                return userInfo.BestTime.HasValue;
             }
         }
 
@@ -173,7 +173,7 @@ namespace GUI.ViewModels
         {
             get
             {
-                return userInfo.BestTime.Value.HasValue ? userInfo.BestTime.Value.Value : TimeSpan.FromSeconds( -1 );
+                return userInfo.BestTime.HasValue ? userInfo.BestTime.Value : TimeSpan.FromSeconds( -1 );
             }
         }
 
