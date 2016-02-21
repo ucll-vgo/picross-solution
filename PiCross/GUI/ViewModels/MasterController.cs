@@ -26,8 +26,9 @@ namespace GUI.ViewModels
             this.viewModelStack = new Stack<ViewModel>();
             viewModelStack.Push( new IntroViewModel( this ) );
             activeViewModel = Cell.Derived( () => viewModelStack.Peek() );
-            
-            gameData = picrossFacade.CreateDummyGameData();
+
+            gameData = picrossFacade.LoadGameData( @"g:\test.zip" );
+            //gameData = picrossFacade.CreateDummyGameData();
             this.quitAction = quitAction;
         }
 

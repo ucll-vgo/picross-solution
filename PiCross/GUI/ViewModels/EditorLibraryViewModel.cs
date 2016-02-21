@@ -201,7 +201,7 @@ namespace GUI.ViewModels
                 // Find corresponding view model
                 foreach ( var entryViewModel in this.entries )
                 {
-                    if ( entryViewModel.LibraryEntry == entry )
+                    if ( entryViewModel.LibraryEntry.Equals( entry ) )
                     {
                         entryViewModel.Update();
                         return;
