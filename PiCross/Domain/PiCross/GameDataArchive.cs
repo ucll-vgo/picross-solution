@@ -15,13 +15,13 @@ namespace PiCross
 
         IList<string> PlayerNames { get; }
 
-        InMemoryPuzzleLibraryEntry ReadPuzzleLibraryEntry( int id );
+        InMemoryDatabase.PuzzleLibraryEntry ReadPuzzleLibraryEntry( int id );
 
-        InMemoryPlayerProfile ReadPlayerProfile( string playerName );
+        InMemoryDatabase.PlayerProfile ReadPlayerProfile( string playerName );
 
-        void UpdateLibraryEntry( InMemoryPuzzleLibraryEntry entry );
+        void UpdateLibraryEntry( InMemoryDatabase.PuzzleLibraryEntry entry );
 
-        void UpdatePlayerProfile( InMemoryPlayerProfile playerProfile );
+        void UpdatePlayerProfile( InMemoryDatabase.PlayerProfile playerProfile );
     }
 
     internal class GameDataArchive : IGameDataArchive
@@ -60,7 +60,7 @@ namespace PiCross
             }
         }
 
-        public InMemoryPuzzleLibraryEntry ReadPuzzleLibraryEntry( int id )
+        public InMemoryDatabase.PuzzleLibraryEntry ReadPuzzleLibraryEntry( int id )
         {
             var path = GetLibraryEntryPath( id );
 
@@ -69,17 +69,17 @@ namespace PiCross
                 var author = reader.ReadLine();
                 var puzzle = ReadPuzzle( reader );
 
-                return new InMemoryPuzzleLibraryEntry( id, puzzle, author );
+                return new InMemoryDatabase.PuzzleLibraryEntry( id, puzzle, author );
             }
         }
 
-        public InMemoryPlayerProfile ReadPlayerProfile( string playerName )
+        public InMemoryDatabase.PlayerProfile ReadPlayerProfile( string playerName )
         {
             var path = GetPlayerProfilePath( playerName );
 
             using ( var reader = OpenZipArchiveEntryForReading( path ) )
             {
-                var playerProfile = new InMemoryPlayerProfile( playerName );
+                var playerProfile = new InMemoryDatabase.PlayerProfile( playerName );
                 var entryCount = int.Parse( reader.ReadLine() );
 
                 for ( var i = 0; i != entryCount; ++i )
@@ -95,7 +95,7 @@ namespace PiCross
             }
         }
 
-        public void UpdateLibraryEntry( InMemoryPuzzleLibraryEntry entry )
+        public void UpdateLibraryEntry( InMemoryDatabase.PuzzleLibraryEntry entry )
         {
             var path = GetLibraryEntryPath( entry.UID );
 
@@ -106,7 +106,7 @@ namespace PiCross
             }
         }
 
-        public void UpdatePlayerProfile( InMemoryPlayerProfile playerProfile )
+        public void UpdatePlayerProfile( InMemoryDatabase.PlayerProfile playerProfile )
         {
             var path = GetPlayerProfilePath( playerProfile.Name );
 
@@ -280,22 +280,22 @@ namespace PiCross
             }
         }
 
-        public InMemoryPuzzleLibraryEntry ReadPuzzleLibraryEntry( int id )
+        public InMemoryDatabase.PuzzleLibraryEntry ReadPuzzleLibraryEntry( int id )
         {
             return WithReadOnlyArchive( archive => archive.ReadPuzzleLibraryEntry( id ) );
         }
 
-        public InMemoryPlayerProfile ReadPlayerProfile( string playerName )
+        public InMemoryDatabase.PlayerProfile ReadPlayerProfile( string playerName )
         {
             return WithReadOnlyArchive( archive => archive.ReadPlayerProfile( playerName ) );
         }
 
-        public void UpdateLibraryEntry( InMemoryPuzzleLibraryEntry entry )
+        public void UpdateLibraryEntry( InMemoryDatabase.PuzzleLibraryEntry entry )
         {
             WithWriteableArchive( archive => archive.UpdateLibraryEntry( entry ) );
         }
 
-        public void UpdatePlayerProfile( InMemoryPlayerProfile playerProfile )
+        public void UpdatePlayerProfile( InMemoryDatabase.PlayerProfile playerProfile )
         {
             WithWriteableArchive( archive => archive.UpdatePlayerProfile( playerProfile ) );
         }

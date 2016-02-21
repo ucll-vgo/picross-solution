@@ -18,26 +18,26 @@ namespace PiCross
             this.archive = new AutoCloseGameDataArchive( path );
         }
 
-        public IPuzzleDatabase PuzzleDatabase
+        public IPuzzleDatabase Puzzles
         {
             get
             {
-                return new PuzzleDB( archive, database.PuzzleDatabase );
+                return new PuzzleDatabase( archive, database.Puzzles );
             }
         }
 
-        public IPlayerDatabase PlayerDatabase
+        public IPlayerDatabase Players
         {
-            get { return new PlayerDB( archive, database.PlayerDatabase ); }
+            get { return new PlayerDatabase( archive, database.Players ); }
         }
 
-        private class PuzzleDB : IPuzzleDatabase // TODO Rename
+        private class PuzzleDatabase : IPuzzleDatabase
         {
             private readonly IGameDataArchive archive;
 
-            private readonly InMemoryPuzzleLibrary puzzleLibrary;
+            private readonly InMemoryDatabase.PuzzleLibrary puzzleLibrary;
 
-            public PuzzleDB( IGameDataArchive archive, InMemoryPuzzleLibrary puzzleLibrary )
+            public PuzzleDatabase( IGameDataArchive archive, InMemoryDatabase.PuzzleLibrary puzzleLibrary )
             {
                 this.archive = archive;
                 this.puzzleLibrary = puzzleLibrary;
@@ -75,9 +75,9 @@ namespace PiCross
         {
             private readonly IGameDataArchive archive;
 
-            private readonly InMemoryPuzzleLibraryEntry entry;
+            private readonly InMemoryDatabase.PuzzleLibraryEntry entry;
 
-            public PuzzleDatabaseEntry( IGameDataArchive archive, InMemoryPuzzleLibraryEntry entry)
+            public PuzzleDatabaseEntry( IGameDataArchive archive, InMemoryDatabase.PuzzleLibraryEntry entry )
             {
                 this.archive = archive;
                 this.entry = entry;
@@ -115,13 +115,13 @@ namespace PiCross
             }
         }
 
-        private class PlayerDB : IPlayerDatabase
+        private class PlayerDatabase : IPlayerDatabase
         {
             private readonly IGameDataArchive archive;
 
-            private readonly InMemoryPlayerDatabase playerDatabase;
+            private readonly InMemoryDatabase.PlayerDatabase playerDatabase;
 
-            public PlayerDB( IGameDataArchive archive, InMemoryPlayerDatabase playerDatabase )
+            public PlayerDatabase( IGameDataArchive archive, InMemoryDatabase.PlayerDatabase playerDatabase )
             {
                 this.archive = archive;
                 this.playerDatabase = playerDatabase;
@@ -158,9 +158,9 @@ namespace PiCross
         {
             private readonly IGameDataArchive archive;
 
-            private readonly InMemoryPlayerProfile profile;
+            private readonly InMemoryDatabase.PlayerProfile profile;
 
-            public PlayerProfileData( IGameDataArchive archive, InMemoryPlayerProfile profile)
+            public PlayerProfileData( IGameDataArchive archive, InMemoryDatabase.PlayerProfile profile )
             {
                 this.archive = archive;
                 this.profile = profile;
@@ -192,13 +192,13 @@ namespace PiCross
         {
             private readonly IGameDataArchive archive;
 
-            private readonly InMemoryPlayerProfile profile;
+            private readonly InMemoryDatabase.PlayerProfile profile;
 
             private readonly int uid;
 
-            private readonly InMemoryPlayerPuzzleInformationEntry entry;
+            private readonly InMemoryDatabase.PlayerPuzzleInformationEntry entry;
 
-            public PlayerPuzzleData( IGameDataArchive archive, InMemoryPlayerProfile profile, int uid )
+            public PlayerPuzzleData( IGameDataArchive archive, InMemoryDatabase.PlayerProfile profile, int uid )
             {
                 this.archive = archive;
                 this.profile = profile;
