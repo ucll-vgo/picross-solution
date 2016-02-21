@@ -129,7 +129,7 @@ namespace GUI.ViewModels
 
     public class LibraryEntryViewModel
     {
-        private readonly IPlayerPuzzleInformationEntry userInfo;
+        private readonly IPlayerPuzzleInformation userInfo;
 
         private readonly IPuzzleLibraryEntry entry;
 
@@ -137,7 +137,7 @@ namespace GUI.ViewModels
 
         private readonly ICommand select;
 
-        public LibraryEntryViewModel( IPuzzleLibraryEntry entry, IPlayerPuzzleInformationEntry userInfo, ICommand select )
+        public LibraryEntryViewModel( IPuzzleLibraryEntry entry, IPlayerPuzzleInformation userInfo, ICommand select )
         {
             this.entry = entry;
             this.userInfo = userInfo;

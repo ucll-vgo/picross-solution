@@ -25,11 +25,11 @@ namespace GUI.ViewModels
 
         private readonly Chronometer chronometer;
 
-        private readonly IPlayerPuzzleInformationEntry entry;
+        private readonly IPlayerPuzzleInformation entry;
 
         private readonly GridSelectionHelper selectionHelper;
 
-        public PlayViewModel( MasterController parent, IPlayablePuzzle puzzle, IPlayerPuzzleInformationEntry entry )
+        public PlayViewModel( MasterController parent, IPlayablePuzzle puzzle, IPlayerPuzzleInformation entry )
             : base( parent )
         {
             this.puzzle = puzzle;
