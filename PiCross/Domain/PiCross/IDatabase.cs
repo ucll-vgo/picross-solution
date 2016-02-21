@@ -20,8 +20,6 @@ namespace PiCross
         IPuzzleDatabaseEntry this[int id] { get; }
 
         IPuzzleDatabaseEntry Create( Puzzle puzzle, string author );
-
-        void Add( IPuzzleDatabaseEntry libraryEntry );
     }
 
     internal interface IPuzzleDatabaseEntry
@@ -32,8 +30,7 @@ namespace PiCross
 
         string Author { get; set; }
     }
-
-    internal interface IPlayerDatabase
+internal interface IPlayerDatabase
     {
         IPlayerProfileData this[string name] { get; }
 
