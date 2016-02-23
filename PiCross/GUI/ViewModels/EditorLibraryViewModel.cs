@@ -146,7 +146,7 @@ namespace GUI.ViewModels
                 var size = new Size( width, height );
                 var puzzle = Puzzle.CreateEmpty( size );
 
-                var newEntry = library.Create( puzzle, "unnamed" );
+                var newEntry = library.Create( puzzle, "Woumpousse" );
 
                 UpdateGroups();
             }

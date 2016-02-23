@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 using DataStructures;
 using PiCross;
 
@@ -11,6 +12,11 @@ namespace PiCon
     class Program
     {
         static void Main( string[] args )
+        {
+            var bitmap = new BitmapImage( new Uri( args[0] ) );
+        }
+
+        private static void Solve()
         {
             var dimensions = ReadInts();
             var width = dimensions[0];

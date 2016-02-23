@@ -20,9 +20,13 @@ namespace GUI.ViewModels
 
         private readonly ICommand quit;
 
-        private readonly IList<IStepwisePuzzleSolver> solvers;
+        //private readonly IList<IStepwisePuzzleSolver> solvers;
 
-        private readonly IList<IGrid<Cell<Square>>> logoLetters;
+        //private readonly IList<IGrid<Cell<Square>>> logoLetters;
+
+        private readonly IStepwisePuzzleSolver logoSolver;
+
+        private readonly IGrid<Cell<Square>> logo;
 
         private Scheduler scheduler;
 
@@ -33,14 +37,16 @@ namespace GUI.ViewModels
             edit = EnabledCommand.FromDelegate( PerformEdit );
             quit = EnabledCommand.FromDelegate( PerformQuit );
 
-            solvers = CreateLogoLetters().Select( CreateSolverForPuzzle ).ToList();
-            logoLetters = solvers.Select( solver => solver.Grid.Map( ( Square square ) => Cell.Create( Square.FILLED ) ).Copy() ).ToList();
+            logoSolver = CreateSolverForPuzzle( CreatePiCrossLogo() );
+            logo = logoSolver.Grid.Map( ( Square square ) => Cell.Create( Square.FILLED ) ).Copy();
+            //solvers = CreateLogoLetters().Select( CreateSolverForPuzzle ).ToList();            
+            //logoLetters = solvers.Select( solver => solver.Grid.Map( ( Square square ) => Cell.Create( Square.FILLED ) ).Copy() ).ToList();
             SynchronizeLogoGridWithSolverGrid();
 
             ScheduleUpdate();
         }
 
-        private IStepwisePuzzleSolver CreateSolverForPuzzle(Puzzle puzzle)
+        private IStepwisePuzzleSolver CreateSolverForPuzzle( Puzzle puzzle )
         {
             var result = Parent.PicrossFacade.CreateStepwisePuzzleSolver( columnConstraints: puzzle.ColumnConstraints, rowConstraints: puzzle.RowConstraints );
 
@@ -49,18 +55,21 @@ namespace GUI.ViewModels
 
         private void SynchronizeLogoGridWithSolverGrid()
         {
-            for ( var i = 0; i != solvers.Count; ++i )
-            {
-                logoLetters[i].Overwrite( solvers[i].Grid );
-            }
+            //for ( var i = 0; i != solvers.Count; ++i )
+            //{
+            //    logoLetters[i].Overwrite( solvers[i].Grid );
+            //}
+
+            logo.Overwrite( logoSolver.Grid );
         }
 
         private void UpdateLogoGrid()
         {
-            foreach ( var solver in solvers )
-            {
-                solver.Step();
-            }
+            logoSolver.Step();
+            //foreach ( var solver in solvers )
+            //{
+            //    solver.Step();
+            //}
 
             SynchronizeLogoGridWithSolverGrid();
             ScheduleUpdate();
@@ -68,7 +77,7 @@ namespace GUI.ViewModels
 
         private void ScheduleUpdate()
         {
-            scheduler = new Scheduler( .5, UpdateLogoGrid );
+            scheduler = new Scheduler( .05, UpdateLogoGrid );
         }
 
         private IEnumerable<Puzzle> CreateLogoLetters()
@@ -191,21 +200,33 @@ namespace GUI.ViewModels
 
         private Puzzle CreatePiCrossLogo()
         {
-            //var strings = new[] { ".................................",
-            //                      "xxxx.....xxx.....................",
-            //                      "x...x...x........................",
-            //                      "x...x.x.x........................",
-            //                      "xxxx....x....x.xx..xx...xxx..xxx.",
-            //                      "x.....x.x....xx...x..x.x....x....",
-            //                      "x.....x.x....x....x..x..xx...xx..",
-            //                      "x.....x.x....x....x..x....x....x.",
-            //                      "x.....x..xxx.x.....xx..xxx..xxx..",
-            //                      "................................." };
+            var strings = new[] {
+                "xxxxxxxxxx..............................",
+                ".xx......x..............................",
+                ".xx.....xx..............................",
+                ".xx....xx...............................",
+                ".xx...xx................................",
+                ".xxxxxx..xxxxx..........................",
+                ".xx.....xxxxx...........................",
+                ".xx....xx...............................",
+                ".xx.x..xx...............................",
+                ".xx....xx...............................",
+                ".xx.x.xx................................",
+                ".xx.x.xx.......xx.xx....................",
+                ".xx.x.xx.......xxxxx.........xxx...xxx..",
+                ".xx.x.xx.......xxx..........xxxx..xxxx..",
+                ".xx.x.xx.......xx....xxxx...xx....xx....",
+                ".xx.x.xx.......xx...xx..xx..xxx....xx...",
+                ".xx.x.xx.......xx...xx..xx...xxx...xxx..",
+                ".xx.x.xx.......xx...xx..xx.....xx....xx.",
+                ".xx.x..xxxxxxx.xx...xx..xx..xxxxx.xxxxx.",
+                ".xx.x...xxxxxx.xx....xxxx...xxxx..xxxx.."
+            };
 
-            var strings = new[] { ".xx.xx.",
-                                  "...x...",
-                                  "...x...",
-                                  ".xx.xx." };
+            //var strings = new[] { ".xx.xx.",
+            //                      "...x...",
+            //                      "...x...",
+            //                      ".xx.xx." };
 
             var puzzle = Puzzle.FromRowStrings( strings );
 
@@ -214,13 +235,21 @@ namespace GUI.ViewModels
             return puzzle;
         }
 
-        public IEnumerable<IGrid<Cell<Square>>> LogoLetters
+        public IGrid<Cell<Square>> Logo
         {
             get
             {
-                return logoLetters;
+                return logo;
             }
         }
+
+        //public IEnumerable<IGrid<Cell<Square>>> LogoLetters
+        //{
+        //    get
+        //    {
+        //        return logoLetters;
+        //    }
+        //}
 
         public ICommand Play
         {

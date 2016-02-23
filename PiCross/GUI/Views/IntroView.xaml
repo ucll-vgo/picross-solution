@@ -12,7 +12,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Viewbox Margin="20">
+        <!--<Viewbox Margin="20">
             <ItemsControl ItemsSource="{Binding LogoLetters}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -40,8 +40,26 @@
                         </Border>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
-
             </ItemsControl>
+        </Viewbox>-->
+        <Viewbox Margin="20">
+            <Border Background="White" Padding="2" Margin="10">
+                <controls:GridViewControl Grid="{Binding Logo}">
+                    <controls:GridViewControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Width="10" Height="10" Margin="2">
+                                <Border.Background>
+                                    <Binding Path="Value">
+                                        <Binding.Converter>
+                                            <converters:SquareConverter Empty="White" Filled="Black" Unknown="#551111" />
+                                        </Binding.Converter>
+                                    </Binding>
+                                </Border.Background>
+                            </Border>
+                        </DataTemplate>
+                    </controls:GridViewControl.ItemTemplate>
+                </controls:GridViewControl>
+            </Border>
         </Viewbox>
         <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Button Content="Play" Command="{Binding Play}" Style="{DynamicResource Intro_ButtonStyle}" />
