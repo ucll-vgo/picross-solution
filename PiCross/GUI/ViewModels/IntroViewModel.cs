@@ -105,7 +105,6 @@ namespace GUI.ViewModels
             };
 
             var puzzle = Puzzle.FromRowStrings( rows );
-            Debug.Assert( puzzle.IsSolvable );
             return puzzle;
         }
 
@@ -123,7 +122,6 @@ namespace GUI.ViewModels
             };
 
             var puzzle = Puzzle.FromRowStrings( rows );
-            Debug.Assert( puzzle.IsSolvable );
             return puzzle;
         }
 
@@ -141,7 +139,6 @@ namespace GUI.ViewModels
             };
 
             var puzzle = Puzzle.FromRowStrings( rows );
-            Debug.Assert( puzzle.IsSolvable );
             return puzzle;
         }
         private Puzzle CreateLogoLetterR()
@@ -158,7 +155,6 @@ namespace GUI.ViewModels
             };
 
             var puzzle = Puzzle.FromRowStrings( rows );
-            Debug.Assert( puzzle.IsSolvable );
             return puzzle;
         }
 
@@ -176,7 +172,6 @@ namespace GUI.ViewModels
             };
 
             var puzzle = Puzzle.FromRowStrings( rows );
-            Debug.Assert( puzzle.IsSolvable );
             return puzzle;
         }
 
@@ -194,7 +189,6 @@ namespace GUI.ViewModels
             };
 
             var puzzle = Puzzle.FromRowStrings( rows );
-            Debug.Assert( puzzle.IsSolvable );
             return puzzle;
         }
 
