@@ -137,10 +137,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\PiCrossControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\EditorLibraryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -195,9 +191,6 @@
     </Compile>
     <Compile Include="Commands\CellCommand.cs" />
     <Compile Include="Commands\EnabledCommand.cs" />
-    <Compile Include="Controls\PiCrossControl.xaml.cs">
-      <DependentUpon>PiCrossControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Converters\BoolConverter.cs" />
     <Compile Include="Converters\SquareConverter.cs" />
     <Compile Include="MainWindow.xaml.cs">
@@ -250,6 +243,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Controls\Controls.csproj">
+      <Project>{740920fd-7e18-4d97-90b8-bc1ecc24eef9}</Project>
+      <Name>Controls</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{06f9475c-dbda-49b3-a461-21821ca8be76}</Project>
       <Name>Domain</Name>
