@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,8 +28,16 @@ namespace GUI.ViewModels
             viewModelStack.Push( new IntroViewModel( this ) );
             activeViewModel = Cell.Derived( () => viewModelStack.Peek() );
 
-            gameData = picrossFacade.LoadGameData( @"g:\test.zip" );
-            //gameData = picrossFacade.CreateDummyGameData();
+            try
+            {
+                gameData = picrossFacade.LoadGameData( @"g:\test.zip" );
+            }
+            catch ( Exception )
+            {
+                Debug.WriteLine( "----> FAILED TO LOAD DATA! <----" );
+                gameData = picrossFacade.CreateDummyGameData();
+            }
+
             this.quitAction = quitAction;
         }
 
