@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DataStructures;
 using PiCross;
+using System.IO.Compression;
 
 namespace PiCross
 {
@@ -21,9 +22,9 @@ namespace PiCross
         /// <returns>An IGameData object.</returns>
         public IGameData CreateEmptyGameData()
         {
-            var data = new InMemoryDatabase( InMemoryDatabase.PuzzleLibrary.CreateEmpty(), InMemoryDatabase.PlayerDatabase.CreateEmpty() );
+            var data = new InMemoryDatabase(InMemoryDatabase.PuzzleLibrary.CreateEmpty(), InMemoryDatabase.PlayerDatabase.CreateEmpty());
 
-            return new GameDataAdapter( data );
+            return new GameDataAdapter(data);
         }
 
         /// <summary>
@@ -33,7 +34,7 @@ namespace PiCross
         /// <returns>An IGameData object.</returns>
         public IGameData CreateDummyGameData()
         {
-            return new GameDataAdapter( DummyData.Create() );
+            return new GameDataAdapter(DummyData.Create());
         }
 
         /// <summary>
@@ -42,12 +43,41 @@ namespace PiCross
         /// </summary>
         /// <param name="path">Path to the file.</param>
         /// <returns>An IGameData object.</returns>
-        public IGameData LoadGameData( string path )
+        public IGameData LoadGameData(string path, bool createIfNotExistent = false)
         {
-            var archive = new AutoCloseGameDataArchive( path );
-            var gameData = new GameDataAdapter( new ArchiveDatabase( path ) );
+            if (!File.Exists(path) && createIfNotExistent)
+            {
+                CreateEmptyFileArchive(path);
+            }
+
+            var gameData = new GameDataAdapter(new ArchiveDatabase(path));
 
             return gameData;
+        }
+
+        /// <summary>
+        /// Creates an empty zip archive with the given path.
+        /// </summary>
+        /// <param name="path">Path of the zip archive.</param>
+        private void CreateEmptyFileArchive(string path)
+        {
+            using (var memoryStream = new MemoryStream())
+            {
+                using (var zipArchive = new ZipArchive(memoryStream, ZipArchiveMode.Create, true))
+                {
+                    var entry = zipArchive.CreateEntry("dummy");
+
+                    using (var entryStream = entry.Open())
+                    {
+                        entryStream.WriteByte(65);
+                    }                    
+                }
+
+                using (var fileStream = new FileStream(path, FileMode.CreateNew, FileAccess.Write))
+                {
+                    memoryStream.WriteTo(fileStream);
+                }
+            }
         }
 
         /// <summary>
@@ -58,19 +88,19 @@ namespace PiCross
         /// <param name="puzzle">Puzzle to be edited. Note that this object cannot be changed; the editor
         /// uses this puzzle solely as an initial state.</param>
         /// <returns>An IPuzzleEditor object.</returns>
-        public IPuzzleEditor CreatePuzzleEditor( Puzzle puzzle )
+        public IPuzzleEditor CreatePuzzleEditor(Puzzle puzzle)
         {
-            var editorGrid = EditorGrid.FromPuzzle( puzzle );
-            var puzzleEditor = new PuzzleEditor( editorGrid );
+            var editorGrid = EditorGrid.FromPuzzle(puzzle);
+            var puzzleEditor = new PuzzleEditor(editorGrid);
 
             return puzzleEditor;
         }
 
-        public IStepwisePuzzleSolver CreateStepwisePuzzleSolver( ISequence<Constraints> rowConstraints, ISequence<Constraints> columnConstraints )
+        public IStepwisePuzzleSolver CreateStepwisePuzzleSolver(ISequence<Constraints> rowConstraints, ISequence<Constraints> columnConstraints)
         {
-            var solverGrid = new SolverGrid( columnConstraints: columnConstraints, rowConstraints: rowConstraints );
+            var solverGrid = new SolverGrid(columnConstraints: columnConstraints, rowConstraints: rowConstraints);
 
-            return new StepwiseSolver( solverGrid );
+            return new StepwiseSolver(solverGrid);
         }
 
         /// <summary>
@@ -79,9 +109,9 @@ namespace PiCross
         /// </summary>
         /// <param name="puzzle">Puzzle to be solved.</param>
         /// <returns>An IPlayablePuzzle object.</returns>
-        public IPlayablePuzzle CreatePlayablePuzzle( Puzzle puzzle )
+        public IPlayablePuzzle CreatePlayablePuzzle(Puzzle puzzle)
         {
-            return new PlayablePuzzle( columnConstraints: puzzle.ColumnConstraints, rowConstraints: puzzle.RowConstraints );
+            return new PlayablePuzzle(columnConstraints: puzzle.ColumnConstraints, rowConstraints: puzzle.RowConstraints);
         }
     }
 }
