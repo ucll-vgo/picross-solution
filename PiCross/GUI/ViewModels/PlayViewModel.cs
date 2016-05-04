@@ -217,6 +217,22 @@ namespace GUI.ViewModels
             }
         }
 
+        public Cell<int> UnknownCount
+        {
+            get
+            {
+                return this.puzzle.UnknownCount;
+            }
+        }
+
+        public Cell<bool> ContainsUnknowns
+        {
+            get
+            {
+                return this.puzzle.ContainsUnknowns;
+            }
+        }
+
         #region Multiselect Logic
 
         private Square newContents;

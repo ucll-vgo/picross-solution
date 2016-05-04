@@ -30,7 +30,7 @@ namespace GUI.ViewModels
 
             try
             {
-                gameData = picrossFacade.LoadGameData( @"test.zip", true );
+                gameData = picrossFacade.LoadGameData( @"e:\test.zip", true );
             }
             catch ( Exception e )
             {

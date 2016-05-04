@@ -10,6 +10,15 @@
     <Grid>
         <DockPanel>
             <StackPanel DockPanel.Dock="Bottom" HorizontalAlignment="Right" Orientation="Horizontal">
+                <TextBlock Text="{Binding UnknownCount.Value}" FontSize="48" Foreground="White" VerticalAlignment="Center">
+                    <TextBlock.Background>
+                        <Binding Path="ContainsUnknowns.Value">
+                            <Binding.Converter>
+                                <converters:BoolConverter True="Transparent" False="Red" />
+                            </Binding.Converter>
+                        </Binding>
+                    </TextBlock.Background>
+                </TextBlock>
                 <Button Style="{StaticResource pauseButtonStyle}" Command="{Binding Pause}" ToolTip="Pause" />
                 <Button Style="{StaticResource backButtonStyle}" Command="{Binding Back}" ToolTip="Back" IsCancel="True" />
             </StackPanel>
