@@ -21,6 +21,10 @@ namespace PiCross
 
         private readonly Cell<bool> isSolved;
 
+        private readonly Cell<int> unknownCount;
+
+        private readonly Cell<bool> containsUnknowns;
+
         public PlayablePuzzle( ISequence<Constraints> columnConstraints, ISequence<Constraints> rowConstraints )
             : this( new PlayGrid( columnConstraints: columnConstraints, rowConstraints: rowConstraints ) )
         {
@@ -40,6 +44,8 @@ namespace PiCross
                 this.columnConstraints = this.playGrid.ColumnConstraints.Map( constraints => new PlayablePuzzleConstraints( constraints ) ).Copy();
                 this.rowConstraints = this.playGrid.RowConstraints.Map( constraints => new PlayablePuzzleConstraints( constraints ) ).Copy();
                 this.isSolved = Cell.Derived( DeriveIsSolved );
+                this.unknownCount = Cell.Derived(DeriveUnknownCount);
+                this.containsUnknowns = Cell.Derived(DeriveContainsUnknowns);
             }
         }
 
@@ -48,11 +54,37 @@ namespace PiCross
             return columnConstraints.Items.All( x => x.IsSatisfied.Value ) && rowConstraints.Items.All( x => x.IsSatisfied.Value );
         }
 
+        private int DeriveUnknownCount()
+        {
+            return Grid.Items.Count(playablePuzzleSquare => playablePuzzleSquare.Contents.Value == Square.UNKNOWN);
+        }
+
+        private bool DeriveContainsUnknowns()
+        {
+            return Grid.Items.Any(playablePuzzleSquare => playablePuzzleSquare.Contents.Value == Square.UNKNOWN);
+        }
+
         public Cell<bool> IsSolved
         {
             get
             {
                 return isSolved;
+            }
+        }
+
+        public Cell<int> UnknownCount
+        {
+            get
+            {
+                return unknownCount;
+            }
+        }
+
+        public Cell<bool> ContainsUnknowns
+        {
+            get
+            {
+                return containsUnknowns;
             }
         }
     
@@ -86,6 +118,8 @@ namespace PiCross
             RefreshColumnConstraints( position.X );
             RefreshRowConstraints( position.Y );
             RefreshIsSolved();
+            RefreshUnknownCount();
+            RefreshContainsUnknowns();
         }
 
         private void Refresh()
@@ -93,11 +127,23 @@ namespace PiCross
             RefreshSquares();
             RefreshConstraints();
             RefreshIsSolved();
+            RefreshUnknownCount();
+            RefreshContainsUnknowns();
         }
 
         private void RefreshIsSolved()
         {
             isSolved.Refresh();
+        }
+
+        private void RefreshUnknownCount()
+        {
+            unknownCount.Refresh();
+        }
+
+        private void RefreshContainsUnknowns()
+        {
+            containsUnknowns.Refresh();
         }
 
         private void RefreshSquares()
