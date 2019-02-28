@@ -13,6 +13,12 @@ namespace GUI
     /// </summary>
     public partial class App : Application
     {
-        
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            var mainWindow = new MainWindow( new ViewModels.MasterController() );
+            mainWindow.Show();
+
+            base.OnStartup(e);
+        }
     }
 }

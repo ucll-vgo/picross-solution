@@ -1,15 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.9
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{06F9475C-DBDA-49B3-A461-21821CA8BE76}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{BF45E6E1-A4A3-4AF8-8944-B5C82DB03020}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUI", "GUI\GUI.csproj", "{146DF8B5-BA89-460E-A7A6-1CFF3DBD95A9}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PiCon", "PiCon\PiCon.csproj", "{395FAAB8-6800-447E-970A-67BF7BD9D3B5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Controls", "Controls\Controls.csproj", "{740920FD-7E18-4D97-90B8-BC1ECC24EEF9}"
 EndProject
@@ -31,10 +29,6 @@ Global
 		{146DF8B5-BA89-460E-A7A6-1CFF3DBD95A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{146DF8B5-BA89-460E-A7A6-1CFF3DBD95A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{146DF8B5-BA89-460E-A7A6-1CFF3DBD95A9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{395FAAB8-6800-447E-970A-67BF7BD9D3B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{395FAAB8-6800-447E-970A-67BF7BD9D3B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{395FAAB8-6800-447E-970A-67BF7BD9D3B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{395FAAB8-6800-447E-970A-67BF7BD9D3B5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{740920FD-7E18-4D97-90B8-BC1ECC24EEF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{740920FD-7E18-4D97-90B8-BC1ECC24EEF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{740920FD-7E18-4D97-90B8-BC1ECC24EEF9}.Release|Any CPU.ActiveCfg = Release|Any CPU

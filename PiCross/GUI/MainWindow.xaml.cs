@@ -41,11 +41,12 @@ namespace GUI
 
         private readonly Cell<int> currentThemeIndex;
 
-        public MainWindow()
+        public MainWindow(MasterController masterController)
         {
             InitializeComponent();
 
-            this.masterController = CreateMasterController();
+            this.masterController = masterController;
+            this.masterController.QuitAction = this.Close;
             this.toggleConsole = EnabledCommand.FromDelegate( PerformToggleConsole );
             this.toggleFullScreen = EnabledCommand.FromDelegate( PerformToggleFullScreen );
             this.themeManager = new ThemeManager();
@@ -54,11 +55,6 @@ namespace GUI
             SetUpDataContext();
             SetUpTimer();
             SetUpTheme();
-        }
-
-        private MasterController CreateMasterController()
-        {
-            return new MasterController( this.Close );
         }
 
         private void SetUpDataContext()
