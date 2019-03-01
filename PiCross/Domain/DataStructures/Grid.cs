@@ -143,11 +143,11 @@ namespace DataStructures
         {
             if ( target == null )
             {
-                throw new ArgumentNullException( "target" );
+                throw new ArgumentNullException( nameof(target) );
             }
             else if ( source == null )
             {
-                throw new ArgumentNullException( "source" );
+                throw new ArgumentNullException( nameof(source) );
             }
             else if ( target.Size != source.Size )
             {
@@ -166,11 +166,11 @@ namespace DataStructures
         {
             if ( target == null )
             {
-                throw new ArgumentNullException( "target" );
+                throw new ArgumentNullException( nameof(target) );
             }
             else if ( source == null )
             {
-                throw new ArgumentNullException( "source" );
+                throw new ArgumentNullException( nameof(source) );
             }
             else if ( target.Size != source.Size )
             {
@@ -228,11 +228,11 @@ namespace DataStructures
         {
             if ( xss == null )
             {
-                throw new ArgumentNullException( "xss" );
+                throw new ArgumentNullException( nameof(xss) );
             }
             else if ( yss == null )
             {
-                throw new ArgumentNullException( "yss" );
+                throw new ArgumentNullException( nameof(yss) );
             }
             else
             {
@@ -415,11 +415,11 @@ namespace DataStructures
         {
             if ( size == null )
             {
-                throw new ArgumentNullException( "size" );
+                throw new ArgumentNullException( nameof(size) );
             }
             else if ( function == null )
             {
-                throw new ArgumentNullException( "function" );
+                throw new ArgumentNullException( nameof(function) );
             }
             else
             {
@@ -442,7 +442,7 @@ namespace DataStructures
             {
                 if ( !this.IsValidPosition( position ) )
                 {
-                    throw new ArgumentOutOfRangeException( "position" );
+                    throw new ArgumentOutOfRangeException( nameof(position) );
                 }
                 else
                 {
