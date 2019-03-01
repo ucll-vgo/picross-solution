@@ -1,4 +1,7 @@
+#!/usr/bin/env python
+
 from functools import reduce
+import argparse
 
 
 class Grid:
@@ -140,7 +143,7 @@ def improve(grid, column_constraints, row_constraints):
     improve_columns()
 
 
-def solve(column_constraints, row_constraints):
+def solve_puzzle(column_constraints, row_constraints):
     width = len(column_constraints)
     height = len(row_constraints)
     grid = Grid(width, height, lambda x, y: UNKNOWN)
@@ -171,6 +174,27 @@ def show(grid):
     return '\n'.join( ''.join( aux(c) for c in row ) for row in grid.rows )
 
 
+def derive_constraints(grid):
+    def derive(bs):
+        def aux(ns, acc, bs):
+            if bs:
+                b, *bs = bs
+
+                if b == EMPTY:
+                    return aux( [*ns, acc], 0, bs )
+                else:
+                    return aux( ns, acc + 1, bs )
+            else:
+                return [ *ns, acc ]
+
+        return [ x for x in aux([], 0, bs) if x != 0 ]
+
+    column_constraints = [ derive(list(column)) for column in grid.columns ]
+    row_constraints = [ derive(list(row)) for row in grid.rows ]
+
+    return ( column_constraints, row_constraints )
+
+
 def read_constraints_from_file(filename):
     with open(filename) as file:
         width, height = map(int, file.readline().split(' '))
@@ -181,5 +205,43 @@ def read_constraints_from_file(filename):
         return (column_constraints, row_constraints)
 
 
-column_constraints, row_constraints = read_constraints_from_file('squirrel.txt')
-print(show(solve(column_constraints, row_constraints)))
+def read_image_from_file(filename):
+    with open(filename) as file:
+        rows = [ line.strip() for line in file ]
+        width = len(rows[0])
+        height = len(rows)
+
+        return Grid(width, height, lambda x, y: EMPTY if rows[y][x] == '.' else FILLED)
+
+
+def process_command_line_arguments():
+    def solve_command(args):
+        column_constraints, row_constraints = read_constraints_from_file(args.filename)
+        print(show(solve_puzzle(column_constraints, row_constraints)))
+
+    def derive_constraints_command(args):
+        filename = args.filename
+        grid = read_image_from_file(filename)
+        column_constraints, row_constraints = derive_constraints(grid)
+        print(f'{grid.width} {grid.height}')
+        print('\n'.join( ' '.join( str(n) for n in ns ) for ns in column_constraints ))
+        print('\n'.join( ' '.join( str(n) for n in ns ) for ns in row_constraints ))
+
+
+    parser = argparse.ArgumentParser(prog='picross')
+    parser.set_defaults(func=lambda args: parser.print_help())
+    subparsers = parser.add_subparsers(help='sub-command help')
+
+    solve_parser = subparsers.add_parser('solve', help='solves PiCross puzzle')
+    solve_parser.add_argument('filename', help='file containing constraints', action='store')
+    solve_parser.set_defaults(func=solve_command)
+
+    solve_parser = subparsers.add_parser('constraints', help='derives constraints from image')
+    solve_parser.add_argument('filename', help='file containing image', action='store')
+    solve_parser.set_defaults(func=derive_constraints_command)
+
+    args = parser.parse_args()
+    args.func(args)
+
+
+process_command_line_arguments()
