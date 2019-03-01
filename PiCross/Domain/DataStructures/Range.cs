@@ -8,10 +8,6 @@ namespace DataStructures
 {
     public class Range
     {
-        private readonly int from;
-
-        private readonly int length;
-
         public static Range FromStartAndLength( int start, int length )
         {
             return new Range( start, length );
@@ -24,36 +20,24 @@ namespace DataStructures
 
         private Range( int from, int length )
         {
-            this.from = from;
-            this.length = length;
+            this.From = from;
+            this.Length = length;
         }
 
-        public int From
-        {
-            get
-            {
-                return from;
-            }
-        }
+        public int From { get; }
 
-        public int Length
-        {
-            get
-            {
-                return length;
-            }
-        }
+        public int Length { get; }
 
         public bool Contains(int n)
         {
-            return from <= n && n < from + length;
+            return From <= n && n < From + Length;
         }
 
         public IEnumerable<int> Items
         {
             get
             {
-                return Enumerable.Range( from, length );
+                return Enumerable.Range( From, Length );
             }
         }
 
@@ -64,17 +48,17 @@ namespace DataStructures
 
         public bool Equals( Range that )
         {
-            return that != null && this.from == that.from && this.length == that.length;
+            return that != null && this.From == that.From && this.Length == that.Length;
         }
 
         public override int GetHashCode()
         {
-            return from.GetHashCode() ^ length.GetHashCode();
+            return From.GetHashCode() ^ Length.GetHashCode();
         }
 
         public override string ToString()
         {
-            return string.Format( "[{0}...{1})", from, from + length );
+            return string.Format( $"[{From}...{From + Length})" );
         }
     }
 }
