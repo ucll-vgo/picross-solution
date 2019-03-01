@@ -8,12 +8,12 @@ namespace Cells
 {
     public static class CellExtensions
     {
-        public static Cell<R> Map<T, R>(this Cell<T> cell, Func<T, R> func)
+        public static Cell<R> Map<T, R>( this Cell<T> cell, Func<T, R> func )
         {
             return Cell.Derived( cell, func );
         }
 
-        public static Cell<bool> Negate(this Cell<bool> cell)
+        public static Cell<bool> Negate( this Cell<bool> cell )
         {
             return cell.Map( x => !x );
         }

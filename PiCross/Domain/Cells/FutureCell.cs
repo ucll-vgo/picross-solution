@@ -81,7 +81,7 @@ namespace Cells
         {
             private readonly FutureCell<T> cell;
 
-            public Proxy(FutureCell<T> cell)
+            public Proxy( FutureCell<T> cell )
             {
                 this.cell = cell;
             }

@@ -32,7 +32,7 @@ namespace PiCross
         /// Grid of IPlayablePuzzleSquares.
         /// </summary>
         IGrid<IPlayablePuzzleSquare> Grid { get; }
-        
+
         /// <summary>
         /// Column constraints.
         /// </summary>

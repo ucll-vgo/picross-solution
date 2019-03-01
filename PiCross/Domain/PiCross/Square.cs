@@ -56,7 +56,7 @@ namespace PiCross
             }
             else
             {
-                throw new ArgumentException( string.Format("Unknown symbol: {0}", symbol ) );
+                throw new ArgumentException( $"Unknown symbol: {symbol}" );
             }
         }
 
@@ -65,7 +65,7 @@ namespace PiCross
         /// </summary>
         /// <param name="b">Bool.</param>
         /// <returns>Square.</returns>
-        public static Square FromBool(bool b)
+        public static Square FromBool( bool b )
         {
             return b ? FILLED : EMPTY;
         }
@@ -75,7 +75,7 @@ namespace PiCross
         /// </summary>
         /// <param name="rows">Strings representing rows.</param>
         /// <returns>Grid.</returns>
-        public static IGrid<Square> CreateGrid(params string[] rows)
+        public static IGrid<Square> CreateGrid( params string[] rows )
         {
             return CreateGrid( Grid.CreateCharacterGrid( rows ) );
         }
@@ -148,11 +148,11 @@ namespace PiCross
         /// <exception cref="ArgumentException">
         /// Thrown when casting UNKNOWN to bool.
         /// </exception>
-        public static explicit operator bool(Square square)
+        public static explicit operator bool( Square square )
         {
             if ( square == null )
             {
-                throw new ArgumentNullException( nameof(square) );
+                throw new ArgumentNullException( nameof( square ) );
             }
             else if ( square == UNKNOWN )
             {
@@ -182,10 +182,7 @@ namespace PiCross
                 return UNKNOWN;
             }
 
-            public override char Symbol
-            {
-                get { return '?'; }
-            }
+            public override char Symbol => '?';
         }
 
         private class Filled : Square
@@ -207,10 +204,7 @@ namespace PiCross
                 }
             }
 
-            public override char Symbol
-            {
-                get { return 'x'; }
-            }
+            public override char Symbol => 'x';
         }
 
         private class Empty : Square
@@ -232,10 +226,7 @@ namespace PiCross
                 }
             }
 
-            public override char Symbol
-            {
-                get { return '.'; }
-            }
+            public override char Symbol => '.';
         }
     }
 }

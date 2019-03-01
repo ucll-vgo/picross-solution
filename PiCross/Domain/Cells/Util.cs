@@ -8,7 +8,7 @@ namespace Cells
 {
     public class Util
     {
-        public static bool AreEqual<T>(T x, T y)
+        public static bool AreEqual<T>( T x, T y )
         {
             if ( x == null )
             {

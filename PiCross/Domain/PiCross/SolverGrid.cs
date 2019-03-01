@@ -16,7 +16,7 @@ namespace PiCross
 
         private readonly ISequence<Constraints> rowConstraints;
 
-        public static SolverGrid FromPuzzle(Puzzle puzzle)
+        public static SolverGrid FromPuzzle( Puzzle puzzle )
         {
             return new SolverGrid( columnConstraints: puzzle.ColumnConstraints, rowConstraints: puzzle.RowConstraints );
         }
@@ -25,7 +25,7 @@ namespace PiCross
         {
             if ( columnConstraints == null )
             {
-                throw new ArgumentNullException( nameof(columnConstraints) );
+                throw new ArgumentNullException( nameof( columnConstraints ) );
             }
             else if ( columnConstraints.Length == 0 )
             {
@@ -33,7 +33,7 @@ namespace PiCross
             }
             else if ( rowConstraints == null )
             {
-                throw new ArgumentNullException( nameof(rowConstraints) );
+                throw new ArgumentNullException( nameof( rowConstraints ) );
             }
             else if ( rowConstraints.Length == 0 )
             {
@@ -99,29 +99,11 @@ namespace PiCross
             return squares.Items.Count( var => var.Value == Square.UNKNOWN );
         }
 
-        public bool IsSolved
-        {
-            get
-            {
-                return CountUnknowns() == 0;
-            }
-        }
+        public bool IsSolved => CountUnknowns() == 0;
 
-        public int Width
-        {
-            get
-            {
-                return squares.Size.Width;
-            }
-        }
+        public int Width => squares.Size.Width;
 
-        public int Height
-        {
-            get
-            {
-                return squares.Size.Height;
-            }
-        }
+        public int Height => squares.Size.Height;
 
         public bool RefineColumns()
         {
@@ -157,7 +139,7 @@ namespace PiCross
 
         public void Refine()
         {
-            while ( SinglePassRefine() );
+            while ( SinglePassRefine() ) ;
         }
 
         public IGrid<Square> Squares

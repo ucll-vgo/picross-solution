@@ -10,17 +10,11 @@ namespace PiCross
 {
     internal class PlayGrid
     {
-        private readonly IGrid<IVar<Square>> grid;
-
-        private readonly ISequence<PlayGridConstraints> columnConstraints;
-
-        private readonly ISequence<PlayGridConstraints> rowConstraints;
-
         public PlayGrid( ISequence<Constraints> columnConstraints, ISequence<Constraints> rowConstraints, IGrid<Square> squares )
         {
             if ( columnConstraints == null )
             {
-                throw new ArgumentNullException( nameof(columnConstraints) );
+                throw new ArgumentNullException( nameof( columnConstraints ) );
             }
             else if ( rowConstraints == null )
             {
@@ -28,7 +22,7 @@ namespace PiCross
             }
             else if ( squares == null )
             {
-                throw new ArgumentNullException( nameof(squares) );
+                throw new ArgumentNullException( nameof( squares ) );
             }
             else if ( columnConstraints.Length != squares.Size.Width )
             {
@@ -40,17 +34,17 @@ namespace PiCross
             }
             else
             {
-                this.grid = squares.Map( sqr => new Var<Square>( sqr ) ).Copy();
+                this.Squares = squares.Map( sqr => new Var<Square>( sqr ) ).Copy();
 
-                this.columnConstraints = ( from i in grid.ColumnIndices
-                                           let constraints = columnConstraints[i]
-                                           let slice = new Slice( grid.Column( i ).Map( var => var.Value ) )
-                                           select new PlayGridConstraints( slice, constraints ) ).ToSequence();
+                this.ColumnConstraints = (from i in Squares.ColumnIndices
+                                          let constraints = columnConstraints[i]
+                                          let slice = new Slice( Squares.Column( i ).Map( var => var.Value ) )
+                                          select new PlayGridConstraints( slice, constraints )).ToSequence();
 
-                this.rowConstraints = ( from i in grid.RowIndices
-                                        let constraints = rowConstraints[i]
-                                        let slice = new Slice( grid.Row( i ).Map( var => var.Value ) )
-                                        select new PlayGridConstraints( slice, constraints ) ).ToSequence();
+                this.RowConstraints = (from i in Squares.RowIndices
+                                       let constraints = rowConstraints[i]
+                                       let slice = new Slice( Squares.Row( i ).Map( var => var.Value ) )
+                                       select new PlayGridConstraints( slice, constraints )).ToSequence();
             }
         }
 
@@ -60,29 +54,11 @@ namespace PiCross
             // NOP
         }
 
-        public IGrid<IVar<Square>> Squares
-        {
-            get
-            {
-                return grid;
-            }
-        }
+        public IGrid<IVar<Square>> Squares { get; }
 
-        public ISequence<PlayGridConstraints> ColumnConstraints
-        {
-            get
-            {
-                return columnConstraints;
-            }
-        }
+        public ISequence<PlayGridConstraints> ColumnConstraints { get; }
 
-        public ISequence<PlayGridConstraints> RowConstraints
-        {
-            get
-            {
-                return rowConstraints;
-            }
-        }
+        public ISequence<PlayGridConstraints> RowConstraints { get; }
     }
 
     internal class PlayGridConstraints

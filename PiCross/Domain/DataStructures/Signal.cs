@@ -14,30 +14,22 @@ namespace DataStructures
 
     public class SignalFactory<T>
     {
-        private readonly Cell<T> cell;
-
         public SignalFactory( Cell<T> cell )
         {
-            this.cell = cell;
+            this.Cell = cell;
         }
 
-        public SignalFactory( T initialCellContents = default(T) )
+        public SignalFactory( T initialCellContents = default( T ) )
             : this( Cells.Cell.Create<T>( initialCellContents ) )
         {
             // NOP
         }
 
-        public Cell<T> Cell
-        {
-            get
-            {
-                return cell;
-            }
-        }
+        public Cell<T> Cell { get; }
 
         public ISignal CreateSignal( T value )
         {
-            return new Signal( cell, value );
+            return new Signal( Cell, value );
         }
 
         private class Signal : ISignal

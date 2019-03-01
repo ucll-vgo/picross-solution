@@ -3,30 +3,26 @@ namespace DataStructures
 {
     public class Size
     {
-        private readonly int width;
-
-        private readonly int height;
-
-        public Size( int width, int height )
+        public Size( int Width, int Height )
         {
-            if ( width < 0 )
+            if ( Width < 0 )
             {
-                throw new ArgumentOutOfRangeException( "width" );
+                throw new ArgumentOutOfRangeException( nameof( Width ) );
             }
-            else if ( height < 0 )
+            else if ( Height < 0 )
             {
-                throw new ArgumentOutOfRangeException( "height" );
+                throw new ArgumentOutOfRangeException( nameof( Height ) );
             }
             else
             {
-                this.width = width;
-                this.height = height;
+                this.Width = Width;
+                this.Height = Height;
             }
         }
 
-        public int Width { get { return width; } }
+        public int Width { get; }
 
-        public int Height { get { return height; } }
+        public int Height { get; }
 
         public override bool Equals( object obj )
         {
@@ -35,17 +31,17 @@ namespace DataStructures
 
         public bool Equals( Size that )
         {
-            return that != null && this.width == that.width && this.height == that.height;
+            return that != null && this.Width == that.Width && this.Height == that.Height;
         }
 
         public override int GetHashCode()
         {
-            return width.GetHashCode() ^ height.GetHashCode();
+            return Width.GetHashCode() ^ Height.GetHashCode();
         }
 
         public override string ToString()
         {
-            return string.Format( "PuzzleSize[{0}, {1}]", width, height );
+            return $"PuzzleSize[{Width}, {Height}]";
         }
 
         public static bool operator ==( Size s1, Size s2 )
@@ -62,7 +58,7 @@ namespace DataStructures
 
         public static bool operator !=( Size s1, Size s2 )
         {
-            return !( s1 == s2 );
+            return !(s1 == s2);
         }
     }
 }

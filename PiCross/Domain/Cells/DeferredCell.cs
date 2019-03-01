@@ -28,7 +28,7 @@ namespace Cells
                 {
                     base.Value = value;
                     dirty = true;
-                }                
+                }
             }
         }
 

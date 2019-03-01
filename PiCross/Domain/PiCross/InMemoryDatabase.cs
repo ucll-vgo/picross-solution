@@ -14,10 +14,6 @@ namespace PiCross
 {
     internal class InMemoryDatabase : IDatabase
     {
-        private readonly PuzzleLibrary library;
-
-        private readonly PlayerDatabase playerDatabase;
-
         public static InMemoryDatabase CreateEmpty()
         {
             var puzzles = PuzzleLibrary.CreateEmpty();
@@ -63,50 +59,26 @@ namespace PiCross
         {
             if ( library == null )
             {
-                throw new ArgumentNullException( nameof(library) );
+                throw new ArgumentNullException( nameof( library ) );
             }
             else if ( playerDatabase == null )
             {
-                throw new ArgumentNullException( nameof(playerDatabase) );
+                throw new ArgumentNullException( nameof( playerDatabase ) );
             }
             else
             {
-                this.library = library;
-                this.playerDatabase = playerDatabase;
+                this.Puzzles = library;
+                this.Players = playerDatabase;
             }
         }
 
-        IPuzzleDatabase IDatabase.Puzzles
-        {
-            get
-            {
-                return Puzzles;
-            }
-        }
+        IPuzzleDatabase IDatabase.Puzzles => Puzzles;
 
-        public PuzzleLibrary Puzzles
-        {
-            get
-            {
-                return this.library;
-            }
-        }
+        public PuzzleLibrary Puzzles { get; }
 
-        IPlayerDatabase IDatabase.Players
-        {
-            get
-            {
-                return Players;
-            }
-        }
+        IPlayerDatabase IDatabase.Players => Players;
 
-        public PlayerDatabase Players
-        {
-            get
-            {
-                return this.playerDatabase;
-            }
-        }
+        public PlayerDatabase Players { get; }
 
         public override bool Equals( object obj )
         {
@@ -115,12 +87,12 @@ namespace PiCross
 
         public bool Equals( InMemoryDatabase gameData )
         {
-            return gameData != null && library.Equals( gameData.library ) && playerDatabase.Equals( gameData.playerDatabase );
+            return gameData != null && this.Puzzles.Equals( gameData.Puzzles ) && Players.Equals( gameData.Players);
         }
 
         public override int GetHashCode()
         {
-            return library.GetHashCode() ^ playerDatabase.GetHashCode();
+            return Puzzles.GetHashCode() ^ Players.GetHashCode();
         }
 
         public class PuzzleLibrary : IPuzzleDatabase
@@ -140,13 +112,7 @@ namespace PiCross
                 nextUID = 0;
             }
 
-            public IList<PuzzleLibraryEntry> Entries
-            {
-                get
-                {
-                    return entries.AsReadOnly();
-                }
-            }
+            public IList<PuzzleLibraryEntry> Entries => entries.AsReadOnly();
 
             public PuzzleLibraryEntry this[int id]
             {
@@ -182,7 +148,7 @@ namespace PiCross
             {
                 if ( libraryEntry == null )
                 {
-                    throw new ArgumentNullException( nameof(libraryEntry) );
+                    throw new ArgumentNullException( nameof( libraryEntry ) );
                 }
                 else if ( ContainsEntryWithUID( libraryEntry.UID ) )
                 {
@@ -229,21 +195,9 @@ namespace PiCross
                 return entries.Select( x => x.GetHashCode() ).Aggregate( ( acc, n ) => acc ^ n );
             }
 
-            IEnumerable<IPuzzleDatabaseEntry> IPuzzleDatabase.Entries
-            {
-                get
-                {
-                    return Entries;
-                }
-            }
+            IEnumerable<IPuzzleDatabaseEntry> IPuzzleDatabase.Entries => Entries;
 
-            IPuzzleDatabaseEntry IPuzzleDatabase.this[int id]
-            {
-                get
-                {
-                    return this[id];
-                }
-            }
+            IPuzzleDatabaseEntry IPuzzleDatabase.this[int id] => this[id];
 
             IPuzzleDatabaseEntry IPuzzleDatabase.Create( Puzzle puzzle, string author )
             {
@@ -253,44 +207,18 @@ namespace PiCross
 
         internal class PuzzleLibraryEntry : IPuzzleDatabaseEntry
         {
-            private readonly int uid;
-
-            private Puzzle puzzle;
-
-            private string author;
-
             public PuzzleLibraryEntry( int uid, Puzzle puzzle, string author )
             {
-                this.uid = uid;
-                this.puzzle = puzzle;
-                this.author = author;
+                this.UID = uid;
+                this.Puzzle = puzzle;
+                this.Author = author;
             }
 
-            public int UID
-            {
-                get
-                {
-                    return uid;
-                }
-            }
+            public int UID { get; }
 
-            public Puzzle Puzzle
-            {
-                get
-                {
-                    return puzzle;
-                }
-                set
-                {
-                    this.puzzle = value;
-                }
-            }
+            public Puzzle Puzzle { get; set; }
 
-            public string Author
-            {
-                get { return author; }
-                set { author = value; }
-            }
+            public string Author { get; set; }
 
             public override bool Equals( object obj )
             {
@@ -299,17 +227,17 @@ namespace PiCross
 
             public bool Equals( PuzzleLibraryEntry that )
             {
-                return this.uid == that.uid;
+                return this.UID == that.UID;
             }
 
             public override int GetHashCode()
             {
-                return uid.GetHashCode();
+                return UID.GetHashCode();
             }
 
             public int CompareTo( PuzzleLibraryEntry other )
             {
-                return this.uid.CompareTo( other.uid );
+                return this.UID.CompareTo( other.UID );
             }
         }
 
@@ -388,10 +316,10 @@ namespace PiCross
             {
                 get
                 {
-                    return ( from profile in this.playerProfiles
-                             let name = profile.Key
-                             orderby name ascending
-                             select name ).ToList();
+                    return (from profile in this.playerProfiles
+                            let name = profile.Key
+                            orderby name ascending
+                            select name).ToList();
                 }
             }
 
@@ -410,13 +338,7 @@ namespace PiCross
                 return playerProfiles.GetHashCode();
             }
 
-            IPlayerProfileData IPlayerDatabase.this[string name]
-            {
-                get
-                {
-                    return this[name];
-                }
-            }
+            IPlayerProfileData IPlayerDatabase.this[string name] => this[name];
 
             IPlayerProfileData IPlayerDatabase.CreateNewProfile( string name )
             {
@@ -426,20 +348,15 @@ namespace PiCross
 
         internal class PlayerProfile : IPlayerProfileData
         {
-            private readonly string name;
-
             private readonly Dictionary<int, PlayerPuzzleInformationEntry> entries;
 
             public PlayerProfile( string name )
             {
-                this.name = name;
+                this.Name = name;
                 entries = new Dictionary<int, PlayerPuzzleInformationEntry>();
             }
 
-            public string Name
-            {
-                get { return name; }
-            }
+            public string Name { get; }
 
             public PlayerPuzzleInformationEntry this[int id]
             {
@@ -461,27 +378,17 @@ namespace PiCross
 
             public bool Equals( PlayerProfile playerProfile )
             {
-                return this.name == playerProfile.name;
+                return this.Name == playerProfile.Name;
             }
 
             public override int GetHashCode()
             {
-                return name.GetHashCode();
+                return Name.GetHashCode();
             }
 
-            IPlayerPuzzleData IPlayerProfileData.this[int id]
-            {
-                get { return this[id]; }
-            }
+            IPlayerPuzzleData IPlayerProfileData.this[int id] => this[id];
 
-
-            public IEnumerable<int> EntryUIDs
-            {
-                get
-                {
-                    return this.entries.Keys;
-                }
-            }
+            public IEnumerable<int> EntryUIDs => this.entries.Keys;
         }
 
         public class PlayerPuzzleInformationEntry : IPlayerPuzzleData

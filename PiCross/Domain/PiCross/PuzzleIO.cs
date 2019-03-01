@@ -62,7 +62,7 @@ namespace PiCross
             {
                 if ( puzzle == null )
                 {
-                    throw new ArgumentNullException( nameof(puzzle) );
+                    throw new ArgumentNullException( nameof( puzzle ) );
                 }
                 else
                 {

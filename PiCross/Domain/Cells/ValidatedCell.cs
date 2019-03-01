@@ -6,8 +6,8 @@ namespace Cells
     {
         private readonly Func<T, bool> validator;
 
-        public ValidatedCell(T initialValue, Func<T, bool> validator)
-            : base(initialValue)
+        public ValidatedCell( T initialValue, Func<T, bool> validator )
+            : base( initialValue )
         {
             this.validator = validator;
         }

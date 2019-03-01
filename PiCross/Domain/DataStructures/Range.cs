@@ -13,7 +13,7 @@ namespace DataStructures
             return new Range( start, length );
         }
 
-        public static Range FromStartAndEndExclusive(int start, int endExclusive)
+        public static Range FromStartAndEndExclusive( int start, int endExclusive )
         {
             return new Range( start, endExclusive - start );
         }
@@ -28,18 +28,9 @@ namespace DataStructures
 
         public int Length { get; }
 
-        public bool Contains(int n)
-        {
-            return From <= n && n < From + Length;
-        }
+        public bool Contains( int n ) => From <= n && n < From + Length;
 
-        public IEnumerable<int> Items
-        {
-            get
-            {
-                return Enumerable.Range( From, Length );
-            }
-        }
+        public IEnumerable<int> Items => Enumerable.Range( From, Length );
 
         public override bool Equals( object obj )
         {
@@ -58,7 +49,7 @@ namespace DataStructures
 
         public override string ToString()
         {
-            return string.Format( $"[{From}...{From + Length})" );
+            return $"[{From}...{From + Length})";
         }
     }
 }

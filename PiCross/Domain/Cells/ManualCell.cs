@@ -23,13 +23,7 @@ namespace Cells
             }
         }
 
-        public bool IsDirty
-        {
-            get
-            {
-                return !Util.AreEqual( ReadValue(), base.Value );
-            }
-        }
+        public bool IsDirty => !Util.AreEqual( ReadValue(), base.Value );
 
         public override void Refresh()
         {
@@ -68,13 +62,7 @@ namespace Cells
             }
         }
 
-        public bool IsDirty
-        {
-            get
-            {
-                return !Util.AreEqual( function(), base.Value );
-            }
-        }
+        public bool IsDirty => !Util.AreEqual( function(), base.Value );
 
         public override void Refresh()
         {
@@ -98,7 +86,7 @@ namespace Cells
         {
             if ( factory == null )
             {
-                throw new ArgumentNullException( nameof(factory) );
+                throw new ArgumentNullException( nameof( factory ) );
             }
             else
             {
@@ -107,7 +95,7 @@ namespace Cells
             }
         }
 
-        public CELL CreateCell(T value)
+        public CELL CreateCell( T value )
         {
             var cell = factory( value );
 

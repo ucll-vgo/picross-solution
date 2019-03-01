@@ -10,10 +10,8 @@ namespace PiCross
 {
     internal class Slice
     {
-        private readonly ISequence<Square> squares;
-
-        public Slice(ISequence<bool> squares)
-            : this(squares.Map(x => x ? Square.FILLED : Square.EMPTY))
+        public Slice( ISequence<bool> squares )
+            : this( squares.Map( x => x ? Square.FILLED : Square.EMPTY ) )
         {
             // NOP
         }
@@ -22,21 +20,15 @@ namespace PiCross
         {
             if ( squares == null )
             {
-                throw new ArgumentNullException( nameof(squares) );
+                throw new ArgumentNullException( nameof( squares ) );
             }
             else
             {
-                this.squares = squares;
+                this.Squares = squares;
             }
         }
 
-        public ISequence<Square> Squares
-        {
-            get
-            {
-                return squares;
-            }
-        }
+        public ISequence<Square> Squares { get; }
 
         public override bool Equals( object obj )
         {
@@ -51,25 +43,25 @@ namespace PiCross
             }
             else
             {
-                return this.squares.Equals( that.squares );
+                return this.Squares.Equals( that.Squares );
             }
         }
 
         public override int GetHashCode()
         {
-            return squares.GetHashCode();
+            return Squares.GetHashCode();
         }
 
         public override string ToString()
         {
-            return squares.Map( x => x.Symbol ).AsString();
+            return Squares.Map( x => x.Symbol ).AsString();
         }
 
         public bool CompatibleWith( Slice that )
         {
             if ( that == null )
             {
-                throw new ArgumentNullException( nameof(that) );
+                throw new ArgumentNullException( nameof( that ) );
             }
             else if ( this.Squares.Length != that.Squares.Length )
             {
@@ -77,7 +69,7 @@ namespace PiCross
             }
             else
             {
-                return this.squares.Indices.All( i => squares[i].CompatibleWith( that.squares[i] ) );
+                return this.Squares.Indices.All( i => Squares[i].CompatibleWith( that.Squares[i] ) );
             }
         }
 
@@ -85,7 +77,7 @@ namespace PiCross
         {
             if ( that == null )
             {
-                throw new ArgumentNullException( nameof(that) );
+                throw new ArgumentNullException( nameof( that ) );
             }
             else if ( this.Squares.Length != that.Squares.Length )
             {
@@ -93,7 +85,7 @@ namespace PiCross
             }
             else
             {
-                return new Slice( this.squares.ZipWith( that.squares, ( x, y ) => x.Merge( y ) ) );
+                return new Slice( this.Squares.ZipWith( that.Squares, ( x, y ) => x.Merge( y ) ) );
             }
         }
 
@@ -111,11 +103,11 @@ namespace PiCross
         {
             if ( constraints == null )
             {
-                throw new ArgumentNullException( nameof(constraints) );
+                throw new ArgumentNullException( nameof( constraints ) );
             }
             else
             {
-                return new Slice( constraints.Superposition( squares ) );
+                return new Slice( constraints.Superposition( Squares ) );
             }
         }
 
@@ -124,11 +116,11 @@ namespace PiCross
             var blocks = new List<Range>();
             var start = -1;
 
-            var squares = this.squares.Concatenate( Sequence.FromItems( Square.EMPTY ) );
+            var squares = this.Squares.Concatenate( Sequence.FromItems( Square.EMPTY ) );
 
-            for ( var i = 0; i != this.squares.Length; ++i )
+            for ( var i = 0; i != this.Squares.Length; ++i )
             {
-                var square = this.squares[i];
+                var square = this.Squares[i];
 
                 Debug.Assert( square != null );
 
@@ -161,9 +153,9 @@ namespace PiCross
             var fillCount = 0;
             var constraints = new List<int>();
 
-            for ( var i = 0; i != this.squares.Length; ++i )
+            for ( var i = 0; i != this.Squares.Length; ++i )
             {
-                var square = this.squares[i];
+                var square = this.Squares[i];
 
                 if ( square == Square.FILLED )
                 {
@@ -196,7 +188,7 @@ namespace PiCross
         {
             get
             {
-                return squares.Items.All( x => x != Square.UNKNOWN );
+                return Squares.Items.All( x => x != Square.UNKNOWN );
             }
         }
 
@@ -204,9 +196,9 @@ namespace PiCross
         {
             get
             {
-                var known = this.squares.TakeWhile( sqr => sqr != Square.UNKNOWN );
+                var known = this.Squares.TakeWhile( sqr => sqr != Square.UNKNOWN );
 
-                if ( known.Length == this.squares.Length )
+                if ( known.Length == this.Squares.Length )
                 {
                     return this;
                 }
@@ -244,7 +236,7 @@ namespace PiCross
 
         public Slice Lift( Func<ISequence<Square>, ISequence<Square>> function )
         {
-            return new Slice( function( squares ) );
+            return new Slice( function( Squares ) );
         }
     }
 }

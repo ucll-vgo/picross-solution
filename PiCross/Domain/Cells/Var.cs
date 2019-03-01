@@ -14,7 +14,7 @@ namespace Cells
         /// <param name="initialValue">
         /// Var's initial value.
         /// </param>
-        public Var( T initialValue = default(T) )
+        public Var( T initialValue = default( T ) )
         {
             this.value = initialValue;
         }
@@ -36,7 +36,9 @@ namespace Cells
 
         public override string ToString()
         {
-            return string.Format( "VAR[{0}]", value != null ? value.ToString() : "null" );
+            var stringRepresentation = value != null ? value.ToString() : "null";
+
+            return $"VAR[{stringRepresentation}]";
         }
 
         public override bool Equals( object obj )

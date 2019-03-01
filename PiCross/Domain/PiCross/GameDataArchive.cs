@@ -42,10 +42,10 @@ namespace PiCross
         {
             get
             {
-                return ( from entry in this.zipArchive.Entries
-                         let uid = ExtractEntryID( entry.FullName )
-                         where uid.HasValue
-                         select uid.Value ).ToList();
+                return (from entry in this.zipArchive.Entries
+                        let uid = ExtractEntryID( entry.FullName )
+                        where uid.HasValue
+                        select uid.Value).ToList();
             }
         }
 
@@ -53,10 +53,10 @@ namespace PiCross
         {
             get
             {
-                return ( from entry in this.zipArchive.Entries
-                         let playerName = ExtractPlayerName( entry.FullName )
-                         where playerName != null
-                         select playerName ).ToList();
+                return (from entry in this.zipArchive.Entries
+                        let playerName = ExtractPlayerName( entry.FullName )
+                        where playerName != null
+                        select playerName).ToList();
             }
         }
 
@@ -113,10 +113,10 @@ namespace PiCross
 
             using ( var writer = OpenZipArchiveEntryForWriting( path ) )
             {
-                var pairs = ( from uid in playerProfile.EntryUIDs
-                              let entry = playerProfile[uid]
-                              where entry.BestTime.HasValue
-                              select new { ID = uid, BestTime = entry.BestTime.Value } ).ToList();
+                var pairs = (from uid in playerProfile.EntryUIDs
+                             let entry = playerProfile[uid]
+                             where entry.BestTime.HasValue
+                             select new { ID = uid, BestTime = entry.BestTime.Value }).ToList();
 
                 writer.WriteLine( pairs.Count );
 
@@ -139,7 +139,7 @@ namespace PiCross
 
         private Stream OpenZipArchive( string path )
         {
-            return ( zipArchive.GetEntry( path ) ?? CreateZipArchive( path ) ).Open();
+            return (zipArchive.GetEntry( path ) ?? CreateZipArchive( path )).Open();
         }
 
         private ZipArchiveEntry CreateZipArchive( string path )
@@ -149,12 +149,12 @@ namespace PiCross
 
         private static string GetLibraryEntryPath( int id )
         {
-            return string.Format( "library/entry{0}.txt", id.ToString().PadLeft( 5, '0' ) );
+            return $"library/entry{id.ToString().PadLeft( 5, '0' )}.txt";
         }
 
         private static string GetPlayerProfilePath( string playerName )
         {
-            return string.Format( "players/{0}.txt", playerName );
+            return $"players/{playerName}.txt";
         }
 
         private static int? ExtractEntryID( string filename )

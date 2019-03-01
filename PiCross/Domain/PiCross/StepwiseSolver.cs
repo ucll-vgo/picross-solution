@@ -38,7 +38,6 @@ namespace PiCross
             else
             {
                 return nextStep;
-                // return nextStep.Perform();
             }
         }
 
@@ -56,21 +55,9 @@ namespace PiCross
             }
         }
 
-        public IGrid<Square> Grid
-        {
-            get
-            {
-                return solverGrid.Squares;
-            }
-        }
+        public IGrid<Square> Grid => solverGrid.Squares;
 
-        public bool IsSolved
-        {
-            get
-            {
-                return solverGrid.IsSolved;
-            }
-        }
+        public bool IsSolved => solverGrid.IsSolved;
 
         private class SolveStep
         {

@@ -18,18 +18,9 @@ namespace PiCross
             this.archive = new AutoCloseGameDataArchive( path );
         }
 
-        public IPuzzleDatabase Puzzles
-        {
-            get
-            {
-                return new PuzzleDatabase( archive, database.Puzzles );
-            }
-        }
+        public IPuzzleDatabase Puzzles => new PuzzleDatabase( archive, database.Puzzles );
 
-        public IPlayerDatabase Players
-        {
-            get { return new PlayerDatabase( archive, database.Players ); }
-        }
+        public IPlayerDatabase Players => new PlayerDatabase( archive, database.Players );
 
         private class PuzzleDatabase : IPuzzleDatabase
         {
@@ -43,24 +34,10 @@ namespace PiCross
                 this.puzzleLibrary = puzzleLibrary;
             }
 
-            public IEnumerable<IPuzzleDatabaseEntry> Entries
-            {
-                get
-                {
-                    return from entry in puzzleLibrary.Entries
-                           select new PuzzleDatabaseEntry( archive, entry );
-                }
-            }
+            public IEnumerable<IPuzzleDatabaseEntry> Entries => from entry in puzzleLibrary.Entries
+                                                                select new PuzzleDatabaseEntry( archive, entry );
 
-            public IPuzzleDatabaseEntry this[int id]
-            {
-                get
-                {
-                    var entry = puzzleLibrary[id];
-
-                    return new PuzzleDatabaseEntry( archive, entry );
-                }
-            }
+            public IPuzzleDatabaseEntry this[int id] => new PuzzleDatabaseEntry( archive, puzzleLibrary[id] );
 
             public IPuzzleDatabaseEntry Create( Puzzle puzzle, string author )
             {
@@ -83,10 +60,7 @@ namespace PiCross
                 this.entry = entry;
             }
 
-            public int UID
-            {
-                get { return entry.UID; }
-            }
+            public int UID => entry.UID;
 
             public Puzzle Puzzle
             {
@@ -145,13 +119,7 @@ namespace PiCross
                 return new PlayerProfileData( archive, profile );
             }
 
-            public IList<string> PlayerNames
-            {
-                get
-                {
-                    return this.playerDatabase.PlayerNames;
-                }
-            }
+            public IList<string> PlayerNames => this.playerDatabase.PlayerNames;
         }
 
         private class PlayerProfileData : IPlayerProfileData
@@ -166,26 +134,11 @@ namespace PiCross
                 this.profile = profile;
             }
 
-            public IPlayerPuzzleData this[int id]
-            {
-                get
-                {
-                    return new PlayerPuzzleData( archive, profile, id );
-                }
-            }
+            public IPlayerPuzzleData this[int id] => new PlayerPuzzleData( archive, profile, id );
 
-            public IEnumerable<int> EntryUIDs
-            {
-                get
-                {
-                    return profile.EntryUIDs;
-                }
-            }
+            public IEnumerable<int> EntryUIDs => profile.EntryUIDs;
 
-            public string Name
-            {
-                get { return profile.Name; }
-            }
+            public string Name => profile.Name;
         }
 
         private class PlayerPuzzleData : IPlayerPuzzleData
@@ -213,7 +166,7 @@ namespace PiCross
                     return entry.BestTime;
                 }
                 set
-                {                    
+                {
                     profile[uid].BestTime = value;
 
                     archive.UpdatePlayerProfile( profile );

@@ -10,7 +10,7 @@ namespace PiCross
     public class AmbiguousConstraintsException : PiCrossException
     {
         public AmbiguousConstraintsException()
-            : base("Ambiguous constraints")
+            : base( "Ambiguous constraints" )
         {
             // NOP
         }
@@ -22,12 +22,6 @@ namespace PiCross
     /// </summary>
     public sealed class Puzzle
     {
-        private readonly ISequence<Constraints> columnConstraints;
-
-        private readonly ISequence<Constraints> rowConstraints;
-
-        private readonly IGrid<bool> grid;
-
         /// <summary>
         /// Creates a Puzzle from the constraints. Since a Puzzle
         /// contains the solution, this method solves the given puzzle.
@@ -101,12 +95,12 @@ namespace PiCross
         /// </summary>
         /// <param name="size">Size of the puzzle.</param>
         /// <returns>Empty puzzle.</returns>
-        public static Puzzle CreateEmpty(Size size)
+        public static Puzzle CreateEmpty( Size size )
         {
             return FromGrid( DataStructures.Grid.Create( size, false ) );
         }
 
-        private static IGrid<bool> ConvertSquareGridToBoolGrid(IGrid<Square> squares)
+        private static IGrid<bool> ConvertSquareGridToBoolGrid( IGrid<Square> squares )
         {
             return squares.Map( x => (bool) x ).Copy();
         }
@@ -115,76 +109,52 @@ namespace PiCross
         {
             if ( columnConstraints == null )
             {
-                throw new ArgumentNullException( nameof(columnConstraints) );
+                throw new ArgumentNullException( nameof( columnConstraints ) );
             }
             else if ( rowConstraints == null )
             {
-                throw new ArgumentNullException( nameof(rowConstraints) );
+                throw new ArgumentNullException( nameof( rowConstraints ) );
             }
             else if ( grid == null )
             {
-                throw new ArgumentNullException( nameof(grid) );
+                throw new ArgumentNullException( nameof( grid ) );
             }
             else if ( columnConstraints.Length != grid.Size.Width )
             {
-                throw new ArgumentException( "columnConstraints and grid do not agree on width" );
+                throw new ArgumentException( $"{nameof(columnConstraints)} and grid do not agree on width" );
             }
             else if ( rowConstraints.Length != grid.Size.Height )
             {
-                throw new ArgumentException( "rowConstraints and grid do not agree on height" );
+                throw new ArgumentException( $"{nameof(rowConstraints)} and grid do not agree on height" );
             }
             else
             {
-                this.columnConstraints = columnConstraints;
-                this.rowConstraints = rowConstraints;
-                this.grid = grid;
+                this.ColumnConstraints = columnConstraints;
+                this.RowConstraints = rowConstraints;
+                this.Grid = grid;
             }
         }
 
         /// <summary>
         /// Grid representing the solution of the puzzle.
         /// </summary>
-        public IGrid<bool> Grid
-        {
-            get
-            {
-                return grid;
-            }
-        }
+        public IGrid<bool> Grid { get; }
 
         /// <summary>
         /// Row constraints.
         /// </summary>
-        public ISequence<Constraints> RowConstraints
-        {
-            get
-            {
-                return rowConstraints;
-            }
-        }
+        public ISequence<Constraints> RowConstraints { get; }
 
         /// <summary>
         /// Column constraints.
         /// </summary>
-        public ISequence<Constraints> ColumnConstraints
-        {
-            get
-            {
-                return columnConstraints;
-            }
-        }
+        public ISequence<Constraints> ColumnConstraints { get; }
 
         /// <summary>
         /// Size of the puzzle.
         /// </summary>
-        public Size Size
-        {
-            get
-            {
-                return this.grid.Size;
-            }
-        }
-        
+        public Size Size => this.Grid.Size;
+
         /// <summary>
         /// Checks whether the puzzle is solveable based on the constraints.
         /// </summary>
@@ -205,20 +175,20 @@ namespace PiCross
             return Equals( obj as Puzzle );
         }
 
-        public bool Equals(Puzzle that)
+        public bool Equals( Puzzle that )
         {
-            return that != null && this.columnConstraints.Equals( that.columnConstraints ) && this.rowConstraints.Equals( that.rowConstraints ) && this.grid.Equals( that.grid );
+            return that != null && this.ColumnConstraints.Equals( that.ColumnConstraints ) && this.RowConstraints.Equals( that.RowConstraints ) && this.Grid.Equals( that.Grid );
         }
 
         public override int GetHashCode()
         {
-            return Size.GetHashCode() ^ columnConstraints.GetHashCode() ^ rowConstraints.GetHashCode();
+            return Size.GetHashCode() ^ ColumnConstraints.GetHashCode() ^ RowConstraints.GetHashCode();
         }
 
         public override string ToString()
         {
             var rowStrings = from row in this.Grid.Rows
-                             select row.Map( x => Square.FromBool(x).Symbol ).Join();
+                             select row.Map( x => Square.FromBool( x ).Symbol ).Join();
 
             return rowStrings.ToSequence().Join( "\n" );
         }

@@ -10,7 +10,7 @@ namespace Cells
 
         public Derived( Func<T> reader, Action<T> writer )
             : base( reader() )
-        {            
+        {
             this.reader = reader;
             this.writer = writer;
         }
