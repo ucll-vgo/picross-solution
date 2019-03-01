@@ -76,11 +76,11 @@ namespace DataStructures
         {
             if ( u == null )
             {
-                throw new ArgumentNullException( "u" );
+                throw new ArgumentNullException( nameof(u) );
             }
             else if ( v == null )
             {
-                throw new ArgumentNullException( "v" );
+                throw new ArgumentNullException( nameof(v) );
             }
             else
             {
@@ -100,7 +100,7 @@ namespace DataStructures
         {
             if ( v == null )
             {
-                throw new ArgumentNullException( "v" );
+                throw new ArgumentNullException( nameof(v) );
             }
             else
             {
@@ -121,11 +121,11 @@ namespace DataStructures
         {
             if ( u == null )
             {
-                throw new ArgumentNullException( "u" );
+                throw new ArgumentNullException( nameof(u) );
             }
             else if ( v == null )
             {
-                throw new ArgumentNullException( "v" );
+                throw new ArgumentNullException( nameof(v) );
             }
             else
             {
@@ -143,7 +143,7 @@ namespace DataStructures
         {
             if ( v == null )
             {
-                throw new ArgumentNullException( "v" );
+                throw new ArgumentNullException( nameof(v) );
             }
             else
             {

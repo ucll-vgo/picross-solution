@@ -63,11 +63,11 @@ namespace PiCross
         {
             if ( library == null )
             {
-                throw new ArgumentNullException( "library" );
+                throw new ArgumentNullException( nameof(library) );
             }
             else if ( playerDatabase == null )
             {
-                throw new ArgumentNullException( "playerDatabase" );
+                throw new ArgumentNullException( nameof(playerDatabase) );
             }
             else
             {
@@ -182,7 +182,7 @@ namespace PiCross
             {
                 if ( libraryEntry == null )
                 {
-                    throw new ArgumentNullException( "libraryEntry" );
+                    throw new ArgumentNullException( nameof(libraryEntry) );
                 }
                 else if ( ContainsEntryWithUID( libraryEntry.UID ) )
                 {

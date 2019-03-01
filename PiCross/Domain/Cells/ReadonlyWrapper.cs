@@ -10,7 +10,7 @@ namespace Cells
         {
             if ( wrappedCell == null )
             {
-                throw new ArgumentNullException( "wrappedCell" );
+                throw new ArgumentNullException( nameof(wrappedCell) );
             }
             else
             {

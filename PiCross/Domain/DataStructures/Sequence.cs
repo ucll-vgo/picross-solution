@@ -171,11 +171,11 @@ namespace DataStructures
         {
             if ( xs == null )
             {
-                throw new ArgumentNullException( "xs" );
+                throw new ArgumentNullException( nameof(xs) );
             }
             else if ( ys == null )
             {
-                throw new ArgumentNullException( "ys" );
+                throw new ArgumentNullException( nameof(ys) );
             }
             else if ( xs.Length != ys.Length )
             {
@@ -183,7 +183,7 @@ namespace DataStructures
             }
             else if ( zipper == null )
             {
-                throw new ArgumentNullException( "zipper" );
+                throw new ArgumentNullException( nameof(zipper) );
             }
             else
             {
@@ -195,11 +195,11 @@ namespace DataStructures
         {
             if ( xs == null )
             {
-                throw new ArgumentNullException( "xs" );
+                throw new ArgumentNullException( nameof(xs) );
             }
             else if ( function == null )
             {
-                throw new ArgumentNullException( "function" );
+                throw new ArgumentNullException( nameof(function) );
             }
             else
             {
@@ -211,11 +211,11 @@ namespace DataStructures
         {
             if ( xs == null )
             {
-                throw new ArgumentNullException( "xs" );
+                throw new ArgumentNullException( nameof(xs) );
             }
             else if ( function == null )
             {
-                throw new ArgumentNullException( "function" );
+                throw new ArgumentNullException( nameof(function) );
             }
             else
             {
@@ -227,11 +227,11 @@ namespace DataStructures
         {
             if ( xs == null )
             {
-                throw new ArgumentNullException( "xs" );
+                throw new ArgumentNullException( nameof(xs) );
             }
             else if ( ys == null )
             {
-                throw new ArgumentNullException( "ys" );
+                throw new ArgumentNullException( nameof(ys) );
             }
             else if ( xs.Length != ys.Length + 1 )
             {
@@ -286,7 +286,7 @@ namespace DataStructures
         {
             if ( xs == null )
             {
-                throw new ArgumentNullException( "xs" );
+                throw new ArgumentNullException( nameof(xs) );
             }
             else if ( length > xs.Length )
             {
@@ -302,7 +302,7 @@ namespace DataStructures
         {
             if ( xs == null )
             {
-                throw new ArgumentNullException( "xs" );
+                throw new ArgumentNullException( nameof(xs) );
             }
             else if ( from > xs.Length )
             {
@@ -422,11 +422,11 @@ namespace DataStructures
         {
             if ( xs == null )
             {
-                throw new ArgumentNullException( "xs" );
+                throw new ArgumentNullException( nameof(xs) );
             }
             else if ( ys == null )
             {
-                throw new ArgumentNullException( "ys" );
+                throw new ArgumentNullException( nameof(ys) );
             }
             else if ( xs.Length != ys.Length )
             {
@@ -468,7 +468,7 @@ namespace DataStructures
         {
             if ( bits == null )
             {
-                throw new ArgumentNullException( "bits" );
+                throw new ArgumentNullException( nameof(bits) );
             }
             else if ( bits.Length > 8 )
             {
@@ -596,7 +596,7 @@ namespace DataStructures
             }
             else if ( initializer == null )
             {
-                throw new ArgumentNullException( "initializer" );
+                throw new ArgumentNullException( nameof(initializer) );
             }
             else
             {
@@ -635,7 +635,7 @@ namespace DataStructures
             }
             else if ( function == null )
             {
-                throw new ArgumentNullException( "function" );
+                throw new ArgumentNullException( nameof(function) );
             }
             else
             {

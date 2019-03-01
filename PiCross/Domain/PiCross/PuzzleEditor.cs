@@ -25,7 +25,7 @@ namespace PiCross
         {
             if ( editorGrid == null )
             {
-                throw new ArgumentNullException( "grid" );
+                throw new ArgumentNullException( nameof(editorGrid) );
             }
             else
             {

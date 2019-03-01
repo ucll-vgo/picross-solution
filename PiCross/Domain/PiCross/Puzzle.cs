@@ -115,15 +115,15 @@ namespace PiCross
         {
             if ( columnConstraints == null )
             {
-                throw new ArgumentNullException( "columnConstraints" );
+                throw new ArgumentNullException( nameof(columnConstraints) );
             }
             else if ( rowConstraints == null )
             {
-                throw new ArgumentNullException( "rowConstraints" );
+                throw new ArgumentNullException( nameof(rowConstraints) );
             }
             else if ( grid == null )
             {
-                throw new ArgumentNullException( "grid" );
+                throw new ArgumentNullException( nameof(grid) );
             }
             else if ( columnConstraints.Length != grid.Size.Width )
             {

@@ -35,7 +35,7 @@ namespace PiCross
         {
             if ( playGrid == null )
             {
-                throw new ArgumentNullException( "playGrid" );
+                throw new ArgumentNullException( nameof(playGrid) );
             }
             else
             {

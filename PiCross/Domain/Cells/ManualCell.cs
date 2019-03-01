@@ -98,7 +98,7 @@ namespace Cells
         {
             if ( factory == null )
             {
-                throw new ArgumentNullException( "factory" );
+                throw new ArgumentNullException( nameof(factory) );
             }
             else
             {

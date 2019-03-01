@@ -152,7 +152,7 @@ namespace PiCross
         {
             if ( square == null )
             {
-                throw new ArgumentNullException( "square" );
+                throw new ArgumentNullException( nameof(square) );
             }
             else if ( square == UNKNOWN )
             {

@@ -37,7 +37,7 @@ namespace PiCross
             {
                 if ( libraryEntrySerializer == null )
                 {
-                    throw new ArgumentNullException( "libraryEntrySerializer" );
+                    throw new ArgumentNullException( nameof(libraryEntrySerializer) );
                 }
                 else
                 {
@@ -71,11 +71,11 @@ namespace PiCross
             {
                 if ( library == null )
                 {
-                    throw new ArgumentNullException( "library" );
+                    throw new ArgumentNullException( nameof(library) );
                 }
                 else if ( libraryEntrySerializer == null )
                 {
-                    throw new ArgumentNullException( "libraryEntrySerializer" );
+                    throw new ArgumentNullException( nameof(libraryEntrySerializer) );
                 }
                 else
                 {
@@ -104,7 +104,7 @@ namespace PiCross
         {
             if ( puzzleSerializer == null )
             {
-                throw new ArgumentNullException( "puzzleSerializer" );
+                throw new ArgumentNullException( nameof(puzzleSerializer) );
             }
             else
             {
@@ -133,11 +133,11 @@ namespace PiCross
             {
                 if ( libraryEntry == null )
                 {
-                    throw new ArgumentNullException( "libraryEntry" );
+                    throw new ArgumentNullException( nameof(libraryEntry) );
                 }
                 else if ( puzzleSerializer == null )
                 {
-                    throw new ArgumentNullException( "puzzleSerializer" );
+                    throw new ArgumentNullException( nameof(puzzleSerializer) );
                 }
                 else
                 {
@@ -162,7 +162,7 @@ namespace PiCross
             {
                 if ( puzzleSerializer == null )
                 {
-                    throw new ArgumentNullException( "puzzleSerializer" );
+                    throw new ArgumentNullException( nameof(puzzleSerializer) );
                 }
                 else
                 {

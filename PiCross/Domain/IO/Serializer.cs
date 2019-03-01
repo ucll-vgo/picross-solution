@@ -22,7 +22,7 @@ namespace IO
         {
             if ( streamReader == null )
             {
-                throw new ArgumentNullException( "streamReader" );
+                throw new ArgumentNullException( nameof(streamReader) );
             }
             else
             {
@@ -64,7 +64,7 @@ namespace IO
         {
             if ( streamWriter == null )
             {
-                throw new ArgumentNullException( "streamWriter" );
+                throw new ArgumentNullException( nameof(streamWriter) );
             }
             else
             {

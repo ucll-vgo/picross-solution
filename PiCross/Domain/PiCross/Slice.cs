@@ -22,7 +22,7 @@ namespace PiCross
         {
             if ( squares == null )
             {
-                throw new ArgumentNullException( "squares" );
+                throw new ArgumentNullException( nameof(squares) );
             }
             else
             {
@@ -69,7 +69,7 @@ namespace PiCross
         {
             if ( that == null )
             {
-                throw new ArgumentNullException( "slice" );
+                throw new ArgumentNullException( nameof(that) );
             }
             else if ( this.Squares.Length != that.Squares.Length )
             {
@@ -85,7 +85,7 @@ namespace PiCross
         {
             if ( that == null )
             {
-                throw new ArgumentNullException( "slice" );
+                throw new ArgumentNullException( nameof(that) );
             }
             else if ( this.Squares.Length != that.Squares.Length )
             {
@@ -111,7 +111,7 @@ namespace PiCross
         {
             if ( constraints == null )
             {
-                throw new ArgumentNullException( "constraints" );
+                throw new ArgumentNullException( nameof(constraints) );
             }
             else
             {

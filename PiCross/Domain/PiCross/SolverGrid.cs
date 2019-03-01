@@ -25,7 +25,7 @@ namespace PiCross
         {
             if ( columnConstraints == null )
             {
-                throw new ArgumentNullException( "columnConstraints" );
+                throw new ArgumentNullException( nameof(columnConstraints) );
             }
             else if ( columnConstraints.Length == 0 )
             {
@@ -33,7 +33,7 @@ namespace PiCross
             }
             else if ( rowConstraints == null )
             {
-                throw new ArgumentNullException( "rowConstraints" );
+                throw new ArgumentNullException( nameof(rowConstraints) );
             }
             else if ( rowConstraints.Length == 0 )
             {

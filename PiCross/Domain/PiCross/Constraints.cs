@@ -32,7 +32,7 @@ namespace PiCross
         {
             if ( values == null )
             {
-                throw new ArgumentNullException( "values" );
+                throw new ArgumentNullException( nameof(values) );
             }
             else if ( values.Items.Any( n => n <= 0 ) )
             {
@@ -117,7 +117,7 @@ namespace PiCross
             }
             else if ( constraints == null )
             {
-                throw new ArgumentNullException( "constraints" );
+                throw new ArgumentNullException( nameof(constraints) );
             }
             else
             {
