@@ -60,7 +60,6 @@
     <Compile Include="Controls\ChronometerControl.xaml.cs">
       <DependentUpon>ChronometerControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\DateTemplateSelector.cs" />
     <Compile Include="Controls\EditorControl.xaml.cs">
       <DependentUpon>EditorControl.xaml</DependentUpon>
     </Compile>
