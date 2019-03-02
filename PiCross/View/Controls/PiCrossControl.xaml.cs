@@ -4,7 +4,7 @@ using System.Windows.Controls;
 using DataStructures;
 using UIGrid = System.Windows.Controls.Grid;
 
-namespace PiCross.Controls
+namespace View.Controls
 {
     public partial class PiCrossControl : UserControl
     {
