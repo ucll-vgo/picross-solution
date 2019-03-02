@@ -36,14 +36,8 @@ namespace PiCross
             this.puzzles = puzzles;
         }
 
-        public IEnumerable<IPuzzleLibraryEntry> Entries
-        {
-            get
-            {
-                return from entry in puzzles.Entries
-                       select new PuzzleLibraryEntryAdapter( entry );
-            }
-        }
+        public IEnumerable<IPuzzleLibraryEntry> Entries => from entry in puzzles.Entries
+                                                           select new PuzzleLibraryEntryAdapter( entry );
 
         public IPuzzleLibraryEntry Create( Puzzle puzzle, string author )
         {
@@ -60,13 +54,7 @@ namespace PiCross
             this.entry = entry;
         }
 
-        public int UID
-        {
-            get
-            {
-                return entry.UID;
-            }
-        }
+        public int UID => entry.UID;
 
         public Puzzle Puzzle
         {
@@ -97,7 +85,7 @@ namespace PiCross
             return Equals( obj as PuzzleLibraryEntryAdapter );
         }
 
-        public bool Equals(PuzzleLibraryEntryAdapter that)
+        public bool Equals( PuzzleLibraryEntryAdapter that )
         {
             return that != null && this.UID == that.UID;
         }
@@ -117,10 +105,7 @@ namespace PiCross
             this.database = database;
         }
 
-        public IPlayerProfile this[string name]
-        {
-            get { return new PlayerProfileAdapter( database[name] ); }
-        }
+        public IPlayerProfile this[string name] => new PlayerProfileAdapter( database[name] );
 
         public IPlayerProfile CreateNewProfile( string name )
         {
@@ -151,23 +136,20 @@ namespace PiCross
         {
             get
             {
-                var entry = ( (PuzzleLibraryEntryAdapter) libraryEntry );
+                var entry = ((PuzzleLibraryEntryAdapter) libraryEntry);
 
                 return new PlayerPuzzleInformationEntryAdapter( data[entry.UID] );
             }
         }
 
-        public string Name
-        {
-            get { return data.Name; }
-        }
+        public string Name => data.Name;
 
         public override bool Equals( object obj )
         {
             return Equals( obj as PlayerProfileAdapter );
         }
 
-        public bool Equals(PlayerProfileAdapter that)
+        public bool Equals( PlayerProfileAdapter that )
         {
             return this.Name == that.Name;
         }

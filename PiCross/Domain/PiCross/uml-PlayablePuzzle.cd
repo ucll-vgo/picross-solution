@@ -3,14 +3,14 @@
   <Comment CommentText="Aan te maken via PiCrossFacade">
     <Position X="0.708" Y="1.375" Height="0.312" Width="2.94" />
   </Comment>
-  <Comment CommentText="Stelt enkel vakje voor in rooster">
+  <Comment CommentText="Models a single square in the PiCross grid">
     <Position X="1.948" Y="6.24" Height="0.291" Width="2.867" />
   </Comment>
-  <Comment CommentText="Stelt constraints voor die horen bij een rij of kolom.">
+  <Comment CommentText="Models constraints associated with a row or column. ">
     <Position X="10.802" Y="2.792" Height="0.291" Width="3.523" />
   </Comment>
-  <Comment CommentText="Stelt een enkel getal voor in een rij/kolom-constraints">
-    <Position X="9.01" Y="6.677" Height="0.291" Width="3.523" />
+  <Comment CommentText="Corresponds to a single number in row/column constraints">
+    <Position X="9.01" Y="6.677" Height="0.416" Width="4.71" />
   </Comment>
   <Interface Name="PiCross.IPlayablePuzzle">
     <Position X="1.75" Y="1.75" Width="4.25" />
@@ -25,12 +25,12 @@
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAAAgAAEAAAAAAAAAIAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
+      <HashCode>BAAAAgBAEAAAAAAAAAIAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
       <FileName>PiCross\IPlayablePuzzle.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
-      <Property Name="ColumnConstraints" />
       <Property Name="Grid" />
+      <Property Name="ColumnConstraints" />
       <Property Name="RowConstraints" />
     </ShowAsCollectionAssociation>
   </Interface>

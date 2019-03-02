@@ -14,7 +14,7 @@ namespace IO
         T Read( StreamReader reader );
     }
 
-    public abstract class ReaderBase 
+    public abstract class ReaderBase
     {
         protected readonly StreamReader streamReader;
 
@@ -22,7 +22,7 @@ namespace IO
         {
             if ( streamReader == null )
             {
-                throw new ArgumentNullException( "streamReader" );
+                throw new ArgumentNullException( nameof( streamReader ) );
             }
             else
             {
@@ -42,7 +42,7 @@ namespace IO
 
             if ( expectedCount.HasValue && ns.Length != expectedCount.Value )
             {
-                throw new IOException( string.Format( "Expected {0} integers" ), expectedCount.Value );
+                throw new IOException( $"Expected {expectedCount.Value} integers" );
             }
             else
             {
@@ -64,7 +64,7 @@ namespace IO
         {
             if ( streamWriter == null )
             {
-                throw new ArgumentNullException( "streamWriter" );
+                throw new ArgumentNullException( nameof( streamWriter ) );
             }
             else
             {

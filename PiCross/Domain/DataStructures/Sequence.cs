@@ -130,7 +130,7 @@ namespace DataStructures
 
         public static ISequence<bool> Bits( byte n )
         {
-            return FromFunction( 8, i => ( ( n >> ( 7 - i ) ) & 1 ) == 1 );
+            return FromFunction( 8, i => ((n >> (7 - i)) & 1) == 1 );
         }
     }
 
@@ -171,11 +171,11 @@ namespace DataStructures
         {
             if ( xs == null )
             {
-                throw new ArgumentNullException( "xs" );
+                throw new ArgumentNullException( nameof( xs ) );
             }
             else if ( ys == null )
             {
-                throw new ArgumentNullException( "ys" );
+                throw new ArgumentNullException( nameof( ys ) );
             }
             else if ( xs.Length != ys.Length )
             {
@@ -183,7 +183,7 @@ namespace DataStructures
             }
             else if ( zipper == null )
             {
-                throw new ArgumentNullException( "zipper" );
+                throw new ArgumentNullException( nameof( zipper ) );
             }
             else
             {
@@ -195,11 +195,11 @@ namespace DataStructures
         {
             if ( xs == null )
             {
-                throw new ArgumentNullException( "xs" );
+                throw new ArgumentNullException( nameof( xs ) );
             }
             else if ( function == null )
             {
-                throw new ArgumentNullException( "function" );
+                throw new ArgumentNullException( nameof( function ) );
             }
             else
             {
@@ -211,11 +211,11 @@ namespace DataStructures
         {
             if ( xs == null )
             {
-                throw new ArgumentNullException( "xs" );
+                throw new ArgumentNullException( nameof( xs ) );
             }
             else if ( function == null )
             {
-                throw new ArgumentNullException( "function" );
+                throw new ArgumentNullException( nameof( function ) );
             }
             else
             {
@@ -227,19 +227,19 @@ namespace DataStructures
         {
             if ( xs == null )
             {
-                throw new ArgumentNullException( "xs" );
+                throw new ArgumentNullException( nameof( xs ) );
             }
             else if ( ys == null )
             {
-                throw new ArgumentNullException( "ys" );
+                throw new ArgumentNullException( nameof( ys ) );
             }
             else if ( xs.Length != ys.Length + 1 )
             {
-                throw new ArgumentException( string.Format( "xs.Length (={0}) should be equal to ys.Length + 1 (={1} + 1)", xs.Length, ys.Length ) );
+                throw new ArgumentException( $"xs.Length (={xs.Length}) should be equal to ys.Length + 1 (={ys.Length} + 1)" );
             }
             else
             {
-                return Sequence.FromFunction( xs.Length + ys.Length, i => i % 2 == 0 ? xs[i / 2] : ys[( i - 1 ) / 2] );
+                return Sequence.FromFunction( xs.Length + ys.Length, i => i % 2 == 0 ? xs[i / 2] : ys[(i - 1) / 2] );
             }
         }
 
@@ -252,11 +252,11 @@ namespace DataStructures
         {
             if ( !xs.IsValidIndex( from ) )
             {
-                throw new ArgumentOutOfRangeException( "from" );
+                throw new ArgumentOutOfRangeException( nameof( from ) );
             }
-            else if ( count < 0 || ( count > 0 && from + count - 1 >= xs.Length ) )
+            else if ( count < 0 || (count > 0 && from + count - 1 >= xs.Length) )
             {
-                throw new ArgumentOutOfRangeException( "count" );
+                throw new ArgumentOutOfRangeException( nameof( count ) );
             }
             else
             {
@@ -268,11 +268,11 @@ namespace DataStructures
         {
             if ( !xs.IsValidIndex( from ) )
             {
-                throw new ArgumentOutOfRangeException( "from" );
+                throw new ArgumentOutOfRangeException( nameof( from ) );
             }
             else if ( count < 0 )
             {
-                throw new ArgumentOutOfRangeException( "count" );
+                throw new ArgumentOutOfRangeException( nameof( count ) );
             }
             else
             {
@@ -286,11 +286,11 @@ namespace DataStructures
         {
             if ( xs == null )
             {
-                throw new ArgumentNullException( "xs" );
+                throw new ArgumentNullException( nameof( xs ) );
             }
             else if ( length > xs.Length )
             {
-                throw new ArgumentOutOfRangeException( "length" );
+                throw new ArgumentOutOfRangeException( nameof( length ) );
             }
             else
             {
@@ -302,11 +302,11 @@ namespace DataStructures
         {
             if ( xs == null )
             {
-                throw new ArgumentNullException( "xs" );
+                throw new ArgumentNullException( nameof( xs ) );
             }
             else if ( from > xs.Length )
             {
-                throw new ArgumentOutOfRangeException( "from", string.Format( "from = {0}, length = {1}", from, xs.Length ) );
+                throw new ArgumentOutOfRangeException( "from", $"from = {from}, length = {xs.Length}" );
             }
             else
             {
@@ -422,11 +422,11 @@ namespace DataStructures
         {
             if ( xs == null )
             {
-                throw new ArgumentNullException( "xs" );
+                throw new ArgumentNullException( nameof( xs ) );
             }
             else if ( ys == null )
             {
-                throw new ArgumentNullException( "ys" );
+                throw new ArgumentNullException( nameof( ys ) );
             }
             else if ( xs.Length != ys.Length )
             {
@@ -454,7 +454,7 @@ namespace DataStructures
 
         public static ISequence<ISequence<T>> Group<T>( this ISequence<T> xs, int groupSize )
         {
-            return Sequence.FromFunction( ( xs.Length + groupSize - 1 ) / groupSize, i => xs.SafeSubsequence( i * groupSize, groupSize ) );
+            return Sequence.FromFunction( (xs.Length + groupSize - 1) / groupSize, i => xs.SafeSubsequence( i * groupSize, groupSize ) );
         }
 
         public static ISequence<byte> GroupBits( this ISequence<bool> bits )
@@ -468,7 +468,7 @@ namespace DataStructures
         {
             if ( bits == null )
             {
-                throw new ArgumentNullException( "bits" );
+                throw new ArgumentNullException( nameof( bits ) );
             }
             else if ( bits.Length > 8 )
             {
@@ -476,7 +476,7 @@ namespace DataStructures
             }
             else
             {
-                return (byte) ( bits.Map( ( i, b ) => ( b ? 1 : 0 ) << ( 7 - i ) ).Items.Aggregate( 0, ( x, y ) => x | y ) );
+                return (byte) (bits.Map( ( i, b ) => (b ? 1 : 0) << (7 - i) ).Items.Aggregate( 0, ( x, y ) => x | y ));
             }
         }
 
@@ -489,7 +489,7 @@ namespace DataStructures
             return array;
         }
 
-        public static void Each<T>(this ISequence<T> xs, Action<int> action)
+        public static void Each<T>( this ISequence<T> xs, Action<int> action )
         {
             foreach ( var i in xs.Indices )
             {
@@ -512,13 +512,7 @@ namespace DataStructures
             }
         }
 
-        public IEnumerable<T> Items
-        {
-            get
-            {
-                return Indices.Select( i => this[i] );
-            }
-        }
+        public IEnumerable<T> Items => Indices.Select( i => this[i] );
 
         public bool IsValidIndex( int index )
         {
@@ -573,15 +567,9 @@ namespace DataStructures
 
     internal class EmptySequence<T> : SequenceBase<T>
     {
-        public override int Length
-        {
-            get { return 0; }
-        }
+        public override int Length => 0;
 
-        public override T this[int index]
-        {
-            get { throw new ArgumentOutOfRangeException( "index" ); }
-        }
+        public override T this[int index] => throw new ArgumentOutOfRangeException( nameof( index ) );
     }
 
     internal class ArraySequence<T> : SequenceBase<T>
@@ -592,11 +580,11 @@ namespace DataStructures
         {
             if ( length < 0 )
             {
-                throw new ArgumentOutOfRangeException( "length" );
+                throw new ArgumentOutOfRangeException( nameof( length ) );
             }
             else if ( initializer == null )
             {
-                throw new ArgumentNullException( "initializer" );
+                throw new ArgumentNullException( nameof( initializer ) );
             }
             else
             {
@@ -631,11 +619,11 @@ namespace DataStructures
         {
             if ( length < 0 )
             {
-                throw new ArgumentOutOfRangeException( "length" );
+                throw new ArgumentOutOfRangeException( nameof( length ) );
             }
             else if ( function == null )
             {
-                throw new ArgumentNullException( "function" );
+                throw new ArgumentNullException( nameof( function ) );
             }
             else
             {
@@ -658,7 +646,7 @@ namespace DataStructures
             {
                 if ( !IsValidIndex( index ) )
                 {
-                    throw new ArgumentOutOfRangeException( "index" );
+                    throw new ArgumentOutOfRangeException( nameof( index ) );
                 }
                 else
                 {

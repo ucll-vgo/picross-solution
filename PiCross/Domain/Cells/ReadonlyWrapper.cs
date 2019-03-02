@@ -10,15 +10,15 @@ namespace Cells
         {
             if ( wrappedCell == null )
             {
-                throw new ArgumentNullException( "wrappedCell" );
+                throw new ArgumentNullException( nameof( wrappedCell ) );
             }
             else
             {
                 this.wrappedCell = wrappedCell;
 
-                wrappedCell.ValueChanged += NotifyObservers;                    
+                wrappedCell.ValueChanged += NotifyObservers;
             }
-        }        
+        }
 
         public override T Value
         {

@@ -15,7 +15,7 @@ namespace PiCross
 
         public LibrarySerializer()
         {
-            libraryEntrySerializer = new LibraryEntrySerializer(new PuzzleSerializer());
+            libraryEntrySerializer = new LibraryEntrySerializer( new PuzzleSerializer() );
         }
 
         public void Write( StreamWriter writer, InMemoryDatabase.PuzzleLibrary obj )
@@ -37,7 +37,7 @@ namespace PiCross
             {
                 if ( libraryEntrySerializer == null )
                 {
-                    throw new ArgumentNullException( "libraryEntrySerializer" );
+                    throw new ArgumentNullException( nameof( libraryEntrySerializer ) );
                 }
                 else
                 {
@@ -49,7 +49,7 @@ namespace PiCross
             {
                 var count = ReadInteger();
                 var library = InMemoryDatabase.PuzzleLibrary.CreateEmpty();
-                
+
                 for ( var i = 0; i != count; ++i )
                 {
                     var libraryEntry = libraryEntrySerializer.Read( streamReader );
@@ -67,15 +67,15 @@ namespace PiCross
             private readonly InMemoryDatabase.PuzzleLibrary library;
 
             public Writer( StreamWriter streamWriter, InMemoryDatabase.PuzzleLibrary library, ISerializer<InMemoryDatabase.PuzzleLibraryEntry> libraryEntrySerializer )
-                :base(streamWriter)
+                : base( streamWriter )
             {
                 if ( library == null )
                 {
-                    throw new ArgumentNullException( "library" );
+                    throw new ArgumentNullException( nameof( library ) );
                 }
                 else if ( libraryEntrySerializer == null )
                 {
-                    throw new ArgumentNullException( "libraryEntrySerializer" );
+                    throw new ArgumentNullException( nameof( libraryEntrySerializer ) );
                 }
                 else
                 {
@@ -100,11 +100,11 @@ namespace PiCross
     {
         private readonly ISerializer<Puzzle> puzzleSerializer;
 
-        internal LibraryEntrySerializer(ISerializer<Puzzle> puzzleSerializer)
+        internal LibraryEntrySerializer( ISerializer<Puzzle> puzzleSerializer )
         {
             if ( puzzleSerializer == null )
             {
-                throw new ArgumentNullException( "puzzleSerializer" );
+                throw new ArgumentNullException( nameof( puzzleSerializer ) );
             }
             else
             {
@@ -133,11 +133,11 @@ namespace PiCross
             {
                 if ( libraryEntry == null )
                 {
-                    throw new ArgumentNullException( "libraryEntry" );
+                    throw new ArgumentNullException( nameof( libraryEntry ) );
                 }
                 else if ( puzzleSerializer == null )
                 {
-                    throw new ArgumentNullException( "puzzleSerializer" );
+                    throw new ArgumentNullException( nameof( puzzleSerializer ) );
                 }
                 else
                 {
@@ -158,11 +158,11 @@ namespace PiCross
         {
             private readonly ISerializer<Puzzle> puzzleSerializer;
 
-            internal Reader(StreamReader streamReader, ISerializer<Puzzle> puzzleSerializer) : base(streamReader)
+            internal Reader( StreamReader streamReader, ISerializer<Puzzle> puzzleSerializer ) : base( streamReader )
             {
                 if ( puzzleSerializer == null )
                 {
-                    throw new ArgumentNullException( "puzzleSerializer" );
+                    throw new ArgumentNullException( nameof( puzzleSerializer ) );
                 }
                 else
                 {

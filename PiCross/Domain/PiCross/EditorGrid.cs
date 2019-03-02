@@ -10,11 +10,9 @@ namespace PiCross
 {
     internal class EditorGrid
     {
-        private readonly IGrid<IVar<Square>> grid;
-
         private EditorGrid( IGrid<IVar<Square>> grid )
         {
-            this.grid = grid;
+            this.Contents = grid;
         }
 
         public EditorGrid( IGrid<Square> grid )
@@ -29,7 +27,7 @@ namespace PiCross
             // NOP
         }
 
-        public static EditorGrid FromSize(Size size)
+        public static EditorGrid FromSize( Size size )
         {
             return new EditorGrid( size );
         }
@@ -39,26 +37,14 @@ namespace PiCross
             return new EditorGrid( Square.CreateGrid( rows ) );
         }
 
-        public static EditorGrid FromPuzzle(Puzzle puzzle)
+        public static EditorGrid FromPuzzle( Puzzle puzzle )
         {
             return new EditorGrid( puzzle.Grid.Map( b => b ? Square.FILLED : Square.EMPTY ) );
         }
 
-        public IGrid<IVar<Square>> Contents
-        {
-            get
-            {
-                return grid;
-            }
-        }
+        public IGrid<IVar<Square>> Contents { get; }
 
-        public IGrid<Square> Squares
-        {
-            get
-            {
-                return grid.Map( var => var.Value );
-            }
-        }
+        public IGrid<Square> Squares => Contents.Map( var => var.Value );
 
         public Slice Column( int x )
         {
@@ -70,21 +56,9 @@ namespace PiCross
             return new Slice( Squares.Row( y ) );
         }
 
-        public IEnumerable<Slice> Columns
-        {
-            get
-            {
-                return grid.ColumnIndices.Select( Column );
-            }
-        }
+        public IEnumerable<Slice> Columns => Contents.ColumnIndices.Select( Column );
 
-        public IEnumerable<Slice> Rows
-        {
-            get
-            {
-                return grid.RowIndices.Select( Row );
-            }
-        }
+        public IEnumerable<Slice> Rows => Contents.RowIndices.Select( Row );
 
         public Constraints DeriveColumnConstraints( int column )
         {
@@ -116,17 +90,11 @@ namespace PiCross
             return new SolverGrid( columnConstraints: DeriveColumnConstraints(), rowConstraints: DeriveRowConstraints() );
         }
 
-        public Size Size
-        {
-            get
-            {
-                return grid.Size;
-            }
-        }
+        public Size Size => Contents.Size;
 
         public Puzzle ToPuzzle()
         {
-            return Puzzle.FromGrid( this.grid.Map( cell => cell.Value == Square.FILLED ) );
+            return Puzzle.FromGrid( this.Contents.Map( cell => cell.Value == Square.FILLED ) );
         }
     }
 }

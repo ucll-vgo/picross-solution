@@ -4,10 +4,10 @@ using System.ComponentModel;
 using System.Linq;
 
 namespace Cells
-{    
+{
     public abstract class Cell<T> : Var<T>, INotifyPropertyChanged
     {
-        protected Cell( T initialValue = default(T) )
+        protected Cell( T initialValue = default( T ) )
             : base( initialValue )
         {
             // NOP
@@ -47,10 +47,7 @@ namespace Cells
 
         protected void NotifyObservers()
         {
-            if ( PropertyChanged != null )
-            {
-                PropertyChanged( this, new PropertyChangedEventArgs( "Value" ) );
-            }
+            PropertyChanged?.Invoke( this, new PropertyChangedEventArgs( "Value" ) );
         }
 
         public abstract void Refresh();
@@ -88,13 +85,13 @@ namespace Cells
 
         public override string ToString()
         {
-            return string.Format( "CELL[{0}]", Value );
+            return $"CELL[{Value}]";
         }
     }
 
     public static class Cell
     {
-        public static Cell<T> Create<T>( T initialValue = default(T) )
+        public static Cell<T> Create<T>( T initialValue = default( T ) )
         {
             return new ConcreteCell<T>( initialValue );
         }

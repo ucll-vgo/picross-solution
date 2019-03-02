@@ -13,16 +13,14 @@ namespace PiCross
 
         private readonly IEnumerator<bool> stepwiseFunction;
 
-        private readonly IGrid<Ambiguity> ambiguities;
-
         public AmbiguityChecker( ISequence<Constraints> columnConstraints, ISequence<Constraints> rowConstraints )
         {
             this.solver = new SolverGrid( columnConstraints: columnConstraints, rowConstraints: rowConstraints );
             stepwiseFunction = CreateStepwiseFunction().GetEnumerator();
-            ambiguities = this.solver.Squares.Map( DeriveAmbiguity );
+            Ambiguities = this.solver.Squares.Map( DeriveAmbiguity );
         }
 
-        private Ambiguity DeriveAmbiguity(Square square)
+        private Ambiguity DeriveAmbiguity( Square square )
         {
             if ( square == Square.UNKNOWN )
             {
@@ -61,7 +59,7 @@ namespace PiCross
                     changeDetected = solver.RefineRow( y ) || changeDetected;
 
                     yield return false;
-                }                
+                }
 
             } while ( changeDetected );
 
@@ -92,13 +90,7 @@ namespace PiCross
             }
         }
 
-        public IGrid<Ambiguity> Ambiguities
-        {
-            get
-            {
-                return ambiguities;
-            }
-        }
+        public IGrid<Ambiguity> Ambiguities { get; }
 
         public bool IsAmbiguous
         {
@@ -110,7 +102,7 @@ namespace PiCross
                 }
                 else
                 {
-                    return ambiguities.Items.Any( a => a == Ambiguity.Ambiguous );
+                    return Ambiguities.Items.Any( a => a == Ambiguity.Ambiguous );
                 }
             }
         }

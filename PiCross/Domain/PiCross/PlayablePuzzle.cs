@@ -13,17 +13,9 @@ namespace PiCross
     {
         private readonly PlayGrid playGrid;
 
-        private readonly IGrid<PlayablePuzzleSquare> puzzleSquares;
-
         private readonly ISequence<PlayablePuzzleConstraints> columnConstraints;
 
         private readonly ISequence<PlayablePuzzleConstraints> rowConstraints;
-
-        private readonly Cell<bool> isSolved;
-
-        private readonly Cell<int> unknownCount;
-
-        private readonly Cell<bool> containsUnknowns;
 
         public PlayablePuzzle( ISequence<Constraints> columnConstraints, ISequence<Constraints> rowConstraints )
             : this( new PlayGrid( columnConstraints: columnConstraints, rowConstraints: rowConstraints ) )
@@ -35,17 +27,17 @@ namespace PiCross
         {
             if ( playGrid == null )
             {
-                throw new ArgumentNullException( "playGrid" );
+                throw new ArgumentNullException( nameof( playGrid ) );
             }
             else
             {
                 this.playGrid = playGrid;
-                this.puzzleSquares = playGrid.Squares.Map( ( position, var ) => new PlayablePuzzleSquare( this, var, position ) ).Copy();
+                this.Grid = playGrid.Squares.Map( ( position, var ) => new PlayablePuzzleSquare( this, var, position ) ).Copy();
                 this.columnConstraints = this.playGrid.ColumnConstraints.Map( constraints => new PlayablePuzzleConstraints( constraints ) ).Copy();
                 this.rowConstraints = this.playGrid.RowConstraints.Map( constraints => new PlayablePuzzleConstraints( constraints ) ).Copy();
-                this.isSolved = Cell.Derived( DeriveIsSolved );
-                this.unknownCount = Cell.Derived(DeriveUnknownCount);
-                this.containsUnknowns = Cell.Derived(DeriveContainsUnknowns);
+                this.IsSolved = Cell.Derived( DeriveIsSolved );
+                this.UnknownCount = Cell.Derived( DeriveUnknownCount );
+                this.ContainsUnknowns = Cell.Derived( DeriveContainsUnknowns );
             }
         }
 
@@ -56,61 +48,25 @@ namespace PiCross
 
         private int DeriveUnknownCount()
         {
-            return Grid.Items.Count(playablePuzzleSquare => playablePuzzleSquare.Contents.Value == Square.UNKNOWN);
+            return Grid.Items.Count( playablePuzzleSquare => playablePuzzleSquare.Contents.Value == Square.UNKNOWN );
         }
 
         private bool DeriveContainsUnknowns()
         {
-            return Grid.Items.Any(playablePuzzleSquare => playablePuzzleSquare.Contents.Value == Square.UNKNOWN);
+            return Grid.Items.Any( playablePuzzleSquare => playablePuzzleSquare.Contents.Value == Square.UNKNOWN );
         }
 
-        public Cell<bool> IsSolved
-        {
-            get
-            {
-                return isSolved;
-            }
-        }
+        public Cell<bool> IsSolved { get; }
 
-        public Cell<int> UnknownCount
-        {
-            get
-            {
-                return unknownCount;
-            }
-        }
+        public Cell<int> UnknownCount { get; }
 
-        public Cell<bool> ContainsUnknowns
-        {
-            get
-            {
-                return containsUnknowns;
-            }
-        }
-    
-        public IGrid<IPlayablePuzzleSquare> Grid
-        {
-            get
-            {
-                return this.puzzleSquares;
-            }
-        }
+        public Cell<bool> ContainsUnknowns { get; }
 
-        public ISequence<IPlayablePuzzleConstraints> ColumnConstraints
-        {
-            get
-            {
-                return this.columnConstraints;
-            }
-        }
+        public IGrid<IPlayablePuzzleSquare> Grid { get; }
 
-        public ISequence<IPlayablePuzzleConstraints> RowConstraints
-        {
-            get
-            {
-                return this.rowConstraints;
-            }
-        }
+        public ISequence<IPlayablePuzzleConstraints> ColumnConstraints => columnConstraints;
+
+        public ISequence<IPlayablePuzzleConstraints> RowConstraints => rowConstraints;
 
         private void Refresh( Vector2D position )
         {
@@ -133,22 +89,22 @@ namespace PiCross
 
         private void RefreshIsSolved()
         {
-            isSolved.Refresh();
+            IsSolved.Refresh();
         }
 
         private void RefreshUnknownCount()
         {
-            unknownCount.Refresh();
+            UnknownCount.Refresh();
         }
 
         private void RefreshContainsUnknowns()
         {
-            containsUnknowns.Refresh();
+            ContainsUnknowns.Refresh();
         }
 
         private void RefreshSquares()
         {
-            foreach ( var square in this.puzzleSquares.Items )
+            foreach ( var square in this.Grid.Items )
             {
                 square.Contents.Refresh();
             }
@@ -160,12 +116,12 @@ namespace PiCross
             rowConstraints.Each( RefreshConstraints );
         }
 
-        private void RefreshSquare(Vector2D position)
+        private void RefreshSquare( Vector2D position )
         {
-            this.puzzleSquares[position].Contents.Refresh();
+            this.Grid[position].Contents.Refresh();
         }
 
-        private void RefreshColumnConstraints(int x)
+        private void RefreshColumnConstraints( int x )
         {
             RefreshConstraints( this.columnConstraints[x] );
         }
@@ -175,7 +131,7 @@ namespace PiCross
             RefreshConstraints( this.rowConstraints[y] );
         }
 
-        private static void RefreshConstraints(PlayablePuzzleConstraints constraints)
+        private static void RefreshConstraints( PlayablePuzzleConstraints constraints )
         {
             constraints.IsSatisfied.Refresh();
 
@@ -187,39 +143,17 @@ namespace PiCross
 
         private class PlayablePuzzleSquare : IPlayablePuzzleSquare
         {
-            private readonly PlayablePuzzleSquareContentsCell contents;
-
-            private readonly Vector2D position;
-
             public PlayablePuzzleSquare( PlayablePuzzle parent, IVar<Square> contents, Vector2D position )
             {
-                this.contents = new PlayablePuzzleSquareContentsCell( parent, contents, position );
-                this.position = position;
+                this.Contents = new PlayablePuzzleSquareContentsCell( parent, contents, position );
+                this.Position = position;
             }
 
-            Cell<Square> IPlayablePuzzleSquare.Contents
-            {
-                get
-                {
-                    return contents;
-                }
-            }
+            Cell<Square> IPlayablePuzzleSquare.Contents => Contents;
 
-            public PlayablePuzzleSquareContentsCell Contents
-            {
-                get
-                {
-                    return contents;
-                }
-            }
+            public PlayablePuzzleSquareContentsCell Contents { get; }
 
-            public Vector2D Position
-            {
-                get
-                {
-                    return position;
-                }
-            }
+            public Vector2D Position { get; }
         }
 
         private class PlayablePuzzleSquareContentsCell : ManualCell<Square>
@@ -253,84 +187,37 @@ namespace PiCross
 
         private class PlayablePuzzleConstraints : IPlayablePuzzleConstraints
         {
-            private readonly ISequence<PlayablePuzzleConstraintsValue> constraints;
-
-            private readonly ReadonlyManualCell<bool> isSatisfied;
-
             public PlayablePuzzleConstraints( PlayGridConstraints constraints )
             {
-                this.constraints = constraints.Values.Map( constraint => new PlayablePuzzleConstraintsValue( constraint ) ).Copy();
-                this.isSatisfied = new ReadonlyManualCell<bool>( () => constraints.IsSatisfied );
+                this.Values = constraints.Values.Map( constraint => new PlayablePuzzleConstraintsValue( constraint ) ).Copy();
+                this.IsSatisfied = new ReadonlyManualCell<bool>( () => constraints.IsSatisfied );
             }
 
-            ISequence<IPlayablePuzzleConstraintsValue> IPlayablePuzzleConstraints.Values
-            {
-                get
-                {
-                    return constraints;
-                }
-            }
+            ISequence<IPlayablePuzzleConstraintsValue> IPlayablePuzzleConstraints.Values => Values;
 
-            public ISequence<PlayablePuzzleConstraintsValue> Values
-            {
-                get
-                {
-                    return constraints;
-                }
-            }
+            public ISequence<PlayablePuzzleConstraintsValue> Values { get; }
 
-            Cell<bool> IPlayablePuzzleConstraints.IsSatisfied
-            {
-                get
-                {
-                    return isSatisfied;
-                }
-            }
+            Cell<bool> IPlayablePuzzleConstraints.IsSatisfied => IsSatisfied;
 
-            public ReadonlyManualCell<bool> IsSatisfied
-            {
-                get
-                {
-                    return isSatisfied;
-                }
-            }
+            public ReadonlyManualCell<bool> IsSatisfied { get; }
         }
 
         private class PlayablePuzzleConstraintsValue : IPlayablePuzzleConstraintsValue
         {
-            private readonly ReadonlyManualCell<bool> isSatisfied;
 
             private readonly PlayGridConstraintValue constraint;
 
             public PlayablePuzzleConstraintsValue( PlayGridConstraintValue constraint )
             {
                 this.constraint = constraint;
-                this.isSatisfied = new ReadonlyManualCell<bool>( () => constraint.IsSatisfied );
+                this.IsSatisfied = new ReadonlyManualCell<bool>( () => constraint.IsSatisfied );
             }
 
-            public int Value
-            {
-                get
-                {
-                    return constraint.Value;
-                }
-            }
+            public int Value => constraint.Value;
 
-            Cell<bool> IPlayablePuzzleConstraintsValue.IsSatisfied
-            {
-                get
-                {
-                    return isSatisfied;
-                }
-            }
+            Cell<bool> IPlayablePuzzleConstraintsValue.IsSatisfied => IsSatisfied;
 
-            public ReadonlyManualCell<bool> IsSatisfied
-            {
-                get
-                {
-                    return isSatisfied;
-                }
-            }
+            public ReadonlyManualCell<bool> IsSatisfied { get; }
         }
     }
 }

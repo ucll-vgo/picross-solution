@@ -8,54 +8,29 @@ namespace DataStructures
 {
     public class Range
     {
-        private readonly int from;
-
-        private readonly int length;
-
         public static Range FromStartAndLength( int start, int length )
         {
             return new Range( start, length );
         }
 
-        public static Range FromStartAndEndExclusive(int start, int endExclusive)
+        public static Range FromStartAndEndExclusive( int start, int endExclusive )
         {
             return new Range( start, endExclusive - start );
         }
 
         private Range( int from, int length )
         {
-            this.from = from;
-            this.length = length;
+            this.From = from;
+            this.Length = length;
         }
 
-        public int From
-        {
-            get
-            {
-                return from;
-            }
-        }
+        public int From { get; }
 
-        public int Length
-        {
-            get
-            {
-                return length;
-            }
-        }
+        public int Length { get; }
 
-        public bool Contains(int n)
-        {
-            return from <= n && n < from + length;
-        }
+        public bool Contains( int n ) => From <= n && n < From + Length;
 
-        public IEnumerable<int> Items
-        {
-            get
-            {
-                return Enumerable.Range( from, length );
-            }
-        }
+        public IEnumerable<int> Items => Enumerable.Range( From, Length );
 
         public override bool Equals( object obj )
         {
@@ -64,17 +39,17 @@ namespace DataStructures
 
         public bool Equals( Range that )
         {
-            return that != null && this.from == that.from && this.length == that.length;
+            return that != null && this.From == that.From && this.Length == that.Length;
         }
 
         public override int GetHashCode()
         {
-            return from.GetHashCode() ^ length.GetHashCode();
+            return From.GetHashCode() ^ Length.GetHashCode();
         }
 
         public override string ToString()
         {
-            return string.Format( "[{0}...{1})", from, from + length );
+            return $"[{From}...{From + Length})";
         }
     }
 }

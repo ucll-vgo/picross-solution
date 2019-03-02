@@ -1,6 +1,6 @@
 ﻿
 namespace Cells
-{    
+{
     internal class ConcreteCell<T> : Cell<T>
     {
         /// <summary>
@@ -9,7 +9,7 @@ namespace Cells
         /// <param name="initialValue">
         /// Cell's initial value.
         /// </param>
-        public ConcreteCell( T initialValue = default(T) )
+        public ConcreteCell( T initialValue = default( T ) )
             : base( initialValue )
         {
             // NOP
@@ -36,7 +36,9 @@ namespace Cells
 
         public override string ToString()
         {
-            return string.Format( "CELL[{0}]", this.Value != null ? this.Value.ToString() : "null" );
+            var stringRepresentation = this.Value != null ? this.Value.ToString() : "null";
+
+            return $"CELL[{stringRepresentation}]";
         }
 
         public override void Refresh()

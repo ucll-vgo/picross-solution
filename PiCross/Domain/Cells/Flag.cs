@@ -18,10 +18,6 @@ namespace Cells
             cell.ValueChanged += () => { Status = true; };
         }
 
-        public bool Status
-        {
-            get;
-            set;
-        }
+        public bool Status { get; set; }
     }
 }

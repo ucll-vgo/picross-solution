@@ -9,9 +9,6 @@ namespace DataStructures
 {
     public class Vector2D
     {
-        private readonly int x;
-        private readonly int y;
-
         /// <summary>
         /// Constructor.
         /// </summary>
@@ -20,31 +17,19 @@ namespace DataStructures
         [DebuggerStepThrough]
         public Vector2D( int x = 0, int y = 0 )
         {
-            this.x = x;
-            this.y = y;
+            this.X = x;
+            this.Y = y;
         }
 
         /// <summary>
         /// X-coordinate
         /// </summary>
-        public int X
-        {
-            get
-            {
-                return x;
-            }
-        }
+        public int X { get; }
 
         /// <summary>
         /// Y-coordinate
         /// </summary>
-        public int Y
-        {
-            get
-            {
-                return y;
-            }
-        }
+        public int Y { get; }
 
         public override bool Equals( object obj )
         {
@@ -53,17 +38,17 @@ namespace DataStructures
 
         public bool Equals( Vector2D v )
         {
-            return !object.ReferenceEquals( v, null ) && this.x == v.x && this.y == v.y;
+            return !object.ReferenceEquals( v, null ) && this.X == v.X && this.Y == v.Y;
         }
 
         public override int GetHashCode()
         {
-            return x.GetHashCode() ^ y.GetHashCode();
+            return X.GetHashCode() ^ Y.GetHashCode();
         }
 
         public override string ToString()
         {
-            return string.Format( "({0}, {1})", x, y );
+            return $"({X}, {Y})";
         }
 
         /// <summary>
@@ -76,16 +61,16 @@ namespace DataStructures
         {
             if ( u == null )
             {
-                throw new ArgumentNullException( "u" );
+                throw new ArgumentNullException( nameof( u ) );
             }
             else if ( v == null )
             {
-                throw new ArgumentNullException( "v" );
+                throw new ArgumentNullException( nameof( v ) );
             }
             else
             {
-                var x = u.x + v.x;
-                var y = u.y + v.y;
+                var x = u.X + v.X;
+                var y = u.Y + v.Y;
 
                 return new Vector2D( x, y );
             }
@@ -100,12 +85,12 @@ namespace DataStructures
         {
             if ( v == null )
             {
-                throw new ArgumentNullException( "v" );
+                throw new ArgumentNullException( nameof( v ) );
             }
             else
             {
-                var x = -v.x;
-                var y = -v.y;
+                var x = -v.X;
+                var y = -v.Y;
 
                 return new Vector2D( x, y );
             }
@@ -121,15 +106,15 @@ namespace DataStructures
         {
             if ( u == null )
             {
-                throw new ArgumentNullException( "u" );
+                throw new ArgumentNullException( nameof( u ) );
             }
             else if ( v == null )
             {
-                throw new ArgumentNullException( "v" );
+                throw new ArgumentNullException( nameof( v ) );
             }
             else
             {
-                return u + ( -v );
+                return u + (-v);
             }
         }
 
@@ -143,12 +128,12 @@ namespace DataStructures
         {
             if ( v == null )
             {
-                throw new ArgumentNullException( "v" );
+                throw new ArgumentNullException( nameof( v ) );
             }
             else
             {
-                var x = v.x * factor;
-                var y = v.y * factor;
+                var x = v.X * factor;
+                var y = v.Y * factor;
 
                 return new Vector2D( x, y );
             }
@@ -191,7 +176,7 @@ namespace DataStructures
         /// <returns>True if vectors are not equal, false otherwise.</returns>
         public static bool operator !=( Vector2D u, Vector2D v )
         {
-            return !( u == v );
+            return !(u == v);
         }
     }
 }

@@ -11,8 +11,6 @@ namespace PiCross
 {
     public sealed class Constraints
     {
-        private readonly ISequence<int> values;
-
         public static Constraints FromValues( params int[] values )
         {
             return new Constraints( values.ToSequence() );
@@ -32,15 +30,15 @@ namespace PiCross
         {
             if ( values == null )
             {
-                throw new ArgumentNullException( "values" );
+                throw new ArgumentNullException( nameof( values ) );
             }
             else if ( values.Items.Any( n => n <= 0 ) )
             {
-                throw new ArgumentOutOfRangeException( "values must all be strictly positive" );
+                throw new ArgumentOutOfRangeException( $"{nameof(values)}'s elements must all be strictly positive" );
             }
             else
             {
-                this.values = values;
+                this.Values = values;
             }
         }
 
@@ -58,7 +56,7 @@ namespace PiCross
 
         internal IEnumerable<Slice> GenerateSlices( int sliceLength )
         {
-            return GeneratePatterns( sliceLength, values ).Select( x => new Slice( x ) );
+            return GeneratePatterns( sliceLength, Values ).Select( x => new Slice( x ) );
         }
 
         private static IEnumerable<ISequence<int>> GenerateIntegers( int count, int sum )
@@ -113,11 +111,11 @@ namespace PiCross
         {
             if ( totalSize < 0 )
             {
-                throw new ArgumentOutOfRangeException( "totalSize" );
+                throw new ArgumentOutOfRangeException( nameof( totalSize ) );
             }
             else if ( constraints == null )
             {
-                throw new ArgumentNullException( "constraints" );
+                throw new ArgumentNullException( nameof( constraints ) );
             }
             else
             {
@@ -142,12 +140,12 @@ namespace PiCross
             var knownPrefix = slice.KnownPrefix;
             var knownConstraints = knownPrefix.DeriveConstraints();
 
-            return this.values.CommonPrefixLength( knownConstraints.values );
+            return this.Values.CommonPrefixLength( knownConstraints.Values );
         }
 
         internal Constraints Reverse()
         {
-            return new Constraints( this.values.Reverse() );
+            return new Constraints( this.Values.Reverse() );
         }
 
         internal int SatisfiedSuffixLength( Slice slice )
@@ -155,13 +153,7 @@ namespace PiCross
             return this.Reverse().SatisfiedPrefixLength( slice.Reverse() );
         }
 
-        public ISequence<int> Values
-        {
-            get
-            {
-                return this.values;
-            }
-        }
+        public ISequence<int> Values { get; }
 
         internal bool IsSatisfied( Slice slice )
         {
@@ -184,7 +176,7 @@ namespace PiCross
             var knownSuffix = rest.KnownSuffix;
 
             var left = this.SatisfiedPrefixLength( knownPrefix );
-            var right = this.values.Length - this.Lift( x => x.DropPrefix( left ) ).SatisfiedSuffixLength( knownSuffix );
+            var right = this.Values.Length - this.Lift( x => x.DropPrefix( left ) ).SatisfiedSuffixLength( knownSuffix );
 
             return Range.FromStartAndEndExclusive( left, right );
         }
@@ -196,34 +188,37 @@ namespace PiCross
 
         public bool Equals( Constraints that )
         {
-            return that != null && this.values.Equals( that.values );
+            return that != null && this.Values.Equals( that.Values );
         }
 
         public override int GetHashCode()
         {
-            return this.values.GetHashCode();
+            return this.Values.GetHashCode();
         }
 
         public override string ToString()
         {
-            return string.Format( "[{0}]", this.values.Map( x => x.ToString() ).Join( "-" ) );
+            var str = this.Values.Map( x => x.ToString() ).Join( "-" );
+
+            return $"[{str}]";
         }
 
         internal Constraints Lift( Func<ISequence<int>, ISequence<int>> function )
         {
-            return new Constraints( function( values ) );
+            return new Constraints( function( Values ) );
         }
 
         internal void Generate( Action<bool[]> receiver, ISequence<Square> compatibleWith )
         {
-            new Generator( receiver, compatibleWith, this.values ).Generate();
+            new Generator( receiver, compatibleWith, this.Values ).Generate();
         }
 
         internal ISequence<Square> Superposition( ISequence<Square> compatibleWith )
         {
             Square[] result = null;
 
-            Generate( (bool[] bs) => {
+            Generate( ( bool[] bs ) =>
+            {
                 if ( result == null )
                 {
                     result = bs.Select( b => b ? Square.FILLED : Square.EMPTY ).ToArray();

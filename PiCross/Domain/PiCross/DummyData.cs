@@ -9,26 +9,22 @@ namespace PiCross
 {
     internal class DummyData
     {
-        private readonly InMemoryDatabase.PuzzleLibrary library;
-
-        private readonly InMemoryDatabase.PlayerDatabase players;
-
         public static InMemoryDatabase Create()
         {
             var data = new DummyData();
 
-            return new InMemoryDatabase( data.library, data.players );
+            return new InMemoryDatabase( data.Puzzles, data.Players );
         }
 
         public DummyData()
         {
-            this.library = CreateDummyLibrary();
-            this.players = CreateDummyPlayerDatabase();
+            this.Puzzles = CreateDummyLibrary();
+            this.Players = CreateDummyPlayerDatabase();
         }
 
-        public InMemoryDatabase.PuzzleLibrary Puzzles { get { return library; } }
+        public InMemoryDatabase.PuzzleLibrary Puzzles { get; }
 
-        public InMemoryDatabase.PlayerDatabase Players { get { return players; } }
+        public InMemoryDatabase.PlayerDatabase Players { get; }
 
         private static InMemoryDatabase.PlayerDatabase CreateDummyPlayerDatabase()
         {

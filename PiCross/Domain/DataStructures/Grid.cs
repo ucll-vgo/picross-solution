@@ -105,7 +105,7 @@ namespace DataStructures
             return Grid.CreateVirtual( grid.Size, p => function( p ) );
         }
 
-        public static void ForEach<T>(this IGrid<T> grid, Action<Vector2D> action )
+        public static void ForEach<T>( this IGrid<T> grid, Action<Vector2D> action )
         {
             foreach ( var position in grid.AllPositions )
             {
@@ -143,11 +143,11 @@ namespace DataStructures
         {
             if ( target == null )
             {
-                throw new ArgumentNullException( "target" );
+                throw new ArgumentNullException( nameof( target ) );
             }
             else if ( source == null )
             {
-                throw new ArgumentNullException( "source" );
+                throw new ArgumentNullException( nameof( source ) );
             }
             else if ( target.Size != source.Size )
             {
@@ -166,11 +166,11 @@ namespace DataStructures
         {
             if ( target == null )
             {
-                throw new ArgumentNullException( "target" );
+                throw new ArgumentNullException( nameof( target ) );
             }
             else if ( source == null )
             {
-                throw new ArgumentNullException( "source" );
+                throw new ArgumentNullException( nameof( source ) );
             }
             else if ( target.Size != source.Size )
             {
@@ -185,9 +185,9 @@ namespace DataStructures
             }
         }
 
-        public static ISequence<T> Linearize<T>(this IGrid<T> grid)
+        public static ISequence<T> Linearize<T>( this IGrid<T> grid )
         {
-            return grid.Rows.ToSequence().Flatten();   
+            return grid.Rows.ToSequence().Flatten();
         }
     }
 
@@ -198,7 +198,7 @@ namespace DataStructures
             return new Grid<T>( size, initializer );
         }
 
-        public static IGrid<T> Create<T>( Size size, T initialValue = default(T) )
+        public static IGrid<T> Create<T>( Size size, T initialValue = default( T ) )
         {
             return Create( size, _ => initialValue );
         }
@@ -228,11 +228,11 @@ namespace DataStructures
         {
             if ( xss == null )
             {
-                throw new ArgumentNullException( "xss" );
+                throw new ArgumentNullException( nameof( xss ) );
             }
             else if ( yss == null )
             {
-                throw new ArgumentNullException( "yss" );
+                throw new ArgumentNullException( nameof( yss ) );
             }
             else
             {
@@ -252,11 +252,11 @@ namespace DataStructures
             return grid.Items.Select( x => x.GetHashCode() ).Aggregate( 0, ( x, y ) => x ^ y );
         }
 
-        public static IGrid<T> FromRows<T>(ISequence<ISequence<T>> rows)
+        public static IGrid<T> FromRows<T>( ISequence<ISequence<T>> rows )
         {
             var width = rows[0].Length;
             var height = rows.Length;
-            var size = new Size(width, height);
+            var size = new Size( width, height );
 
             return Grid.Create( size, p => rows[p.Y][p.X] );
         }
@@ -305,29 +305,11 @@ namespace DataStructures
             }
         }
 
-        public IEnumerable<int> RowIndices
-        {
-            get
-            {
-                return Enumerable.Range( 0, this.Size.Height );
-            }
-        }
+        public IEnumerable<int> RowIndices => Enumerable.Range( 0, this.Size.Height );
 
-        public IEnumerable<int> ColumnIndices
-        {
-            get
-            {
-                return Enumerable.Range( 0, this.Size.Width );
-            }
-        }
+        public IEnumerable<int> ColumnIndices => Enumerable.Range( 0, this.Size.Width );
 
-        public IEnumerable<T> Items
-        {
-            get
-            {
-                return AllPositions.Select( p => this[p] );
-            }
-        }
+        public IEnumerable<T> Items => AllPositions.Select( p => this[p] );
 
         public ISequence<T> Row( int y )
         {
@@ -339,21 +321,9 @@ namespace DataStructures
             return Sequence.FromFunction( Size.Height, y => this[new Vector2D( x, y )] );
         }
 
-        public IEnumerable<ISequence<T>> Rows
-        {
-            get
-            {
-                return RowIndices.Select( Row );
-            }
-        }
+        public IEnumerable<ISequence<T>> Rows => RowIndices.Select( Row );
 
-        public IEnumerable<ISequence<T>> Columns
-        {
-            get
-            {
-                return ColumnIndices.Select( Column );
-            }
-        }
+        public IEnumerable<ISequence<T>> Columns => ColumnIndices.Select( Column );
     }
 
     internal class Grid<T> : GridBase<T>
@@ -382,27 +352,15 @@ namespace DataStructures
             }
         }
 
-        public Grid( Size size, T initialValue = default(T) )
+        public Grid( Size size, T initialValue = default( T ) )
             : this( size, p => initialValue )
         {
             // NOP
         }
 
-        public override Size Size
-        {
-            get
-            {
-                return new Size( items.GetLength( 0 ), items.GetLength( 1 ) );
-            }
-        }
+        public override Size Size => new Size( items.GetLength( 0 ), items.GetLength( 1 ) );
 
-        public override T this[Vector2D position]
-        {
-            get
-            {
-                return items[position.X, position.Y];
-            }
-        }
+        public override T this[Vector2D position] => items[position.X, position.Y];
     }
 
     internal class VirtualGrid<T> : GridBase<T>
@@ -415,11 +373,11 @@ namespace DataStructures
         {
             if ( size == null )
             {
-                throw new ArgumentNullException( "size" );
+                throw new ArgumentNullException( nameof( size ) );
             }
             else if ( function == null )
             {
-                throw new ArgumentNullException( "function" );
+                throw new ArgumentNullException( nameof( function ) );
             }
             else
             {
@@ -428,13 +386,7 @@ namespace DataStructures
             }
         }
 
-        public override Size Size
-        {
-            get
-            {
-                return size;
-            }
-        }
+        public override Size Size => size;
 
         public override T this[Vector2D position]
         {
@@ -442,7 +394,7 @@ namespace DataStructures
             {
                 if ( !this.IsValidPosition( position ) )
                 {
-                    throw new ArgumentOutOfRangeException( "position" );
+                    throw new ArgumentOutOfRangeException( nameof( position ) );
                 }
                 else
                 {

@@ -11,14 +11,14 @@ namespace PiCross
     /// </summary>
     public abstract class PiCrossException : Exception
     {
-        public PiCrossException(string message)
-            : base(message)
+        public PiCrossException( string message )
+            : base( message )
         {
             // NOP
         }
 
-        public PiCrossException(string message, Exception innerException)
-            : base(message, innerException)
+        public PiCrossException( string message, Exception innerException )
+            : base( message, innerException )
         {
             // NOP
         }
