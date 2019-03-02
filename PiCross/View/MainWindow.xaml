@@ -4,7 +4,7 @@
         xmlns:picross="clr-namespace:PiCross;assembly=PiCrossDomain"
         xmlns:controls="clr-namespace:GUI.Controls"
         xmlns:converters="clr-namespace:GUI.Converters"
-        xmlns:viewmodels="clr-namespace:GUI.ViewModels"
+        xmlns:viewmodels="clr-namespace:ViewModel;assembly=ViewModel"
         xmlns:view="clr-namespace:GUI.Views"
         xmlns:gui="clr-namespace:GUI" Background="Black"
         Title="PiCross" Height="450" Width="900">

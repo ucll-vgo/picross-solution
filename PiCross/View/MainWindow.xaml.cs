@@ -15,14 +15,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using GUI.Commands;
-using GUI.Controls;
 using GUI.Themes;
-using GUI.ViewModels;
-using GUI.Views;
 using Cells;
-using DataStructures;
-using PiCross;
-using Grid = DataStructures.Grid;
+using ViewModel;
 
 namespace GUI
 {

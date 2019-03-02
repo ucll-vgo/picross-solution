@@ -5,12 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using GUI.Commands;
 using Cells;
 using DataStructures;
 using PiCross;
+using ViewModel.Commands;
 
-namespace GUI.ViewModels
+namespace ViewModel
 {
     public class IntroViewModel : ViewModel
     {
@@ -19,10 +19,6 @@ namespace GUI.ViewModels
         private readonly ICommand edit;
 
         private readonly ICommand quit;
-
-        //private readonly IList<IStepwisePuzzleSolver> solvers;
-
-        //private readonly IList<IGrid<Cell<Square>>> logoLetters;
 
         private readonly IStepwisePuzzleSolver logoSolver;
 
@@ -55,21 +51,12 @@ namespace GUI.ViewModels
 
         private void SynchronizeLogoGridWithSolverGrid()
         {
-            //for ( var i = 0; i != solvers.Count; ++i )
-            //{
-            //    logoLetters[i].Overwrite( solvers[i].Grid );
-            //}
-
             logo.Overwrite( logoSolver.Grid );
         }
 
         private void UpdateLogoGrid()
         {
             logoSolver.Step();
-            //foreach ( var solver in solvers )
-            //{
-            //    solver.Step();
-            //}
 
             SynchronizeLogoGridWithSolverGrid();
             ScheduleUpdate();

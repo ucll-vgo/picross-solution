@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Cells;
 using DataStructures;
 
-namespace GUI
+namespace ViewModel
 {
     public class GridSelectionHelper
     {

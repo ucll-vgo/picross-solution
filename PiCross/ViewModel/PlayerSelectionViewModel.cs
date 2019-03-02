@@ -6,10 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using GUI.Commands;
 using PiCross;
+using ViewModel.Commands;
 
-namespace GUI.ViewModels
+namespace ViewModel
 {
     public class PlayerSelectionViewModel : ViewModel
     {

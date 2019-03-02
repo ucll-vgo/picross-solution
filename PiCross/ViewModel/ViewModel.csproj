@@ -41,7 +41,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\CellCommand.cs" />
+    <Compile Include="Commands\EnabledCommand.cs" />
+    <Compile Include="EditorLibraryViewModel.cs" />
+    <Compile Include="EditorViewModel.cs" />
+    <Compile Include="GridSelectionHelper.cs" />
+    <Compile Include="IntroViewModel.cs" />
+    <Compile Include="MasterController.cs" />
+    <Compile Include="PauseViewModel.cs" />
+    <Compile Include="PlayerAdditionViewModel.cs" />
+    <Compile Include="PlayerSelectionViewModel.cs" />
+    <Compile Include="PlayLibraryViewModel.cs" />
+    <Compile Include="PlayViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scheduler.cs" />
+    <Compile Include="Timer.cs" />
+    <Compile Include="ViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Cells\Cells.csproj">

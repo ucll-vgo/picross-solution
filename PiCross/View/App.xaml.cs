@@ -15,7 +15,7 @@ namespace GUI
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            var mainWindow = new MainWindow( new ViewModels.MasterController() );
+            var mainWindow = new MainWindow( new ViewModel.MasterController() );
             mainWindow.Show();
 
             base.OnStartup(e);

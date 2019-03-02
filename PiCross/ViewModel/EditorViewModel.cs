@@ -5,13 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using GUI.Commands;
-using GUI.Controls;
 using Cells;
 using DataStructures;
 using PiCross;
+using ViewModel.Commands;
 
-namespace GUI.ViewModels
+namespace ViewModel
 {
     public class EditorViewModel : ViewModel
     {
@@ -109,7 +108,7 @@ namespace GUI.ViewModels
             this.puzzleEditor.Grid.ForEach( ( IPuzzleEditorSquare square ) => { square.IsFilled.Value = false; } );
         }
 
-        public EditorControl.IViewModel ViewModel
+        public IViewModel ViewModel
         {
             get
             {
@@ -117,7 +116,7 @@ namespace GUI.ViewModels
             }
         }
 
-        private class PuzzleViewModel : EditorControl.IViewModel
+        private class PuzzleViewModel : IViewModel
         {
             private readonly IPuzzleEditor puzzleEditor;
 
@@ -140,17 +139,17 @@ namespace GUI.ViewModels
                 this.thumbnail = DataStructures.Grid.Create<Cell<bool>>( puzzleEditor.Grid.Size, position => puzzleEditor.Grid[position].IsFilled );
             }
 
-            public IGrid<EditorControl.ISquareViewModel> Grid
+            public IGrid<ISquareViewModel> Grid
             {
                 get { return grid; }
             }
 
-            public ISequence<EditorControl.IConstraintsViewModel> ColumnConstraints
+            public ISequence<IConstraintsViewModel> ColumnConstraints
             {
                 get { return columnConstraints; }
             }
 
-            public ISequence<EditorControl.IConstraintsViewModel> RowConstraints
+            public ISequence<IConstraintsViewModel> RowConstraints
             {
                 get { return rowConstraints; }
             }
@@ -161,7 +160,7 @@ namespace GUI.ViewModels
             }
         }
 
-        private class SquareViewModel : EditorControl.ISquareViewModel
+        private class SquareViewModel : ISquareViewModel
         {
             private readonly IPuzzleEditorSquare square;
 
@@ -211,7 +210,7 @@ namespace GUI.ViewModels
             }
         }
 
-        private class ConstraintsViewModel : EditorControl.IConstraintsViewModel
+        private class ConstraintsViewModel : IConstraintsViewModel
         {
             private readonly IPuzzleEditorConstraints constraints;
 
@@ -236,5 +235,36 @@ namespace GUI.ViewModels
                 get { return isActive; }
             }
         }
+    }
+
+    public interface IViewModel
+    {
+        IGrid<ISquareViewModel> Grid { get; }
+
+        ISequence<IConstraintsViewModel> ColumnConstraints { get; }
+
+        ISequence<IConstraintsViewModel> RowConstraints { get; }
+
+        IGrid<Cell<bool>> ThumbnailData { get; }
+    }
+
+    public interface ISquareViewModel
+    {
+        Cell<bool> IsFilled { get; }
+
+        Cell<Ambiguity> Ambiguity { get; }
+
+        ICommand Activate { get; }
+
+        ICommand SetFilled { get; }
+
+        ICommand SetEmpty { get; }
+    }
+
+    public interface IConstraintsViewModel
+    {
+        Cell<IEnumerable<int>> Constraints { get; }
+
+        Cell<bool> IsActive { get; }
     }
 }

@@ -55,22 +55,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="GridSelectionHelper.cs" />
-    <Compile Include="Scheduler.cs" />
     <Compile Include="TemplateSelectors\TypeBasedSelector.cs" />
     <Compile Include="Themes\Theme.cs" />
-    <Compile Include="Timer.cs" />
     <Compile Include="TypeMapping.cs" />
-    <Compile Include="ViewModels\EditorLibraryViewModel.cs" />
-    <Compile Include="ViewModels\EditorViewModel.cs" />
-    <Compile Include="ViewModels\IntroViewModel.cs" />
-    <Compile Include="ViewModels\MasterController.cs" />
-    <Compile Include="ViewModels\PauseViewModel.cs" />
-    <Compile Include="ViewModels\PlayerAdditionViewModel.cs" />
-    <Compile Include="ViewModels\PlayerSelectionViewModel.cs" />
-    <Compile Include="ViewModels\PlayLibraryViewModel.cs" />
-    <Compile Include="ViewModels\PlayViewModel.cs" />
-    <Compile Include="ViewModels\ViewModel.cs" />
     <Compile Include="Views\EditorLibraryView.xaml.cs">
       <DependentUpon>EditorLibraryView.xaml</DependentUpon>
     </Compile>

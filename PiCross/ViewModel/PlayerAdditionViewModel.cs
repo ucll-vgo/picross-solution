@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using GUI.Commands;
 using Cells;
+using ViewModel.Commands;
 
-namespace GUI.ViewModels
+namespace ViewModel
 {
     public class PlayerAdditionViewModel : ViewModel
     {

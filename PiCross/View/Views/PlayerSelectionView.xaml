@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:gui="clr-namespace:GUI"
              xmlns:selectors="clr-namespace:GUI.TemplateSelectors"
-             xmlns:vm="clr-namespace:GUI.ViewModels"
+             xmlns:vm="clr-namespace:ViewModel;assembly=ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>

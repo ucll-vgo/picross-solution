@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using GUI.Commands;
 using Cells;
 using DataStructures;
 using PiCross;
 using System.Text.RegularExpressions;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using ViewModel.Commands;
 
-namespace GUI.ViewModels
+namespace ViewModel
 {
     public class EditorLibraryViewModel : ViewModel
     {

@@ -15,6 +15,8 @@ using System.Windows.Shapes;
 using Cells;
 using DataStructures;
 using PiCross;
+using ViewModel;
+
 
 namespace GUI.Controls
 {
@@ -36,36 +38,5 @@ namespace GUI.Controls
 
         public static readonly DependencyProperty ViewModelProperty =
             DependencyProperty.Register( "ViewModel", typeof( IViewModel ), typeof( EditorControl ), new PropertyMetadata( null ) );
-
-        public interface IViewModel
-        {
-            IGrid<ISquareViewModel> Grid { get; }
-
-            ISequence<IConstraintsViewModel> ColumnConstraints { get; }
-
-            ISequence<IConstraintsViewModel> RowConstraints { get; }
-
-            IGrid<Cell<bool>> ThumbnailData { get; }
-        }
-
-        public interface ISquareViewModel
-        {
-            Cell<bool> IsFilled { get; }
-
-            Cell<Ambiguity> Ambiguity { get; }
-
-            ICommand Activate { get; }
-
-            ICommand SetFilled { get; }
-
-            ICommand SetEmpty { get; }
-        }
-
-        public interface IConstraintsViewModel
-        {
-            Cell<IEnumerable<int>> Constraints { get; }
-
-            Cell<bool> IsActive { get; }
-        }
     }
 }

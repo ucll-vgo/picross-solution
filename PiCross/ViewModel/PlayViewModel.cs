@@ -2,14 +2,13 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Input;
-using GUI.Commands;
-using GUI.Controls;
 using PiCross;
 using Cells;
 using DataStructures;
 using Utility;
+using ViewModel.Commands;
 
-namespace GUI.ViewModels
+namespace ViewModel
 {
     public class PlayViewModel : ViewModel
     {

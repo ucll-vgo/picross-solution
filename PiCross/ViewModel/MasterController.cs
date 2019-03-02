@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Cells;
 using PiCross;
 
-namespace GUI.ViewModels
+namespace ViewModel
 {
     public class MasterController
     {
