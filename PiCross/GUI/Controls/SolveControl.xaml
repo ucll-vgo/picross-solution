@@ -5,7 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:converters="clr-namespace:GUI.Converters"
              xmlns:controls="clr-namespace:GUI.Controls"
-             xmlns:aux="clr-namespace:PiCross.Controls;assembly=Controls"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
@@ -39,8 +38,8 @@
             </converters:BoolConverter>
         </converters:CurriedConverter>
     </UserControl.Resources>
-    <aux:PiCrossControl PuzzleData="{Binding}" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <aux:PiCrossControl.SquareTemplate>
+    <controls:PiCrossControl PuzzleData="{Binding}" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <controls:PiCrossControl.SquareTemplate>
             <DataTemplate>
                 <controls:PuzzleGridSquareControl Contents="{Binding Contents.Value}"
                                                   Tag="{Binding Position}"
@@ -53,9 +52,9 @@
                                                   MouseEnter="Square_MouseEnter">
                 </controls:PuzzleGridSquareControl>
             </DataTemplate>
-        </aux:PiCrossControl.SquareTemplate>
+        </controls:PiCrossControl.SquareTemplate>
 
-        <aux:PiCrossControl.ColumnConstraintsTemplate>
+        <controls:PiCrossControl.ColumnConstraintsTemplate>
             <DataTemplate>
                 <DockPanel LastChildFill="False" Margin="1">
                     <DockPanel.Background>
@@ -83,9 +82,9 @@
                     </ItemsControl>
                 </DockPanel>
             </DataTemplate>
-        </aux:PiCrossControl.ColumnConstraintsTemplate>
+        </controls:PiCrossControl.ColumnConstraintsTemplate>
 
-        <aux:PiCrossControl.RowConstraintsTemplate>
+        <controls:PiCrossControl.RowConstraintsTemplate>
             <DataTemplate>
                 <DockPanel LastChildFill="False" Margin="1">
                     <DockPanel.Background>
@@ -113,6 +112,6 @@
                     </ItemsControl>
                 </DockPanel>
             </DataTemplate>
-        </aux:PiCrossControl.RowConstraintsTemplate>
-    </aux:PiCrossControl>
+        </controls:PiCrossControl.RowConstraintsTemplate>
+    </controls:PiCrossControl>
 </UserControl>

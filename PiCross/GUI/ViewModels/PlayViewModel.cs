@@ -8,7 +8,6 @@ using PiCross;
 using Cells;
 using DataStructures;
 using Utility;
-using PiCross.Controls;
 
 namespace GUI.ViewModels
 {

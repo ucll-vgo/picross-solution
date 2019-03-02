@@ -68,6 +68,9 @@
     <Compile Include="Controls\GridViewControl.xaml.cs">
       <DependentUpon>GridViewControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\PiCrossControl.xaml.cs">
+      <DependentUpon>PiCrossControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converters\TimeSpanConverter.cs" />
     <Compile Include="GridSelectionHelper.cs" />
     <Compile Include="Scheduler.cs" />
@@ -137,6 +140,10 @@
     <Page Include="Controls\GridViewControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\PiCrossControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\EditorLibraryView.xaml">
       <SubType>Designer</SubType>
@@ -247,10 +254,6 @@
     <ProjectReference Include="..\Cells\Cells.csproj">
       <Project>{c45fa6b5-13a8-4733-ab34-98e10292f7bc}</Project>
       <Name>Cells</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Controls\Controls.csproj">
-      <Project>{740920fd-7e18-4d97-90b8-bc1ecc24eef9}</Project>
-      <Name>Controls</Name>
     </ProjectReference>
     <ProjectReference Include="..\DataStructures\DataStructures.csproj">
       <Project>{1d66c6d1-c997-4a43-8f47-eec32b481fd4}</Project>

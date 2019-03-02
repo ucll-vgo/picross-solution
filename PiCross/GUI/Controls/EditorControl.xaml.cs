@@ -15,7 +15,6 @@ using System.Windows.Shapes;
 using Cells;
 using DataStructures;
 using PiCross;
-using PiCross.Controls;
 
 namespace GUI.Controls
 {
