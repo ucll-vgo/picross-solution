@@ -75,6 +75,10 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataStructures\DataStructures.csproj">
+      <Project>{1d66c6d1-c997-4a43-8f47-eec32b481fd4}</Project>
+      <Name>DataStructures</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{06f9475c-dbda-49b3-a461-21821ca8be76}</Project>
       <Name>Domain</Name>
