@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Cells;
 
-namespace DataStructures
+namespace Cells
 {
     public interface ISignal
     {
