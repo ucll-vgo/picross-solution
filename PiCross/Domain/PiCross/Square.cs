@@ -14,7 +14,7 @@ namespace PiCross
     /// FILLED and EMPTY. The meaning of these values becomes clear
     /// when considered in the context of puzzle solving: originally,
     /// the puzzle is fully UNKNOWN, and as more information is gathered,
-    /// cells become FILLED or EMPTY. A fully solved puzzle does not contain
+    /// squares become FILLED or EMPTY. A fully solved puzzle does not contain
     /// any UNKNOWNs.
     /// </summary>
     public abstract class Square

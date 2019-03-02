@@ -44,13 +44,22 @@ namespace PiCross
         ISequence<IPlayablePuzzleConstraints> RowConstraints { get; }
 
         /// <summary>
-        /// Contains true if the Grid contains nothing but correct FILLED and EMPTY values,
-        /// false otherwise.
+        /// Contains true if the Grid contains no more unknown squares,
+        /// and all squares are correct.
         /// </summary>
         Cell<bool> IsSolved { get; }
 
+        /// <summary>
+        /// Number of squares that are left unknown (i.e. have not been determined to be
+        /// filled or empty.)
+        /// </summary>
         Cell<int> UnknownCount { get; }
 
+        /// <summary>
+        /// True if there are unknowns left, false otherwise. Note:
+        /// this does not correspond to a successfully solved puzzle.
+        /// The player might have made mistakes.
+        /// </summary>
         Cell<bool> ContainsUnknowns { get; }
     }
 

@@ -80,7 +80,7 @@ namespace PiCross
         /// <summary>
         /// Creates a Puzzle from a sequence of strings representing
         /// the rows of the solution of a puzzle. A 'x' represents
-        /// a filled cell, a '.' corresponds to an empty cell.
+        /// a filled square, a '.' corresponds to an empty square.
         /// </summary>
         /// <param name="rows">Strings representing rows.</param>
         /// <returns>Puzzle.</returns>
