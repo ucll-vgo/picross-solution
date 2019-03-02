@@ -2,7 +2,7 @@
 
 namespace Cells
 {
-    internal class ValidatedCell<T> : ConcreteCell<T>
+    public class ValidatedCell<T> : ConcreteCell<T>
     {
         private readonly Func<T, bool> validator;
 

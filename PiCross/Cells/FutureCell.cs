@@ -5,7 +5,7 @@ using System.Threading;
 namespace Cells
 {
     [DebuggerDisplay( "{DebugProxy}" )]
-    internal class FutureCell<T> : Cell<T>
+    public class FutureCell<T> : Cell<T>
     {
         private volatile bool isBound;
 

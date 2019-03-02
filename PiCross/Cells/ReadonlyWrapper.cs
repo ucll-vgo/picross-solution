@@ -2,7 +2,7 @@
 
 namespace Cells
 {
-    internal class ReadonlyWrapper<T> : Cell<T>
+    public class ReadonlyWrapper<T> : Cell<T>
     {
         private readonly Cell<T> wrappedCell;
 
