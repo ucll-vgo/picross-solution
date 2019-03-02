@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Controls", "Controls\Contro
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cells", "Cells\Cells.csproj", "{C45FA6B5-13A8-4733-AB34-98E10292F7BC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataStructures", "DataStructures\DataStructures.csproj", "{1D66C6D1-C997-4A43-8F47-EEC32B481FD4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{C45FA6B5-13A8-4733-AB34-98E10292F7BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C45FA6B5-13A8-4733-AB34-98E10292F7BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C45FA6B5-13A8-4733-AB34-98E10292F7BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D66C6D1-C997-4A43-8F47-EEC32B481FD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D66C6D1-C997-4A43-8F47-EEC32B481FD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D66C6D1-C997-4A43-8F47-EEC32B481FD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D66C6D1-C997-4A43-8F47-EEC32B481FD4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

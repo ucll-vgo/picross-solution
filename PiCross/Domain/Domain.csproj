@@ -52,11 +52,6 @@
     <Compile Include="PiCross\PiCrossFacade.cs" />
     <Compile Include="PiCross\InMemoryDatabase.cs" />
     <Compile Include="Utility\Chronometer.cs" />
-    <Compile Include="DataStructures\Grid.cs" />
-    <Compile Include="DataStructures\Range.cs" />
-    <Compile Include="DataStructures\Sequence.cs" />
-    <Compile Include="DataStructures\Signal.cs" />
-    <Compile Include="DataStructures\Vector2D.cs" />
     <Compile Include="PiCross\IPuzzleEditor.cs" />
     <Compile Include="PiCross\PuzzleEditor.cs">
       <SubType>Code</SubType>
@@ -71,7 +66,6 @@
     <Compile Include="PiCross\EditorGrid.cs" />
     <Compile Include="PiCross\PlayGrid.cs" />
     <Compile Include="PiCross\Puzzle.cs" />
-    <Compile Include="DataStructures\Size.cs" />
     <Compile Include="PiCross\PuzzleIO.cs" />
     <Compile Include="PiCross\SolverGrid.cs" />
     <Compile Include="PiCross\Slice.cs" />
@@ -89,6 +83,10 @@
     <ProjectReference Include="..\Cells\Cells.csproj">
       <Project>{c45fa6b5-13a8-4733-ab34-98e10292f7bc}</Project>
       <Name>Cells</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataStructures\DataStructures.csproj">
+      <Project>{1d66c6d1-c997-4a43-8f47-eec32b481fd4}</Project>
+      <Name>DataStructures</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
