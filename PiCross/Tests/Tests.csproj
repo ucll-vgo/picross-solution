@@ -92,10 +92,6 @@
       <Project>{06f9475c-dbda-49b3-a461-21821ca8be76}</Project>
       <Name>Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\GUI\GUI.csproj">
-      <Project>{146df8b5-ba89-460e-a7a6-1cff3dbd95a9}</Project>
-      <Name>GUI</Name>
-    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
