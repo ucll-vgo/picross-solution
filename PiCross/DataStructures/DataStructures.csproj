@@ -44,7 +44,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Range.cs" />
     <Compile Include="Sequence.cs" />
-    <Compile Include="Signal.cs" />
     <Compile Include="Size.cs" />
     <Compile Include="Vector2D.cs" />
   </ItemGroup>
