@@ -202,20 +202,17 @@ namespace GUI.Controls
             CreateRowConstraintControls();
         }
 
-        private bool AllPuzzleDataAvailable()
-        {
-            return this.Grid != null && this.RowConstraints != null && this.ColumnConstraints != null;
-        }
-
         private void CreateColumnDefinitions()
         {
             Debug.Assert( this.grid.ColumnDefinitions.Count == 0 );
 
-            if ( AllPuzzleDataAvailable() )
+            if ( this.Grid != null )
             {
+                // Add column for row constraints
                 this.grid.ColumnDefinitions.Add( new ColumnDefinition() { Width = GridLength.Auto } );
 
-                for ( var i = 0; i != ColumnConstraints.Length; ++i )
+                // Add column for each grid column
+                for ( var i = 0; i != this.Grid.Size.Width; ++i )
                 {
                     this.grid.ColumnDefinitions.Add( new ColumnDefinition() { Width = GridLength.Auto } );
                 }
@@ -226,11 +223,13 @@ namespace GUI.Controls
         {
             Debug.Assert( this.grid.RowDefinitions.Count == 0 );
 
-            if ( AllPuzzleDataAvailable() )
+            if ( this.grid != null )
             {
+                // Add row for column constraints
                 this.grid.RowDefinitions.Add( new RowDefinition() { Height = GridLength.Auto } );
 
-                for ( var i = 0; i != ColumnConstraints.Length; ++i )
+                // Add row for each grid row
+                for ( var i = 0; i != this.Grid.Size.Height; ++i )
                 {
                     this.grid.RowDefinitions.Add( new RowDefinition() { Height = GridLength.Auto } );
                 }
@@ -258,7 +257,7 @@ namespace GUI.Controls
 
         private void CreateSquareControls()
         {
-            if ( AllPuzzleDataAvailable() && SquareTemplate != null )
+            if ( this.Grid != null && SquareTemplate != null )
             {
                 foreach ( var position in Grid.AllPositions )
                 {
@@ -284,7 +283,7 @@ namespace GUI.Controls
 
         private void CreateColumnConstraintControls()
         {
-            if ( AllPuzzleDataAvailable() && ColumnConstraintsTemplate != null )
+            if ( this.ColumnConstraints != null && ColumnConstraintsTemplate != null )
             {
                 foreach ( var index in ColumnConstraints.Indices )
                 {
@@ -303,7 +302,7 @@ namespace GUI.Controls
 
         private void CreateRowConstraintControls()
         {
-            if ( AllPuzzleDataAvailable() && RowConstraintsTemplate != null )
+            if ( this.RowConstraints != null && RowConstraintsTemplate != null )
             {
                 foreach ( var index in RowConstraints.Indices )
                 {
