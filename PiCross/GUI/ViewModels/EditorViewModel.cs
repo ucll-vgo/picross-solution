@@ -10,7 +10,6 @@ using GUI.Controls;
 using Cells;
 using DataStructures;
 using PiCross;
-using ISignal = Cells.ISignal;
 
 namespace GUI.ViewModels
 {
@@ -132,7 +131,7 @@ namespace GUI.ViewModels
 
             public PuzzleViewModel( IPuzzleEditor puzzleEditor, Cell<Vector2D> activeSquare )
             {
-                var signalFactory = new Cells.SignalFactory<Vector2D>();
+                var signalFactory = new SignalFactory<Vector2D>();
 
                 this.puzzleEditor = puzzleEditor;
                 this.grid = DataStructures.Grid.Create<SquareViewModel>( puzzleEditor.Grid.Size, position => new SquareViewModel( puzzleEditor.Grid[position], signalFactory.CreateSignal( position ) ) );

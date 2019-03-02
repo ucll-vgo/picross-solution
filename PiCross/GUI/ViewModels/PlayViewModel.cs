@@ -9,7 +9,6 @@ using Cells;
 using DataStructures;
 using Utility;
 using PiCross.Controls;
-using ISignal = Cells.ISignal;
 
 namespace GUI.ViewModels
 {
