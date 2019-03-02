@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PiCross</RootNamespace>
     <AssemblyName>PiCrossDomain</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -40,14 +41,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cells\CellExtensions.cs" />
-    <Compile Include="Cells\ConcreteCell.cs" />
-    <Compile Include="Cells\ConstantCell.cs" />
-    <Compile Include="Cells\DeferredCell.cs" />
-    <Compile Include="Cells\Derived.cs" />
-    <Compile Include="Cells\Flag.cs" />
-    <Compile Include="Cells\FutureCell.cs" />
-    <Compile Include="Cells\ValidatedCell.cs" />
     <Compile Include="IO\Serializer.cs" />
     <Compile Include="PiCross\ArchiveDatabase.cs" />
     <Compile Include="PiCross\GameDataAdapters.cs" />
@@ -60,13 +53,8 @@
     <Compile Include="PiCross\InMemoryDatabase.cs" />
     <Compile Include="Utility\Chronometer.cs" />
     <Compile Include="DataStructures\Grid.cs" />
-    <Compile Include="Cells\Cell.cs" />
-    <Compile Include="Cells\IVar.cs" />
-    <Compile Include="Cells\ManualCell.cs" />
-    <Compile Include="Cells\ReadonlyWrapper.cs" />
     <Compile Include="DataStructures\Range.cs" />
     <Compile Include="DataStructures\Sequence.cs" />
-    <Compile Include="Cells\Var.cs" />
     <Compile Include="DataStructures\Signal.cs" />
     <Compile Include="DataStructures\Vector2D.cs" />
     <Compile Include="PiCross\IPuzzleEditor.cs" />
@@ -90,13 +78,18 @@
     <Compile Include="PiCross\Square.cs" />
     <Compile Include="PiCross\StepwiseSolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Cells\Util.cs" />
     <Compile Include="Utility\Extensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PiCross\uml-PlayablePuzzle.cd" />
     <None Include="PiCross\uml-Puzzle.cd" />
     <None Include="PiCross\uml-PuzzleEditor.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cells\Cells.csproj">
+      <Project>{c45fa6b5-13a8-4733-ab34-98e10292f7bc}</Project>
+      <Name>Cells</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

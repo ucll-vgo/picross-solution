@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.9
+VisualStudioVersion = 15.0.27130.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{06F9475C-DBDA-49B3-A461-21821CA8BE76}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUI", "GUI\GUI.csproj", "{146DF8B5-BA89-460E-A7A6-1CFF3DBD95A9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Controls", "Controls\Controls.csproj", "{740920FD-7E18-4D97-90B8-BC1ECC24EEF9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cells", "Cells\Cells.csproj", "{C45FA6B5-13A8-4733-AB34-98E10292F7BC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,8 +35,15 @@ Global
 		{740920FD-7E18-4D97-90B8-BC1ECC24EEF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{740920FD-7E18-4D97-90B8-BC1ECC24EEF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{740920FD-7E18-4D97-90B8-BC1ECC24EEF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C45FA6B5-13A8-4733-AB34-98E10292F7BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C45FA6B5-13A8-4733-AB34-98E10292F7BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C45FA6B5-13A8-4733-AB34-98E10292F7BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C45FA6B5-13A8-4733-AB34-98E10292F7BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0E411A8F-1A24-4708-AE49-0C4576A71AD4}
 	EndGlobalSection
 EndGlobal

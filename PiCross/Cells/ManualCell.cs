@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Cells
 {
-    internal abstract class ManualCell<T> : Cell<T>
+    public abstract class ManualCell<T> : Cell<T>
     {
         protected ManualCell( T initialValue )
             : base( initialValue )

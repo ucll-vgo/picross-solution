@@ -1,7 +1,7 @@
 ﻿
 namespace Cells
 {
-    internal class ConcreteCell<T> : Cell<T>
+    public class ConcreteCell<T> : Cell<T>
     {
         /// <summary>
         /// Constructor.
