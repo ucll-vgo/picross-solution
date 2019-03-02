@@ -55,7 +55,73 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="GridSelectionHelper.cs" />
+    <Compile Include="Scheduler.cs" />
+    <Compile Include="TemplateSelectors\TypeBasedSelector.cs" />
+    <Compile Include="Themes\Theme.cs" />
+    <Compile Include="Timer.cs" />
+    <Compile Include="TypeMapping.cs" />
+    <Compile Include="ViewModels\EditorLibraryViewModel.cs" />
+    <Compile Include="ViewModels\EditorViewModel.cs" />
+    <Compile Include="ViewModels\IntroViewModel.cs" />
+    <Compile Include="ViewModels\MasterController.cs" />
+    <Compile Include="ViewModels\PauseViewModel.cs" />
+    <Compile Include="ViewModels\PlayerAdditionViewModel.cs" />
+    <Compile Include="ViewModels\PlayerSelectionViewModel.cs" />
+    <Compile Include="ViewModels\PlayLibraryViewModel.cs" />
+    <Compile Include="ViewModels\PlayViewModel.cs" />
+    <Compile Include="ViewModels\ViewModel.cs" />
+    <Compile Include="Views\EditorLibraryView.xaml.cs">
+      <DependentUpon>EditorLibraryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EditorView.xaml.cs">
+      <DependentUpon>EditorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GeneralizedLibraryView.xaml.cs">
+      <DependentUpon>GeneralizedLibraryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\IntroView.xaml.cs">
+      <DependentUpon>IntroView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LibraryFilterView.xaml.cs">
+      <DependentUpon>LibraryFilterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LibraryView.xaml.cs">
+      <DependentUpon>LibraryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PauseView.xaml.cs">
+      <DependentUpon>PauseView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PlayerAdditionView.xaml.cs">
+      <DependentUpon>PlayerAdditionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PlayerSelectionView.xaml.cs">
+      <DependentUpon>PlayerSelectionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PlayView.xaml.cs">
+      <DependentUpon>PlayView.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Controls\ChronometerControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\EditorControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\GridViewControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\PiCrossControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\SolveControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\ThumbnailControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -67,13 +133,91 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Commands\CellCommand.cs" />
+    <Compile Include="Commands\EnabledCommand.cs" />
+    <Compile Include="Controls\ChronometerControl.xaml.cs">
+      <DependentUpon>ChronometerControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\EditorControl.xaml.cs">
+      <DependentUpon>EditorControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\EditorGridSquareControl.cs" />
+    <Compile Include="Controls\GridViewControl.xaml.cs">
+      <DependentUpon>GridViewControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\PiCrossControl.xaml.cs">
       <DependentUpon>PiCrossControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\PuzzleGridSquareControl.cs" />
+    <Compile Include="Controls\SolveControl.xaml.cs">
+      <DependentUpon>SolveControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SquareControl.cs" />
+    <Compile Include="Controls\ThumbnailControl.xaml.cs">
+      <DependentUpon>ThumbnailControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\BoolConverter.cs" />
+    <Compile Include="Converters\CurriedConverter.cs" />
+    <Compile Include="Converters\InterpolatedStringConverter.cs" />
+    <Compile Include="Converters\SquareConverter.cs" />
+    <Compile Include="Converters\TemplateLoaderConverter.cs" />
+    <Compile Include="Converters\TimeSpanConverter.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Nature.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Water.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\EditorLibraryView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\EditorView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\GeneralizedLibraryView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\IntroView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\LibraryFilterView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\LibraryView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\PauseView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\PlayerAdditionView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\PlayerSelectionView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\PlayView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -93,6 +237,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Resource Include="Fonts\SketchFlowPrint.ttf" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -118,6 +263,17 @@
       <Project>{4108cc47-2812-42b6-beb8-d95486ba165f}</Project>
       <Name>ViewModel</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\back.png" />
+    <Resource Include="Icons\cancel.png" />
+    <Resource Include="Icons\filter.png" />
+    <Resource Include="Icons\garbage.png" />
+    <Resource Include="Icons\newuser.png" />
+    <Resource Include="Icons\pause.png" />
+    <Resource Include="Icons\resolve.png" />
+    <Resource Include="Icons\save.png" />
+    <Resource Include="Icons\user.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

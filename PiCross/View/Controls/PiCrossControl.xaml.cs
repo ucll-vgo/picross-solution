@@ -4,7 +4,7 @@ using System.Windows.Controls;
 using DataStructures;
 using UIGrid = System.Windows.Controls.Grid;
 
-namespace PiCross.Controls
+namespace GUI.Controls
 {
     public partial class PiCrossControl : UserControl
     {
@@ -321,5 +321,14 @@ namespace PiCross.Controls
         }
 
         #endregion
+    }
+
+    public interface IPuzzleData
+    {
+        IGrid<object> Grid { get; }
+
+        ISequence<object> ColumnConstraints { get; }
+
+        ISequence<object> RowConstraints { get; }
     }
 }
