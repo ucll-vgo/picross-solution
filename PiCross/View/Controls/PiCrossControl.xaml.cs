@@ -223,7 +223,7 @@ namespace GUI.Controls
         {
             Debug.Assert( this.grid.RowDefinitions.Count == 0 );
 
-            if ( this.grid != null )
+            if ( this.Grid != null )
             {
                 // Add row for column constraints
                 this.grid.RowDefinitions.Add( new RowDefinition() { Height = GridLength.Auto } );
