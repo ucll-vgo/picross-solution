@@ -34,11 +34,8 @@ namespace GUI.Controls
             set { SetValue( ViewModelProperty, value ); }
         }
 
-        // Using a DependencyProperty as the backing store for ViewModel.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ViewModelProperty =
             DependencyProperty.Register( "ViewModel", typeof( IViewModel ), typeof( EditorControl ), new PropertyMetadata( null ) );
-
-        
 
         public interface IViewModel
         {
@@ -69,53 +66,6 @@ namespace GUI.Controls
             Cell<IEnumerable<int>> Constraints { get; }
 
             Cell<bool> IsActive { get; }
-        }
-
-        public class PuzzleDataAdapter : IPuzzleData
-        {
-            private IViewModel viewModel;
-
-            public PuzzleDataAdapter(IViewModel viewModel)
-            {
-                this.viewModel = viewModel;
-            }
-
-            public IGrid<object> Grid
-            {
-                get { return viewModel.Grid; }
-            }
-
-            public ISequence<object> ColumnConstraints
-            {
-                get { return viewModel.ColumnConstraints; }
-            }
-
-            public ISequence<object> RowConstraints
-            {
-                get { return viewModel.RowConstraints; }
-            }
-        }
-    }
-
-    public class PuzzleDataConverter : IValueConverter
-    {
-        public object Convert( object value, Type targetType, object parameter, System.Globalization.CultureInfo culture )
-        {
-            if ( value == null )
-            {
-                return null;
-            }
-            else
-            {
-                var vm = (EditorControl.IViewModel) value;
-
-                return new EditorControl.PuzzleDataAdapter( vm );
-            }
-        }
-
-        public object ConvertBack( object value, Type targetType, object parameter, System.Globalization.CultureInfo culture )
-        {
-            throw new NotImplementedException();
         }
     }
 }

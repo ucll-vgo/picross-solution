@@ -32,7 +32,6 @@ namespace GUI.Views
             set { SetValue( ItemTemplateProperty, value ); }
         }
 
-        // Using a DependencyProperty as the backing store for ItemTemplate.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ItemTemplateProperty =
             DependencyProperty.Register( "ItemTemplate", typeof( DataTemplate ), typeof( GeneralizedLibraryView ), new PropertyMetadata( null ) );
 
@@ -42,7 +41,6 @@ namespace GUI.Views
             set { SetValue( GroupHeaderTemplateProperty, value ); }
         }
 
-        // Using a DependencyProperty as the backing store for ItemTemplate.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty GroupHeaderTemplateProperty =
             DependencyProperty.Register( "GroupHeaderTemplate", typeof( DataTemplate ), typeof( GeneralizedLibraryView ), new PropertyMetadata( null ) );
 
@@ -52,7 +50,6 @@ namespace GUI.Views
             set { SetValue( GroupsProperty, value ); }
         }
 
-        // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty GroupsProperty =
             DependencyProperty.Register( "Groups", typeof( IEnumerable ), typeof( GeneralizedLibraryView ), new PropertyMetadata( null ) );
     }

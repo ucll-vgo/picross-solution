@@ -12,7 +12,7 @@ namespace GUI.Controls
         {
             InitializeComponent();
         }
-        
+
         #region Thumbnail
 
         public UIElement Thumbnail
@@ -22,9 +22,9 @@ namespace GUI.Controls
         }
 
         public static readonly DependencyProperty ThumbnailProperty =
-            DependencyProperty.Register( "Thumbnail", typeof( UIElement ), typeof( PiCrossControl ), new PropertyMetadata( null, (obj, args) => ((PiCrossControl) obj).OnThumbnailChanged(args) ) );
+            DependencyProperty.Register( "Thumbnail", typeof( UIElement ), typeof( PiCrossControl ), new PropertyMetadata( null, ( obj, args ) => ((PiCrossControl) obj).OnThumbnailChanged( args ) ) );
 
-        private void OnThumbnailChanged(DependencyPropertyChangedEventArgs args)
+        private void OnThumbnailChanged( DependencyPropertyChangedEventArgs args )
         {
             if ( args.OldValue != null )
             {
@@ -41,7 +41,7 @@ namespace GUI.Controls
                 System.Windows.Controls.Grid.SetRow( newThumbnail, 0 );
 
                 this.grid.Children.Add( newThumbnail );
-            }            
+            }
         }
 
         #endregion
@@ -55,7 +55,7 @@ namespace GUI.Controls
         }
 
         public static readonly DependencyProperty SquareTemplateProperty =
-            DependencyProperty.Register( "SquareTemplate", typeof( DataTemplate ), typeof( PiCrossControl ), new PropertyMetadata( null, ( obj, args ) => ( (PiCrossControl) obj ).OnSquareTemplateChanged( args ) ) );
+            DependencyProperty.Register( "SquareTemplate", typeof( DataTemplate ), typeof( PiCrossControl ), new PropertyMetadata( null, ( obj, args ) => ((PiCrossControl) obj).OnSquareTemplateChanged( args ) ) );
 
         private void OnSquareTemplateChanged( DependencyPropertyChangedEventArgs args )
         {
@@ -74,7 +74,7 @@ namespace GUI.Controls
         }
 
         public static readonly DependencyProperty ColumnConstraintsTemplateProperty =
-            DependencyProperty.Register( "ColumnConstraintsTemplate", typeof( DataTemplate ), typeof( PiCrossControl ), new PropertyMetadata( null, ( obj, args ) => ( (PiCrossControl) obj ).OnColumnConstraintsTemplateChanged( args ) ) );
+            DependencyProperty.Register( "ColumnConstraintsTemplate", typeof( DataTemplate ), typeof( PiCrossControl ), new PropertyMetadata( null, ( obj, args ) => ((PiCrossControl) obj).OnColumnConstraintsTemplateChanged( args ) ) );
 
         private void OnColumnConstraintsTemplateChanged( DependencyPropertyChangedEventArgs args )
         {
@@ -92,7 +92,7 @@ namespace GUI.Controls
         }
 
         public static readonly DependencyProperty RowConstraintsTemplateProperty =
-            DependencyProperty.Register( "RowConstraintsTemplate", typeof( DataTemplate ), typeof( PiCrossControl ), new PropertyMetadata( null, ( obj, args ) => ( (PiCrossControl) obj ).OnRowConstraintsTemplateChanged( args ) ) );
+            DependencyProperty.Register( "RowConstraintsTemplate", typeof( DataTemplate ), typeof( PiCrossControl ), new PropertyMetadata( null, ( obj, args ) => ((PiCrossControl) obj).OnRowConstraintsTemplateChanged( args ) ) );
 
         private void OnRowConstraintsTemplateChanged( DependencyPropertyChangedEventArgs args )
         {
@@ -103,14 +103,32 @@ namespace GUI.Controls
 
         #region PuzzleData
 
-        public IPuzzleData PuzzleData
+        public IGrid<object> Grid
         {
-            get { return (IPuzzleData) GetValue( PuzzleDataProperty ); }
-            set { SetValue( PuzzleDataProperty, value ); }
+            get { return (IGrid<object>) GetValue( GridProperty ); }
+            set { SetValue( GridProperty, value ); }
         }
 
-        public static readonly DependencyProperty PuzzleDataProperty =
-            DependencyProperty.Register( "PuzzleData", typeof( IPuzzleData ), typeof( PiCrossControl ), new PropertyMetadata( null, ( obj, args ) => ( (PiCrossControl) obj ).OnDataChanged( args ) ) );
+        public static readonly DependencyProperty GridProperty =
+            DependencyProperty.Register( "Grid", typeof( IGrid<object> ), typeof( PiCrossControl ), new PropertyMetadata( null, ( obj, args ) => ((PiCrossControl) obj).OnDataChanged( args ) ) );
+
+        public ISequence<object> ColumnConstraints
+        {
+            get { return (ISequence<object>) GetValue( ColumnConstraintsProperty ); }
+            set { SetValue( ColumnConstraintsProperty, value ); }
+        }
+
+        public static readonly DependencyProperty ColumnConstraintsProperty =
+            DependencyProperty.Register( "ColumnConstraints", typeof( ISequence<object> ), typeof( PiCrossControl ), new PropertyMetadata( null, ( obj, args ) => ((PiCrossControl) obj).OnDataChanged( args ) ) );
+
+        public ISequence<object> RowConstraints
+        {
+            get { return (ISequence<object>) GetValue( RowConstraintsProperty ); }
+            set { SetValue( RowConstraintsProperty, value ); }
+        }
+
+        public static readonly DependencyProperty RowConstraintsProperty =
+            DependencyProperty.Register( "RowConstraints", typeof( ISequence<object> ), typeof( PiCrossControl ), new PropertyMetadata( null, ( obj, args ) => ((PiCrossControl) obj).OnDataChanged( args ) ) );
 
         private void OnDataChanged( DependencyPropertyChangedEventArgs args )
         {
@@ -184,15 +202,20 @@ namespace GUI.Controls
             CreateRowConstraintControls();
         }
 
+        private bool AllPuzzleDataAvailable()
+        {
+            return this.Grid != null && this.RowConstraints != null && this.ColumnConstraints != null;
+        }
+
         private void CreateColumnDefinitions()
         {
             Debug.Assert( this.grid.ColumnDefinitions.Count == 0 );
 
-            if ( PuzzleData != null )
+            if ( AllPuzzleDataAvailable() )
             {
                 this.grid.ColumnDefinitions.Add( new ColumnDefinition() { Width = GridLength.Auto } );
 
-                for ( var i = 0; i != PuzzleData.ColumnConstraints.Length; ++i )
+                for ( var i = 0; i != ColumnConstraints.Length; ++i )
                 {
                     this.grid.ColumnDefinitions.Add( new ColumnDefinition() { Width = GridLength.Auto } );
                 }
@@ -203,11 +226,11 @@ namespace GUI.Controls
         {
             Debug.Assert( this.grid.RowDefinitions.Count == 0 );
 
-            if ( PuzzleData != null )
+            if ( AllPuzzleDataAvailable() )
             {
                 this.grid.RowDefinitions.Add( new RowDefinition() { Height = GridLength.Auto } );
 
-                for ( var i = 0; i != PuzzleData.ColumnConstraints.Length; ++i )
+                for ( var i = 0; i != ColumnConstraints.Length; ++i )
                 {
                     this.grid.RowDefinitions.Add( new RowDefinition() { Height = GridLength.Auto } );
                 }
@@ -235,13 +258,13 @@ namespace GUI.Controls
 
         private void CreateSquareControls()
         {
-            if ( PuzzleData != null && SquareTemplate != null )
+            if ( AllPuzzleDataAvailable() && SquareTemplate != null )
             {
-                foreach ( var position in PuzzleData.Grid.AllPositions )
+                foreach ( var position in Grid.AllPositions )
                 {
                     var gridCol = position.X + 1;
                     var gridRow = position.Y + 1;
-                    var squareData = PuzzleData.Grid[position];
+                    var squareData = Grid[position];
                     var squareControl = (FrameworkElement) SquareTemplate.LoadContent();
 
                     squareControl.DataContext = squareData;
@@ -261,12 +284,12 @@ namespace GUI.Controls
 
         private void CreateColumnConstraintControls()
         {
-            if ( PuzzleData != null && ColumnConstraintsTemplate != null )
+            if ( AllPuzzleDataAvailable() && ColumnConstraintsTemplate != null )
             {
-                foreach ( var index in PuzzleData.ColumnConstraints.Indices )
+                foreach ( var index in ColumnConstraints.Indices )
                 {
                     var columnIndex = index + 1;
-                    var columnConstraintData = PuzzleData.ColumnConstraints[index];
+                    var columnConstraintData = ColumnConstraints[index];
                     var constraintsControl = (FrameworkElement) ColumnConstraintsTemplate.LoadContent();
 
                     constraintsControl.DataContext = columnConstraintData;
@@ -280,12 +303,12 @@ namespace GUI.Controls
 
         private void CreateRowConstraintControls()
         {
-            if ( PuzzleData != null && RowConstraintsTemplate != null )
+            if ( AllPuzzleDataAvailable() && RowConstraintsTemplate != null )
             {
-                foreach ( var index in PuzzleData.RowConstraints.Indices )
+                foreach ( var index in RowConstraints.Indices )
                 {
                     var rowIndex = index + 1;
-                    var rowConstraintData = PuzzleData.RowConstraints[index];
+                    var rowConstraintData = RowConstraints[index];
                     var constraintsControl = (FrameworkElement) RowConstraintsTemplate.LoadContent();
 
                     constraintsControl.DataContext = rowConstraintData;
@@ -307,5 +330,5 @@ namespace GUI.Controls
         ISequence<object> ColumnConstraints { get; }
 
         ISequence<object> RowConstraints { get; }
-    }    
+    }
 }
