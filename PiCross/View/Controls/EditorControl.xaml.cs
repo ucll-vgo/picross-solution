@@ -30,13 +30,13 @@ namespace GUI.Controls
             InitializeComponent();
         }
 
-        public IViewModel ViewModel
+        public IEditorViewModel ViewModel
         {
-            get { return (IViewModel) GetValue( ViewModelProperty ); }
+            get { return (IEditorViewModel) GetValue( ViewModelProperty ); }
             set { SetValue( ViewModelProperty, value ); }
         }
 
         public static readonly DependencyProperty ViewModelProperty =
-            DependencyProperty.Register( "ViewModel", typeof( IViewModel ), typeof( EditorControl ), new PropertyMetadata( null ) );
+            DependencyProperty.Register( "ViewModel", typeof( IEditorViewModel ), typeof( EditorControl ), new PropertyMetadata( null ) );
     }
 }

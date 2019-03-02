@@ -108,7 +108,7 @@ namespace ViewModel
             this.puzzleEditor.Grid.ForEach( ( IPuzzleEditorSquare square ) => { square.IsFilled.Value = false; } );
         }
 
-        public IViewModel ViewModel
+        public IEditorViewModel ViewModel
         {
             get
             {
@@ -116,7 +116,7 @@ namespace ViewModel
             }
         }
 
-        private class PuzzleViewModel : IViewModel
+        private class PuzzleViewModel : IEditorViewModel
         {
             private readonly IPuzzleEditor puzzleEditor;
 
@@ -139,17 +139,17 @@ namespace ViewModel
                 this.thumbnail = DataStructures.Grid.Create<Cell<bool>>( puzzleEditor.Grid.Size, position => puzzleEditor.Grid[position].IsFilled );
             }
 
-            public IGrid<ISquareViewModel> Grid
+            public IGrid<IEditorSquareViewModel> Grid
             {
                 get { return grid; }
             }
 
-            public ISequence<IConstraintsViewModel> ColumnConstraints
+            public ISequence<IEditorConstraintsViewModel> ColumnConstraints
             {
                 get { return columnConstraints; }
             }
 
-            public ISequence<IConstraintsViewModel> RowConstraints
+            public ISequence<IEditorConstraintsViewModel> RowConstraints
             {
                 get { return rowConstraints; }
             }
@@ -160,7 +160,7 @@ namespace ViewModel
             }
         }
 
-        private class SquareViewModel : ISquareViewModel
+        private class SquareViewModel : IEditorSquareViewModel
         {
             private readonly IPuzzleEditorSquare square;
 
@@ -210,7 +210,7 @@ namespace ViewModel
             }
         }
 
-        private class ConstraintsViewModel : IConstraintsViewModel
+        private class ConstraintsViewModel : IEditorConstraintsViewModel
         {
             private readonly IPuzzleEditorConstraints constraints;
 
@@ -237,18 +237,18 @@ namespace ViewModel
         }
     }
 
-    public interface IViewModel
+    public interface IEditorViewModel
     {
-        IGrid<ISquareViewModel> Grid { get; }
+        IGrid<IEditorSquareViewModel> Grid { get; }
 
-        ISequence<IConstraintsViewModel> ColumnConstraints { get; }
+        ISequence<IEditorConstraintsViewModel> ColumnConstraints { get; }
 
-        ISequence<IConstraintsViewModel> RowConstraints { get; }
+        ISequence<IEditorConstraintsViewModel> RowConstraints { get; }
 
         IGrid<Cell<bool>> ThumbnailData { get; }
     }
 
-    public interface ISquareViewModel
+    public interface IEditorSquareViewModel
     {
         Cell<bool> IsFilled { get; }
 
@@ -261,7 +261,7 @@ namespace ViewModel
         ICommand SetEmpty { get; }
     }
 
-    public interface IConstraintsViewModel
+    public interface IEditorConstraintsViewModel
     {
         Cell<IEnumerable<int>> Constraints { get; }
 
