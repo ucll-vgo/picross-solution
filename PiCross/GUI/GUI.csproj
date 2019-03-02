@@ -252,6 +252,10 @@
       <Project>{740920fd-7e18-4d97-90b8-bc1ecc24eef9}</Project>
       <Name>Controls</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DataStructures\DataStructures.csproj">
+      <Project>{1d66c6d1-c997-4a43-8f47-eec32b481fd4}</Project>
+      <Name>DataStructures</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{06f9475c-dbda-49b3-a461-21821ca8be76}</Project>
       <Name>Domain</Name>
