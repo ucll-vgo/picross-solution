@@ -322,13 +322,4 @@ namespace GUI.Controls
 
         #endregion
     }
-
-    public interface IPuzzleData
-    {
-        IGrid<object> Grid { get; }
-
-        ISequence<object> ColumnConstraints { get; }
-
-        ISequence<object> RowConstraints { get; }
-    }
 }

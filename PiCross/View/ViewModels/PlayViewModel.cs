@@ -11,7 +11,7 @@ using Utility;
 
 namespace GUI.ViewModels
 {
-    public class PlayViewModel : ViewModel, IPuzzleData
+    public class PlayViewModel : ViewModel
     {
         private readonly IPlayablePuzzle puzzle;
 
@@ -115,34 +115,6 @@ namespace GUI.ViewModels
                 return entry.BestTime;
             }
         }
-
-        #region IPuzzleData explicit implementation
-
-        IGrid<object> IPuzzleData.Grid
-        {
-            get
-            {
-                return Grid.Squares;
-            }
-        }
-
-        ISequence<object> IPuzzleData.ColumnConstraints
-        {
-            get
-            {
-                return columnConstraints;
-            }
-        }
-
-        ISequence<object> IPuzzleData.RowConstraints
-        {
-            get
-            {
-                return rowConstraints;
-            }
-        }
-
-        #endregion
 
         #region Back Command
 
