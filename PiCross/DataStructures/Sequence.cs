@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Cells;
@@ -11,7 +12,7 @@ namespace DataStructures
     /// populate the sequence with objects with <see cref="IVar"/>.
     /// </summary>
     /// <typeparam name="T">Element type.</typeparam>
-    public interface ISequence<out T>
+    public interface ISequence<out T> : IEnumerable<T>
     {
         /// <summary>
         /// Number of items in the sequence.
@@ -508,6 +509,16 @@ namespace DataStructures
             {
                 return Enumerable.Range( 0, this.Length );
             }
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            return this.Items.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
 
         public IEnumerable<T> Items => Indices.Select( i => this[i] );

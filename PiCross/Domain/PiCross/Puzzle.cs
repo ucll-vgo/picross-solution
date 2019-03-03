@@ -7,10 +7,10 @@ using DataStructures;
 
 namespace PiCross
 {
-    public class AmbiguousConstraintsException : PiCrossException
+    public class InvalidConstraintsException : PiCrossException
     {
-        public AmbiguousConstraintsException()
-            : base( "Ambiguous constraints" )
+        public InvalidConstraintsException()
+            : base( "Invalid constraints" )
         {
             // NOP
         }
@@ -23,13 +23,15 @@ namespace PiCross
     public sealed class Puzzle
     {
         /// <summary>
-        /// Creates a Puzzle from the constraints. Since a Puzzle
-        /// contains the solution, this method solves the given puzzle.
+        /// Creates a Puzzle from the constraints.
+        /// Internally, the puzzle is automatically solved.
+        /// If the constraints are ambiguous or contradictory,
+        /// an exception is thrown.
         /// </summary>
         /// <param name="columnConstraints">Column constraints.</param>
         /// <param name="rowConstraints">Row constraints.</param>
         /// <returns>A Puzzle with the given constraints.</returns>
-        /// <exception cref="AmbiguousConstraintsException">Thrown when the constraints
+        /// <exception cref="InvalidConstraintsException">Thrown when the constraints
         /// don't lead to a single solution.</exception>
         public static Puzzle FromConstraints( ISequence<Constraints> columnConstraints, ISequence<Constraints> rowConstraints )
         {
@@ -38,7 +40,7 @@ namespace PiCross
 
             if ( !solverGrid.IsSolved )
             {
-                throw new ArgumentException( "Ambiguous constraints" );
+                throw new InvalidConstraintsException();
             }
             else
             {
@@ -46,6 +48,25 @@ namespace PiCross
 
                 return new Puzzle( columnConstraints: columnConstraints, rowConstraints: rowConstraints, grid: grid );
             }
+        }
+
+        /// <summary>
+        /// Creates a Puzzle from the constraints.
+        /// Internally, the puzzle is automatically solved.
+        /// If the constraints are ambiguous or contradictory,
+        /// an exception is thrown.
+        /// </summary>
+        /// <param name="columnConstraints">Column constraints.</param>
+        /// <param name="rowConstraints">Row constraints.</param>
+        /// <returns>A Puzzle with the given constraints.</returns>
+        /// <exception cref="InvalidConstraintsException">Thrown when the constraints
+        /// don't lead to a single solution.</exception>
+        public static Puzzle FromConstraints( int[][] columnConstraints, int[][] rowConstraints )
+        {
+            var columnConstraintsAsSequence = Sequence.FromItems( columnConstraints.Select( Constraints.FromValues ).ToArray() );
+            var rowConstraintsAsSequence = Sequence.FromItems( rowConstraints.Select( Constraints.FromValues ).ToArray() );
+
+            return FromConstraints( columnConstraints: columnConstraintsAsSequence, rowConstraints: rowConstraintsAsSequence );
         }
 
         /// <summary>

@@ -191,6 +191,13 @@ namespace DataStructures
 
     public static class Grid
     {
+        /// <summary>
+        /// Creates a new grid with the given size where each element is determined by <paramref name="initializer"/>.
+        /// </summary>
+        /// <typeparam name="T">Type of the elements of the grid.</typeparam>
+        /// <param name="size">Size of the grid.</param>
+        /// <param name="initializer">Function that determines what value the grid should take at each position.</param>
+        /// <returns>A new grid.</returns>
         public static IGrid<T> Create<T>( Size size, Func<Vector2D, T> initializer )
         {
             return new Grid<T>( size, initializer );

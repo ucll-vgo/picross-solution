@@ -117,12 +117,15 @@ namespace PiCross
 
         /// <summary>
         /// Symbol for this square.
+        /// Do NOT make use of this property to determine
+        /// what kind of Square it is. Instead, use equality, e.g.,
+        /// square == Square.UNKNOWN.
         /// </summary>
         public abstract char Symbol { get; }
 
         public override bool Equals( object obj )
         {
-            return this == obj;
+            return object.ReferenceEquals( this, obj );
         }
 
         public override int GetHashCode()
