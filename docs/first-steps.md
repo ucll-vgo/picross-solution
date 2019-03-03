@@ -848,3 +848,5 @@ Update the bindings in the XAML so as to make the right constraints appear:
 
 * Start by making the column constraints work.
 * Next, you'll want to make the puzzle interactive. Start simple: make a left mouse click mark the square as filled.
+* Refactor your code so as to comply with MVVM.
+* Add the required functionality as described [here](functionality.md).
