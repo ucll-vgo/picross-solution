@@ -17,11 +17,11 @@ we prefer to split things up:
 | `DataStructures` | Contains data structures relied upon by PiCross domain code. This code is completely reusable outside of the PiCross context. |
 | `Domain` | Contains the PiCross logic. This is also called the *model*. |
 | `Tests` | Contains tests. You can ignore this project, there's nothing useful for you here. |
-| `Controls` | Contains WPF-classes you are free to make use of. |
+| `ViewModel` | Project to host your view model classes. |
+| `View` | Project to put your view classes in. |
 
 </center>
 
-You will have to add (at least) two projects of your own called `ViewModel` and `View`.
 
 Each project compiles to an *assembly*. You can compare this to Java `.jar` files:
 it groups all code in one file. In our case, an assembly can take two forms:
@@ -47,16 +47,10 @@ to everything outside the assembly.
 
 ```c#
 // Usable from other assemblies
-public class Foo
-{
-
-}
+public class Foo { ... }
 
 // Only visible to other classes within the same assembly
-internal class Bar
-{
-
-}
+internal class Bar { ... }
 ```
 
 The code we give you heavily relies on `internal`: this is done to shield
@@ -65,10 +59,15 @@ who are under the impression that in order to make use
 of classes, one needs complete comprehension of the internals
 of those classes and consequently proceed to try to understand
 all given code, and are intimidated and demotivated as a result.
-(Not that the given code is not that difficult to understand &mdash;
-there's just a lot of it.)
-Know that it is perfectly possible to build a fully functional GUI using
+(Not that the given code is not that complicated &mdash;
+there's just a lot of it.) These students are make their needlessly difficult:
+it is perfectly possible to build a fully functional GUI using
 only the exposed parts of the given code.
+
+But if you truly want, you are of course free to make
+all the changes you think you need. Remember though:
+you need to be able to motivate these changes, i.e.,
+they should not violate software engineering principles.
 
 ## Bugs in domain code
 
