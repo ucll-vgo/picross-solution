@@ -39,9 +39,11 @@ namespace PiCross
 
         /// <summary>
         /// Loads data from the given file.
-        /// When the data is modified, changes are automatically written to the file.
+        /// When the data is modified, changes are automatically written to the file,
+        /// so you do not need to explicitly write changes back to file.
         /// </summary>
         /// <param name="path">Path to the file.</param>
+        /// <param name="createIfNotExistent">If true, creates an new empty game data file if none is present at the given path.</param>
         /// <returns>An IGameData object.</returns>
         public IGameData LoadGameData( string path, bool createIfNotExistent = false )
         {
