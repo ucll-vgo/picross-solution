@@ -18,7 +18,7 @@ var facade = new PiCrossFacade();
 var gameData = facade.LoadGameData( path, createIfNotExistent: true );
 ```
 
-## Puzzles
+## Puzzle Library
 
 ```C#
 // Creating a Puzzle object from constraints for
@@ -73,4 +73,22 @@ if ( playablePuzzle.RowConstraints[0].IsSatisfied.Value ) { ... }
 
 // Getting the values in the upper row constraints
 var values = playablePuzzle.RowConstraints[0].Values;
+```
+
+## Player Database
+
+```C#
+// Get player names
+var facade = new PiCrossFacade();
+var playerNames = facade.PlayerDatabase.PlayerNames;
+
+// Get player profile
+var playerProfile = facade.PlayerDatabase[playerName];
+
+// Find out if player has played puzzle before
+var puzzleEntry = facade.PuzzleLibrary.Entries.First();
+if ( playerProfile[puzzleEntry].BestTime.HasValue ) { ... }
+
+// Get player's best time
+if ( playerProfile[puzzleEntry].BestTime.Value ) { ... }
 ```
