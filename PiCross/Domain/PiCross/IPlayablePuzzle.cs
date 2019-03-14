@@ -45,20 +45,20 @@ namespace PiCross
 
         /// <summary>
         /// Contains true if the Grid contains no more unknown squares,
-        /// and all squares are correct.
+        /// and all squares are correct. This property is observable.
         /// </summary>
         Cell<bool> IsSolved { get; }
 
         /// <summary>
         /// Number of squares that are left unknown (i.e. have not been determined to be
-        /// filled or empty.)
+        /// filled or empty.) This property is observable.
         /// </summary>
         Cell<int> UnknownCount { get; }
 
         /// <summary>
         /// True if there are unknowns left, false otherwise. Note:
         /// this does not correspond to a successfully solved puzzle.
-        /// The player might have made mistakes.
+        /// The player might have made mistakes. This property is observable.
         /// </summary>
         Cell<bool> ContainsUnknowns { get; }
     }
