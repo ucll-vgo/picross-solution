@@ -51,6 +51,38 @@ namespace PiCross
         }
 
         /// <summary>
+        /// Creates a puzzle from constraints in string format.
+        /// Constraints on the same row/column should be separated by a single space,
+        /// while rows/columns should be separated by a semicolon. For example,
+        /// "2 1;1;;4 1".
+        /// </summary>
+        /// <param name="columnConstraints">Column constraints.</param>
+        /// <param name="rowConstraints">Row constraints.</param>
+        /// <returns></returns>
+        public static Puzzle FromConstraints( string columnConstraints, string rowConstraints )
+        {
+            var parsedColumnConstraints = ParseConstraints( columnConstraints );
+            var parsedRowConstraints = ParseConstraints( rowConstraints );
+
+            return FromConstraints( columnConstraints: parsedColumnConstraints, rowConstraints: parsedRowConstraints );
+        }
+
+        private static int[][] ParseConstraints(string constraints)
+        {
+            return constraints.Split( ';' ).Select( part =>
+              {
+                  if ( part == "" )
+                  {
+                      return new int[0];
+                  }
+                  else
+                  {
+                      return part.Split( ' ' ).Select( int.Parse ).ToArray();
+                  }
+              } ).ToArray();
+        }
+
+        /// <summary>
         /// Creates a Puzzle from the constraints.
         /// Internally, the puzzle is automatically solved.
         /// If the constraints are ambiguous or contradictory,

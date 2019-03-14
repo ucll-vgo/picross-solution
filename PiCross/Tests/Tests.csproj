@@ -59,6 +59,7 @@
     <Compile Include="GridSelectionHelperTests.cs" />
     <Compile Include="Constraints_Generate.cs" />
     <Compile Include="Constraints_Superposition.cs" />
+    <Compile Include="PuzzleCreationTests.cs" />
     <Compile Include="PuzzleIOTests.cs" />
     <Compile Include="Constraints_IsSatisfied.cs" />
     <Compile Include="Constraints_SatisfiedPrefix.cs" />

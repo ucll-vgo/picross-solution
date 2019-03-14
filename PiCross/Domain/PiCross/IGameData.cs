@@ -64,22 +64,57 @@ namespace PiCross
         string Name { get; }
     }
 
+    /// <summary>
+    /// An IPlayerPuzzleInformation object contains
+    /// the information for one specific player
+    /// about one specific puzzle.
+    /// </summary>
     public interface IPlayerPuzzleInformation
     {
+        /// <summary>
+        /// Best time the player has achieved for the puzzle.
+        /// TimeSpan is value type like int, so it cannot be null.
+        /// We can make it nullable though by using TimeSpan?
+        /// If this property is null, the player hasn't solved
+        /// the puzzle yet.
+        /// </summary>
         TimeSpan? BestTime { get; set; }
     }
 
     public interface IPuzzleLibrary
     {
+        /// <summary>
+        /// Returns a list of all puzzles in the library.
+        /// Note that this returns an IEnumerable, which
+        /// offers limited functionality. Use
+        /// its ToList() to turn it into a list (make sure
+        /// using System.Linq is present at the top of your source file.)
+        /// </summary>
         IEnumerable<IPuzzleLibraryEntry> Entries { get; }
 
+        /// <summary>
+        /// Adds a new puzzle to the library.
+        /// </summary>
+        /// <param name="puzzle">Puzzle.</param>
+        /// <param name="author">Author of the puzzle.</param>
+        /// <returns>Entry that has been added to the library.</returns>
         IPuzzleLibraryEntry Create( Puzzle puzzle, string author );
     }
 
+    /// <summary>
+    /// A IPuzzleLibraryEntry is an object that
+    /// pairs up a Puzzle and its author.
+    /// </summary>
     public interface IPuzzleLibraryEntry
     {
+        /// <summary>
+        /// Puzzle.
+        /// </summary>
         Puzzle Puzzle { get; set; }
 
+        /// <summary>
+        /// Author of the puzzle.
+        /// </summary>
         string Author { get; set; }
     }
 }
