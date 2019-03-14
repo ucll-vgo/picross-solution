@@ -64,22 +64,49 @@ namespace PiCross
         string Name { get; }
     }
 
+    /// <summary>
+    /// An IPlayerPuzzleInformation object contains
+    /// the information for one specific player
+    /// about one specific puzzle.
+    /// </summary>
     public interface IPlayerPuzzleInformation
     {
+        /// <summary>
+        /// Best time the player has achieved for the puzzle.
+        /// </summary>
         TimeSpan? BestTime { get; set; }
     }
 
     public interface IPuzzleLibrary
     {
+        /// <summary>
+        /// Returns a list of all puzzles in the library.
+        /// </summary>
         IEnumerable<IPuzzleLibraryEntry> Entries { get; }
 
+        /// <summary>
+        /// Adds a new puzzle to the library.
+        /// </summary>
+        /// <param name="puzzle">Puzzle.</param>
+        /// <param name="author">Author of the puzzle.</param>
+        /// <returns>Entry that has been added to the library.</returns>
         IPuzzleLibraryEntry Create( Puzzle puzzle, string author );
     }
 
+    /// <summary>
+    /// A IPuzzleLibraryEntry is an object that
+    /// pairs up a Puzzle and its author.
+    /// </summary>
     public interface IPuzzleLibraryEntry
     {
+        /// <summary>
+        /// Puzzle.
+        /// </summary>
         Puzzle Puzzle { get; set; }
 
+        /// <summary>
+        /// Author of the puzzle.
+        /// </summary>
         string Author { get; set; }
     }
 }
