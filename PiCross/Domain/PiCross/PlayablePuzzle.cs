@@ -20,7 +20,7 @@ namespace PiCross
         public PlayablePuzzle( ISequence<Constraints> columnConstraints, ISequence<Constraints> rowConstraints )
             : this( new PlayGrid( columnConstraints: columnConstraints, rowConstraints: rowConstraints ) )
         {
-            // NOP            
+            // NOP
         }
 
         public PlayablePuzzle( PlayGrid playGrid )
