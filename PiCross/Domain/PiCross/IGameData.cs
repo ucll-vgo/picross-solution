@@ -73,6 +73,10 @@ namespace PiCross
     {
         /// <summary>
         /// Best time the player has achieved for the puzzle.
+        /// TimeSpan is value type like int, so it cannot be null.
+        /// We can make it nullable though by using TimeSpan?
+        /// If this property is null, the player hasn't solved
+        /// the puzzle yet.
         /// </summary>
         TimeSpan? BestTime { get; set; }
     }
@@ -81,6 +85,10 @@ namespace PiCross
     {
         /// <summary>
         /// Returns a list of all puzzles in the library.
+        /// Note that this returns an IEnumerable, which
+        /// offers limited functionality. Use
+        /// its ToList() to turn it into a list (make sure
+        /// using System.Linq is present at the top of your source file.)
         /// </summary>
         IEnumerable<IPuzzleLibraryEntry> Entries { get; }
 
