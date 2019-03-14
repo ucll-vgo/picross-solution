@@ -9,8 +9,8 @@ This page describes the minimal functionality you should implement.
 * Playable PiCross puzzles
   * Visualization of grid and constraints
   * Possibility to mark squares as filled, empty or unknown
-  * Visual distinction between satisfied and unsatisfied constraints
-  * Message when puzzle is solved
+  * Visual distinction between satisfied and unsatisfied constraints (on both levels: entire constraints and single numbers)
+  * Notification when puzzle is solved
 * Multiple Screens
   * Introduction Screen
   * Puzzle Solving Screen

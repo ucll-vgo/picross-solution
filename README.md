@@ -4,6 +4,7 @@ Work in progress. Watch the repo (see setup instructions) to be notified wheneve
 
 * [Setup Instructions](docs/setup.md)
 * [Overall Structure](docs/overall-structure.md)
+* [Code Samples](docs/cookbook.md)
 * [First Steps](docs/first-steps.md)
-* [Functionality](docs/functionality.md)
+* [Requirements](docs/requirements.md)
 * [Rules and Expectations](docs/rules.md)
