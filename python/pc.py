@@ -63,9 +63,19 @@ def _create(args):
     with ZipFile(path, 'w') as zip:
         pass
 
+    print(f'Created {path}')
+
 
 def _add_player(args):
-    print(f'Adding player {args.name}')
+    name = args.name
+    archive = args.archive
+    filename = f'players/{name}.txt'
+    data = '0'
+
+    with ZipFile(archive, 'a') as zip:
+        zip.writestr(filename, data)
+
+    print(f'Added player {args.name}')
 
 
 def _extract_puzzle_index(filename):
@@ -73,12 +83,7 @@ def _extract_puzzle_index(filename):
     return int(match.group(1))
 
 
-def _add_puzzle(args):
-    archive = args.archive
-    author = args.author
-    row_constraints = _parse_constraints(vars(args)['row-constraints'])
-    column_constraints = _parse_constraints(vars(args)['column-constraints'])
-    solution = solve_puzzle(row_constraints=row_constraints, column_constraints=column_constraints)
+def _add_puzzle(archive, author, solution):
     width = solution.width
     height = solution.height
 
@@ -89,9 +94,27 @@ def _add_puzzle(args):
     filename = f'library/entry{str(next_index).rjust(5, "0")}.txt'
     data = f'{author}\n{width} {height}\n{show(solution)}'
 
-    with ZipFile(archive, 'w') as zip:
+    with ZipFile(archive, 'a') as zip:
         zip.writestr(filename, data)
 
+    print(f'Added {filename} to archive')
+
+
+def _add_puzzle_from_constraints(args):
+    archive = args.archive
+    author = args.author
+    row_constraints = _parse_constraints(args.row_constraints)
+    column_constraints = _parse_constraints(args.column_constraints)
+    solution = solve_puzzle(row_constraints=row_constraints, column_constraints=column_constraints)
+    _add_puzzle(archive, author, solution)
+
+
+def _add_puzzle_from_solution(args):
+    archive = args.archive
+    author = args.author
+    solution_file = args.solution_file
+    solution = read_image_from_file(solution_file)
+    _add_puzzle(archive, author, solution)
 
 
 def _process_command_line_arguments():
@@ -106,12 +129,23 @@ def _process_command_line_arguments():
         subparser.add_argument('--show-solution', help='show solution', action='store_true')
         subparser.set_defaults(func=_show)
 
-        subparser = subparsers.add_parser('add-puzzle', help='adds puzzle to archive')
+        subparser = subparsers.add_parser('add-from-solution', help='adds puzzle to archive; puzzle specified by solution')
         subparser.add_argument('archive', help='archive', action='store')
         subparser.add_argument('author', help='author', action='store')
-        subparser.add_argument('row-constraints', help='row constraints (use ; to separate rows and , to separate values)', action='store')
-        subparser.add_argument('column-constraints', help='column constraints (use ; to separate columns and , to separate values', action='store')
-        subparser.set_defaults(func=_add_puzzle)
+        subparser.add_argument('solution_file', help='file containing solution', action='store')
+        subparser.set_defaults(func=_add_puzzle_from_solution)
+
+        subparser = subparsers.add_parser('add-from-constraints', help='adds puzzle to archive; puzzle specified by constraints')
+        subparser.add_argument('archive', help='archive', action='store')
+        subparser.add_argument('author', help='author', action='store')
+        subparser.add_argument('row_constraints', help='row constraints (use ; to separate rows and , to separate values)', action='store')
+        subparser.add_argument('column_constraints', help='column constraints (use ; to separate columns and , to separate values', action='store')
+        subparser.set_defaults(func=_add_puzzle_from_constraints)
+
+        subparser = subparsers.add_parser('add-player', help='adds player to archive')
+        subparser.add_argument('archive', help='archive', action='store')
+        subparser.add_argument('name', help='name', action='store')
+        subparser.set_defaults(func=_add_player)
 
     def create_puzzle_parsers(subparsers):
         subparser = subparsers.add_parser('solve', help='solves PiCross puzzle given its constraints')
@@ -123,6 +157,7 @@ def _process_command_line_arguments():
         subparser.add_argument('filename', help='file containing image', action='store')
         subparser.set_defaults(func=_derive_constraints)
 
+
     parser = argparse.ArgumentParser(prog='picross')
     parser.set_defaults(func=lambda args: parser.print_help())
     subparsers = parser.add_subparsers(help='sub-command help')
@@ -132,7 +167,6 @@ def _process_command_line_arguments():
 
     subparser = subparsers.add_parser('puzzle', help='puzzle-related functionality')
     create_puzzle_parsers(subparser.add_subparsers())
-
 
     args = parser.parse_args()
     args.func(args)
