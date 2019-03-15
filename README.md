@@ -8,3 +8,4 @@ Work in progress. Watch the repo (see setup instructions) to be notified wheneve
 * [First Steps](docs/first-steps.md)
 * [Requirements](docs/requirements.md)
 * [Rules and Expectations](docs/rules.md)
+* [Creating an Archive](docs/archive.md)
