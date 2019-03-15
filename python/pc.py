@@ -19,6 +19,16 @@ def _solve(args):
     column_constraints = _parse_constraints(args.column)
     print(show(solve_puzzle(column_constraints, row_constraints)))
 
+def _solve_file(args):
+    filename = args.filename
+
+    with open(filename, 'r') as file:
+        width, height = map(int, file.readline().split(' '))
+        column_constraints = [ [ int(n) for n in file.readline().split(' ') ] for _ in range(width) ]
+        row_constraints = [ [ int(n) for n in file.readline().split(' ') ] for _ in range(height) ]
+
+    print(show(solve_puzzle(column_constraints, row_constraints)))
+
 
 def _derive_constraints(args):
     filename = args.filename
@@ -152,6 +162,10 @@ def _process_command_line_arguments():
         subparser.add_argument('row', help='row constraints (use ; to separate rows and , to separate values)', action='store')
         subparser.add_argument('column', help='column constraints (use ; to separate columns and , to separate values', action='store')
         subparser.set_defaults(func=_solve)
+
+        subparser = subparsers.add_parser('solve-from-file', help='solves PiCross puzzle given its constraints')
+        subparser.add_argument('filename', help='file containing constraints', action='store')
+        subparser.set_defaults(func=_solve_file)
 
         subparser = subparsers.add_parser('constraints', help='derives constraints from image')
         subparser.add_argument('filename', help='file containing image', action='store')
