@@ -83,7 +83,8 @@ def solve_puzzle(column_constraints, row_constraints):
     return grid
 
 
-def is_valid_puzzle(column_constraints, row_constraints):
+def is_valid_puzzle(puzzle):
+    column_constraints, row_constraints = derive_constraints(puzzle)
     solved = solve_puzzle(column_constraints=column_constraints, row_constraints=row_constraints)
     return not solved.contains(UNKNOWN)
 

@@ -7,7 +7,7 @@ import sys
 import os
 import re
 from picross.grid import Grid
-from picross.solver import show, solve_puzzle, derive_constraints, read_image_from_file
+from picross.solver import show, solve_puzzle, derive_constraints, read_image_from_file, is_valid_puzzle
 
 
 def _parse_constraints(string):
@@ -93,7 +93,15 @@ def _extract_puzzle_index(filename):
     return int(match.group(1))
 
 
-def _add_puzzle(archive, author, solution):
+def _add_puzzle(archive, author, solution, verify=True):
+    if verify:
+        print('Verifying puzzle... (can take a couple of seconds)')
+        if not is_valid_puzzle(solution):
+            print(f'{show(solution)}\n\nis not a valid puzzle')
+            sys.exit(-1)
+        else:
+            print('Puzzle deemed valid!')
+
     width = solution.width
     height = solution.height
 
@@ -123,8 +131,9 @@ def _add_puzzle_from_solution(args):
     archive = args.archive
     author = args.author
     solution_file = args.solution_file
+    verify = args.verify
     solution = read_image_from_file(solution_file)
-    _add_puzzle(archive, author, solution)
+    _add_puzzle(archive, author, solution, verify=verify)
 
 
 def _process_command_line_arguments():
@@ -143,6 +152,7 @@ def _process_command_line_arguments():
         subparser.add_argument('archive', help='archive', action='store')
         subparser.add_argument('author', help='author', action='store')
         subparser.add_argument('solution_file', help='file containing solution', action='store')
+        subparser.add_argument('--no-verify', help='do not check puzzle validity', action='store_false', dest='verify', default=True)
         subparser.set_defaults(func=_add_puzzle_from_solution)
 
         subparser = subparsers.add_parser('add-from-constraints', help='adds puzzle to archive; puzzle specified by constraints')
