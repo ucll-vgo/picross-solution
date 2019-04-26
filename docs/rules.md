@@ -195,6 +195,33 @@ you may make use of events and the Code-Behind. In this case,
 you should absolutely keep the logic in the Code-Behind to a strict minimum
 and give control to the underlying View Model as quickly as possible.
 
+## Strings in the VM
+
+Some students put string messages in their VM, for example `"You won!"`.
+This violates MVVM principes: clearly, the message is meant
+to be shown to the user, and hence it is part of the view.
+
+Consider what would happen if you were to have to
+localize your project: translators would
+have to rummage through your code in search
+of all strings that are exposed to the View layer.
+This  is something you should avoid.
+
+Normally, all messages should be grouped
+into separate files, e.g. `french.json`, `english.json`, etc.
+Every message then has its own id, and wherever in your project
+you want to show some message, you would only mention its id.
+The framework would then know to look up this id in the correct language file.
+
+We do not ask of you to go this far: for this course,
+it is sufficient that you put all such messages in the view, where
+you are allowed to hard code them in XAML or converters.
+You do not need to support multiple languages.
+
+As mentioned earlier, the VM should only expose conceptual information.
+If you want to be able to notify the user that (s)he has won,
+provide a `Cell<bool> hasWon`, which the view can then choose to observe.
+
 ## Program Initialization
 
 Move your program initialization to the `App` class, more specifically
