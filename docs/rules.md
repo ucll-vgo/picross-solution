@@ -1,4 +1,4 @@
-# Rules
+# Defense and Evaluation
 
 Below are the rules which you have to follow
 if you want to get a passing grade.
@@ -220,7 +220,7 @@ You do not need to support multiple languages.
 
 As mentioned earlier, the VM should only expose conceptual information.
 If you want to be able to notify the user that (s)he has won,
-provide a `Cell<bool> hasWon`, which the view can then choose to observe.
+provide a `Cell<bool> hasWon` which the view can then choose to observe.
 
 ## Program Initialization
 
