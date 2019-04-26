@@ -21,7 +21,7 @@ A consequence of this is that the a seemingly
 good defense means very little: we'll still
 have to take a look afterwards, and if we find
 fatal mistakes, your grade might take an unforeseen
-plunge. 
+plunge.
 
 It is our understanding that students
 are not fond of this kind of uncertainty.
@@ -64,19 +64,18 @@ below:
 
 </center>
 
-* The M does not know about the VM or V and
-must not mention any type of the layer above it.
+* The M does not know about neither the VM or V and
+must not mention anything from the layer above it.
 * The VM knows the M, but does not know anything about the V.
 * The V knows both the VM and M, but ideally, the V
 does not speak directly to the M.
 
-The reasoning behind this is:
-
-* We want to be able to reuse code in other contexts. If the M
+The reasoning behind this is that we want to be able to reuse code in other contexts. If the M
 were to contain WPF types, it becomes impossible to reuse the M
-on a platform for which WPF is not available, e.g., mobile devices. Similary, we want to be able to reuse the VM.
+on a platform for which WPF is not available, e.g., mobile devices.
+Likewise, we want to be able to reuse the VM.
 
-An necessary (but not sufficient) test
+A necessary (but not sufficient) test
 to check that the layering is respected,
 is to verify the project references.
 
@@ -92,32 +91,100 @@ Each project is shows as a tree which contains
 your files, but also has a References node under
 which all references are listed.
 WPF appears here as PresentationCore
-and PresentationFramework.
+and PresentationFramework. If after ensuring
+the references are correct your project
+stops compiling, you know you have done something
+fundamentally wrong which you'll have to fix.
 
-The solution we provided normally contains
-only valid references, but each year
-there are students who add forbidden references.
-It is possible that this happens automatically
-if you try to use a type from another project.
-Say you mention `Brush` in your ViewModel:
-the compiler complains as that type is unavailable.
-Asking Visual Studio to fix it will then add
-a reference to WPF in your VM, which is definitely
-not what you want. So, even though
-your references were originally correct,
-it is still a good idea to check.
+## View Model
 
-An easy test to verify the layering is to check
-the references of each the three projects in your solution.
-The Model project should not contain a reference to the ViewModel
-or to the View projects, etc. Everything should still compile.
+The View Model must present *conceptual* information to the View.
+Consider a `PersonViewModel` class which exposes
+a person's gender as a `Cell<bool> IsMale`. Now say you wish to show
+males as blue and females as pink.
 
-The code we have provided should already be configured correctly,
-i.e. it does not contain forbidden references. Each year, however,
-there are students that somehow still manage to link
-the projects
+The **wrong** way would be to place this logic in your View Model:
+
+```csharp
+// THIS IS WRONG
+class PersonViewModel
+{
+    public PersonViewModel()
+    {
+        // Have GenderColor automatically synchronize with IsMale
+        GenderColor = IsMale.Derive( m => m ? Brushes.Blue ? Brushes.Pink );
+    }
+
+    public Cell<bool> IsMale { get; }
+
+    public Cell<Brush> GenderColor { get; }
+}
+```
+
+The problem here is that you make use of `Brush`, which is a WPF-specific type.
+Now, some people attempt to trick their way out of this rule:
+
+```csharp
+// THIS IS STILL WRONG
+class PersonViewModel
+{
+    public PersonViewModel()
+    {
+        GenderColor = IsMale.Derive( m => m ? "blue" : "pink" );
+    }
+
+    public Cell<bool> IsMale { get; }
+
+    public Cell<string> GenderColor { get; }
+}
+```
+
+Even though no WPF types have been used, this code still makes
+a View-related decision.
+
+The correct way of handling this is to leave the color up to the View layer.
+The View Model should only provide the information necessary to be able
+to make the decision. In our case, `IsMale` is all that is necessary.
+
+The most idiomatic way to perform the translation of `bool` to `Brush`
+is relying on a converter (which resides in the View layer),
+ideally a reusable one (e.g. a `BoolConverter`).
+
+## Code Behind
+
+The "Code-Behind" is the C# class hiding behind a XAML file,
+such as `MainWindow.xaml.cs`. Since it is closely tied
+to a WPF window or control, this Code-Behind can be
+hard to test.
+
+In order to improve testability,
+you want to keep the Code-Behind class as empty as possible and
+move all logic into separate, independent classes.
+In the case of WPF, the ViewModel is generally the best place.
+
+For example, consider the mouse click functionality. Many
+controls offer a `Click` event which is signaled
+whenever the user clicks the corresponding control.
+
+```xml
+<Button Click="DoSomething" />
+```
+
+However, a `Click` handling method must always reside
+in the Code Behind class, which is exactly what we want to avoid.
+
+The alternative is to rely on commands. Clickable controls
+such as `MenuItem`s or `Button`s have, apart from a `Click` event,
+also a `Command` property. These are set using `Binding`s:
+
+```xml
+<Button Command={Binding DoSomething} />
+```
+
+The `DoSomething` command is looked for in the `Button`'s `DataContext`,
+which is normally set to a View Model class.
+In other words, this allows the logic behind `DoSomething` to be placed
+in the VM layer instead of the Code-Behind.
 
 
-* No click
-* No class duplication (e.g. commands)
-* 
+# Duplication
