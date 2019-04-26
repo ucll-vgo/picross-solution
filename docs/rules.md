@@ -186,5 +186,49 @@ which is normally set to a View Model class.
 In other words, this allows the logic behind `DoSomething` to be placed
 in the VM layer instead of the Code-Behind.
 
+Whenever possible, you must rely on commands. If
+you use a WPF control that lacks a `Command` property,
+or you wish to handle different inputs (e.g. right clicks, key presses),
+you can try to look for `InputBindings`.
+If even that does not provide the functionality you look for,
+you may make use of events and the Code-Behind. In this case,
+you should absolutely keep the logic in the Code-Behind to a strict minimum
+and give control to the underlying View Model as quickly as possible.
 
-# Duplication
+## Program Initialization
+
+Move your program initialization to the `App` class, more specifically
+override its `OnStartup` method. Here you can create
+your main window and set its `DataContext` to your main View Model class.
+
+## Duplication
+
+Try to keep duplication to a minimum. For example,
+some students could have multiple commands, all of which
+are always enabled. For each of these commands,
+they generally repeat the same code all over again:
+
+```csharp
+public class SomeCommand : ICommand
+{
+    public event EventHandler CanExecuteChanged;
+
+    public bool CanExecute( object parameter )
+    {
+        return true;
+    }
+
+    public void Execute( object parameter )
+    {
+        // Whatever
+    }
+}
+```
+
+Only the `Execute` method differs. Whenever you notice such a pattern
+of shared code, *introduce a new class* that contains the command
+code and have other classes inherit from it.
+
+Converters often suffer the same fate. If converters look alike, again, find whatever they have in common,
+generalize the class using parameters, etc. Unnecessary duplication of code
+is one of the cardinal sins of software engineering. Do be critical of your own code.
