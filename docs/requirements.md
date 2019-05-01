@@ -11,7 +11,7 @@ This page describes the minimal functionality you should implement.
   * Possibility to mark squares as filled, empty or unknown
   * Visual distinction between satisfied and unsatisfied constraints (on both levels: entire constraints and single numbers)
   * Notification when puzzle is solved
-* Multiple Screens
+* Multiple Screens (these are not necessarily multiple windows! The same GUI window can be reused, which implementation-wise is easier to achieve)
   * Introduction Screen
   * Puzzle Solving Screen
   * Puzzle Selection Screen
