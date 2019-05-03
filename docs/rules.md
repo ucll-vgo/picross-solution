@@ -8,7 +8,7 @@ examine your code beforehand in search
 for mistakes and confront you with them
 during your defense. Once the defense
 was over, the student had a good idea
-about whether or not.
+about whether or not (s)he passed.
 
 However, times have changed. Due to
 the way the exams are organized,
@@ -17,7 +17,7 @@ and the actual defense. We will therefore
 not able to take a thorough look at
 your code beforehand.
 
-A consequence of this is that the a seemingly
+A consequence of this is that a seemingly
 good defense means very little: we'll still
 have to take a look afterwards, and if we find
 fatal mistakes, your grade might take an unforeseen
@@ -87,7 +87,7 @@ to the model, but not to the View of WPF.
 
 References can be viewed in the Solution Explorer,
 i.e., the pane which lists all your projects.
-Each project is shows as a tree which contains
+Each project is shown as a tree which contains
 your files, but also has a References node under
 which all references are listed.
 WPF appears here as PresentationCore
