@@ -68,8 +68,7 @@ below:
 must not mention anything from the layer above it.
 * The VM knows the M, but does not know anything about the V.
 * The V knows both the VM and M, but ideally, the V
-speaks as little as possible directly with the M. All `DataContext`s must be VM classes and
-hence all bindings should go to the VM.
+speaks as little as possible directly with the M.
 
 The reasoning behind this is that we want to be able to reuse code in other contexts. If the M
 were to contain WPF types, it becomes impossible to reuse the M
